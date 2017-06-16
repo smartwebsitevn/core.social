@@ -4,7 +4,14 @@ $config = [
 
     'menu' => [
         'home' => ['home'],
-        'attribute' => array(
+        'product' => array(
+            'product',   'product_cat',   'manufacture',
+
+            //'product_to_subscribe','product_to_report',  'product_request',
+
+            'product_setting',
+        ),
+       'attribute' => array(
             'cat',
             'range',
             //'form_content',
@@ -37,6 +44,7 @@ $config = [
 
             // 'deposit_admin',   'withdraw_admin',/* 'order_report'*/
         ],
+
 
         'content' => [
             'page',

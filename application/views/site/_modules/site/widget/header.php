@@ -86,7 +86,7 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
         <div class="nav-menu navbar-right">
             <span data-action="close-nav" class="close-nav"><span>close</span></span>
             <ul class="nav login  pull-right">
-                <?php /*if (!mod("product")->setting('turn_off_function_order')): ?>
+                <?php if (!mod("product")->setting('turn_off_function_order')): ?>
                     <li id="product-my-favorited" class="dropdown">
                         <?php widget("product")->owner('favorited') ?>
 
@@ -98,7 +98,7 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
                         </li>
                     <?php endif; ?>
 
-                <?php endif; */?>
+                <?php endif; ?>
 
                 <?php widget("user")->account_panel() ?>
                 <?php //widget('site')->lang(); ?>

@@ -16,7 +16,7 @@ include('main_const.php');
  */
 
 // Base
-$config['base_url']			= 'http://'.$_SERVER['HTTP_HOST'].'/smart/core.base';
+$config['base_url']			= 'http://'.$_SERVER['HTTP_HOST'].'/smart/sm_goc';
 $config['encryption_key'] 	= 'c5a15cb929c90063432a18e1d1b2e72e';
 $config['admin_folder'] 	= 'admin';
 $config['admin_email'] 		= '';
@@ -25,7 +25,7 @@ $config['admin_email'] 		= '';
 $config['db']['hostname'] 	= 'localhost';
 $config['db']['username'] 	= 'root';
 $config['db']['password'] 	= '';
-$config['db']['database'] 	= 'smart_core_base';
+$config['db']['database'] 	= 'smart_goc';
 
 // Kich hoat da ngon ngu
 $config['language_multi'] 	= false;

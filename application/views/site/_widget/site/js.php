@@ -101,7 +101,7 @@ $asset_theme =$asset. '/site/theme/';
 	<?php view('tpl::user/combo1/combo_modal'); ?>
 
 <?php endif; ?>
-<?php // widget("product")->cart(null,'cart_modal');
+<?php  widget("product")->cart(null,'cart_modal');
 ?>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
