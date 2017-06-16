@@ -1,0 +1,15 @@
+<plugin>
+	<title>Slowmo</title>
+	<filename>slowmo.swf</filename>
+	<version>1.1</version>
+	<compatibility>Compatible with 5+</compatibility>
+	<author>Ethan Feldman</author>
+	<description>
+	This plugin lets you play the video in slow motion.
+	</description>
+	<href>http://www.ethanfeldman.net/</href>
+	<flashvars>
+		<delay>The delay. The default is 50 ms.</delay>
+		<dock>By default this plugin uses the dock. You can set the dock flashvar to false to use the controlbar.</dock>
+	</flashvars>
+</plugin>

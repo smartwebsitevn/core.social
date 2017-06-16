@@ -1,0 +1,78 @@
+
+.myplayer {
+  z-index: 100;
+  width: 100%;
+  height: 500px !important;
+  position: relative;
+}
+.myplayer iframe{
+  width: 100% !important;
+  height: 500px !important;
+}
+
+.movie-play img{
+  height: 400px !important;
+  width: 100% !important;
+}
+
+
+.movie-play::after {
+  background-color: transparent;
+  background-image: url("play.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.3s ease 0s;
+}
+
+/* ===== UI autocomplete ===== */
+/*.ui-menu{
+width: 320px;
+margin-top: 35px;
+z-index: 9999;
+}*/
+.ui-widget-content{
+  border: none;
+  max-height: 500px;
+  overflow: auto;
+}
+.ui-menu .ui-menu-item {
+  cursor:pointer;
+  padding: 5px 3px;
+  font-size:11px;
+  background-color: #ae3b39;
+  display: block;
+  height: 40px;
+  border-bottom: 1px solid #ccc;
+}
+.ui-menu .ui-menu-item a {
+  display: block;
+  line-height: 1.5;
+  padding: 0;
+  text-decoration: none;
+  font-size: 11px;
+  color:#fff;
+}
+.ui-menu .ui-menu-item a img {
+  float:left;
+  margin-right:4px;
+  width:25px;
+  height:30px
+}
+.ui-menu .ui-state-focus a{
+  color:#fff;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+  background: #963533
+
+}

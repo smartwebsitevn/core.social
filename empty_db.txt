@@ -1,0 +1,100 @@
+﻿#= Xoa key index cua 1 bang
+#= SHOW INDEX FROM <table_name>
+#= Xoa key index cua 1 bang
+#=  ALTER TABLE <table_name> DROP INDEX <index_name>;
+#= 
+#ALTER TABLE `tran_ph` ADD `is_recovery` TINYINT( 2 ) NOT NULL DEFAULT '0' COMMENT 'Cho biết có phải ph này #   được tạo ra khi thu hồi ph hay không' AFTER `amount_transfer_gh`;
+
+
+#= xoa giao dich
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE admin_tran;
+
+TRUNCATE refund  ;
+
+TRUNCATE transfer ;
+TRUNCATE withdraw ;
+
+
+
+TRUNCATE deposit ;
+TRUNCATE deposit_bank ;
+TRUNCATE deposit_card ;
+TRUNCATE deposit_card_log ;
+
+
+
+
+TRUNCATE tran ;
+TRUNCATE tran_info;
+TRUNCATE tran_banking;
+
+TRUNCATE invoice ;
+TRUNCATE invoice_order ;
+TRUNCATE service_order ;
+
+
+#= xoa log
+TRUNCATE log;
+TRUNCATE log_access;
+TRUNCATE log_activity ;
+TRUNCATE log_api ;
+TRUNCATE log_balance;
+TRUNCATE log_cash ;
+TRUNCATE log_ledger ;
+
+
+
+TRUNCATE log_system;
+TRUNCATE log_user_balance;
+
+TRUNCATE sms_otp_user;
+TRUNCATE sms_otp_log;
+TRUNCATE sms_gateway_log;
+
+#= xoa thanh vien
+#TRUNCATE user ;
+#TRUNCATE user_bank ;
+#TRUNCATE user_verify ;
+#TRUNCATE purse  ;
+
+
+#= xoa noi dung
+TRUNCATE comment;
+TRUNCATE contact ;
+TRUNCATE data_index;
+TRUNCATE ip;
+TRUNCATE seo_url;
+TRUNCATE `table`;
+TRUNCATE table_col;
+TRUNCATE table_row;
+
+TRUNCATE tag;
+TRUNCATE tag_value;
+TRUNCATE tool_chat;
+TRUNCATE tool_todo;
+
+TRUNCATE translate;
+
+
+#=xoa don bai hoc
+TRUNCATE voucher;
+TRUNCATE lesson;
+TRUNCATE lesson_author;
+TRUNCATE lesson_cat;
+TRUNCATE lesson_course;
+TRUNCATE lesson_feedback;
+TRUNCATE lesson_group;
+TRUNCATE lesson_order;
+TRUNCATE lesson_owner;
+TRUNCATE lesson_request;
+TRUNCATE lesson_result;
+TRUNCATE lesson_to_favorite;
+TRUNCATE lesson_to_report;
+TRUNCATE lesson_to_task;
+TRUNCATE lesson_to_task_to_answer;
+TRUNCATE lesson_to_task_to_feedback;
+TRUNCATE lesson_to_updated;
+
+SET FOREIGN_KEY_CHECKS = 1;
+

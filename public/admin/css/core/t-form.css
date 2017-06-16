@@ -1,0 +1,247 @@
+/************************************************
+ * Form CSS 2014-02-18
+ ************************************************/
+
+/**
+ * Main
+ */
+.form {
+	display: block;
+	fonsize:12px;
+}
+
+.form .form-row {
+	padding: 5px 0;
+	clear: both;
+	position: relative;
+}
+.form .form-row.row-text {
+	padding: 8px 0;
+}
+
+.form .form-label {
+	padding-top: 6px;
+	display: inline;
+    float: left;
+	width: 25%;
+    texshadow: 0 1px 0 #fff;
+}
+.form .form-label > span {
+	margin-right: 15px;
+}
+
+.form .form-item {
+	display: inline;
+    float: left;
+	width: 74%;
+    position: relative;
+}
+.form .form-item.item-text {
+	padding-top: 6px;
+}
+.form .form-item.item-submit {
+    float: right;
+	texalign: right;
+}
+
+.form.form-border .form-row {
+	border-bottom: 1px solid #EDEDED;
+}
+.form.form-border .form-row:laschild {
+	border-bottom: 0px;
+}
+
+.form.label-bold .form-label {
+	fonweight: bold;
+}
+.form.label-right .form-label {
+	texalign: right;
+}
+
+
+/*.form .input-group {
+
+	width: 80%;
+}*/
+
+/**
+ * Grip
+ */
+.form .one { width: auto; display: inline; float: right; }
+.form .one:firschild { float: left; }
+.form .one-two { width: 49%; display: inline; float: right; }
+.form .one-two:firschild { float: left; }
+.form .one-three { width: 32%; display: inline; float: left; margin-left: 2%; }
+.form .one-three:firschild { margin-left: 0; float: left; }
+.form .two-three { width: 66%; float: right; margin-left: 2%; } 
+.form .two-three:firschild { margin-left: 0; float: left; }
+.form .one-four { width: 23%; float: left; margin-left: 2.7%; }
+.form .one-four:firschild { margin-left: 0; }
+
+
+/**
+ * Element
+ */
+.form .req {
+	display: inline;
+	float: none;
+	color: #A73939;
+	margin-left: 5px;
+}
+
+.form .error {
+	color: #A73939;
+	fonsize: 11px;
+}
+.form .error p {
+	padding-top: 2px;
+}
+
+.form .note {
+	display: block;
+	fonsize: 11px;
+	color: #939393;
+	padding-top: 2px;
+}
+
+.form .input {
+	background: #fff;
+	color: #595959;
+	padding: 5px 5px;
+	border: 1px solid #ddd;
+	cursor: text;
+	
+	-webkiborder-radius:2px;
+	-khtml-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;
+	
+	-webkitransition-property:color,-webkibox-shadow;
+	-moz-transition-property:color,-moz-box-shadow;
+	-ms-transition-property:color,-moz-box-shadow;
+	transition-property:color,-moz-box-shadow;
+	-webkitransition-duration:0.3s;
+	-moz-transition-duration:0.3s;
+	-ms-transition-duration:0.3s;
+	transition-duration:0.3s;
+}
+.form .input.small {
+	padding: 5px 5px;
+	fonsize: 11px;
+}
+.form .input::-webkiscrollbar {
+	width: 7px;
+	padding-left: 5px;
+}
+.form .input::-webkiscrollbar-thumb {
+	background: rgba(0,0,0,0.5);
+	margin-right: 10px;
+	-webkiborder-radius:10px;
+	border-radius:10px;
+}
+.form .error {
+/*	border: 1px solid #F68E8E;
+ 	-webkibox-shadow:0 0 3px #F68E8E;
+ 	-moz-box-shadow:0 0 3px #F68E8E;
+ 	box-shadow:0 0 3px #F68E8E;*/
+}
+.form .input.focus {
+	border: 1px solid #B6DE5E;
+ 	-webkibox-shadow:0 0 3px #B6DE5E;
+ 	-moz-box-shadow:0 0 3px #B6DE5E;
+ 	box-shadow:0 0 3px #B6DE5E;
+}
+.form .input:hover, .form .input:focus {
+	color: #333;
+	
+	border: 1px solid #B6DE5E;
+	-webkibox-shadow:0 0 10px rgba(166, 210, 79, 0.4) inset,0 0 5px #B6DE5E;
+	-moz-box-shadow:0 0 10px rgba(166, 210, 79, 0.4) inset,0 0 5px #B6DE5E;
+	box-shadow:0 0 10px rgba(166, 210, 79, 0.4) inset,0 0 5px #B6DE5E;
+	
+	-webkitransition-property:border,color,-webkibox-shadow;
+	-moz-transition-property:border,color,-moz-box-shadow;
+	-o-transition-property:border,color,box-shadow;
+	-ms-transition-property:border,color,box-shadow;
+	transition-property:border,color,box-shadow;
+	-webkitransition-duration:0.3s;
+	-moz-transition-duration:0.3s;
+	-o-transition-duration:0.3s;
+	-ms-transition-duration:0.3s;
+	transition-duration:0.3s;
+}
+
+.form input.input {
+	fonsize: 12px;
+	height: 18px;
+	outline: 0px solid black;
+}
+.form input.input:disabled {
+	background: #F2F2F2;
+}
+.form input[type=submit], .form input[type=reset] {
+	margin-right: 5px;
+}
+
+.form textarea.input {
+	outline: 0px solid black;
+	line-height: 1.5em;
+	fonsize: 12px;
+}
+
+.form select.select {
+	background: #fff;
+	border: 1px solid #ccc;
+	outline: none;
+	padding: 4px 3px;
+	color: #292929;
+	border: 1px solid #bbb;
+	
+	-webkiborder-radius:2px;
+	-khtml-border-radius:2px;
+	-moz-border-radius:2px;
+	border-radius:2px;
+	
+	box-shadow: none;
+	box-sizing: contenbox;
+	-webkibox-sizing: contenbox;
+	-moz-box-sizing: contenbox;
+}
+
+.form label {
+	fonweight: normal;
+	cursor: pointer;
+}
+
+.form p {
+	padding: 0px;
+	margin: 0px;
+}
+
+.form .form-item .input, .form .form-item select.select {
+	width: 100%;
+}
+
+.form .autocheck {
+	float: left;
+	margin-left: 5px;
+}
+.form .autocheck.inner {
+	margin-left: -30px;
+}
+.form .autocheck div {
+	float: left;
+	height: 27px;
+	width: 30px;
+}
+.form .autocheck div#loader {
+	background: url("../img/loader.gif") center no-repeat;
+}
+.form .autocheck div#accept {
+	background: url("../img/accept.png") center no-repeat;
+}
+.form .autocheck div#error {
+	background: url("../img/error.png") center no-repeat;
+}
+
+

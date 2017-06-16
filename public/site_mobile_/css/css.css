@@ -1,0 +1,17 @@
+
+@import "../../site/css/common.css";
+@import "../../site/css/loader.css";
+@import "theme.css";
+
+/**
+ * Custom
+ */
+.panel-title {
+	font-weight: bold;
+}
+
+.form-group .amount {
+	font-size: 18px;
+	font-weight: 600;
+	margin-top: 5px;
+}

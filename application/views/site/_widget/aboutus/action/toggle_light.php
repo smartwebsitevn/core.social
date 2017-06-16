@@ -1,0 +1,1 @@
+<a href="javascript:void(0)" class="action btn toggle-light" data-title-on="<?php echo lang('on_light') ?>" data-title-off="<?php echo lang('off_light') ?>"><i class="fa fa-lightbulb-o"></i> <span><?php echo lang('off_light') ?></span></a>

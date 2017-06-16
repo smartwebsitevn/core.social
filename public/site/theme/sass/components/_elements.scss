@@ -1,0 +1,371 @@
+/*==========================================================
+
+	3. ELEMENTS
+
+==========================================================*/
+
+.pagination {
+  text-align: center;
+  display: block;
+  margin: 0;
+  display: inline-block;
+  &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  > li {
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    vertical-align: top;
+    float: left;
+    &:first-child > a, &:last-child > a, &:first-child > span, &:last-child > span {
+      border-radius: 0;
+    }
+    > {
+      a, span {
+        color: #ff8100;
+        border: 1px solid #dfdfdf;
+        line-height: 36px;
+        min-width: 38px;
+        text-align: center;
+        padding: 0 5px;
+        border-radius: 0;
+        background-color: #fff;
+      }
+      a:hover, span:hover, a:focus, span:focus {
+        background-color: #ff8100;
+        color: #fff;
+        border-color: #ff8100;
+      }
+    }
+  }
+  .action > {
+    a, span {
+      background-color: #ff8100;
+      color: #fff;
+      border-color: #ff8100;
+    }
+  }
+  .active > {
+    a, span, a:hover, span:hover, a:focus, span:focus {
+      background-color: #ff8100;
+      color: #fff;
+      border-color: #ff8100;
+    }
+  }
+}
+
+.pager > li > {
+  a, span {
+    color: #a9a9a9;
+    border-color: #dcdcdc;
+    line-height: 37px;
+    min-width: 39px;
+    text-align: center;
+    padding: 0 25px;
+    border-radius: 40px;
+  }
+  a:hover, span:hover, a:focus, span:focus {
+    background-color: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+}
+
+/*breadcrumb*/
+
+.breadcrumb {
+  background-color: transparent;
+  text-transform: capitalize;
+  padding: 7px 5px;
+  margin-bottom: 2px;
+  background-color: #8fa4ad;
+  border-radius: 0;
+  font-size: 14px;
+  li {
+    line-height: 24px;
+    + li:before {
+      content: "\f105";
+      font-family: "FontAwesome";
+    }
+    a {
+      color: #ccc;
+      font-size: 14px;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+  .active {
+    color: #ccc;
+    a {
+      color: #ccc;
+    }
+  }
+}
+
+.breadcrumb-wrapper {
+  background-color: #666666;
+  color: #ccc;
+  margin-bottom: 20px;
+  font-weight: 600;
+  .breadcrumb {
+    float: left;
+  }
+  .next-page {
+    float: right;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .ket-qua-job {
+    display: block;
+    color: #fff;
+    line-height: 40px;
+    span {
+      display: inline-block;
+      padding: 0 7px;
+    }
+  }
+  .sap-xep-job {
+    float: right;
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+      width: 270px;
+    }
+    .search-rendered {
+      color: #fff;
+    }
+    .search-caret {
+      background-image: url(../img/icon/arrow-down-mau-trang.png);
+      padding-top: 0;
+    }
+    .dropdown-toggle {
+      border-color: transparent;
+    }
+    select {
+      font-size: 12px;
+      height: 40px;
+      padding: 2px 20px 2px 12px;
+      border: none;
+      background-color: transparent;
+      color: #fff;
+      background-image: url(../img/icon/arrow-down-mau-trang.png);
+      cursor: pointer;
+    }
+  }
+  .next-page {
+    color: #b2b2b2;
+    a {
+      color: #b2b2b2;
+    }
+    .count-search {
+      font-weight: 600;
+      color: #fff;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .prev-search, .next-search {
+      display: inline-block;
+      vertical-align: middle;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      margin: 0 5px;
+    }
+    .prev-search {
+      background-image: url(../img/icon/xem-ket-qua-truoc-1.png);
+      &:hover {
+        background-image: url(../img/icon/xem-ket-qua-truoc-2.png);
+      }
+    }
+    .next-search {
+      background-image: url(../img/icon/xem-ket-qua-tiep-theo-1.png);
+      &:hover {
+        background-image: url(../img/icon/xem-ket-qua-tiep-theo-2.png);
+      }
+    }
+    .text-search {
+      display: inline-block;
+      max-width: 312px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      &.text-search-prev {
+        text-align: left;
+      }
+      &.text-search-next {
+        text-align: right;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+/*====================*\
+//panel
+\*====================*/
+/*.panel {
+  border-radius: 0;
+  border-width: 1px 1px 1px;
+  border-color: #e0e0e0 #e0e0e0 #e0e0e0;
+  box-shadow: none;
+  background-color: transparent;
+}
+.panel .panel-heading,
+.panel .panel-footer {
+  background-color: transparent;
+  border-color: #e0e0e0;
+  border: none;
+  box-shadow: none;
+}
+.panel .panel-body {
+  border: none;
+  box-shadow: none;
+}*/
+.panel-heading.accordion-heading{
+  cursor: pointer;
+}
+
+/*====================*\
+//Tabs
+\*====================*/
+
+.nav-tabs {
+  margin-bottom: 15px;
+  > li {
+    > a {
+      border-radius: 0;
+      &:hover, &:focus {
+        border-color: #ddd #ddd transparent;
+        background-color: #fff;
+      }
+    }
+    &.active > a {
+      color: #f7941e;
+      &:hover, &:focus {
+        color: #f7941e;
+      }
+    }
+  }
+}
+
+.nav-pills {
+  margin-bottom: 15px;
+  > li {
+    > a {
+      border-radius: 0;
+      color: #333;
+      background-color: #E0E0E0;
+      &:hover, &:focus {
+        color: #333;
+        background-color: #E0E0E0;
+      }
+    }
+    &.active > a {
+      color: #333;
+      background-color: #fff;
+      &:hover, &:focus {
+        color: #333;
+        background-color: #fff;
+      }
+    }
+  }
+}
+
+/*====================*\
+//owl carousel
+\*====================*/
+
+.owl-carousel .owl-item img {
+  width: auto;
+  transform-style: flat;
+}
+
+/*====================*\
+/Nav-toggle-menu
+\*====================*/
+
+.nav-toggle-menu {
+  background-color: #585858;
+  background-image: url("../images/icon/bar.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #333;
+  cursor: pointer;
+  display: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 8px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  width: 40px;
+}
+
+.navbar-toggle {
+  background-color: #585858;
+  background-image: url("../images/icon/bar.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #333;
+  cursor: pointer;
+  display: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 8px;
+  /*  margin-top: 4px;
+    margin-bottom: 10px;*/
+  text-transform: uppercase;
+  width: 40px;
+}
+
+.nav-toggle-menu span, .navbar-toggle span {
+  display: none;
+}
+
+.nav-toggle-menu:hover, .navbar-toggle:hover {
+  background-color: #f67004;
+}
+
+.nav-toggle-navbar-left {
+  float: left;
+}
+
+.nav-toggle-navbar-right {
+  float: right;
+}
+
+.navbar-header {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  float: none;
+}
+
+.navbar-collapse {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (max-width: 991px) {
+  .nav-toggle-menu, .navbar-toggle {
+    display: block;
+  }
+}

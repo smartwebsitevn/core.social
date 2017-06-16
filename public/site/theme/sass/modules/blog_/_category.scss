@@ -1,0 +1,626 @@
+/*====================*\
+//Blog
+\*====================*/
+//
+
+//
+//   Page layout
+//--------------------------------------
+.page-blog {
+	background-color: #fff;
+	.sidebar {
+		background-color: #f9f9f9;
+	}
+	.block {
+		border-bottom: 2px solid $color-border;
+		padding-bottom: 36px;
+		&-title {
+			margin-top: 25px;
+			margin-bottom: 15px;
+		}
+	}
+	.columns-main {
+		margin-bottom: 20px;
+	}
+}
+
+.header-page{
+	background-color: #666666;
+	li {
+		display: inline-block;
+		a {
+			line-height: 40px;
+			display: block;
+			font-size: 13px;
+			color: #b2b2b2;
+			padding: 0 20px;
+			font-weight: $font-medium;
+			text-transform: capitalize;
+			&:hover {
+				color: #fff;
+			}
+		}
+
+		&.active {
+			a {
+				color: #fff;
+			}
+		}
+	}
+}
+
+.page-title-wrapper {
+	.title-page {
+		font-size: 36px;
+		display: block;
+		margin: 25px 0 40px 0;
+		font-weight: 400;
+		text-transform: capitalize;
+		float: left;
+	}
+	.search-blog {
+		float: right;
+		width: 34.18%;
+		margin: 25px 0;
+		input {
+			background-position: center right 10px;
+			background-repeat: no-repeat;
+			background-image: url(../img/icon/tim-kiem-blog.png);
+			padding: 2px 30px 2px 20px;
+			height: 40px;
+		}
+	}
+}
+
+//
+//   follow us & subcribe
+//--------------------------------------
+.block {
+	&-follow-us & {
+		&-title {
+			font-size: 16px;
+		    font-style: italic;
+		    font-weight: $font-medium;
+		    margin-bottom: 20px;
+		    .page-tac-gia &,
+		    .page-blog-detail & {
+		    	background-color: #999999;
+		    	line-height: 32px;
+		    	margin-top: 0;
+		    	color: #fff;
+		    }
+		}
+		&-content {
+			ul {
+				margin-left: 0;
+			}
+			.social {
+				margin-bottom: 20px;
+				.social(
+					$color: #fff,
+					$color-hover: #fff,
+					$color-focus: #fff,
+					$background-color: #999999,
+					$background-color-hover: $color-theme-hover,
+					$background-color-focus: $color-theme-focus,
+					$font-size: 20px,
+					$line-height: 34px,
+				);
+			}
+			.subcribe {
+				.subcribe ( 
+					$width-button: 100px,
+					$input-margin: 20px,
+					$height: 40px,
+					$float-input: left,
+					$float-button: right,
+				);
+			}
+		}
+	}
+}
+
+//
+//   link đăng bài viết mới
+//--------------------------------------
+.block {
+	&-dang-bai-moi &{
+		&-title {
+			height: 120px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-image: url(../img/icon/dau-cong-1.png);
+		}
+		&-content {
+			text-align: center;
+			a {
+				display: block;
+				text-transform: capitalize;
+				font-size: 28px;
+			}
+			.mail {
+				font-size: 15px;
+				text-transform: none;
+				display: inline-block;
+				line-height: 32px;
+				padding-left: 42px;
+				background-repeat: no-repeat;
+				background-position: top 3px left;
+				background-image: url(../img/icon/gui-email-1.png);
+				&:hover {
+					background-image: url(../img/icon/gui-email-2.png);
+				}
+			}
+		}
+	}
+	&-dang-bai-moi:hover & {
+		&-title {
+			background-image: url(../img/icon/dau-cong-2.png);
+		}
+	}
+}
+
+//
+//   block search
+//--------------------------------------
+.block {
+	&-search-blog &{
+		&-title {
+			background-color: #999999;
+			color: #fff;
+			line-height: 28px;
+			padding: 0 30px;
+			font-style: italic;
+			font-size: 16px;
+			margin-top: 0;
+		}
+		&-content {
+			.input-search {
+				margin: 0 0 33px;
+				padding: 0;
+				input {
+					background-position: center right 10px;
+					background-repeat: no-repeat;
+					background-image: url(../img/icon/tim-kiem-blog.png);
+					padding: 2px 30px 2px 20px;
+					height: 40px;
+				}
+			}
+			.search-chu-de,
+			.search-linh-vuc {
+				padding-bottom: 15px;
+				.dropdown-toggle {
+					line-height: 36px;
+					border: 2px solid $color-border;
+					padding: 0 12px 0 20px;
+					display: block;
+					background-color: #fff;
+
+					.caret {
+						float: right;
+						height: 36px;
+					}
+				}
+				&.open {
+					.caret {
+						background-image: url(../img/icon/top.png);
+					}
+					
+				}
+				.dropdown-menu {
+					margin-top: -5px;
+					width: 100%;
+					&:before,
+					&:after {
+						left: 94%;
+					}
+				}
+			}
+			.search-chuyen-mon {
+				input {
+					height: 40px;
+					padding: 3px 20px;
+				}
+			}
+		}
+	}
+	&-dang-bai-moi{
+		
+	}
+}
+
+//
+//   bài viết mới
+//--------------------------------------
+
+//
+//   bài viết nổi bật
+//--------------------------------------
+.block {
+	&-post-noi-bat &{
+		&-title {
+			
+		}
+		&-content {
+			li {
+				padding-bottom: 10px;
+				color: $black2;
+				p {
+					margin-bottom: 0;
+				}
+				.title-post {
+					color: $color-theme;
+					&:hover {
+						color: $color-theme-hover;
+					}
+				}
+			}
+			.xem-them {
+				color: $color-theme-focus;
+				padding-top: 10px;
+				display: inline-block;
+			}
+		}
+	}
+}
+
+//
+//   tác giả tiêu biểu
+//--------------------------------------
+.block {
+	&-tac-gia-noi-bat &{
+		&-title {
+		}
+		&-content {
+			ul {
+				padding-left: 10px;
+			}
+			color: $black2;
+			a {
+				display: inline-block;
+				color: $color-theme;
+				margin-bottom: 10px;
+				&:hover {
+					color: $color-theme-hover;
+				}
+				&:focus {
+					color: $color-theme-focus;
+				}
+			}
+		}
+	}
+}
+
+//
+//   chủ đề blog
+//--------------------------------------
+.block {
+	&-chu-de &{
+		&-title {
+		}
+		&-content {
+			ul {
+				padding-left: 10px;
+			}
+			a {
+				display: inline-block;
+				color: $color-theme;
+				margin-bottom: 10px;
+				font-weight: $font-medium;
+				&:hover {
+					color: $color-theme-hover;
+				}
+				&:focus {
+					color: $color-theme-focus;
+				}
+			}
+		}
+	}
+}
+
+//
+//   tags blog
+//--------------------------------------
+.block {
+	&-tags &{
+		&-title {
+		}
+		&-content {
+			a {
+				background-color: #e0e0e0;
+			    border-radius: 3px;
+			    display: inline-block;
+			    font-size: 13px;
+			    line-height: 20px;
+			    margin-bottom: 5px;
+			    margin-right: 5px;
+			    padding: 0 15px;
+			    text-transform: capitalize;
+				&:hover {
+					color: $color-theme-hover;
+				}
+				&:focus {
+					color: $color-theme-focus;
+				}
+			}
+		}
+	}
+}
+
+//
+//   next page blog
+//--------------------------------------
+.block {
+	&-perpage &{
+		&-title {
+			display: none;
+		}
+		&-content {
+			background-color: #fff;
+			text-align: right;
+			padding: 0;
+			.btn {
+				/*line-height: 35px;*/
+			    margin-bottom: 15px;
+			    margin-left: 10px;
+			    padding: 0 12px;
+			    &:hover {
+			    	padding: 0 11px;
+			    }
+			}
+		}
+	}
+	&-perpage {
+		padding-bottom: 0 !important;
+		margin-top: -20px;
+	}
+}
+
+//
+//   slide chủ đề page blog
+//--------------------------------------
+.slide-blog {
+	margin-bottom: 32px;
+	.item-category-blog {
+		position: relative;
+		.transition(0.3s ease 0s);
+		.img {
+			position: relative;
+			overflow: hidden;
+			img {
+				width: 100%;
+				.transition(0.3s ease 0s);
+			}
+		}
+		.caption {
+			background-color: $color-theme;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			color: #fff;
+			text-align: center;
+			padding: 14px;
+			a {
+				color: #fff;
+			}
+		}
+		.name {
+			text-transform: uppercase;
+			display: block;
+			margin-bottom: 5px;
+		}
+		&:hover {
+			opacity: 0.8;
+			.img {
+				img {
+					.scale(1.1; 1.1);
+				}
+			}
+		}
+	}
+	.owl-blog {
+		width: auto;
+		margin: 0 -5px;
+		.item-category-blog {
+			margin: 0 5px;
+		}
+	}
+	.owl-buttons {
+		.owl-prev,
+		.owl-next {
+			width: 58px;
+			line-height: 75px;
+			position: absolute;
+			bottom: 0;
+			text-align: center;
+			display: block;
+			&:before {
+				font-family: 'FontAwesome';
+				color: #fff;
+				font-size: 24px;
+			}
+		}
+		.owl-prev {
+			left: 10px;
+			&:before {
+				content: "\f053";
+			}
+		}
+		.owl-next {
+			right: 10px;
+			&:before {
+				content: "\f054";
+			}
+		}
+	}
+}
+
+//
+//   sidebar fixed left social 
+//--------------------------------------
+.sidebar-fix-left {
+	position: fixed;
+	top: 135px;
+	left: 0;
+	z-index: 99;
+	.transition(0.3s);
+	.close& {
+		left: -100%;
+	}
+	li {
+		font-size: 24px;
+		a {
+			width: 43px;
+			line-height: 43px;
+			height: 43px;
+			display: block;
+			text-align: center;
+			color: #fff;
+			
+			.transition(0.3s);
+			&:hover {
+				width: 57px;
+				padding-left: 13px;
+			}
+		}
+	}
+	.btn-feedback {
+		background-repeat: no-repeat;
+		background-position: center;
+		background-image: url(../img/icon/feedback.png);
+		background-color: #4498c8;
+	}
+	.btn-facebook {
+		background-color: #305891;
+	}
+	.btn-youtube {
+		background-color: #f70303;
+		font-size: 28px;
+	}
+	.btn-linkedin {
+		background-color: #4498c8;
+
+	}
+	.btn-google {
+		background-color: #ce4d39;
+	}
+	.btn-envelope {
+		background-color: #738a8d;
+		font-size: 20px;
+	}
+	.close-social {
+		width: 43px;
+		display: block;
+		height: 43px;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-image: url(../img/icon/close-feedback-2.png);
+		cursor: pointer;
+		
+		span {
+			display: none;
+		}
+		&:hover {
+			background-image: url(../img/icon/close-feedback-1.png);
+		}
+	}
+	&:hover {
+		.close-social {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+}
+//
+//   modal gui y kien
+//--------------------------------------
+#modal-comment {
+	.modal {
+		&-dialog {
+			width: 100%;
+			max-width: 450px;
+		}
+		&-content {
+			border-radius: 0;
+			border: 2px solid $color-border;
+		}
+		&-header {
+			border: none;
+			background-color: #F9F9F9;
+			padding: 28px 38px 28px 50px;
+			.modal-title {
+				text-transform: capitalize;
+				font-size: 24px;
+				font-weight: 400;
+			}
+			.close {
+				width: 25px;
+				height: 25px;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-image: url(../img/icon/close-all.png);
+				background-size: 100%;
+			}
+		}
+		&-body {
+			padding: 20px 35px;
+		}
+	}
+
+	textarea {
+		height: 106px;
+		margin-bottom: 10px;
+		
+	}
+	input {
+		
+		width: 180px;
+		margin-bottom: 20px;
+		
+	}
+	.inputMail {
+		float: left;
+	}
+	.inputPhone {
+		float: right;
+	}
+}
+.modal {
+	&-dialog {
+		width: 100%;
+		max-width: 450px;
+		.lag & {
+			max-width: 723px;
+		}
+	}
+	&-content {
+		border-radius: 0;
+		border: 2px solid $color-border;
+	}
+	&-header {
+		border: none;
+		background-color: #F9F9F9;
+		padding: 28px 38px 28px 50px;
+		.modal-title {
+			text-transform: capitalize;
+			font-size: 24px;
+			font-weight: 400;
+		}
+		.close {
+			width: 25px;
+			height: 25px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-image: url(../img/icon/close-all.png);
+			background-size: 100%;
+			margin-top: 7px;
+		}
+	}
+	&-body {
+		padding: 20px 35px;
+	}
+}
+.demo {
+	height: 70px;
+}

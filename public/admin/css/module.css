@@ -1,0 +1,87 @@
+
+.quick-search{
+    position: relative;
+}
+.quick-search:before {
+    content: '';
+    
+}
+
+.quick-search .select2-choices{
+    margin-bottom: 10px;
+    height: 120px !important;
+    background: #fafafa;
+}
+.quick-search-result {
+    position: absolute;
+    display: none;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    list-style: none;
+    margin: 0;
+    padding: 4px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+}
+.quick-search-result li {
+    line-height: 18px;
+    padding: 6px;
+    color: #686868;
+}
+.quick-search-result li:hover{
+    color: #fff;
+    background: #d15050;
+    cursor: pointer;
+}
+
+.quick-search .quick-search-choosen {
+    /* display: none; */
+    padding: 5px 0;
+}
+.quick-search .quick-search-choosen:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.quick-search .quick-search-choosen .item, .quick-search .quick-search-choosen .item-multiple {
+    float: left;
+    width: 200px;
+    position: relative;
+    display: block;
+    padding: 5px;
+    border: 1px solid #f0f0f0;
+    background-color: #fafafa;
+    margin: 8px 8px 8px 0;
+}
+.quick-search .quick-search-choosen .item img, .quick-search .quick-search-choosen .item-multiple img {
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+    float: left;
+}
+.quick-search .quick-search-choosen .item p, .quick-search .quick-search-choosen .item-multiple p {
+    margin: 0;
+    line-height: 18px;
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.quick-search .quick-search-choosen .item p strong, .quick-search .quick-search-choosen .item-multiple p strong {
+    display: block;
+    padding: 4px 0;
+    font-weight: 500;
+    font-size: 13px;
+    color: #000;
+}
+.quick-search .quick-search-choosen .item .close, .quick-search .quick-search-choosen .item-multiple .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 14px;
+    color: red;
+}

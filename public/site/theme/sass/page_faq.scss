@@ -1,0 +1,147 @@
+.title-page {
+  background-color: #F8931D;
+  color: #fff;
+  padding-top: 78px;
+  padding-bottom: 110px;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 400;
+  a {
+    color: #fff;
+  }
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+}
+
+.link-tab {
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 80px;
+  li {
+    text-align: center;
+    display: inline-block;
+    margin-right: 40px;
+    a {
+      line-height: 65px;
+      display: block;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: capitalize;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .active a {
+    border-color: #f7941e;
+    color: #f7941e;
+  }
+}
+
+.content-hoi-dap {
+  /*border: 2px dotted #e0e0e0;*/
+  padding: 10px 15px;
+  margin-bottom: 130px;
+}
+
+.item-quan-tri {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-top: 30px;
+  .item-img {
+    margin-bottom: 23px;
+    img {
+      border-radius: 100%;
+      width: 130px;
+      height: 130px;
+      border: 6px solid #e0e0e0;
+    }
+  }
+  .name {
+    font-weight: 600;
+    font-size: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 13px;
+    position: relative;
+    display: block;
+    &:after {
+      content: "";
+      width: 140px;
+      height: 2px;
+      background-color: #e0e0e0;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      margin-left: -70px;
+    }
+  }
+  .job {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 25px;
+  }
+  .descaption {
+    text-align: left;
+  }
+}
+
+#accordion-answer {
+  max-width: 960px;
+  margin: auto;
+  padding-bottom: 147px;
+  h3 {
+    margin-top: 50px;
+    font-size: 40px;
+  }
+  h4.panel-title {
+    font-size: 18px;
+  }
+}
+
+.panel-default > .panel-heading {
+  background-color: transparent;
+  border-color: #ddd;
+  color: #333;
+}
+
+#accordion-answer {
+  .panel {
+    background-color: transparent;
+    border-color: #e0e0e0;
+    border-style: solid;
+    border-width: 1px 0;
+    margin: 0;
+    border-radius: 0;
+    margin-bottom: -1px;
+  }
+  .panel-heading {
+    border: none;
+    padding: 35px 0;
+    padding-right: 65px;
+    background-repeat: no-repeat;
+    background-position: top 40px right 30px;
+    background-image: url(../img/icon/hoi-dap-1.png);
+    &.open {
+      background-image: url(../img/icon/hoi-dap-3.png);
+    }
+  }
+  .panel-title {
+    line-height: 25px;
+  }
+  .panel-body {
+    border: none;
+    padding: 20px 0;
+    font-size: 16px;
+  }
+}

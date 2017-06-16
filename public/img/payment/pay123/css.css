@@ -1,0 +1,35 @@
+
+.pay123 * {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.pay123 *:before,
+.pay123 *:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+/**
+ * Banks
+ */
+.pay123_banks_title {
+	margin: 10px 0;
+}
+.pay123_banks .item {
+	float: left;
+	border: 1px solid #D5C6C6;
+	width:143px;
+	height:106px;
+	padding: 0;
+	margin: 0 4px 15px 9px;
+}
+.pay123_banks .item:hover {
+	border-color: #008000;
+}
+.pay123_banks .item img {
+	width: 100%;
+	height: 70px;
+}

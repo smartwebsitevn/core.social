@@ -1,0 +1,50 @@
+@import url('reset.css');
+@import url('loader.css');
+@import url('owl_carousel.css');
+@import url('common.css');
+
+
+/*body {
+    background-color: #fff  !important;
+    color: #454545 !important;
+    font-size: 13px !important;
+    line-height: 1.42857 !important;
+   /!* font-family: "Lato",sans-serif;*!/
+}*/
+
+
+/*.container {
+    width: 1200px !important;
+}*/
+
+/* Main Color*/
+#main {
+    margin: 20px 0 40px 0;
+}
+.page-catalog-view #main{
+    margin: 0;
+}
+/*
+.btn-primary{
+    background:#f15a29 !important;
+    border:1px solid #f15a29 !important;
+}
+
+.panel-primary {
+    border-color: #f15a29;
+}
+.panel-primary > .panel-heading {
+    background-color: #f15a29;
+    border-color: #f15a29;
+    color: #fff;
+}*/
+
+/* Fix nen den si cua modal*/
+.modal-backdrop.fade {
+    opacity: .5 !important;
+}
+
+/* Fix khong click dc vao item cua dropdown tren mobile*/
+.dropdown-backdrop {
+    z-index: 0;
+}

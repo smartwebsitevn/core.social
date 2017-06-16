@@ -1,0 +1,1 @@
+<?php view('tpl::payment/_common/bank_redirect') ?>

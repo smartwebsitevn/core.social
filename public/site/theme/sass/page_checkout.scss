@@ -1,0 +1,110 @@
+.box-product {
+  background-color: #fff;
+  .img {
+    position: relative;
+    img {
+      width: 100%;
+      height: 100px;
+    }
+  }
+  .onsale {
+    background-color: #F61929;
+    color: #fff;
+    border-radius: 100%;
+    width: 60px;
+    line-height: 60px;
+    position: absolute;
+    top: 14px;
+    right: 6px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 23px;
+  }
+  .des {
+    padding: 10px;
+    background: #e9e9e9;
+  }
+  .author-right {
+    overflow: hidden;
+  }
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+  .cv, .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+  .author {
+    .img-left {
+      float: left;
+      margin-right: 10px;
+      width: 32px;
+      height: 32px;
+    }
+    .name {
+      font-size: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+    .cv {
+      font-size: 11px;
+    }
+  }
+  .cart {
+    color: #d94d38;
+    display: block;
+    strike {
+      float: right;
+      color: #888;
+    }
+  }
+}
+
+/* Bank don hang */
+
+.bank-boxs {
+  margin-bottom: 20px;
+  background-color: #f1f1f1;
+  padding: 0 10px 10px;
+  .box-content {
+    background-color: transparent;
+  }
+}
+
+.bank-box-content {
+  font-size: 13px;
+  h3 {
+    font-size: 15px;
+    font-weight: bold;
+    color: #76ac0b;
+  }
+  p {
+    margin-bottom: 3px;
+  }
+}
+
+.payment-gate-content {
+  .payment_list {
+    margin-top: 10px;
+    .list-group-item {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+  }
+  display: none;
+}
+
+.check-box-information .star {
+  float: none;
+  margin: 0;
+}

@@ -1,0 +1,66 @@
+
+ul.menu-tk > li {
+	border-bottom: 1px dotted #dddddd !important;
+	padding: 0;
+}
+.menu-tk {
+	/*margin-top: 20px;*/
+	padding: 0;
+}
+.menu-tk li {
+  display: block;
+  border: none;
+  margin: 0;
+  position: relative;
+  background-color: #fff;
+}
+.menu-tk li a {
+	display: block;
+	line-height: 33px;
+	padding-left: 15px;
+}
+.menu-tk li .toggle-submenu {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  width: 24px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+.menu-tk li .toggle-submenu:before {
+  content: "\f067";
+  font-family: 'FontAwesome';
+}
+.menu-tk li .toggle-submenu span {
+  display: none;
+}
+.menu-tk li.has-active {
+ /* background-color: #F5F5F5;*/
+}
+.menu-tk li.has-active > .toggle-submenu:before {
+  content: "\f068";
+}
+.menu-tk li.has-active > .submenu {
+	margin: 0;
+	padding: 0;
+  display: block;
+}
+.menu-tk li.has-active li {
+/*  background-color: #F5F5F5;*/
+}
+.menu-tk li.active > a{
+  background-color: #337AB7;
+}
+.menu-tk li.active > a {
+  color: #fff;
+}
+.menu-tk li.active > .toggle-submenu {
+  color: #fff;
+}
+.menu-tk .submenu {
+  display: none;
+}
+.menu-tk .submenu li a {
+  padding-left: 30px;
+}

@@ -1,0 +1,32 @@
+.ie .example {
+  background-color: yellow
+}
+.ie7 .example {
+  background-color: orange
+}
+.gecko .example {
+  background-color: gray
+}
+.win.gecko .example {
+  background-color: red
+}
+.linux.gecko .example {
+  background-color: pink
+}
+.opera .example {
+  background-color: green
+}
+.konqueror .example {
+  background-color: blue
+}
+.webkit .example {
+  background-color: black
+}
+.example {
+  width: 100px;
+  height: 100px;
+}
+.no_js { display: block }
+.has_js { display: none }
+.js .no_js { display: none }
+.js .has_js { display: block }

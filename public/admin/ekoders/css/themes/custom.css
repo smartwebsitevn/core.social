@@ -1,0 +1,65 @@
+/*B_login page */
+.login-container .logo{
+    max-height: 90px;
+}
+.login-container {
+    margin: 5% auto 50px;
+}
+/*E_login page */
+.navbar-brand{
+    padding: 7px;
+    text-align: center;
+    /* width: 100%;*/
+}
+.navbar-brand img {
+    max-height: 40px;
+}
+.breadcrumbs > .breadcrumb {
+    margin: 9px 15px 0;
+    padding: 0;
+}
+.breadcrumbs > .b-right ul li a {
+    color: #fff;
+    display: inline-block;
+    font-size: 13px;
+    line-height: inherit;;
+    margin-top: 3px;
+    padding: 6px 12px 5px;
+    text-decoration: none;
+}
+.breadcrumbs > .b-right ul li a span {
+    color: inherit;
+}
+
+.page-header h1 {
+    float: left;
+}
+
+/*.pagination > li:first-child > a,.pagination > li:first-child > span {
+    color: #fff;
+}*/
+.pagination > li.active a,.pagination > li.active > span {
+    color: #fff;
+}
+
+.form-horizontal .tcb-inline {
+    margin-top: 6px;
+}
+
+#todolist .tools{
+    display: none;
+
+}
+#todolist li:hover .tools{
+    display: block;
+margin-top: 5px;
+}
+
+
+input.tc[type="radio"]:checked + .labels::before {
+    content: "\f00c";
+
+}
+.label {
+    line-height: 1.4;
+}

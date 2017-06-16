@@ -1,0 +1,171 @@
+/************************************************
+ * T-UI CSS
+ * @author		***
+ * @version		2014-02-22
+ ************************************************/
+
+/**
+ * Box
+ */
+.t-box {
+	position: relative;
+	margin: 0 0 10px;
+	padding: 0px;
+}
+
+.t-box .box-title {
+	clear: bold;
+	margin: 0px;
+	padding: 0px;
+}
+.t-box .box-content {
+	clear: bold;
+	margin: 0px;
+	padding: 10px 5px;
+}
+
+.t-box .box-title h6 {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	font-size: 12px;
+	font-weight: bold;
+}
+.t-box .box-title h1 {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+
+/**
+ * Grid
+ */
+.t-grid {
+	clear: both;
+	display: block;
+	padding: 0px;
+}
+.t-grid {
+	margin: 0 -5px;
+}
+.t-grid > .col {
+	padding: 0 5px;
+}
+.t-grid.grid-15 {
+	margin: 0 -7.5px;
+}
+.t-grid.grid-15 > .col {
+	padding: 0 7.5px;
+}
+.t-grid.grid-20 {
+	margin: 0 -10px;
+}
+.t-grid.grid-20 > .col {
+	padding: 0 10px;
+}
+.t-grid.grid-25 {
+	margin: 0 -12.5px;
+}
+.t-grid.grid-25 > .col {
+	padding: 0 12.5px;
+}
+.t-grid.grid-30 {
+	margin: 0 -15px;
+}
+.t-grid.grid-30 > .col {
+	padding: 0 15px;
+}
+.t-grid.grid-35 {
+	margin: 0 -17.5px;
+}
+.t-grid.grid-35 > .col {
+	padding: 0 17.5px;
+}
+.t-grid.grid-40 {
+	margin: 0 -20px;
+}
+.t-grid.grid-40 > .col {
+	padding: 0 20px;
+}
+
+.t-grid .col {
+	float: left;
+	margin: 0px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.t-grid .col-1 { width: 8.3333333333333%; }
+.t-grid .col-2 { width: 16.666666666667%; }
+.t-grid .col-3 { width: 25%; }
+.t-grid .col-4 { width: 33.333333333333%; }
+.t-grid .col-5 { width: 41.666666666667%; }
+.t-grid .col-6 { width: 50%; }
+.t-grid .col-7 { width: 58.333333333333%; }
+.t-grid .col-8 { width: 66.666666666667%; }
+.t-grid .col-9 { width: 75%; }
+.t-grid .col-10 { width: 83.333333333333%; }
+.t-grid .col-11 { width: 91.666666666667%; }
+.t-grid .col-12 { width: 100%; }
+
+
+/* filter-wraper */
+.filter-wraper {
+  border-bottom:1px solid #ccc;
+  margin-bottom:10px;
+  padding:0px;
+  }
+.filter-wraper .filters{
+    width:100%;
+    display:table;
+    margin:0 10px 10px 0px;
+}
+
+.filter-wraper .filter{
+  float: left;
+	margin-right:10px;
+	margin-bottom:5px;
+}
+
+ .filter-wraper .filter .input-group{
+  width: 150px;
+}
+.filter-wraper input.form-control {
+    margin: 0;
+    width:140px;
+}
+.filter-wraper select.form-control {
+    width:140px;
+    -moz-appearance: none;
+}
+/*
+select {
+	color: #595959;
+	background: #fff;
+	border: 1px solid #ccc;
+	outline: none;
+	padding: 4px 3px;
+	border: 1px solid #bbb;
+
+	border-radius: 3px;
+	box-shadow: none;
+	box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+}*/
+
+
+/* General widgets styles */
+
+.widget { background: #f9f9f9; border: 1px solid #cdcdcd; clear: both; }
+.widget .title { height: 36px; background: #efefef  repeat-x; border-bottom: 1px solid #cdcdcd; }
+.widget .title .titleIcon { float: left; padding: 11px 12px; border-right: 1px solid #D5D5D5; }
+
+.widget .loader { float: right; margin: 12px 12px 0 0; }
+.widget .title h6 { float: left; font-size: 12px; font-weight: bold; padding: 3px 12px 8px 12px; }
+.widget .content { padding: 14px; }
+.widget .body { padding: 12px 14px; width:100%}
+.widget > p { padding: 12px; }

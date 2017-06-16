@@ -1,0 +1,46 @@
+@media (max-width: 1200px) {
+
+}
+@media (max-width: 1199px) {
+
+}
+@media (min-width: 1021px)  {
+
+}
+@media (max-width: 991px) {
+
+}
+@media (min-width: 850px) {
+
+}
+
+@media (max-width: 767px) {
+  .myplayer {
+    height: 300px !important;
+  }
+  .myplayer iframe{
+    height:300px;
+  }
+  .movie-play img{
+    height: 300px !important;
+  }
+  .movie-player-wraper .alert {
+    top: 10%;
+  }
+
+}
+@media (max-width: 640px) {
+  .myplayer {
+    height: 250px !important;
+  }
+
+  .myplayer iframe{
+    height:250px;
+  }
+}
+@media (max-width: 479px) {
+
+}
+@media (max-width: 360px) {
+
+}

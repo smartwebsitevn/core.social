@@ -1,0 +1,14 @@
+{
+    "name": "sm/base",
+    "alias": "base",
+    "description": "",
+    "type": "package",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+     "aliases": {},
+    "files": [
+
+    ],
+    "requires": []
+}
