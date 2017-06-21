@@ -17,7 +17,7 @@ class Product_model extends MY_Model
 
     public $fields = array(
         //== Info core
-        'status',   'created',  'updated',  'sort_order',// 'expired', 'expired_option',
+        'status',  /* 'created',  'updated',*/  'sort_order',// 'expired', 'expired_option',
         //== Info main
         'name', 'price',
         'price_prefix','price_suffix',

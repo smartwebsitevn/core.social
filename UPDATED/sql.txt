@@ -1,0 +1,161 @@
+﻿//== 8-4-2017:
+ALTER TABLE `slider_item` ADD `target` TEXT NOT NULL AFTER `name` 
+
+ALTER TABLE `country` CHANGE `show` `status` TINYINT( 1 ) NOT NULL DEFAULT '0'
+
+//== 8-4-2017:
+ALTER TABLE `invoice` ADD `info_payment` TEXT NOT NULL AFTER `info_shipping` 
+//== 20-4-2017:
+ALTER TABLE `user` ADD `avatar_api` VARCHAR( 255 ) NOT NULL AFTER `avatar` 
+
+//== 3-5-2017:
+ALTER TABLE `tran` ADD `payment_result` TEXT NOT NULL AFTER `payment_tran_id` 
+
+//== 8-5-2017:
+ALTER TABLE `blog` ADD `author_id` INT( 11 ) NOT NULL DEFAULT '0' AFTER `cat_id`;
+ALTER TABLE `blog` ADD `created_day` VARCHAR( 20 ) NOT NULL AFTER `created_by` ;
+
+//== 28-5-2017:
+ALTER TABLE `blog` CHANGE COLUMN `cat_id` `cat_id` VARCHAR(50) NOT NULL DEFAULT '0' AFTER `id`;
+ALTER TABLE `blog_author` ADD `protected` TINYINT(1) NOT NULL DEFAULT '0' AFTER `user_id`;
+
+
+
+
+
+//==30-5-2017:
+
+ALTER TABLE `product` ADD `link_demo` VARCHAR( 255 )  NULL AFTER `model` ;
+
+
+
+
+//== 31-5-2017:
+ALTER TABLE `file` ADD `url` VARCHAR( 255 ) NOT NULL AFTER `orig_name` ,
+ADD `type` VARCHAR( 150 ) NOT NULL AFTER `url` ,
+ADD `extension` VARCHAR( 10 ) NOT NULL AFTER `type` ,
+ADD `size` FLOAT NOT NULL AFTER `extension` ;
+
+ALTER TABLE `file` ADD `url_thumb` VARCHAR( 255 ) NOT NULL AFTER `url` ,
+ADD `url_delete` VARCHAR( 255 ) NOT NULL AFTER `url_thumb` ;
+
+
+//== 1-6-2017:
+
+CREATE TABLE IF NOT EXISTS `addon` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `image_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `image_name` varchar(200) NOT NULL,
+  `banner_id` bigint(20) NOT NULL DEFAULT '0',
+  `banner_name` varchar(255) NOT NULL,
+  `icon_id` bigint(11) NOT NULL DEFAULT '0',
+  `icon_name` varchar(255) NOT NULL,
+  `icon_fa` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL COMMENT 'Giới thiệu ',
+   `is_feature` tinyint(3) unsigned NOT NULL DEFAULT '0',
+    `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `sort_order` int(11) NOT NULL DEFAULT '0',
+
+  `updated` int(11) unsigned NOT NULL DEFAULT '0',
+  `updated_by` int(11) unsigned NOT NULL DEFAULT '0',
+  `created` int(11) unsigned NOT NULL DEFAULT '0',
+  `created_by` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+
+CREATE TABLE IF NOT EXISTS `addon_cat` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `level` int(11) unsigned NOT NULL DEFAULT '0',
+  `image_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `image_name` varchar(200) NOT NULL,
+  `banner_id` bigint(20) NOT NULL DEFAULT '0',
+  `banner_name` varchar(255) NOT NULL,
+  `icon_id` bigint(11) NOT NULL DEFAULT '0',
+  `icon_name` varchar(255) NOT NULL,
+  `icon_fa` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL COMMENT 'Giới thiệu ',
+  `common_data` text NOT NULL COMMENT 'Lưu trữ các thông tin phụ',
+  `stats_data` text NOT NULL COMMENT 'Lưu trữ các thông tin thống kê',
+   `is_feature` tinyint(3) unsigned NOT NULL DEFAULT '0',
+   `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `sort_order` int(11) NOT NULL DEFAULT '0',
+
+  `updated` int(11) unsigned NOT NULL DEFAULT '0',
+  `updated_by` int(11) unsigned NOT NULL DEFAULT '0',
+  `created` int(11) unsigned NOT NULL DEFAULT '0',
+  `created_by` int(11) unsigned NOT NULL DEFAULT '0',
+
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `product_to_addon` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) unsigned NOT NULL,
+  `addon_id` int(11) unsigned NOT NULL,
+  `price` double unsigned NOT NULL,
+  `sort` smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_product_to_addon_product_id_addon_id` (`product_id`,`addon_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+//== 4-6-2017:
+CREATE TABLE IF NOT EXISTS `notice` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `params` varchar(255) NOT NULL,
+  `content` text NOT NULL COMMENT 'Giới thiệu ',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `sort_order` int(11) NOT NULL DEFAULT '0',
+  `updated` int(11) unsigned NOT NULL DEFAULT '0',
+  `updated_by` int(11) unsigned NOT NULL DEFAULT '0',
+  `created` int(11) unsigned NOT NULL DEFAULT '0',
+  `created_by` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+//== 5-6-2017:
+ALTER TABLE `product`
+	ADD COLUMN `price_is_auction` TINYINT(1) NOT NULL DEFAULT '0' AFTER `price_is_contact`;
+
+ALTER TABLE `product`
+	ADD COLUMN `price_is_auction_data` TEXT NOT NULL COMMENT 'Luu thong tin dau gia neu co' AFTER `price_is_auction`;
+
+//== 8-6-2017:
+ALTER TABLE `product_to_addon`
+	ADD COLUMN `price_prefix` VARCHAR(1) NOT NULL DEFAULT '+' AFTER `price`;
+
+ALTER TABLE `product`
+	ADD COLUMN `price_prefix` VARCHAR(50) NOT NULL AFTER `price`,
+	ADD COLUMN `price_suffix` VARCHAR(50) NOT NULL AFTER `price_prefix`;
+
+
+
+//== 16-6-2017:
+ALTER TABLE `page`
+	ADD COLUMN `created_day` VARCHAR(50) NOT NULL DEFAULT '0' AFTER `created`;
+
+//== 26-6-2017:
+CREATE TABLE IF NOT EXISTS `social_vote` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `table_id` int(255) NOT NULL,
+  `table_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `user_ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `user_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `like` tinyint(1) NOT NULL  DEFAULT '0',
+  `dislike` tinyint(1) NOT NULL  DEFAULT '0',
+  `readed` tinyint(1) NOT NULL DEFAULT '0',
+  `status` tinyint(4) NOT NULL,
+  `updated` int(11) NOT NULL,
+  `created` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

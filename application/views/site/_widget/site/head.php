@@ -16,6 +16,7 @@ $asset_theme = $asset . '/site/theme/';
 <link href="<?php echo $icon ?>" rel="shortcut icon" type="image/x-icon"/>
 <!-- Add custom CSS here -->
 <link rel="stylesheet" href="<?php echo public_url('site/css/css.css') ?>">
+<link rel="stylesheet" href="<?php echo public_url('img/icons/icons.css') ?>">
 <link href="<?php echo $asset_theme ?>css/main.css" media="all" type="text/css" rel="stylesheet"/>
 
 <?php if (isset($css) && $css): ?>

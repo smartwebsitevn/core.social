@@ -5,18 +5,9 @@ $lang['average_rating'] = 'Đánh giá trung bình';
 $lang['buy_vip'] = 'Mua gói VIP';
 $lang['product_purchase'] = 'Thanh toán sản phẩm';
 $lang['free'] = 'Miễn phí';
-$lang['i_have_no_products'] = 'Tôi chưa dạy sản phẩm nào';
-$lang['i_have_no_lessons'] = 'Tôi chưa dạy bài học nào';
-$lang['lesson_content'] = 'Nội dung bài học';
-$lang['lesson_purchase'] = 'Thanh toán bài học';
-$lang['lesson_uncategory'] = 'Bài học ngoại khóa';
 $lang['like'] = 'thích';
 $lang['more_options'] = 'Thông tin khác';
 
-$lang['product_tip_management'] = 'Quản lý sản phẩm được tính hoa hồng';
-$lang['lesson_tip_management'] = 'Quản lý bài học được tính hoa hồng';
-$lang['task_list_management'] = 'Quản lý bài kiểm tra';
-$lang['task_list'] = 'Bài kiểm tra';
 $lang['star'] = 'sao';
 $lang['student_rate'] = 'Học viên đánh giá';
 $lang['students'] = 'Học viên';
@@ -24,19 +15,9 @@ $lang['rate_times'] = 'số lượt đánh giá';
 $lang['rating'] = 'Đánh giá';
 $lang['return_to_product'] = 'Quay lại sản phẩm';
 $lang['take_this_product'] = 'Mua sản phẩm';
-$lang['take_this_lesson'] = 'Mua bài học';
 $lang['order_confirm'] = 'Xác nhận đơn hàng';
 $lang['view_this_product'] = 'Tham gia';
 $lang['you_have_no_products'] = 'Bạn chưa có sản phẩm nào';
-$lang['you_have_no_lessons'] = 'Bạn chưa có bài học nào';
-
-
-$lang['lesson'] = 'Bài giảng';
-$lang['passed'] = 'Đã qua';
-$lang['not_passed'] = 'Không đạt yêu cầu';
-$lang['start_examination'] = 'Bắt đầu làm bài';
-$lang['submit_examination'] = 'Nộp bài';
-
 
 
 $lang['price_free'] = 'Miễn phí';
@@ -55,9 +36,10 @@ $lang['auction_intro'] = 'Tự giới thiệu về bản thân và chiến lư�
 
 
 
-$lang['count_view'] = 'người đã xem';
-$lang['count_buy'] = 'người đã tham gia';
-$lang['count_commnet'] = 'Lượt bình luận';
+$lang['count_view'] = 'Views';
+$lang['count_buy'] = 'Buy';
+$lang['count_comment'] = 'Comment';
+$lang['count_point'] = 'Points';
 
 
 //==  Filter
@@ -156,14 +138,6 @@ $lang['no_result_test']		= 'Chưa có bài kiểm tra';
 $lang['result_of_finished_test']= 'Kết quả các bài kiểm tra đã làm';
 //=== Action
 
-// share product
-/*$lang['notice_product_share_note_1']          = 'Vui lòng chia sẻ sản phẩm.';
-$lang['notice_product_share_note_2']          = 'sau đó click vào nút xác nhận để xem sản phẩm.';
-$lang['notice_product_share_confirm']          = 'Xác nhận đã chia sẻ sản phẩm';
-$lang['notice_product_share_request']          = 'Bạn cần %s hoặc %s để xem full sản phẩm';
-$lang['notice_product_share_success']          = 'Cảm ơn bạn đã chia sẻ sản phẩm, chúc xem sản phẩm vui vẻ.';
-$lang['notice_product_share_error']            = 'Facebook báo bạn chưa chia sẻ link sản phẩm này.';*/
-
 // buyproducte
 $lang['action_buy']		= 'Mua sản phẩm này';
 $lang['action_vip']		= 'Đăng ký VIP';
@@ -222,118 +196,6 @@ $lang['button_subscribe']							= 'Đăng ký theo dõi';
 $lang['notice_product_subscribe_success']			    = 'Cám ơn bạn, hệ thống sẽ gửi email cho bạn khi sản phẩm được cập nhật.';
 $lang['notice_product_subscribe_del_succcess']		= 'Xóa theo dõi sản phẩm thành công.';
 
-
-
-//== CART
-$lang ['cart'] = "Giỏ hàng";
-$lang ['image'] = "Hình ảnh";
-$lang ['name'] = "Tên sản phẩm";
-$lang ['quantity'] = "Số lượng";
-$lang ['price'] = "Đơn giá";
-$lang ['total'] = "Thành tiền";
-$lang ['continue'] = "Tiếp tục mua hàng";
-$lang ['checkout'] = "Thanh toán";
-
-$lang ['tax_total'] = "Thuế";
-$lang ['sub_total'] = "Thành tiền";
-$lang ['total_total'] = "Tổng tiền";
-
-$lang['empty'] = "Bạn không có sản phẩm nào trong giỏ hàng";
-
-$lang['cart_mini_empty'] = "Giỏ hàng trống";
-//$lang['cart_mini_total'] = "%s sản phẩm - %s";
-$lang['cart_mini_total'] = "Giỏ hàng:%s sp";
-$lang['cart_mini_total_product'] = "Giỏ hàng:%s sp";
-
-
-//== CHECKOUT
-
-$lang['address'] = "Địa chỉ giao hàng";
-$lang['title_checkout_page']					= 'Đặt hàng';
-$lang['wrong_id']								= 'Lỗi xảy ra';
-$lang['not_found']								= 'Không tìm thấy sản phẩm';
-$lang['existed_item']							= 'Sản phẩm đã có trong giỏ hàng';
-$lang['update_successfully']					= 'Cập nhật thành công';
-$lang['insert_successfully']					= 'Đã thêm vào giỏ hàng';
-$lang['cart_is_empty']							= 'Không có sản phẩm nào trong giỏ hàng!';
-$lang['contact']								= 'Liên hệ';
-$lang['delete_successfully']					= 'Đã xóa khỏi giỏ hàng';
-$lang['product_not_found_in_cart']				= 'Không có sản phẩm này trong giỏ hàng!';
-$lang["title_confirm_checkout_page"] = "Xác nhận đơn hàng";
-
-
-$lang['image']									= 'Ảnh';
-$lang['ord']									= 'Thứ tự';
-$lang['price_total']							= 'Thành tiền';
-$lang['quan']									= 'SL';
-$lang['title_cart_page']						= 'Giỏ hàng';
-$lang['subtotal']								= 'Tổng tiền';
-$lang['tax']									= 'Thuế';
-$lang['tax_total']								= 'Tổng thuế';
-
-$lang['billing_information']					= 'Thông tin thanh toán';
-$lang['product_name']							= 'Sản phẩm';
-$lang['name']									= 'Họ & tên';
-$lang['voucher']									= 'Mã Voucher';
-$lang['city']									= 'Thành phố';
-
-$lang['shipping_name']							= 'Tên người thanh toán';
-$lang['shipping_email']							= 'Email người thanh toán ';
-$lang['shipping_phone']							= 'Điện thoại người thanh toán ';
-$lang['shipping_address']						= 'Địa chỉ người thanh toán ';
-$lang['shipping_city']							= 'Thành phố';
-$lang['shipping_note']	                                = 'Lưu ý thu tiền';
-$lang['country']								= 'Quốc gia';
-$lang['shipping_country']						= 'Quốc gia';
-$lang['ship_to_other_address']					= 'Chuyển phát đến địa chỉ khác';
-
-$lang['payment_method']							= 'Hình thức thanh toán';
-$lang['shipping_method']						= 'Phương thức vận chuyển';
-
-$lang['pickup_at_store']						= 'Nhận hàng & thanh toán tại công ty';
-$lang['shipping_home']							= 'Giao hàng và thu tiền tại nhà';
-$lang['banking']								= 'Chuyển khoản qua tài khoản ngân hàng';
-$lang['payment']								= 'Cổng thanh toán';
-$lang['shipping_support_zone']					= 'Những gói chuyển phát được hỗ trợ:';
-$lang['city_not_set']							= 'Chưa chọn tỉnh thành.';
-$lang['shipping_not_support_zone']				= 'Khu vực của bạn không hỗ trợ chuyển phát.';
-$lang['shipping_note']									= 'Ghi chú';
-$lang['send_order']								= 'Gửi đơn hàng';
-$lang['cart_content']							= 'Thông tin mua hàng';
-$lang['free_shipping']							= 'Miễn phí vận chuyển';
-$lang['no_shipping']							= 'Bỏ qua';
-$lang['shipping_fee']							= 'Phí vận chuyển';
-$lang['updating']								= 'Đang cập nhật...';
-
-$lang['field_cannot_be_empty']					= 'Không được phép để trống';
-$lang['order_successfully']						= 'Đặt hàng thành công.';
-$lang['cart_destroy_successfully']				= 'Xóa giỏ hàng thành công.';
-$lang['no_product']								= 'Chưa có sản phẩm';
-
-$lang['company_name']							= 'Tên công ty';
-$lang['company_tax_code']							= 'Mã số thuế';
-$lang['company_address']						= 'Địa chỉ công ty';
-
-
-
-
-$lang['deliver_pay_fee']                        = 'Phí người chuyển trả';
-$lang['bank_support']                           = 'Các ngân hàng chúng tôi hỗ trợ';
-$lang['transfer_to_bank']	                    = 'Chuyển tới ngân hàng';
-
-$lang['order']	                                    = 'Đơn hàng';
-$lang['voucher_discount']                           = 'Voucher giảm giá';
-$lang['import_voucher_discount_code_if_have']       = 'Nhập mã voucher giảm giá (nếu có)';
-$lang['import_voucher_discount_code_if_you_have']   = 'Nếu bạn có mã Voucher giảm giá thì nhập vào đây để nhận ưu đãi';
-$lang['apply_voucher']                              = 'Áp dụng Voucher';
-$lang['congratulate']                               = 'Chúc mừng';
-$lang['book_successful_order']                      = 'Đã đặt hàng thành công đơn hàng';
-
-$lang['notice_balance_not_enough'] = 'Số dư không đủ để thực hiện giao dịch, vui lòng nạp tiền vào tài khoản.';
-$lang['notice_voucher_invalid']									= 'Mã Voucher không hợp lệ';
-$lang['notice_phone_invalid']									= 'Số điện thoại không hợp lệ';
-
-$lang['notice_voucher_success'] = 'Nạp mã thành công, Cảm ơn bạn đă sử dụng dịch vụ của chúng tôi';
 
 
 //== notice

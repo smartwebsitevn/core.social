@@ -1,4 +1,4 @@
-<?php if (isset($info->_author) && $info->_author): ?>
+<?php pr($info); if (isset($info->_author) && $info->_author): ?>
     <?php
     //pr($info->_author);
     $_data_author = function ($author) {

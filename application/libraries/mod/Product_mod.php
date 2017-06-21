@@ -38,7 +38,7 @@ class Product_mod extends MY_Mod
     function add_info($row, $full_data = false)
     {
         $row = parent::add_info($row);
-        //$row = $this->add_info_author($row);
+        $row = $this->add_info_author($row);
         $row = $this->add_info_manufacture($row);
         $row = $this->add_info_category($row);
         $row = $this->add_info_country($row);
@@ -392,7 +392,7 @@ class Product_mod extends MY_Mod
         } else {
             // neu bat chuc nang set tu dong
             $it = null;
-            if (mod("product")->setting('author_auto_default')) {
+            //if (mod("product")->setting('author_auto_default')) {
                 $it = mod('user')->get_info(user_get_id_root());//, 'id,name,phone,avatar,profession,desc');
 
                 if ($it) {
@@ -401,7 +401,7 @@ class Product_mod extends MY_Mod
                     $list[] = $it;
                 }
 
-            }
+           // }
         }
         $row->{"_author"} = $list;
         $row->{"_author_name"} = $it ? implode(', ', $names) : '';
@@ -1299,6 +1299,9 @@ class Product_mod extends MY_Mod
         }
     }
 
+
+
+    /*============*/
     function guest_owner_get($type)
     {
         $list = [];

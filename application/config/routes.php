@@ -131,6 +131,6 @@ $_upload = $_config->item('upload', 'main');
 $route[$_upload['folder'].'/(:any)'] 	= 'run_file_upload';
 
 
-$route['default_controller'] = 'home';
+$route['default_controller'] = 'home';//'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -1,40 +1,32 @@
-<div class="views-row col-xs-12 col-sm-4 col-lg-4">
-    <div class="box-wrap">
-        <div class="images">
-            <a href="<?php echo $row->_url_view; ?>" title="<?php echo $row->name; ?>"><img src="<?php echo thumb_img($row->image)//$row->image->url_thumb; ?>" /></a>
-        </div>
-        <div class="info">
-            <div class="title">
-                <a href="<?php echo $row->_url_view; ?>" title="<?php echo $row->name; ?>"><?php echo $row->name; ?></a>
-            </div>
-            <div class="name-gv" title="<?php echo lang("author") ?>"><i class="fa fa-mortar-board"></i> <?php echo $row->_author_name ?></div>
-            <div class="views" title="<?php echo lang("count_view") ?>"><?php echo number_format($row->count_view) ?></div>
-            <div class="comment" title="<?php echo lang("count_comment") ?>"><?php echo number_format($row->comment_count) ?></div>
-        </div>
+<div class="item-infos">
+    <div class="clearfix">
+        <a href="<?php echo $row->_url_view ?>" target="_blank" class="item-title" data-toggle="tooltip" class=""
+           title="Xem chi tiết"><?php echo $row->_content->title ?>
+            <?php if (isset($row->_profile_applyed) && $row->_profile_applyed): ?>
+                <span class="label label-info">Đã ứng tuyển</span>
+            <?php endif; ?>
+            <?php if($row->attach_id): ?>
+                <span class="file-dinh"></span>
+            <?php endif; ?>
+        </a>
+        <?php if ($user && $user_mode == mod('user')->config('user_type_cancidate')): ?>
+            <?php $caculate_relevance = mod('cancidate')->caculate_relevance($user->id, $row) ?>
+            <span data-toggle="tooltip" class="item-phu-hop"
+                  title="Phù hợp với hồ sơ của bạn <?php echo $caculate_relevance ?>%"><?php echo $caculate_relevance ?>
+                %</span>
+        <?php endif; ?>
+
+    </div>
+
+
+    <div class="item-metas">
+        <span data-toggle="tooltip" class="dia-chi-job"
+              title=""><?php echo $row->_citys_name . ', ' . $row->_countrys_name ?> </span>|&nbsp;&nbsp;
+        <span data-toggle="tooltip" class="price-job" title="">
+           	<?php view('tpl::_widget/recruit/info/info_salary',array('row'=>$row)) ?> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <span data-toggle="tooltip" class="kinh-nghiem-job" title=""><?php echo $row->experience_from ?>
+            -<?php echo $row->experience_to ?> <?php echo lang("year_kn") ?></span> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <span data-toggle="tooltip" class="thoi-gian-job"
+              title="Full time"><?php echo $row->_cat_j_type_id->name ?></span>
     </div>
 </div>
-<?php /* ?>
-<div class="film-item">
-    <div class="film-item-info">
-        <div class="film-item-photo">
-            <a class="film-item-image showTip movie-data-tooltip-<?php echo $row->id;?>" href="<?php echo $row->_url_view; ?>">
-                <img  src="<?php //echo $row->image->url_thumb; ?>">
-            </a>
-            <?php //view('tpl::_widget/lesson/display/item/label',array('movie'=>$row)); ?>
-        </div>
-        <a href="<?php echo $row->_url_view; ?>" class="film-item-name"
-           title="<?php echo $row->name; ?>"><?php echo $row->name; ?></a>
-        <?php
-        $views = $row->view_total;
-        $views =  number_format($views);
-        ?>
-        <span class="film-item-review">Lượt xem: <?php echo $views; ?> </span>
-        <?php ?>
-    </div>
-    <?php //view('tpl::_widget/lesson/display/item/info_tooltip',array('movie'=>$row)); ?>
-
-</div>
-<?php //view('tpl::_widget/movie/display/item/info_inline',array('movie'=>$row)); ?>
-
-<?php */ ?>
-

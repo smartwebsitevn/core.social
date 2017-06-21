@@ -22,7 +22,7 @@ class Product extends MY_Controller
         }
         return $this->_remap_action($method, $params, array(
             'demo',
-            'report', 'raty',
+            'report', 'raty', 'vote',
             'favorite', 'favorite_del',
             'subscribe_del', 'subscribe', 'subscribe_adv',));
     }
@@ -53,9 +53,9 @@ class Product extends MY_Controller
         $id = $this->uri->rsegment(3);
         if (!is_numeric($id) && is_slug($id)) {
             // neu la seo url
-            $info = $this->_model()->filter_get_info(array('seo_url' => $id,'show'=>1));
+            $info = $this->_model()->filter_get_info(array('seo_url' => $id, 'show' => 1));
         } else {
-            $info = $this->_model()->filter_get_info(array('id' => $id,'show'=>1));
+            $info = $this->_model()->filter_get_info(array('id' => $id, 'show' => 1));
 
         }
         if (!$info) {
@@ -75,7 +75,7 @@ class Product extends MY_Controller
         $filter = [];// $this->_mod()->sess_data_get('product_filter');// phuc vu loc du lieu
         $filter_pre = $filter;
         $filter_pre['id_lt'] = $info->id;
-        $filter_pre['show'] =true;
+        $filter_pre['show'] = true;
 
         $input['limit'] = array(0, 1);
         //$input['order'] = array('id', 'desc');
@@ -83,7 +83,7 @@ class Product extends MY_Controller
         if ($info_pre) $info_pre = $this->_mod()->add_info($info_pre[0]);
         // next
         $filter_next = $filter;
-        $filter_next['show'] =true;
+        $filter_next['show'] = true;
         $filter_next['id_gt'] = $info->id;
         $info_next = $this->_model()->filter_get_list($filter_next, $input);
         if ($info_next)
@@ -92,7 +92,7 @@ class Product extends MY_Controller
         $this->data['info_next'] = $info_next;
 
         //== Them thong tin
-        $info = $this->_mod()->add_info($info,true);
+        $info = $this->_mod()->add_info($info, true);
 
         // Lựa chọn sản phẩm
         $info->_option = model('product_to_option')->get_list_rule(array('product_id' => $info->id));
@@ -404,7 +404,7 @@ class Product extends MY_Controller
 
     protected function _action($action)
     {
-        $dont_check_login = array('demo','report', 'favorite', 'favorite_del');
+        $dont_check_login = array('demo', 'report', 'favorite', 'favorite_del',/*'vote',*/);
         if (!in_array($action, $dont_check_login)) {
 
             if (!user_is_login()) {
@@ -440,17 +440,60 @@ class Product extends MY_Controller
         $this->{'_' . $action}();
     }
 
+
     /* Demo
      * */
     function _demo()
     {
-        $info=$this->data['info'] ;
-        if(!$info->link_demo) redirect();
+        $info = $this->data['info'];
+        if (!$info->link_demo) redirect();
 
-        $this->data['info'] = $this->_mod()->add_info($info,true);
+        $this->data['info'] = $this->_mod()->add_info($info, true);
         $this->_display();
 
     }
+
+    /**
+     * Yeu thich
+     */
+    function _vote()
+    {
+        $act = $this->input->get('act');
+        if (!in_array($act, ['like', 'dislike']))
+            $this->_response();
+
+        $id = $this->data['info']->id;
+        if ($this->data['user']) {
+            //kiem tra da luu hay chua
+            $data = array();
+            $data ['table_name'] = 'product';
+            $data ['table_id'] = $this->data['info']->id;
+            $data ['user_id'] = $this->data['user']->id;
+            $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $id, 'user_id' => $this->data['user']->id));
+            if ($voted) {
+                $data ['updated'] = now();
+                $data [$act] =$voted->{$act}?0:1;
+                if($act == 'like'){
+                    $data ['dislike'] =0;
+                }
+                else{
+                    $data ['like'] =0;
+                }
+
+                model('social_vote')->update($voted->id,$data);
+            } else {
+                //them vao table product_favorite
+                $data ['created'] = now();
+                $data [$act] = 1;
+                model('social_vote')->create($data);
+            }
+        } else {
+            mod('product')->guest_owner_add($id, "voted");;
+        }
+
+        $this->_response(array('msg_toast' => lang('notice_product_favorited')));
+    }
+
     /**
      * Yeu thich
      */

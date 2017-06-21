@@ -1,5 +1,5 @@
 <?php //pr($list);
-if (isset($list) && $list): ?>
+if (isset($list) && $list):  ?>
     <ul class=" channel-products-list one-line ">
 
         <?php foreach ($list as $row): //pr($row);
