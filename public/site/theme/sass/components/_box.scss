@@ -6,8 +6,8 @@
 
 /* Box */
 
-	.box {
-		border: solid 1px _palette(border);
+	.box-main {
+		border: solid 2px _palette(border);
 		margin-bottom: _size(element-margin);
 		padding: 1.5em;
 
@@ -23,3 +23,20 @@
 			padding: 0;
 		}
 	}
+	.box-sub {
+	   border: solid 1px _palette(border);
+	   margin-bottom: _size(element-margin);
+	   padding: 1.5em;
+
+	   > :last-child,
+	   > :last-child > :last-child,
+	   > :last-child > :last-child > :last-child {
+		 margin-bottom: 0;
+	   }
+
+	   &.alt {
+		 border: 0;
+		 border-radius: 0;
+		 padding: 0;
+	   }
+	 }

@@ -14,7 +14,7 @@ class MY_Router extends CI_Router
 	public function _parse_routes_()
 	{
 		// Xu ly routes seo
-		$this->_set_routes_seo();
+		//$this->_set_routes_seo();
 		
 		// Xu ly routes mobile
 		$this->_set_routes_mobile();
@@ -74,7 +74,7 @@ class MY_Router extends CI_Router
 		{
 			return;
 		}
-		
+
 		// Gan bien luu trang hien tai la mobile
 		$this->uri->mobile = TRUE;
 		

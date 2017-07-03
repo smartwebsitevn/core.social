@@ -82,42 +82,42 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
 
 .btn-default {
   color: #ffffff;
-  background-color: #f7941e;
-  border-color: #f7941e;
+  background-color: _palette(button-1);
+  border-color: _palette(button-1);
   &:hover {
     color: #ffffff;
-    background-color: #ffab4b;
-    border-color: #ffab4b;
+    background-color: _palette(button-2);
+    border-color: _palette(button-2);
   }
   &:focus {
     color: #ffffff;
-    background-color: #eb8305;
-    border-color: #eb8305;
+    background-color: _palette(button-3);
+    border-color: _palette(button-3);
   }
   &.focus, &:active, &.active {
     color: #ffffff;
-    background-color: #ffab4b;
-    border-color: #ffab4b;
+    background-color: _palette(button-2);
+    border-color: _palette(button-2);
   }
   &:active:focus{
     color: #ffffff;
-    background-color: #ffab4b;
-    border-color: #ffab4b;
+    background-color: _palette(button-2);
+    border-color: _palette(button-2);
   }
 }
 .btn-default:active:hover,
 .btn-default.active:hover,
 .open > .dropdown-toggle.btn-default:hover,
 .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default.focus:active, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
-  background-color: #ffab4b;
-  border-color: #ffab4b;
+  background-color: _palette(button-2);
+  border-color: _palette(button-2);
   color: #ffffff;
 }
 
 .open .btn-default.dropdown-toggle {
   color: #ffffff;
-  background-color: #ffab4b;
-  border-color: #ffab4b;
+  background-color: _palette(button-2);
+  border-color: _palette(button-2);
 }
 
 
@@ -127,46 +127,46 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
 
 
 .btn-default .badge {
-  color: #f7941e;
+  color: _palette(button-1);
   background-color: #ffffff;
 }
 
 .btn-outline {
-  color: #f7941e;
+  color: _palette(button-1);
   background-color: transparent;
   border-color: #e0e0e0;
   &:hover {
-    color: #eb8305;
+    color: _palette(button-3);
     background-color: transparent;
     border-color: #ccc;
   }
   &:focus {
-    color: #ffab4b;
+    color: _palette(button-2);
     background-color: transparent;
     border-color: #ccc;
   }
   &.focus, &:active, &.active {
-    color: #eb8305;
+    color: _palette(button-3);
     background-color: transparent;
     border-color: #ccc;
   }
   &:active:focus{
     color: #ffffff;
-    background-color: #ffab4b;
+    background-color: _palette(button-2);
     border-color: #ccc;
   }
 }
 
 .open .btn-outline.dropdown-toggle {
-  color: #eb8305;
+  color: _palette(button-3);
   background-color: transparent;
-  border-color: #eb8305;
+  border-color: _palette(button-3);
 }
 
 .btn-outline {
   .badge {
     color: transparent;
-    background-color: #f7941e;
+    background-color: _palette(button-1);
   }
   &:focus {
     border-style: dotted;
@@ -174,33 +174,33 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
 }
 
 .btn-inline {
-  color: #f7941e;
+  color: _palette(button-1);
   background-color: transparent;
   border-color: transparent;
   &:hover {
-    color: #ffab4b;
+    color: _palette(button-2);
     background-color: transparent;
     border-color: transparent;
   }
   &:focus {
-    color: #eb8305;
+    color: _palette(button-3);
     background-color: transparent;
     border-color: transparent;
   }
   &.focus, &:active, &.active {
-    color: #ffab4b;
+    color: _palette(button-2);
     background-color: transparent;
     border-color: transparent;
   }
   &:active:focus{
-    color: #ffab4b;
+    color: _palette(button-2);
     background-color: transparent;
     border-color: transparent;
   }
 }
 
 .open .btn-inline.dropdown-toggle {
-  color: #ffab4b;
+  color: _palette(button-2);
   background-color: transparent;
   border-color: transparent;
 }
@@ -217,7 +217,7 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
 
 .btn-inline .badge {
   color: transparent;
-  background-color: #f7941e;
+  background-color: _palette(button-1);
 }
 
 .btn-default2 {
@@ -253,33 +253,33 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
 }
 
 .btn-link {
-  color: #f7941e;
+  color: _palette(button-1);
   background-color: transparent;
   border-color: transparent;
   &:hover {
-    color: #ffab4b;
+    color: _palette(button-2);
     background-color: transparent;
     border-color: transparent;
   }
   &:focus {
-    color: #eb8305;
+    color: _palette(button-3);
     background-color: transparent;
     border-color: transparent;
   }
   &.focus, &:active, &.active {
-    color: #ffab4b;
+    color: _palette(button-2);
     background-color: transparent;
     border-color: transparent;
   }
   &:active:focus{
-    color: #ffab4b;
+    color: _palette(button-2);
     background-color: transparent;
     border-color: transparent;
   }
 }
 
 .open .btn-link.dropdown-toggle {
-  color: #ffab4b;
+  color: _palette(button-2);
   background-color: transparent;
   border-color: transparent;
 }
@@ -296,7 +296,7 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
 
 .btn-link .badge {
   color: transparent;
-  background-color: #f7941e;
+  background-color: _palette(button-1);
 }
 
 

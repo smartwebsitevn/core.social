@@ -71,12 +71,12 @@
                 </label>
                 <?php */ ?>
 
-                <?php if ($user->level >= $level_min_alldownline): ?>
+                <?php /*if ($user->level >= $level_min_alldownline): ?>
                     <label for="param_alldownline" style="display:block;width:100%">
                         <input name="alldownline" id="param_alldownline"
                                type="checkbox"/> <?php echo lang('alldownline'); ?>
                     </label>
-                <?php endif; ?>
+                <?php endif; */?>
             </div>
 
             <div class="clear"></div>

@@ -70,8 +70,8 @@
 		<div class="dropdown__menu">
 			<ul class="dropdown__menu-list">
 				<li class="menu__link ">
-					<a href="<?php echo site_url('my-products') ?>" >
-						<span class="menu__title"><i class="fa fa-mortar-board"></i> <?php echo lang('user_panel_product_owner') ?></span>
+					<a href="<?php echo site_url('my-users') ?>" >
+						<span class="menu__title"><i class="fa fa-mortar-board"></i> <?php echo lang('user_panel_user_owner') ?></span>
 					</a>
 				</li>
 				<li class="menu__link--bordered "></li>

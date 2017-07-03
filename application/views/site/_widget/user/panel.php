@@ -25,6 +25,7 @@
                 class="caret"></a>
         <ul class="dropdown-menu">
             <?php /* ?>
+
             <li class="active user">
                 <a href="javascript:void(0)">
 
@@ -33,18 +34,21 @@
                     </b>
                 </a>
             </li>
-             <?php */ ?>
-
+      <?php */ ?>
             <li class=" cai-dat">
                 <a href="<?php echo site_url('user') ?>">
                     <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_user') ?></a>
             </li>
-            <?php if (!mod("product")->setting('turn_off_function_order')): ?>
+            <li class=" cai-dat">
+                <a href="<?php echo site_url('user') ?>">
+                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_user') ?></a>
+            </li>
+            <?php /*if (!mod("user")->setting('turn_off_function_order')): ?>
                 <li class=" dang-ky">
                     <a href="<?php echo site_url('my-favorited') ?>">
-                        <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_product_favorited') ?></a>
+                        <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_user_favorited') ?></a>
                 </li>
-            <?php endif; ?>
+            <?php endif;*/ ?>
             <?php /* ?>
             <li class=" dang-ky">
                 <a href="<?php echo site_url('deposit_card') ?>"><!--<i

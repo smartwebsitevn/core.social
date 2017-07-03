@@ -25,8 +25,8 @@ class Product_mod extends MY_Mod
 
     public function url($row)
     {
-        $row->_url_view = site_url("san-pham/" . $row->seo_url . '-i' . $row->id);
-        $row->_url_demo = site_url("san-pham/demo/" . $row->seo_url . '-d' . $row->id);
+        $row->_url_view = site_url("xem-ban-tin/" . $row->seo_url . '-i' . $row->id);
+        $row->_url_demo = site_url("xem-ban-tin/demo/" . $row->seo_url . '-d' . $row->id);
         //$row->_url_buy = site_url("product_order") . '?id=' . $row->id;
 
         return $row;
@@ -75,11 +75,11 @@ class Product_mod extends MY_Mod
         }
 
         //== Gi� g?c
-        $price_suffix= $row->price_suffix?'/'.$row->price_suffix:'';
+        $price_suffix = $row->price_suffix ? '/' . $row->price_suffix : '';
         if (!$row->price)
             $row->_price = lang('price_free');
         else {
-            $row->_price = currency_format_amount($row->price).$price_suffix;
+            $row->_price = currency_format_amount($row->price) . $price_suffix;
             $row->_price_amount = $row->price;
         }
         //== Gi� khuy?n m�i
@@ -105,8 +105,8 @@ class Product_mod extends MY_Mod
 
             if ($selected) {
                 $price = $row->price - $selected->price;
-                $row->_price = currency_format_amount($price).$price_suffix;
-                $row->_price_old = currency_format_amount($row->price).$price_suffix;
+                $row->_price = currency_format_amount($price) . $price_suffix;
+                $row->_price_old = currency_format_amount($row->price) . $price_suffix;
 
                 $row->_price_special_reduce = currency_format_amount($selected->price);
                 $row->_price_special_percent = round(($selected->price * 100) / $row->price, 2);
@@ -157,8 +157,8 @@ class Product_mod extends MY_Mod
         $row->_additional_amount = 0;
         $row->_option_html = '';
 
-      /*  if (!$row->price)
-            return $row;*/
+        /*  if (!$row->price)
+              return $row;*/
 
         // Chi?t kh?u
         $row->discount = model('product_to_discount')->filter_get_list(array('product_id' => $row->id));
@@ -203,7 +203,7 @@ class Product_mod extends MY_Mod
 		';
 
 
-        if ($row->price){
+        if ($row->price) {
             $row->_price_reduce = currency_format_amount($row->price - $row->_price_amount);
             $row->_price_percent = round(($row->price - $row->_price_amount) / ($row->price / 100));
         }
@@ -378,6 +378,25 @@ class Product_mod extends MY_Mod
 
     public function add_info_author($row)
     {
+
+        if (isset($row->author_id) && $row->author_id) {
+            $it = mod('user')->get_info($row->author_id);//,'id,name,phone,avatar,profession,desc,');
+
+        } else {
+            //if (mod("product")->setting('author_auto_default')) {
+            $it = mod('user')->get_info(user_get_id_root());//, 'id,name,phone,avatar,profession,desc');
+            $row->author_id = $it->id;
+        }
+        if ($it) {
+            $row->{"_author"} = $it;
+            $row->{"_author_name"} = $it->name;
+        }
+
+        return $row;
+    }
+
+    public function add_info_author_($row)
+    {
         $ids = $names = $list = array();
         //pr($row->author_id);
         if ($row->author_id) {
@@ -393,15 +412,15 @@ class Product_mod extends MY_Mod
             // neu bat chuc nang set tu dong
             $it = null;
             //if (mod("product")->setting('author_auto_default')) {
-                $it = mod('user')->get_info(user_get_id_root());//, 'id,name,phone,avatar,profession,desc');
+            $it = mod('user')->get_info(user_get_id_root());//, 'id,name,phone,avatar,profession,desc');
 
-                if ($it) {
-                    $ids[] = $it->id;
-                    $names[] = $it->name;
-                    $list[] = $it;
-                }
+            if ($it) {
+                $ids[] = $it->id;
+                $names[] = $it->name;
+                $list[] = $it;
+            }
 
-           // }
+            // }
         }
         $row->{"_author"} = $list;
         $row->{"_author_name"} = $it ? implode(', ', $names) : '';
@@ -1060,7 +1079,7 @@ class Product_mod extends MY_Mod
         $input['invoice_order_status'] = $invoice_order_status;
         $input['service_key'] = 'ProductOrder';
 
-        $contact = ['name', 'phone','email', 'address', 'tax_code',
+        $contact = ['name', 'phone', 'email', 'address', 'tax_code',
             'country', 'country_name', 'city', 'city_name', 'district', 'district_name',];
 
         $input['info_contact'] = [];
@@ -1298,7 +1317,6 @@ class Product_mod extends MY_Mod
             $this->owner_set($user_id, $id, $options);
         }
     }
-
 
 
     /*============*/

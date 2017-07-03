@@ -52,7 +52,6 @@ function user_add_info($user)
     $avatar_default= public_url('img/user_no_image.png');
     if(!$avatar_name &&  $user->avatar_api)
         $avatar_default=$user->avatar_api;
-
     $user->avatar = file_get_image_from_name($avatar_name,$avatar_default);
     //	<img src="https://graph.facebook.com/<?php echo $member['fb_id']/picture?width=21&height=21&type=normal"
 

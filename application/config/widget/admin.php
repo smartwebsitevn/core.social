@@ -42,7 +42,7 @@ $config = [
             //'tran',
             'voucher',
 
-            // 'deposit_admin',   'withdraw_admin',/* 'order_report'*/
+             'deposit_admin',   'withdraw_admin',/* 'order_report'*/
         ],
 
 
@@ -66,10 +66,10 @@ $config = [
             'ads_banner', 'ads_location',
             '-',
             //'album',  'download',  'video',  'tracking',
-            //'message',
+            'message',
             'contact',
             'email_register',
-            //'comment',
+            'comment',
             //'question_answer',
             'sayus',
 
@@ -81,7 +81,7 @@ $config = [
         //'payment_card' => ['deposit_card', 'deposit_card_log', 'card_type', 'payment_card'],
         //'sms_otp'      => ['sms_otp', 'sms_otp_log'],
         //'sms_gateway'  => ['sms_gateway', 'sms_gateway_log'],
-        'account' => ['admin', 'admin_group', 'user', 'user_group',/* 'user_bank'*/],
+        'account' => ['admin', 'admin_group', 'user', 'user_group','user_notice',/* 'user_bank'*/],
        /* 'lang' => ['lang',
             'lang_phrase',
             'lang_file',],*/

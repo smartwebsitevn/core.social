@@ -413,12 +413,14 @@
 }
 
 
-
 /**
  * Correction margins
  */
 .m0 { margin: 0!important; }
-.m3 { margin: 3px !important; }
+.m1 { margin: 1px!important; }
+.m2 { margin: 3px!important; }
+.m3 { margin: 3px!important; }
+.m4 { margin: 4px !important; }
 .m5 { margin: 5px !important; }
 .m7 { margin: 7px !important; }
 .m10 { margin: 10px !important; }
@@ -478,7 +480,10 @@
  * Correction paddings
  */
 .p0 { padding: 0 !important; }
+.p1 { padding: 1px !important; }
+.p2 { padding: 2px !important; }
 .p3 { padding: 3px !important; }
+.p4 { padding: 4px !important; }
 .p5 { padding: 5px !important; }
 .p7 { padding: 7px !important; }
 .p10 { padding: 10px !important; }

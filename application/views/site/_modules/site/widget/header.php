@@ -64,7 +64,7 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
 
     <?php return ob_get_clean();
 
-}
+};
 ?>
 <div id="header">
     <div class="container">
@@ -86,7 +86,14 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
         <div class="nav-menu navbar-right">
             <span data-action="close-nav" class="close-nav"><span>close</span></span>
             <ul class="nav login  pull-right">
-                <?php if (!mod("product")->setting('turn_off_function_order')): ?>
+                <li class="dropdown">
+                    <a href="<?php echo site_url('product_post') ?>" title="Đăng tin" class="btn btn-default">
+                        Đăng tin
+                    </a>
+                </li>
+                <?php widget("message")->newest() ?>
+                <?php widget("user_notice")->newest() ?>
+                <?php /* if (!mod("product")->setting('turn_off_function_order')): ?>
                     <li id="product-my-favorited" class="dropdown">
                         <?php widget("product")->owner('favorited') ?>
 
@@ -98,8 +105,7 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
                         </li>
                     <?php endif; ?>
 
-                <?php endif; ?>
-
+                <?php endif; */ ?>
                 <?php widget("user")->account_panel() ?>
                 <?php //widget('site')->lang(); ?>
 

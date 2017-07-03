@@ -56,15 +56,30 @@ body, input, select, textarea {
 
 a {
   /*border-bottom: dotted 1px _palette(border-alt);*/
-  color: #f67004;
+  color: _palette(button-1);
   text-decoration: none;
-
+  cursor: pointer;
   &:hover {
-    outline: none;
-    border-bottom-color: transparent;
-    /*  color: _palette(accent) !important;*/
-    color: #f67004;
+    color: _palette(button-2);
+    background-color: transparent;
+    border-color: transparent;
   }
+  &:focus {
+    color: _palette(button-3);
+    background-color: transparent;
+    border-color: transparent;
+  }
+  &.focus, &:active, &.active {
+    color: _palette(button-3);
+    background-color: transparent;
+    border-color: transparent;
+  }
+  &:active:focus {
+    color: _palette(button-3);
+    background-color: transparent;
+    border-color: transparent;
+  }
+
 }
 
 img {

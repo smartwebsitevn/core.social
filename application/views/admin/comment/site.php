@@ -4,7 +4,7 @@ $_row_action =function($row){
 	ob_start()
 	?>
 	<?php //if ($row->_can_view): ?>
-	<a href="<?php echo $row->_url_view ?>" title="<?php echo lang('view'); ?>" data-width="60%"  data-height="80%" class="btn btn-primary btn-xs lightbox  " ><?php echo lang('view'); ?></a>
+	<a href="<?php echo $row->_url_view ?>" title="<?php echo lang('view'); ?>" data-width="60%"  data-height="80%" class="btn btn-info btn-xs lightbox  " ><?php echo lang('view'); ?></a>
 	<?php //endif; ?>
 
 
@@ -17,7 +17,7 @@ $_row_action =function($row){
 		<a href="#0" class="btn btn-warning btn-xs  verify_action mt5" notice="Bạn có chắc muốn hủy xác thực bình luận này?<?php ?>"
 		   _url="<?php echo admin_url('comment/unverify/' . $row->id) ?>">Hủy xác thực</a>
 	<?php else: ?>
-		<a href="#0" class="btn btn-primary btn-xs  verify_action mt5" notice="Bạn có chắc muốn xác thực bình luận này?<?php ?>"
+		<a href="#0" class="btn btn-info btn-xs  verify_action mt5" notice="Bạn có chắc muốn xác thực bình luận này?<?php ?>"
 		   _url="<?php echo admin_url('comment/verify/' . $row->id) ?>">Xác thực</a>
 	<?php endif; ?>
 

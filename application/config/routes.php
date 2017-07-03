@@ -99,10 +99,10 @@ $route['checkout-confirm'] 				= 'checkout/confirm';
 $route['checkout-success'] 				= 'checkout/success';
 
 //== products
-$route['danh-sach-san-pham/(:any)-(:num)']   = 'product_list/category/$2';
-$route['danh-sach-san-pham'] 				= 'product_list';
-$route['san-pham/(:any)-i(:num)'] 	= 'product/view/$2';
-$route['san-pham/demo/(:any)-d(:num)'] 	= 'product/demo/$2';
+$route['ban-tin/(:any)-(:num)']   = 'product_list/category/$2';
+$route['ban-tin'] 				= 'product_list';
+$route['xem-ban-tin/(:any)-i(:num)'] 	= 'product/view/$2';
+$route['xem-ban-tin/demo/(:any)-d(:num)'] 	= 'product/demo/$2';
 
 $route['my-favorited'] 					    = 'product_list/favorited';
 

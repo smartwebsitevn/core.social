@@ -31,6 +31,7 @@ $_layouts = [
     'main' => 'Main',
     'page' => 'Page',
     'user' => 'User',
+    'user_list' => 'User list',
 
     'author' => 'Author',
     'checkout' => 'Checkout',
@@ -50,6 +51,7 @@ $_layouts = [
     'product_info' => 'Product Info',
     'product_user' => 'Product User',
     'product_demo' => 'Product demo',
+    'product_post' => 'Product post',
 
 ];
 $tpl['regions'] = $_regions;
@@ -87,6 +89,7 @@ $tpl['layout_mod']['user']["register"] = 'main';
 $tpl['layout_mod']['user']["forgot"] = 'main';
 $tpl['layout_mod']['user_security']= 'user';
 $tpl['layout_mod']['user_bank']= 'user';
+$tpl['layout_mod']['user_list']['*'] = 'user_list';
 
 
 //affiliate
@@ -100,6 +103,7 @@ $tpl['layout_mod']['product_list']['*'] = 'product_list';
 $tpl['layout_mod']['product_list']['category'] = 'product_list';
 $tpl['layout_mod']['product_list']['tag'] = 'product_list';*/
 $tpl['layout_mod']['product_list']['favorited'] = 'product_user';
+$tpl['layout_mod']['product_post']['*'] = 'product_post';
 
 
 

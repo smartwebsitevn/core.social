@@ -10,7 +10,7 @@
                                  alt="<?php echo $row->name; ?>">
                         </a>
                     </div>
-                    <div class="item-infos">
+                    <div class="item-info">
                         <?php //echo t('view')->load('tpl::_widget/product/display/item/info_label', array('row' => $row)); ?>
                         <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
                                 <?php echo $row->name; ?></a>

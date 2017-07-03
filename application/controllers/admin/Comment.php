@@ -21,7 +21,7 @@ class Comment extends MY_Controller
      */
     public function _remap($method, $params = array())
     {
-        return $this->_remap_action($method, $params, array('view', 'verify', 'unverify', 'del'));
+        return $this->_remap_action($method, $params, array('view','reply',  'verify', 'unverify', 'del'));
     }
 
     /**
@@ -35,6 +35,7 @@ class Comment extends MY_Controller
         $rules['rate_three'] = array('rate', 'trim|xss_clean');
         $rules['rate_four'] = array('rate', 'trim|xss_clean');
         $rules['rate_five'] = array('rate', 'trim|xss_clean');
+        $rules['content'] = array('content', 'required|trim|xss_clean|filter_html|min_length[6]|max_length[255]');
 
         $this->form_validation->set_rules_params($params, $rules);
     }
@@ -106,7 +107,58 @@ class Comment extends MY_Controller
 
         return FALSE;
     }
+    function _reply($info)
+    {
+        // Tai cac file thanh phan
+        $this->load->library('form_validation');
+        $this->load->helper('form');
 
+
+        // Gan dieu kien cho cac bien
+        $params = array(  'content');
+        $this->_set_rules($params);
+        // Xu ly du lieu
+        $result = array();
+        if ($this->form_validation->run()) {
+
+            // Lay content
+            $content = $this->input->post('content',true);
+            $content = strip_tags($content);
+
+            // Them du lieu vao data
+            $data = array();
+            $data['table_id'] = $info->table_id;
+            $data['table_name'] = $info->table_name;
+            $data['content'] = $content;
+            //$data['user_id'] = $user->id;
+            $data['parent_id'] =$info->id;
+            $data['status'] = config('verify_yes', 'main');
+            $data['created'] = now();
+
+                //them so lan nhan xet
+                if ($data['table_name'] == 'course'){
+                    model('lesson_course')->update_stats($data['table_id'],['comment_count'=>1]);
+
+                }
+                elseif ($data['table_name'] == 'lesson')
+                    model('lesson')->update_stats($data['table_id'],['comment_count'=>1]);
+
+
+
+            set_message(lang('notice_update_success'));
+            model("comment")->create($data);
+
+            // Khai bao du lieu tra ve
+            $result['complete'] = TRUE;
+
+        } else {
+            foreach ($params as $param) {
+                $result[$param] = form_error($param);
+            }
+        }
+        //Form Submit
+        $this->_form_submit_output($result);
+    }
     /**
      * Xem chi tiet
      */
@@ -123,8 +175,8 @@ class Comment extends MY_Controller
         $table = trim($info->table_name);
         $info->model = null;
         if ($table != "site") {
-            if ($table == 'product')
-                $table = "product";
+            if ($table == 'course')
+                $table = "lesson_course";
             $info->model = mod($table)->get_info($info->table_id);
         }
 
@@ -155,6 +207,7 @@ class Comment extends MY_Controller
     {
         // Tai cac file thanh phan
         $filter = array();
+        $filter['parent_id'] = 0;
         $filter['table_name_not_site'] = true;
         // Tao danh sach
         $this->_create_list($filter);
@@ -165,6 +218,8 @@ class Comment extends MY_Controller
     {
         $filter = array();
         $filter['table_name'] = "site";
+        $filter['parent_id'] = 0;
+
         // Tao danh sach
         $this->_create_list($filter);
         $this->_display();
@@ -243,10 +298,18 @@ class Comment extends MY_Controller
             $table = trim($it->table_name);
             $it->model = null;
             if ($table != "site") {
+                if ($table == 'course')
+                    $table = "lesson_course";
+                 $it->model = mod($table)->get_info($it->table_id);
 
-                if ($table == 'product')
-                    $table = "product";
-                $it->model = mod($table)->get_info($it->table_id);
+                $filter['parent_id']    = $it->id;
+                $subs = $this->_model()->filter_get_list($filter, $input);
+                foreach ($subs as $sub)
+                {
+                    $sub->user = mod('user')->get_info($sub->user_id);
+                    $sub->_created = get_date($sub->created);
+                }
+                $it->subs = $subs;
             }
             $it->user = mod('user')->get_info($it->user_id);
 
@@ -254,6 +317,7 @@ class Comment extends MY_Controller
                 $it->{'_can_' . $action} = $this->_mod()->can_do($it, $action);
             }
         }
+       // pr($list);
         $this->data['list'] = $list;
 
         // Tao chia trang

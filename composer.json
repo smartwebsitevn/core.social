@@ -1,0 +1,25 @@
+{
+  "name": "core.shop",
+  "description": "core.shop",
+  "keywords": [
+  ],
+  "version": "3.0",
+  "license": "MIT",
+  "type": "project",
+  "repositories": [
+    { "type": "vcs", "url": "git@github.com:smartwebsitevn/core.base.git" }
+
+  ],
+  "require": {
+    "core.base": "1.*",
+    "mnsami/composer-custom-directory-installer": "1.1.*",
+    "monolog/monolog": "*"
+  },
+  "extra": {
+    "installer-paths": {
+      "./": [
+        "core.base"
+      ]
+    }
+  }
+}

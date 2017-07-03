@@ -11,6 +11,7 @@
 <?php echo macro()->page_heading(lang('message_inbox')) ?>
 <?php echo macro()->page_body_start() ?>
 <?php view('tpl::message/_menu',['current'=>'inbox']); ?>
+<?php /* ?>
 <form class="form_action form-filter" action="<?php echo $action; ?>" method="get">
     <div class="form-group pull-left mr10" style="width:100px">
         <span><?php echo lang('order_id'); ?>:</span><br>
@@ -42,6 +43,8 @@
 
     </div>
 </form>
+<?php */ ?>
+
 <table style="margin-top:10px" class="table table-striped table-responsive">
     <thead>
     <tr style="color:#006699">
@@ -80,7 +83,7 @@
             </td>
             <td>
                 <a href="<?php echo site_url('message/view/' . $row->id) ?>" data-toggle="tooltip"
-                   title="<?php echo lang('view') ?>" class="lightbox_">
+                   title="<?php echo lang('view') ?>" >
 
                     <i class="fa fa-eye" aria-hidden="true"></i> <?php echo lang('view') ?>
                 </a>

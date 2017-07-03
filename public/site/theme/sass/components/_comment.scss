@@ -1,0 +1,71 @@
+.comment{
+  margin: 20px 0;
+}
+.comment-list {
+  img {
+    border-radius: 100%;
+  }
+  li {
+    border-bottom: 1px dashed #ccc;
+    line-height: 18px;
+    padding: 15px 0 10px;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  .avatar {
+    float: left;
+    margin-bottom: 12px;
+    margin-right: 12px;
+    width: 48px;
+
+  }
+  .name {
+    font-weight: bold;
+    margin-right: 40px;
+  }
+  .time, .date {
+    color: #d6d6d6;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 6px;
+    vertical-align: top;
+  }
+  .comment-content {
+    /* clear: both;*/
+    display: block;
+    font-size: 13px;
+    line-height: 18px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+  .view {
+    color: #76ac0b;
+    font-size: 13px;
+    line-height: 18px;
+    i {
+      color: #d8d8d8;
+      font-size: 12px;
+    }
+  }
+  .star {
+    display: inline-block;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    vertical-align: top;
+    width: 120px;
+    img {
+      padding-bottom: 5px;
+    }
+  }
+  .comment-action {
+    display: flex;
+    line-height: 32px;
+    margin-bottom: 5px;
+    .do_action {
+      font-size: 32px;
+      cursor: pointer;
+    }
+  }
+
+}

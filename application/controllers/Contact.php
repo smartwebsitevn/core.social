@@ -131,6 +131,7 @@ class Contact extends MY_Controller {
 
 				// Cap nhat vao data
 				$data = array();
+				if($type)
 				$data['type']		= $this->_mod()->config("contact_type_".$type);
 				$data['name']		= strip_tags($this->input->post('name',1));
 				$data['email']		= $this->input->post('email',1);

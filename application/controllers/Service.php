@@ -10,7 +10,7 @@ class Service extends MY_Controller
     }
     function index()
     {
-      redirect(site_url('service_list'));
+        redirect(site_url('service_list'));
         /*$this->data['list']= $this->_model()->filter_get_list(['show'=>1]);
         $this->_display();*/
 

@@ -118,6 +118,7 @@ $lang['mod_admin_group'] = 'Nhóm quản trị';
 $lang['mod_user'] = 'Khách hàng';
 $lang['mod_user_group'] = 'Nhóm khách hàng';
 $lang['mod_user_bank'] = 'Ngân hàng của thành viên';
+$lang['mod_user_notice']	= 'Thông báo khách hàng';
 
 
 //== group_module

@@ -1,5 +1,5 @@
 <div class="portlet">
-	<div class="portlet-heading bg-primary">
+	<div class="portlet-heading dark">
 		<div class="portlet-title">
 			<h4><i class="fa fa-info"></i> <?php echo lang('comment_info'); ?></h4>
 		</div>
@@ -61,8 +61,15 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<span class="label label-info mb20">Bình luận:</span><br>
-					<?php echo nl2br(htmlentities($info->content)); ?>
+					<form action="<?php echo admin_url('comment/reply/'.$info->id); ?>" class="form" id="form" method="post">
+					<b class=" mb20">Nội dung bình luận:</b><br>
+					<?php echo nl2br(htmlentities($info->content)); ?><br>
+
+						<textarea style='width:100%; margin-bottom:10px ' name="content" placeholder="Nhập phản hồi của bạn"></textarea>
+						<span name="content_autocheck" class="autocheck"></span>
+						<div name="content_error" class="clear error"></div>
+						<input type="submit" value="Trả lời" class="btn btn-info btn-sm" />
+						</form>
 				</td>
 			</tr>
 			<tr>
@@ -71,7 +78,7 @@
 						<a href="#0" class="btn btn-warning  verify_action mt5" notice="Bạn có chắc muốn hủy xác thực bình luận này?<?php ?>"
 						   _url="<?php echo admin_url('comment/unverify/' . $info->id) ?>">Hủy xác thực</a>
 					<?php else: ?>
-						<a href="#0" class="btn btn-primary   verify_action mt5" notice="Bạn có chắc muốn xác thực bình luận này?<?php ?>"
+						<a href="#0" class="btn btn-info   verify_action mt5" notice="Bạn có chắc muốn xác thực bình luận này?<?php ?>"
 						   _url="<?php echo admin_url('comment/verify/' . $info->id) ?>">Xác thực</a>
 					<?php endif; ?>
 						<a href="#0" class="btn btn-danger   verify_action mt5" _url="<?php echo admin_url('comment/del/' . $info->id) ?>"    notice="<?php echo lang('notice_confirm_del'); ?>"
@@ -85,6 +92,16 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
+		// Form handle
+		$('#form, .form_action').each(function()
+		{
+			$(this).nstUI({
+				method:	'formAction',
+				formAction:	{
+					field_load: $(this).attr('_field_load')
+				}
+			});
+		});
 		$('.verify_action').nstUI('verifyAction');
 	});
 </script>

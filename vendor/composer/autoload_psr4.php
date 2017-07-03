@@ -12,4 +12,5 @@ return array(
     'App\\' => array($baseDir . '/application/app'),
     'Facebook\\' => array($vendorDir . '/Facebook'),
     //'Server\\' => array($baseDir . '/application/libraries/server'),
+    'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
 );

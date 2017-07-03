@@ -80,6 +80,7 @@ $_permissions_content = [
     'admin', 'admin_group',
     'user', 'user_group',
     //'user_bank',
+    'user_notice',
     //==system
     'server',
     'payment',

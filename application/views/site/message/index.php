@@ -6,6 +6,7 @@
 <?php echo macro()->page_heading(lang('message_sended')) ?>
 <?php echo macro()->page_body_start() ?>
 <?php view('tpl::message/_menu', ['current' => 'sended']); ?>
+<?php /* ?>
 
 <form class="form_action" action="<?php echo $action; ?>" method="get">
     <div class="form-group pull-left mr10" style="width:100px">
@@ -39,6 +40,8 @@
 
     </div>
 </form>
+<?php */ ?>
+
 <table style="margin-top:10px" class="table table-striped table-responsive">
     <thead>
     <tr style="color:#006699">
@@ -83,7 +86,7 @@
                 <?php echo $row->_created_time; ?>
             </td>
             <td>
-                <a href="<?php echo site_url('message/view_send/' . $row->id) ?>" class="lightbox_">
+                <a href="<?php echo site_url('message/view_send/' . $row->id) ?>" >
                     <i class="fa fa-eye" aria-hidden="true"></i> <?php echo lang('view') ?>
                 </a>
 

@@ -8,7 +8,6 @@
 <div class="wrapper">
     <?php echo $header; ?>
     <?php echo $slide_home ?>
-
     <!-- MAIN -->
     <div class="site-main">
         <?php echo $content_top; ?>

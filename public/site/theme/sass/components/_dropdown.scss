@@ -1,18 +1,86 @@
-
 /*==================
   .dropdown-menu
 ===================*/
 
 /*dropdown*/
+.dropdown {
+
+  .heading {
+    padding: 15px;
+    display: block;
+    background-color: #F9F9F9;
+    .title {
+      text-transform: uppercase;
+    }
+    .check-count {
+      text-transform: capitalize;
+      color: red;
+    }
+  }
+  .count {
+    background-color: #f7941e;
+    display: block;
+    padding: 0 5px;
+    line-height: 14px;
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    color: #fff !important;
+    font-size: 11px;
+    min-width: 21px;
+    text-align: center;
+  }
+}
 
 .dropdown-menu {
-  > {
-    li > a {
-      color: #494949;
-      &:hover, &:focus {
-        background-color: transparent;
-        color: #f7941e;
-      }
+  padding: 0;
+  background-color: #fff;
+  width: 270px;
+  border: 2px solid #e0e0e0;
+  border-radius: 0;
+  li {
+    &:hover > a {
+      border-color: #eb8305;
+      color: #eb8305;
+      border-width: 2px;
+      z-index: 9;
+      padding: 8px 20px;
+    }
+    &:first-child > a {
+      margin-top: -2px;
+    }
+  }
+  .sub-menu {
+    &.right {
+      position: absolute;
+      top: -2px;
+      left: 326px;
+      background-color: #fff;
+      width: 330px;
+      border: 2px solid #e0e0e0;
+      min-height: 100%;
+      min-height: calc(100% + 4px);
+      min-height: -moz-calc(100% + 4px);
+      min-height: -webkit-calc(100% + 4px);
+      min-height: -o-calc(100% + 4px);
+    }
+    &.left {
+      position: absolute;
+      top: 2px;
+      right: 326px;
+      width: 330px;
+      min-height: 100%;
+      background-color: #fff;
+      border: 2px solid #e0e0e0;
+    }
+  }
+  li > a {
+    white-space: normal;
+
+    color: #494949;
+    &:hover, &:focus {
+      background-color: transparent;
+      color: #f7941e;
     }
     .active > a {
       background-color: transparent;
@@ -29,6 +97,109 @@
   }
 }
 
+.dropdown-menu {
+  &:after, &:before {
+    bottom: 100%;
+    left: 20px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: 20;
+  }
+  &:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #fff;
+    border-width: 12px;
+    margin-left: -12px;
+  }
+  &:before {
+    border-color: rgba(204, 204, 204, 0);
+    border-bottom-color: #e0e0e0;
+    border-width: 15px;
+    margin-left: -15px;
+  }
+  li {
+    position: static;
+    margin: 0;
+    > a {
+      padding: 9px 20px;
+      border-width: 1px 2px;
+      border-style: solid;
+      border-color: #e0e0e0 transparent;
+      position: relative;
+      margin: 0 -2px -1px;
+      text-transform: capitalize;
+      display: block;
+      line-height: 22px;
+    }
+  }
+}
+
+.dropdown-menu > li {
+  &:last-child a {
+    margin-bottom: -2px;
+  }
+  &.has-children {
+    > a {
+      background-repeat: no-repeat;
+      background-position: top 28px right 15px;
+      background-image: url(../img/icon/down.png);
+      font-weight: 600;
+      padding: 18px 20px;
+    }
+    &:hover {
+      > a {
+        padding: 18px 20px 18px 18px;
+        border-width: 1px 2px 1px 4px;
+        border-color: #e0e0e0 #e0e0e0 #e0e0e0 #eb8305;
+        background-image: url(../img/icon/top.png);
+        color: #f7941e;
+      }
+      > .sub-menu {
+        display: block;
+      }
+    }
+    > .sub-menu {
+      margin-top: 1px;
+      display: none;
+      .sub-menu {
+        position: absolute;
+        top: -2px;
+        left: 100%;
+        background-color: #fff;
+        width: 100%;
+        border: 2px solid #e0e0e0;
+        display: none;
+        min-height: 100%;
+        min-height: calc(100% + 4px);
+        min-height: -moz-calc(100% + 4px);
+        min-height: -webkit-calc(100% + 4px);
+        min-height: -o-calc(100% + 4px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+      }
+      a.all {
+        padding: 18px 20px;
+        font-weight: 600;
+        &:hover {
+          padding: 17px 20px;
+        }
+      }
+      .has-children:hover .sub-menu {
+        display: block;
+      }
+    }
+  }
+}
+
+/* Fix khong click dc tren mobile*/
+.dropdown-backdrop {
+  z-index: 0;
+}
+
+/*=======Dropdown Style==========*/
 .drop-dropdown {
   position: relative;
   display: inline-block;
@@ -203,6 +374,30 @@
           }
         }
       }
+    }
+  }
+  .sub-menu {
+    &.right {
+      position: absolute;
+      top: -2px;
+      left: 326px;
+      background-color: #fff;
+      width: 330px;
+      border: 2px solid #ccc;;
+      min-height: 100%;
+      min-height: calc(~ "100% + " 4px);
+      min-height: -moz-calc(~ "100% + " 4px);
+      min-height: -webkit-calc(~ "100% + " 4px);
+      min-height: -o-calc(~ "100% + " 4px);
+    }
+    &.left {
+      position: absolute;
+      top: 2px;
+      right: 326px;
+      width: 330px;
+      min-height: 100%;
+      background-color: #fff;
+      border: 2px solid #ccc;
     }
   }
 }
@@ -455,3 +650,146 @@
     color: #fff;
   }
 }
+
+/*=======dropdown link tai khoan==========*/
+.dropdown-notice,.dropdown-message {
+  margin-top: 5px;
+  li {
+    a {
+      text-transform: none !important;
+      text-decoration: none;
+    }
+    .title {
+      font-size: 13px;
+    }
+    .created {
+      font-size: 11px;
+      color: #90949c;
+    }
+
+    .avatar {
+      float: left;
+    }
+    .infos {
+      display: block;
+      overflow: hidden;
+      padding-left: 7px;
+      .created {
+        color: #90949c;
+        display: block;
+        font-size: 12px;
+        padding-top: 2px;
+        position: absolute;
+        right: 14px;
+        top: 20%;
+      }
+    }
+
+
+  }
+
+  .dropdown-menu {
+    width: 376px;
+  }
+}
+
+
+
+.dropdown-user {
+  .dropdown-menu {
+    width: 376px;
+    .slideThree-uv {
+      font-size: 13px;
+      height: 70px;
+    }
+    .user > a, .cai-dat > a, .dang-ky > a, .log-out > a {
+      background-image: url(../img/icon/ung-vien-tai-khoan-1.png);
+      background-repeat: no-repeat;
+      background-position: center left 20px;
+      padding-left: 55px;
+    }
+    .user > a:hover, .cai-dat > a:hover, .dang-ky > a:hover, .log-out > a:hover, .user > a:focus, .cai-dat > a:focus, .dang-ky > a:focus, .log-out > a:focus {
+      padding-left: 57px;
+    }
+    .cai-dat > a {
+      background-image: url(../img/icon/cai-dat-1.png);
+      &:hover {
+        background-image: url(../img/icon/cai-dat-2.png);
+      }
+      &:focus {
+        background-image: url(../img/icon/cai-dat-3.png);
+      }
+    }
+    .dang-ky > a {
+      background-image: url(../img/icon/dang-ky-1.png);
+      &:hover {
+        background-image: url(../img/icon/dang-ky-2.png);
+      }
+      &:focus {
+        background-image: url(../img/icon/dang-ky-3.png);
+      }
+    }
+    .log-out > a {
+      background-image: url(../img/icon/log-out-1.png);
+      &:hover {
+        background-image: url(../img/icon/log-out-2.png);
+      }
+      &:focus {
+        background-image: url(../img/icon/log-out-3.png);
+      }
+    }
+    .user > a {
+      /*  border-left-width: 4px;
+        border-left-color: #f7941e;*/
+      background-image: url(../img/icon/ung-vien-tai-khoan-1.png);
+      background-position: center left 18px;
+      padding-left: 60px;
+      span {
+        display: block;
+        max-width: 250px;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        white-space: nowrap;
+      }
+      &:hover {
+        background-image: url(../img/icon/ung-vien-tai-khoan-2.png);
+        border-width: 2px;
+        padding-left: 62px;
+        background-position: center left 20px;
+      }
+      &:focus {
+        background-image: url(../img/icon/ung-vien-tai-khoan-3.png);
+        border-width: 2px;
+        padding-left: 62px;
+        background-position: center left 20px;
+      }
+    }
+    li > a {
+      padding: 18px 20px;
+      &:hover {
+        padding: 17px 20px;
+      }
+    }
+  }
+
+}
+
+.dropdown-search .dropdown-menu > li {
+  > a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-weight: 600;
+    &:hover {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+  &:hover > a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+

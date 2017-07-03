@@ -344,7 +344,7 @@ class Message extends MY_Controller
         }
         $this->data['message_receive'] = $message_receive;
 
-        view('site/message/view', $this->data);
+        $this->_display('', 'user');
     }
 
     /**

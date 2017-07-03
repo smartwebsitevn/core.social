@@ -274,6 +274,37 @@ class Product_widget extends MY_Widget
         else
             $this->display_list($list, $temp, $temp_options);
     }
+
+
+    function same_author($author_id = null, $options = [], $temp = '', $temp_options = array())
+    {
+        $filter = array_get($options, 'filter', []);
+        $feature = array_get($options, 'feature', false);
+        $product_id = array_get($options, 'product_id', false);
+        $limit = array_get($options, 'limit', 5);
+        $order = array_get($options, 'order', array('id', 'random'));
+
+        // Create list
+        if ($author_id)
+            $filter['author_id'] = $author_id;
+        if ($product_id)
+            $filter['id!'] = $product_id;
+        if ($feature)
+            $filter['feature'] = 1;
+
+        $input = array();
+        $input['order'] = $order;
+        $input['limit'] = array(0, $limit);
+
+        $list = $this->get_list($filter, $input);
+        //== Su ly hien thi temp hay tra ve du lieu
+
+        $return = array_get($temp_options, 'return_data', false);
+        if ($return)
+            return $this->display_list($list, $temp, $temp_options);
+        else
+            $this->display_list($list, $temp, $temp_options);
+    }
     function slide_show($options = [], $temp = '', $temp_options = array())
     {
         $filter = array_get($options, 'filter', []);

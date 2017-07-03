@@ -239,4 +239,9 @@ class _t extends MY_Controller
         ));
         pr($notice);
     }
+
+    function user_notice()
+    {
+        mod('user_notice')->send(1,'Test','Noi dung thong bao Test');
+    }
 }
