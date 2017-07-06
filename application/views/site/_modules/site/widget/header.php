@@ -108,7 +108,6 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
                 <?php endif; */ ?>
                 <?php widget("user")->account_panel() ?>
                 <?php //widget('site')->lang(); ?>
-
             </ul>
         </div>
     </div>

@@ -27,10 +27,9 @@ class User_model extends MY_Model
 		//'profession','languages','passport',/*'tax_number',*/
 		//'country','city','district','state','postcode',
 	);
-	public $_info_id = array('id_number','id_place','id_date'/*,'id_image_front','id_image_back'*/);
 	public $_info_social = array('facebook','twitter','googleplus','linkedin','youtube','instagram');
-	public $_info_card = array(/*'card_bank_id',*/'card_bank_name','card_bank_branch',
-		'card_account_name','card_account_number','card_atm_number');
+	public $_info_id = [];//array('id_number','id_place','id_date'/*,'id_image_front','id_image_back'*/);
+	public $_info_card = [];//array(/*'card_bank_id',*/'card_bank_name','card_bank_branch',		'card_account_name','card_account_number','card_atm_number');
 
 
 

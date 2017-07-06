@@ -17,10 +17,10 @@ $asset_theme =$asset. '/site/theme/';
 </script>
 
 <!-- B_Style-->
-<script type="text/javascript" src="<?php echo $asset_theme ?>/js/owl.carousel.min.js"></script>
-<script type="text/javascript" src="<?php echo $asset_theme ?>/js/main.js"></script>
+<script type="text/javascript" src="<?php echo $asset_theme ?>js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="<?php echo $asset_theme ?>js/main.js"></script>
 <!-- B_THEME-->
-<script type="text/javascript" src="<?php echo $asset_theme ?>/js/product.js"></script>
+<script type="text/javascript" src="<?php echo $asset_theme ?>js/product.js"></script>
 
 <?php if (isset($js) && $js): ?>
 	<?php if (is_array($js)): ?>

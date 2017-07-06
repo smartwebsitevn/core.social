@@ -244,4 +244,10 @@ class _t extends MY_Controller
     {
         mod('user_notice')->send(1,'Test','Noi dung thong bao Test');
     }
+
+    function user_storage()
+    {
+        $input =['table'=>'user','table_id'=>'1','action'=>'follow','count'=>5];
+        mod('user_storage')->set(1,$input);
+    }
 }

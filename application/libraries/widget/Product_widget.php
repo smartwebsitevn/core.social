@@ -201,6 +201,23 @@ class Product_widget extends MY_Widget
         $this->data['sort_order'] = $sort_order;
         $this->data['sort_orders'] = $sort_orders;
         $this->data['total_rows'] = $total_rows;
+        // Lay danh sach country, city
+        $this->data['manufactures'] = model('manufacture')->get_list();
+        // Lay danh sach country, city
+        $this->data['countrys'] = model('country')->filter_get_list(['show' => 1]);
+        // $this->data['countrys'] = model('country')->get_grouped();
+        // $this->data['citys'] = model('city')->get_list();
+
+        // lay cac loai danh muc
+        $cat_types = mod('cat')->get_cat_types();
+        foreach ($cat_types as $t) {
+            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
+        }
+        // lay cac loai range
+        $range_types = mod('range')->get_range_types();
+        foreach ($range_types as $t) {
+            $this->data['range_type_' . $t] = model('range')->get_type($t);
+        }
 
         $temp = (!$temp) ? 'filter' : $temp;
         $temp = 'tpl::_widget/product/filter/filter_' . $temp;

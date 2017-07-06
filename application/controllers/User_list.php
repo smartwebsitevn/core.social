@@ -34,104 +34,38 @@ class User_list extends MY_Controller
      * @return [type]        [description]
      *
      */
-    public function category($id = null)
+    public function follow()
     {
-
-        // $id = $this->uri->rsegment(3);
-        if (!is_numeric($id) && is_slug($id)) {
-            // neu la seo url
-            $category = model("user_cat")->filter_get_info(array('seo_url' => $id, 'show' => 1));
-        } else {
-            $category = model("user_cat")->filter_get_info(array('id' => $id, 'show' => 1));
+        $user = user_get_account_info();
+        if($user){
+            $input['where']['us.action'] = 'follow';
+            $input['where']['us.table'] = 'user';
+            $input['where']['us.user_id'] =$user->id;
+            $input['join'] =array(array('user_storage us','us.user_id = user.id'));
+            $filter = array();
+            $this->_create_list($input, $filter);
         }
-        if (!$category)
-            show_404();
-        $category = mod("user_cat")->add_info($category);
-        $this->data['category'] = $category;
-
-        // Filter set
-        $filter = array();
-        $filter['cat_id'] = mod('user_cat')->get_child_ids($category->id);
-        $filter['show'] = '1';
-        $this->_create_list([], $filter);
-
-
-        //== Seo
-        $title = character_limiter($category->name, 60);
-        if ($category->seo_title)
-            $title = $category->seo_title;
-        page_info('title', $title);
-        if ($category->seo_description)
-            page_info('description', character_limiter($category->seo_description, 160));
-        if ($category->seo_keywords)
-            page_info('keywords', $category->seo_keywords);
-        $this->_display();
-    }
-
-
-
-
-    public function search()
-    {
-        $keyword = escape($this->input->get('keyword'));
-        if (!$keyword)
-            show_404();
-
-        $this->data['keyword'] = $keyword;
-        // Filter set
-        $filter = array();
-        $filter['%name'] = $keyword;
-        $filter['show'] = '1';
-        // Option set
-        $input = array();
-        $input['order'] = array('created', 'desc');
-        $this->_create_list($input, $filter);
-
-        $author_ids = array_gets($this->data['users'], 'author_id');
-        $this->data['authors'] = null;
-        if ($author_ids)
-            $this->data['authors'] = model('user_author')->filter_get_list(['id' => $author_ids, 'show' => 1]);
-
-        // Gan thong tin page
-        page_info('breadcrumbs', array('#', lang('search'), lang('search')));
-        page_info('title', lang('search'));
-        $this->_display();
-    }
-
-    public function tag($id)
-    {
-        // neu la seo url
-        $info = model("tag")->get_info_rule(array('seo_url' => $id, 'status' => 1));
-        if (!$info)
-            show_404();
-
-        $filter['tags'] = $info->name;
-        //pr($info);
-        $this->data['tag'] = $info;
-        // Tao danh sach
-        $this->_create_list(array(), $filter);
-        //== Seo
-        $breadcrumbs = array();
-        $breadcrumbs[] = array('', 'Tag');
-        $breadcrumbs[] = array('', $info->name, $info->name);
-        page_info('breadcrumbs', $breadcrumbs);
-        // Gan thong tin page
-        page_info('title', $info->seo_title ? $info->seo_title : $info->name);
-        page_info('description', $info->seo_description ? $info->seo_description : null);
-        page_info('keywords', $info->seo_keywords ? $info->seo_keywords : null);
+        else
+            $this->data['list'] = null;
 
         $this->_display();
     }
 
-
-    function guest_favorited()
+    public function follow_me()
     {
-        $favorieds = $list = mod('user')->guest_owner_get("favorited");;
-        $filter = array();
-        $filter_fields = array();
-        $filter['id'] = $favorieds;
-        $this->_create_list([], $filter, $filter_fields);
-        $this->_display('category');
+        $user = user_get_account_info();
+        if($user){
+            $input['where']['us.action'] = 'follow';
+            $input['where']['us.table'] = 'user';
+            $input['where']['us.table_id'] =$user->id;
+            $input['join'] =array(array('user_storage us','us.user_id = user.id'));
+            $filter = array();
+            $this->_create_list($input, $filter);
+        }
+        else
+            $this->data['list'] = null;
+
+        $this->_display();
     }
     //====================== Tao danh sach hien thi ===========================
     private function _create_list($input = array(), $filter = array(), $filter_fields = array())
@@ -381,6 +315,7 @@ class User_list extends MY_Controller
 
         $this->_display('list');
     }
+
     /**
      * San pham da thich cua thanh vien
      */

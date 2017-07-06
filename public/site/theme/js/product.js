@@ -311,7 +311,6 @@ function productChangeOptionPrice() {
     });
 }
 function productFilter(option) {
-    //alert(option.url)
     var $target_data = $(".ajax-content-product-list");
     var $target_total = $(".ajax-content-product-total");
     // nfc.loader("show");

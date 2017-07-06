@@ -38,7 +38,7 @@ foreach (array('login', 'logout', 'register', 'forgot', 'activation') as $_p)
 {
 	$route[$_p] = 'user/'.$_p;
 }
-$route['user-(:num)'] 					= 'author/view/$1';
+$route['user-(:num)'] 					= 'user_page/view/$1';
 // Tran
 $route['tran-(:num)'] 					= 'tran/view/$1';
 $route['tran-(:num)/(:any)'] 			= 'tran/view/$1/$2';

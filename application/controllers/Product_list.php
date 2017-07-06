@@ -171,7 +171,7 @@ class Product_list extends MY_Controller
         //== Lay tong so
         if (!isset($input['limit'])) {
             $total = model('product')->filter_get_total($filter, $input);
-            $page_size = config('list_limit', 'main');
+            $page_size =2;// config('list_limit', 'main');
 
             $limit = $this->input->get('per_page');
             $limit = min($limit, $total - fmod($total, $page_size));
@@ -227,24 +227,6 @@ class Product_list extends MY_Controller
 
         //===== Ajax list====
         $this->_create_list_ajax();
-
-        // Lay danh sach country, city
-        $this->data['manufactures'] = model('manufacture')->get_list();
-        // Lay danh sach country, city
-        $this->data['countrys'] = model('country')->filter_get_list(['show' => 1]);
-        // $this->data['countrys'] = model('country')->get_grouped();
-        // $this->data['citys'] = model('city')->get_list();
-
-        // lay cac loai danh muc
-        $cat_types = mod('cat')->get_cat_types();
-        foreach ($cat_types as $t) {
-            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
-        }
-        // lay cac loai range
-        $range_types = mod('range')->get_range_types();
-        foreach ($range_types as $t) {
-            $this->data['range_type_' . $t] = model('range')->get_type($t);
-        }
 
         // luu lai thong so loc va ket qua
         mod('product')->sess_data_set('list_filter', $filter);// phuc vu loc du lieu

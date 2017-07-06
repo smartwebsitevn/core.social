@@ -2,39 +2,33 @@
     <?php $_data_list = function () use ($list) {
         ob_start() ?>
         <?php foreach ($list as $row): //pr($row);?>
-            <div class="item-social <?php echo isset($row->_ads) ? 'item-social-ads' : '' ?> ">
+            <div class="item-user <?php echo isset($row->_ads) ? 'item-user-ads' : '' ?> ">
                 <div class="clearfix">
                     <div class="item-photo">
                         <a href="<?php echo $row->_url_view; ?>" class="item-img">
-                            <img src="<?php //echo thumb_img($row->image)//$row->image->url_thumb; ?>"
+                            <img src="<?php echo $row->avatar->url_thumb  ?>"
                                  alt="<?php echo $row->name; ?>">
                         </a>
                     </div>
-                    <div class="item-info-full">
+                    <div class="item-info">
                         <?php //echo t('view')->load('tpl::_widget/user/display/item/info_label', array('row' => $row)); ?>
                         <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
                                 <?php echo $row->name; ?></a>
                             <?php echo widget('user')->action_favorite($row) ?>
                         </div>
-                        <div class="item-desc"><?php echo character_limiter($row->desc, 250); ?>    </div>
+                        <div class="item-profession"><?php echo character_limiter($row->profession, 250); ?>    </div>
                         <div class="item-meta">
-                            <span>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('user/vote/' . $row->id) . "?act=like" ?>"><i
-                                    class="pe-7s-angle-up-circle"></i></a>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('user/vote/' . $row->id) . "?act=dislike" ?>"><i
-                                    class="pe-7s-angle-down-circle"></i></a>
-                            </span>
-                                <span
-                                    class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-                            <span
-                                class="views"> <b><?php echo number_format($row->view_total) ?></b> <?php echo lang("count_view") ?></span>
-                            <span
-                                class="comments"> <b><?php echo number_format($row->comment_total) ?></b> <?php echo lang("count_comment") ?></span>
-                            <span class="date_created"> <b><?php echo $row->_created ?></b> </span>
+                            <?php if(isset($row->_city)): ?>
+                                <span class="place"> <i class="pe-7s-map-marker"></i> <b><?php  echo $row->_city->name ?></b></span>
+                            <?php endif; ?>
+                            <span  class="posts"> <b><?php echo number_format($row->post_total) ?></b> <?php echo lang("count_post") ?></span>
+
+                            <span class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
+                            <span   class="follows"> <b><?php echo number_format($row->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
+
 
                         </div>
+                        <div class="item-desc"><?php echo character_limiter($row->desc, 250); ?>    </div>
 
 
                         <div class="item-action">
@@ -45,6 +39,35 @@
                             <?php //widget('user')->action_close() ?>
                         </div>
                         <?php //t('view')->load('tpl::_widget/user/display/item/infos') ?>
+                    </div>
+                    <div class="item-profile">
+                        <div class="avatar">
+                            <a href="<?php echo $row->_url_view ?>">
+                                <img
+                                    src="<?php echo $row->avatar->url_thumb ?>"    alt="<?php echo $row->name; ?>"> </a>
+
+                        </div>
+                        <div class="group">  <?php echo $row->user_group_name; ?></div>
+                        <div class="links">
+                            <a data-toggle="modal" data-target="#modal-company-info">
+                                <i class="pe-7s-angle-right-circle"></i>
+
+                            </a>
+                            <a data-toggle="modal" data-target="#modal-company-info">
+                                <i class="pe-7s-mail"></i>
+
+                            </a>
+                            <a data-toggle="modal" data-target="#modal-company-info">
+                                <i class="pe-7s-call"></i>
+
+                            </a>
+                            <a data-toggle="modal" data-target="#modal-company-info">
+                                <i class="pe-7s-id"></i>
+
+                            </a>
+                        </div>
+
+                        <a class="btn btn-default btn-outline"><i class="pe-7s-like"></i> Theo dõi</a>
                     </div>
                 </div>
             </div>

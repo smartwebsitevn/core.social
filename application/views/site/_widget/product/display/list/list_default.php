@@ -80,7 +80,7 @@
     <?php if (isset($load_more) && $load_more): ?>
         <?php echo $_data_list(); ?>
     <?php else: ?>
-        <div class="list-social list-social-default">
+        <div class="product-list list-social list-social-default">
             <?php echo $_data_list() ?>
         </div>
 

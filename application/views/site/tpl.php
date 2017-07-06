@@ -32,6 +32,7 @@ $_layouts = [
     'page' => 'Page',
     'user' => 'User',
     'user_list' => 'User list',
+    'user_page' => 'User Page',
 
     'author' => 'Author',
     'checkout' => 'Checkout',
@@ -89,6 +90,7 @@ $tpl['layout_mod']['user']["register"] = 'main';
 $tpl['layout_mod']['user']["forgot"] = 'main';
 $tpl['layout_mod']['user_security']= 'user';
 $tpl['layout_mod']['user_bank']= 'user';
+$tpl['layout_mod']['user_page']= 'user_page';
 $tpl['layout_mod']['user_list']['*'] = 'user_list';
 
 
