@@ -1,8 +1,10 @@
 <div class="block-products-items">
+    <?php /* ?>
     <div class="block-title heading-opt1">
-        <strong class="title">Tag: <?php echo $tag->name ?></strong>
+        <strong class="title">Tất cả khóa học<?php //echo $category->name ?></strong>
         <?php //echo widget('product')->filter([], "base") ?>
     </div>
+     <?php */ ?>
     <div class="block-content ajax-content-product-list">
         <?php if ($pages_config['total_rows'] > 0): ?>
             <?php

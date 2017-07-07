@@ -10,19 +10,7 @@
 	<!-- MAIN -->
 	<div id="main">
 		<div class="container">
-			<?php
-			/*$_cat_filter = [];
-			if (isset($category)) {
-				if ($category->parent_id)
-					$_cat_filter['parent_id'] = $category->parent_id;
-				else
-					$_cat_filter['parent_id'] = $category->id;
-			} else {
-				$_cat_filter['parent_id'] = 0;
-				echo widget("product")->filter($_cat_filter,"sidebar")
-			}*/
-			?>
-			<?php //echo widget('user')->filter([], "top") ?>
+			<?php t('view')->load('tpl::user_list/top') ?>
 			<?php //echo $content_top; ?>
 			<?php echo $content; ?>
 			<?php //echo $content_bottom; ?>

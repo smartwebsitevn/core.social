@@ -1169,7 +1169,6 @@ class MY_Model extends CI_Model
         // Phủ định
         if( strpos( $key, "!" ) !== false )
         {
-
             if( is_array($filter[$key]) )
             {
                 $this->db->where_not_in( substr( $key, 1, strlen($key) ), $filter[$key] );
@@ -1183,29 +1182,61 @@ class MY_Model extends CI_Model
         // CASE sensitive
         if( strpos( $key, "BINARY" ) !== false )
         {
+            //7 la bao gom ca khoang trang , vd BINARY NAME
             $this->db->where( substr( $key, 7, strlen($key) ) . " like BINARY '".$filter[$key]."'" );
+            return;
+        }
+        //  FIND BY KEYWORD
+        if( strpos( $key, "KEYWORD" ) !== false )
+        {
+            //9 la bao gom ca khoang trang , vd KEYWORD NAME
+            $f=substr( $key, 8, strlen($key));
+            $value = '';
+
+            if (is_array($filter[$f])) {
+
+                $key = str_replace([',', '.'], '', $filter[$f]);
+                $key = trim($key);
+
+                $query = ["`$f` LIKE '%".t('db')->escape_like_str($key)."%'"];
+                $keys = preg_replace('/\s+/', ' ', $key);
+                $keys = explode(' ', $keys);
+                foreach ($keys as $v)
+                {
+                    $v = t('db')->escape_like_str($v);
+                    $query[] = "`$f` LIKE '%{$v}%'";
+                }
+                $value = implode(' OR ', $query);
+                $value ="($value)";
+            }
+
+
+            if ($value) {
+                $this->db->where($value);
+            }
             return;
         }
 
         //  FIND_IN_SET
-        if( strpos( $key, "FIS" ) !== false )
+        if( strpos( $key, "FIND" ) !== false )
         {
-                $f=substr( $key, 3, strlen($key));
-                $value = [];
-                if (is_array($filter[$f])) {
-                    foreach ($filter[$f] as $v) {
-                        $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
-                    }
-                } else
-                    $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $f . "`)";
+            //5 la bao gom ca khoang trang , vd FIND NAME
 
-
-                if ($value) {
-                    $this->db->where('((' . implode(') or (', $value) . '))');
+            $f=substr( $key, 5, strlen($key));
+            $value = [];
+            if (is_array($filter[$f])) {
+                foreach ($filter[$f] as $v) {
+                    $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
                 }
+            } else
+                $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $f . "`)";
+
+
+            if ($value) {
+                $this->db->where('((' . implode(') or (', $value) . '))');
+            }
             return;
         }
-
         if( is_array($filter[$key]) )
             $this->db->where_in( $key, $filter[$key] );
         else

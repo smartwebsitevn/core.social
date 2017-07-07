@@ -1,7 +1,7 @@
 <div class="block-products-items">
     <?php /* ?>
     <div class="block-title heading-opt1">
-        <strong class="title"><?php echo $category->name ?></strong>
+        <strong class="title">Tất cả khóa học<?php //echo $category->name ?></strong>
         <?php //echo widget('product')->filter([], "base") ?>
     </div>
      <?php */ ?>

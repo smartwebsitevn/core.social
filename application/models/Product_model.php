@@ -124,7 +124,7 @@ class Product_model extends MY_Model
         }
 
 
-// loc cac cot salary
+        // loc cac cot salary
         foreach(array('price_range') as $p) {
             $v= (isset($filter[$p]) && $filter[$p])?$filter[$p]:null;
             $p = str_replace('_range','',$p);
