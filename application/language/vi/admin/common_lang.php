@@ -138,6 +138,7 @@ $lang['mod_menu_item'] = 'Menu';
 
 //== group_system
 $lang['group_system'] = 'Thiết lập hệ thống';
+$lang['mod_delete'] = 'Xóa lịch sử giao dịch';
 $lang['mod_server'] = 'Server';
 $lang['mod_setting'] = 'Cài đặt';
 $lang['mod_currency'] = 'Tiền tệ';
