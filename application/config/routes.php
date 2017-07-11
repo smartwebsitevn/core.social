@@ -25,10 +25,6 @@ foreach (array('logout') as $_p)
 {
 	$route[$_af.'/'.$_p] = $_af.'/home/'.$_p;
 }
-/*foreach (array('login') as $_p)
-{
-	$route[$_af.'/'.$_p] = $_af.'/'.$_p.'.html';
-}*/
 
 $route[$_af.'/transaction'] = $_af.'/tran';
 $route[$_af.'/transaction/(.+)$'] = $_af.'/tran/$1';
@@ -38,13 +34,20 @@ foreach (array('login', 'logout', 'register', 'forgot', 'activation') as $_p)
 {
 	$route[$_p] = 'user/'.$_p;
 }
+$route['my-account'] 					= 'user_account/index';
+$route['my-balance'] 					= 'user_account/balance';
+$route['my-page'] 						= 'user_page/index';
 $route['user-(:num)'] 					= 'user_page/view/$1';
+
+
+//===========================================================================================
 // Tran
 $route['tran-(:num)'] 					= 'tran/view/$1';
 $route['tran-(:num)/(:any)'] 			= 'tran/view/$1/$2';
 
 //Deposit_card_api
 $route['nap/(:any)'] 			        = 'deposit_card_api/index/$1';
+
 
 // News
 $route['tin-tuc'] 						= 'news';
@@ -98,6 +101,13 @@ $route['checkout'] 						= 'checkout';
 $route['checkout-confirm'] 				= 'checkout/confirm';
 $route['checkout-success'] 				= 'checkout/success';
 
+
+$route['author/(:any)-(:num)'] = 'author/view/$2';
+
+//combo
+$route['(:any)-cb(:num)'] 		         = 'combo/view/$2';
+$route['(:any)-cbo(:num)'] 		         = 'combo/order/$2';
+
 //== products
 $route['ban-tin/(:any)-(:num)']   = 'product_list/category/$2';
 $route['ban-tin'] 				= 'product_list';
@@ -105,24 +115,19 @@ $route['xem-ban-tin/(:any)-i(:num)'] 	= 'product/view/$2';
 $route['xem-ban-tin/demo/(:any)-d(:num)'] 	= 'product/demo/$2';
 
 $route['my-favorited'] 					    = 'product_list/favorited';
+$route['my-posts'] 					    = 'product_list/owner';
 
 
-
-
-$route['author/(:any)-(:num)'] = 'author/view/$2';
 
 // gia han vip
 $route['buy-vip'] = 'renew_plan';
 $route['voucher'] = 'renew_voucher';
 
-
-//combo
-$route['(:any)-cb(:num)'] 		         = 'combo/view/$2';
-$route['(:any)-cbo(:num)'] 		         = 'combo/order/$2';
-
 //Affiliate
 $route['ref-(:any)'] 		         	= 'affiliate/link/$1';
 
+
+//============================================
 // sitemap
 $route['sitemap.xml'] = 'sitemap/index';
 

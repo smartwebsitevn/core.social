@@ -23,6 +23,7 @@ foreach ($sort_orders as $v) {
                     class="ajax-content-product-total fontB"><?php echo isset($total_rows) ? number_format($total_rows) : '-' ?></span>
             Kết quả
         </div>
+
         <?php
         echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
 
@@ -51,8 +52,8 @@ foreach ($sort_orders as $v) {
 };*/
 
 ?>
-
-<form id="form_filter_advance" name="form_filter_advance" event-hook="productFilter" action="<?php echo $action; ?>" method="get">
+<form id="form_filter_advance" name="form_filter_advance" event-hook="productFilter" action="<?php echo $action; ?>"
+      method="get">
     <div class="block block-search">
         <div class="block-content clearfix">
             <div class="input-group">
@@ -63,7 +64,8 @@ foreach ($sort_orders as $v) {
                                 <i class="fa fa-search"></i>
                             </li>
                             <li class="select-input">
-                                <input type="text" class="select-input-field" placeholder="Tìm sản phẩm"
+                                <input type="text" class="select-input-field"
+                                       placeholder="Tìm tìm tiêu đề hoặc hashtag #"
                                        id="select-input-field" name="name">
                             </li>
                             <?php /* ?>
@@ -90,8 +92,8 @@ foreach ($sort_orders as $v) {
                 </div>
             </div>
             <div class="action">
-                <button class="btn btn-outline" type="submit">Tìm sản
-                    phẩm<?php //echo lang("search_recruit") ?></button>
+                <button class="btn btn-outline" type="submit">Tìm bài
+                    viết<?php //echo lang("search_recruit") ?></button>
             </div>
         </div>
     </div>
@@ -102,23 +104,43 @@ foreach ($sort_orders as $v) {
             //pr($product_cats);
             ?>
             <div class="row">
-                <div class="block-content-left col-md-10 col-sm-10 col-xs-12">
-
+                <div class="block-content-left col-md-8 col-sm-8 col-xs-12">
                     <?php
                     $product_cats = model('product_cat')->get_list_hierarchy([], ['show' => 1]);
                     echo macro()->filter_dropdown_category(['value' => $filter['cat_id'], 'values' => $product_cats, 'param' => 'price', 'name' => lang('filter_category'), 'obj' => 'product_cat']); ?>
-                    <?php echo macro()->filter_dropdown_obj(['value' => $filter['price'], 'values' => $range_type_price, 'param' => 'price', 'name' => lang('filter_price')]); ?>
-                    <?php echo macro()->filter_dropdown_obj(['value' => $filter['manufacture_id'], 'values' => $manufactures, 'param' => 'manufacture_id', 'name' => lang('filter_manufacture')]); ?>
-                    <?php echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
+                    <?php //echo macro()->filter_dropdown_obj(['value' => $filter['price'], 'values' => $range_type_price, 'param' => 'price', 'name' => lang('filter_price')]); ?>
+                    <?php //echo macro()->filter_dropdown_obj(['value' => $filter['manufacture_id'], 'values' => $manufactures, 'param' => 'manufacture_id', 'name' => lang('filter_manufacture')]); ?>
+                    <?php //echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <a href="#0" class="btn btn-link btn-clear-all">Xóa dữ liệu
                         lọc<?php //echo lang("clear_all_filters")  ?></a>
                 </div>
-                <div class="block-content-right  col-md-2 col-sm-2 col-xs-12">
-                    <?php echo $_data_sort(); ?>
-                </div>
+                <div class="block-content-right  col-md-4 col-sm-4 col-xs-12">
+                    <div class="row">
+                        <div class=" col-md-6 col-sm-6 col-xs-12 text-right">
+                            <input id="slider_point_hander" type="text" data-provide="slider" data-slider-min="1" data-slider-max="100"
+                                   data-slider-step="1"
+                                   data-slider-value="3" data-slider-tooltip="hide"/>
+                            <div class="clearfix"></div>
+                            <span id="slider_point"><span id="slider_point_value">3</span> points</span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 pr0">
+                            <?php echo $_data_sort(); ?>
 
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-    <?php //echo macro()->navbar_collapse_end(); ?>
+        <?php //echo macro()->navbar_collapse_end(); ?>
 </form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#slider_point_hander").slider();
+        $("#slider_point_hander").on("slide", function(slideEvt) {
+            $("#slider_point_value").text(slideEvt.value);
+        });
+    })
+</script>

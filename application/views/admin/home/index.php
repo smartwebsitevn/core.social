@@ -6,7 +6,7 @@
 	<div class="col-md-6">
 
 		<?php //if ($_SERVER['HTTP_HOST'] != 'localhost') widget('product_provider')->balances(); ?>
-		<?php //widget('lesson')->stats(); ?>
+		<?php //widget('product')->stats(); ?>
 
 		<?php widget('stats')->request(); ?>
 		<?php widget('user')->newest(); ?>

@@ -276,7 +276,7 @@ class Comment extends MY_Controller
         // Lay gia tri cua filter dau vao
         $filter_input = array();
         if (!$filter_fields)
-            $filter_fields = array('id', 'user', 'table_name', 'status', 'readed', 'created');
+            $filter_fields = array('id', 'user', 'table_name', 'status', 'readed', 'created', 'created_to');
         $mod_filter = $this->_mod()->create_filter($filter_fields, $filter_input);
         $filter = array_merge($mod_filter, $filter);
         $this->data['filter'] = $filter_input;
@@ -303,7 +303,7 @@ class Comment extends MY_Controller
                  $it->model = mod($table)->get_info($it->table_id);
 
                 $filter['parent_id']    = $it->id;
-                $subs = $this->_model()->filter_get_list($filter, $input);
+                $subs = $this->_model()->filter_get_list($filter);
                 foreach ($subs as $sub)
                 {
                     $sub->user = mod('user')->get_info($sub->user_id);
@@ -318,6 +318,7 @@ class Comment extends MY_Controller
             }
         }
        // pr($list);
+        $this->data['total'] = $total;
         $this->data['list'] = $list;
 
         // Tao chia trang

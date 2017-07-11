@@ -32,7 +32,17 @@ class User_model extends MY_Model
 	public $_info_card = [];//array(/*'card_bank_id',*/'card_bank_name','card_bank_branch',		'card_account_name','card_account_number','card_atm_number');
 
 
+	public $fields_filter = array(
+		//== price
+		'cat_id', 'country_id',
 
+		//== core
+		'name', '%name',  'BINARY name',
+		'id','!id','id_gt', 'id_gte', 'id_lt', 'id_lte',
+		'seo_url',  'BINARY seo_url',
+		'is_feature', 'is_new', 'is_live',
+		'status','created', 'created_to',
+	);
 
 
 

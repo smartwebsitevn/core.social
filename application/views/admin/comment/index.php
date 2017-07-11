@@ -27,6 +27,13 @@ $_macro['table']['filters'] = array(
         'values' => array('yes' => lang('read_yes'), 'no' => lang('read_no')),
     ),
 
+    array('name' => lang('from_date'), 'param' => 'created', 'type' => 'date',
+        'value' => $filter['created'],
+    ),
+    array('name' => lang('to_date'), 'param' => 'created_to', 'type' => 'date',
+        'value' => $filter['created_to'],
+    ),
+
 );
 
 $_macro['table']['columns'] = array(

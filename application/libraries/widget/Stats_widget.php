@@ -64,46 +64,54 @@ class Stats_widget extends MY_Widget
 	 */
 	public function request(array $opts = [])
 	{
-	    $modules = [/*'withdraw',*/ 'deposit_bank'];
-	
-	    $list = [];
-	
-	    foreach ($modules as $module)
-	    {
-	        $method = 'get'.studly_case($module).'Request';
-	
-	        if ( ! method_exists($this, $method)) continue;
-	
-	        $list[$module] = call_user_func([$this, $method]);
-	    }
-	
-	    $service_keys  = array(
+		$modules = [/*'withdraw',*/
+			'deposit_bank',
+		];
+
+		$list = [];
+
+		foreach ($modules as $module)
+		{
+			$method = 'get'.studly_case($module).'Request';
+
+			if ( ! method_exists($this, $method)) continue;
+
+			$list[$module] = call_user_func([$this, $method]);
+		}
+
+		$service_keys  = array(
 			'DepositPayment', 'DepositBank',
 			//'ProductOrderCard', 'ProductOrderTopupMobile', 'ProductOrderTopupMobilePost', 'ProductOrderTopupGame'
-			);
-	    foreach ($service_keys as $service_key)
-	    {
-	        $filter = array();
-	        $filter = [
-	            'service_key'     => $service_key,
-	            'invoice_status'  => (!in_array($service_key, array('DepositBank'))) ? 'paid' : 'unpaid',
-	            'order_status'    => 'pending',
-	        ];
-	
-	        $total = model('invoice_order')->filter_get_total($filter);
-	        $items = array();
-	        $items['name']  = lang($service_key);
-	        $items['total'] = $total;
-	        $items['url']   = admin_url('invoice_order').'?'.http_build_query($filter);
-	        $list[$service_key]  = $items;
-	    }
-	
-	
-	    $this->data['list'] = $list;
-	
-	    $this->_display($this->_make_view(array_get($opts, 'view'), __FUNCTION__));
+		);
+		foreach ($service_keys as $service_key)
+		{
+			$filter = array();
+			$filter = [
+				'service_key'     => $service_key,
+				'invoice_status'  => (!in_array($service_key, array('DepositBank'))) ? 'paid' : 'unpaid',
+				'order_status'    => 'pending',
+			];
+
+			$total = model('invoice_order')->filter_get_total($filter);
+			$items = array();
+			$items['name']  = lang($service_key);
+			$items['total'] = $total;
+			$items['url']   = admin_url('invoice_order').'?'.http_build_query($filter);
+			$list[$service_key]  = $items;
+		}
+
+		$list['contact']['name'] =lang('mod_contact');
+		$list['contact']['total'] =model('contact')->filter_get_total(['read'=>0]);
+		$list['contact']['url'] =admin_url('contact').'?read=no';
+
+		$list['comment']['name'] =lang('mod_comment');
+		$list['comment']['total'] =model('comment')->filter_get_total(['readed'=>0]);
+		$list['comment']['url'] =admin_url('comment').'?readed=no';
+
+		$this->data['list'] = $list;
+
+		$this->_display($this->_make_view(array_get($opts, 'view'), __FUNCTION__));
 	}
-	
 
 	/**
 	 * Lay thong tin yeu cau rut tien

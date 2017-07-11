@@ -98,7 +98,7 @@ class User_mod extends MY_Mod
         }
 
         foreach (array('edit') as $p) {
-            $row->{'_url_' . $p} = site_url("user/{$p}");
+            $row->{'_url_' . $p} = site_url("user_account/{$p}");
         }
 
         if (isset($row->id)) {

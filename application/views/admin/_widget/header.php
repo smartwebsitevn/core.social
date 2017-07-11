@@ -37,6 +37,66 @@ $langs= lang_get_list();
 					<i class="fa fa-bars"></i>
 				</button>
 			</li>
+			<li class="dropdown">
+				<?php
+				$order = model('invoice_order')->filter_get_total(array('order_status' => 'pending'));
+				$contact = model('contact')->filter_get_total(['read' => 0]);
+				$comment = model('comment')->filter_get_total(['readed' => 0]);
+
+				$count = $order + $contact + $comment; ?>
+
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-bell"></i> <span class="badge up badge-success"><?php echo number_format($count) ?></span>
+				</a>
+				<?php if (($count)>0): ?>
+					<ul class="dropdown-menu dropdown-scroll dropdown-alerts">
+						<li class="dropdown-header">
+							<i class="fa fa-bell"></i> <?php echo number_format($count) ?> Thông báo
+						</li>
+						<li id="alertScroll">
+							<ul class="list-unstyled">
+								<?php if ($order): ?>
+									<li>
+										<a href="<?php echo admin_url('invoice_order/pending')?>">
+											<div class="alert-icon bg-info pull-left">
+												<i class="fa fa-download"></i>
+											</div>
+											Đơn hàng chờ sử lý <span class="badge badge-info pull-right"><?php echo number_format($order) ?></span>
+										</a>
+									</li>
+								<?php endif; ?>
+								<?php if ($contact): ?>
+
+									<li>
+										<a href="<?php echo admin_url('contact').'?read=no' ?>">
+
+											<div class="alert-icon bg-success pull-left">
+												<i class="fa fa-cloud-upload"></i>
+											</div>
+											Yêu cầu mới khách hàng<span class="badge badge-info pull-right"><?php echo number_format($contact) ?></span>
+
+										</a>
+									</li>
+								<?php endif; ?>
+								<?php if ($comment): ?>
+
+									<li>
+										<a href="<?php echo admin_url('comment').'?readed=no' ?>">
+
+											<div class="alert-icon bg-danger pull-left">
+												<i class="fa fa-bolt"></i>
+											</div>
+											Bình luận mới từ thành viên <span class="badge badge-info pull-right"><?php echo number_format($comment) ?></span>
+										</a>
+									</li>
+								<?php endif; ?>
+
+							</ul>
+						</li>
+
+					</ul>
+				<?php endif; ?>
+			</li>
 			<!--<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="fa fa-envelope"></i> <span class="badge up badge-primary">2</span></a>

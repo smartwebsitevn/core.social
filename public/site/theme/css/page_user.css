@@ -1,3 +1,40 @@
+body.user-page .sidebar {
+  padding-top: 10px;
+  padding-bottom: 40px;
+  position: relative; }
+  body.user-page .sidebar h3 {
+    margin-top: 0; }
+  body.user-page .sidebar .nav li a:hover, body.user-page .sidebar .nav li a.active {
+    background: #eee;
+    border-color: #e0e0e0 transparent;
+    border-style: solid;
+    border-width: 1px 2px;
+    line-height: 22px;
+    position: relative;
+    border-left-width: 4px;
+    border-left-color: #f7941e; }
+body.user-page .main-content h1.panel-title {
+  font-size: 2em; }
+body.user-page .main-content .panel {
+  background: none;
+  margin-bottom: 40px; }
+  body.user-page .main-content .panel .panel-body {
+    background: #fff; }
+  body.user-page .main-content .panel form {
+    /* padding: 20px;*/ }
+    body.user-page .main-content .panel form .form-group .control-label {
+      text-align: left; }
+    body.user-page .main-content .panel form .form-group select.form-control {
+      width: 200px;
+      float: left; }
+    body.user-page .main-content .panel form .form-group .form-control {
+      width: 200px;
+      float: left; }
+    body.user-page .main-content .panel form .actions {
+      position: absolute;
+      top: 10px;
+      right: 10px; }
+
 /*====================*\
 //Categori social
 \*====================*/
@@ -110,9 +147,6 @@
 /*====================*\
 //Detail user
 \*====================*/
-#main {
-  margin: 0px 0 40px; }
-
 .background {
   background-color: #f60;
   color: #b2b2b2;

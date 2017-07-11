@@ -77,7 +77,7 @@ class Comment_widget extends MY_Widget
         ];
         $total = model('comment')->filter_get_total($filter);
 
-        $page_size = 10;
+        $page_size = 2;
         $input = [
             'order' => array('created', 'DESC'),
         ];
@@ -92,7 +92,7 @@ class Comment_widget extends MY_Widget
 
         // chi hien cap 1
         $filter['parent_id'] = 0;
-        $list = $this->builder_sub($filter, $input);
+        $list = $this->builder_sub($filter);
 
         // Tao chia trang
         $pages_config = array();
@@ -125,8 +125,11 @@ class Comment_widget extends MY_Widget
         $this->load->view($temp, $this->data);
     }
 
-    function builder_sub($filter, $input)
+    function builder_sub($filter)
     {
+        $input = [
+            'order' => array('created', 'DESC'),
+        ];
         $list_sub = model('comment')->filter_get_list($filter, $input);
         //pr_db($list_sub,0);
         foreach ($list_sub as &$sub) {
@@ -137,7 +140,7 @@ class Comment_widget extends MY_Widget
                 $sub->user = $user;
             }
             $filter['parent_id'] = $sub->id;
-            $sub->subs = $this->builder_sub($filter, $input);
+            $sub->subs = $this->builder_sub($filter);
         }
         return $list_sub;
 

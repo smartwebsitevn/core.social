@@ -337,6 +337,11 @@ class User_page extends MY_Controller
 
     }
 
+    public   function index()
+    {
+        $user= $this->data['user'];
+        $this->view($user->id);
+    }
     public   function view($id)
     {
         // Cap nhat so luot view
@@ -346,8 +351,6 @@ class User_page extends MY_Controller
         $page= $this->input->get('page');
         if(!in_array($page,['follow','follow_me','posts']))
             $page= 'posts';
-
-
        /* switch($page){
             case 'follow':     $this->_page_follow(); break;
             case 'follow_by':     $this->_page_follow_by(); break;

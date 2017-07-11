@@ -181,12 +181,15 @@ class Product_list extends MY_Controller
         }
         //== Sort Order
         $sort_orders = array(
+            'feature|desc',
             'id|desc',
-            'price|asc', 'price|desc',
-            'count_view|desc',
+            //'price|asc',
+            //'price|desc',
+            'view_total|desc',
+            'point_total|desc',
             /*'count_buy|desc',
             'new|desc',
-            'feature|desc',
+
             'rate|desc',
             'name|asc',*/
         );
@@ -283,7 +286,7 @@ class Product_list extends MY_Controller
      */
     public function _remap($method, $params = array())
     {
-        return $this->_remap_action($method, $params, array('ordered','favorited','watched','subscribed'), '_action_user');
+        return $this->_remap_action($method, $params, array('owner','ordered','favorited','watched','subscribed'), '_action_user');
     }
 
     /**
@@ -317,32 +320,12 @@ class Product_list extends MY_Controller
         $filter = array();
         $filter['user_id'] = $user->id;
         $filter['show'] = '1';
-
         // Option set
         $input = array();
         $input['order'] = array('created', 'desc');
 
         //  $this->data['list'] = model('product')->filter_get_list($filter, $input);
         $this->_create_list($input, $filter);
-
-        // khoa hoc mien phi
-        $products_free = model('product')->filter_get_list([
-            'price_option' => 0
-        ], ['order' => array('created', 'DESC')]);
-        //pr_db();
-        if ($products_free)
-            foreach ($products_free as $row) {
-                $row = mod('product')->add_info($row);
-            }
-
-        $this->data['products_free'] = $products_free;
-        // Authors
-        $product_authors = array_gets($this->data['list'], 'author_id');
-        $author_ids = array_merge($product_authors);
-
-        $this->data['authors'] = null;
-        if ($author_ids)
-            $this->data['authors'] = model('product_author')->filter_get_list(['id' => $author_ids, 'show' => 1]);
 
 
         page_info('breadcrumbs', array('#', lang('my_products'), lang('my_products')));

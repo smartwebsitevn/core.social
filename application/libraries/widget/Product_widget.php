@@ -178,11 +178,7 @@ class Product_widget extends MY_Widget
             $filter = array_merge($filter, $filter_input);
         }
 
-        // loc theo cac loai danh muc
-        $cat_types = mod('cat')->get_cat_types();
-        foreach ($cat_types as $t) {
-            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
-        }
+
         // loc theo tag
         $where = array();
         $input['where']["table"] = 'product';
@@ -201,6 +197,13 @@ class Product_widget extends MY_Widget
         $this->data['sort_order'] = $sort_order;
         $this->data['sort_orders'] = $sort_orders;
         $this->data['total_rows'] = $total_rows;
+
+
+        // loc theo cac loai danh muc
+        $cat_types = mod('cat')->get_cat_types();
+        foreach ($cat_types as $t) {
+            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
+        }
         // Lay danh sach country, city
         $this->data['manufactures'] = model('manufacture')->get_list();
         // Lay danh sach country, city

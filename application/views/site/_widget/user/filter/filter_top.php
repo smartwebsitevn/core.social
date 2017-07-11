@@ -63,7 +63,7 @@ foreach ($sort_orders as $v) {
                                 <i class="fa fa-search"></i>
                             </li>
                             <li class="select-input">
-                                <input type="text" class="select-input-field" placeholder="Tìm sản phẩm"
+                                <input type="text" class="select-input-field" placeholder="Tìm thành viên"
                                        id="select-input-field" name="name">
                             </li>
                             <?php /* ?>
@@ -90,8 +90,7 @@ foreach ($sort_orders as $v) {
                 </div>
             </div>
             <div class="action">
-                <button class="btn btn-outline" type="submit">Tìm sản
-                    phẩm<?php //echo lang("search_recruit") ?></button>
+                <button class="btn btn-outline" type="submit">Tìm thành viên<?php //echo lang("search_recruit") ?></button>
             </div>
         </div>
     </div>
@@ -104,11 +103,6 @@ foreach ($sort_orders as $v) {
             <div class="row">
                 <div class="block-content-left col-md-10 col-sm-10 col-xs-12">
 
-                    <?php
-                    $user_cats = model('user_cat')->get_list_hierarchy([], ['show' => 1]);
-                    echo macro()->filter_dropdown_category(['value' => $filter['cat_id'], 'values' => $user_cats, 'param' => 'price', 'name' => lang('filter_category'), 'obj' => 'user_cat']); ?>
-                    <?php echo macro()->filter_dropdown_obj(['value' => $filter['price'], 'values' => $range_type_price, 'param' => 'price', 'name' => lang('filter_price')]); ?>
-                    <?php echo macro()->filter_dropdown_obj(['value' => $filter['manufacture_id'], 'values' => $manufactures, 'param' => 'manufacture_id', 'name' => lang('filter_manufacture')]); ?>
                     <?php echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <a href="#0" class="btn btn-link btn-clear-all">Xóa dữ liệu
                         lọc<?php //echo lang("clear_all_filters")  ?></a>

@@ -79,9 +79,9 @@ class MY_Input extends CI_Input {
 
 	public function is_mobile()
 	{
-		static $device=null;
+		/*static $device=null;
 		if($device)
-			return $device;
+			return $device;*/
 
 		$device = t('session')->userdata('device');
 		if ($device)

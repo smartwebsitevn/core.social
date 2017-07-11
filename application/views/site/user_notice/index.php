@@ -10,7 +10,8 @@
         <?php else: ?>
             <div class="clearfix mt20"></div>
             <div class="well">
-                <?php echo lang('have_no_list') ?>
+                Bạn không có thông báo nào.
+                <?php //echo lang('have_no_list') ?>
             </div>
         <?php endif; ?>
     </div>

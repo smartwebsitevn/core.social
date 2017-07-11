@@ -1115,8 +1115,6 @@
                         $('#' + name + '_content').hide(effect, duration);
                 }
                 else {
-
-
                     if (f == 1) {
                         if (name != undefined) {
                             var value = $('[_field=' + name + ']:checked').val();

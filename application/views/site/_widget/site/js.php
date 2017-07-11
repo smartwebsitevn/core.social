@@ -40,7 +40,7 @@ $asset_theme =$asset. '/site/theme/';
 <script type="text/javascript" src="<?php echo $asset_js ?>/movie/movie.play.js"></script>
 <script type="text/javascript" src="<?php echo $asset_js ?>/movie/movie.show.js"></script>
 <!-- E_MOVIE-->
-<script type="text/javascript" src="<?php echo $asset_js ?>/browser_selector.js"></script>
+<!--<script type="text/javascript" src="<?php /*echo $asset_js */?>/browser_selector.js"></script>-->
 <script type="text/javascript" src="<?php echo $asset_js ?>/underscore-min.js"></script>
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/slimscroll/slimscroll.min.js"></script>
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/colorbox/jquery.colorbox-min.js"></script>
@@ -53,6 +53,12 @@ $asset_theme =$asset. '/site/theme/';
 
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/gritter/jquery.gritter.js"></script>
 <link   type="text/css" href="<?php echo $asset_js ?>/jquery/gritter/jquery.gritter.css" rel="stylesheet" />
+
+<script type="text/javascript" src="<?php echo $asset_js ?>/jquery/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<link   type="text/css" href="<?php echo $asset_js ?>/jquery/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet" />
+
+<script type="text/javascript" src="<?php echo $asset_js ?>/jquery/bootstrap-slider/bootstrap-slider.min.js"></script>
+<link   type="text/css" href="<?php echo $asset_js ?>/jquery/bootstrap-slider/bootstrap-slider.min.css" rel="stylesheet" />
 
 <!-- Rate -->
 <link type="text/css" href="<?php echo $asset_js ?>/jquery/rate/rateit.css" rel="stylesheet" />

@@ -36,29 +36,21 @@
             </li>
       <?php */ ?>
             <li class=" cai-dat">
-                <a href="<?php echo site_url('user') ?>">
-                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_user') ?></a>
+                <a href="<?php echo site_url('my-posts') ?>">
+                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_my_posts') ?></a>
             </li>
             <li class=" cai-dat">
-                <a href="<?php echo site_url('user') ?>">
-                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_user') ?></a>
+                <a href="<?php echo site_url('my-page') ?>">
+                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_my_page') ?></a>
             </li>
-            <?php /*if (!mod("user")->setting('turn_off_function_order')): ?>
-                <li class=" dang-ky">
-                    <a href="<?php echo site_url('my-favorited') ?>">
-                        <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_user_favorited') ?></a>
-                </li>
-            <?php endif;*/ ?>
-            <?php /* ?>
-            <li class=" dang-ky">
-                <a href="<?php echo site_url('deposit_card') ?>"><!--<i
-                        class="fa fa-bank"></i>--> <?php echo lang('user_panel_deposit') ?></a>
+            <li class=" cai-dat">
+                <a href="<?php echo site_url('my-account') ?>">
+                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_my_account') ?></a>
             </li>
-     <?php */ ?>
 
             <li class=" dang-ky">
-                <a href="<?php echo site_url('invoice_order') ?>"><!--<i
-                        class="fa fa-history"></i>--> <?php echo lang('user_panel_tran') ?></a>
+                <a href="<?php echo site_url('my-balance') ?>"><!--<i
+                        class="fa fa-history"></i>--> <?php echo lang('user_panel_my_balance') ?></a>
             </li>
             <li class=" log-out">
                 <a href="<?php echo $user->_url_logout; ?>"

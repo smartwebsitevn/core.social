@@ -2,34 +2,12 @@
 /*
 $make_menu = function () use ($menu_items, $item_cur) {
     ob_start(); ?>
-    <style type="text/css">
-
-        a.list-group-item {
-            background-color: #fff;
-            border: none;
-        }
-
-        a.list-group-item.active:hover,
-        a.list-group-item.active:focus,
-        a.list-group-item.active {
-            background-color: #ae3b39;
-            color: #fff;
-        }
-    </style>
     <div class="list-group">
-
-        <?php
-        foreach ($menu_items as $item => $url) {
-            ?>
-
+        <?php    foreach ($menu_items as $item => $url) {     ?>
             <a href="<?php echo $url ?>"
                class="list-group-item  <?php if ($item == $item_cur) echo 'active'; ?>"
                 ><?php echo lang('user_panel_' . $item) ?></a>
-
-            <?php
-        }
-        ?>
-
+            <?php     }      ?>
     </div>
 
     <?php return ob_get_clean();
@@ -40,8 +18,8 @@ echo macro('mr::box')->panel([
     'content' => $make_menu()
 ]);*/
 //pr($user);
-
 ?>
+<?php /*  ?>
 <div id="user-short">
     <img src="<?php echo $user->avatar->url_thumb ?> "         class="user__avatar">
     <hgroup class="tooltip-container">
@@ -55,11 +33,19 @@ echo macro('mr::box')->panel([
         <h3></h3>
     </hgroup>
 </div>
-<div class="list-group">
-    <?php foreach ($menu_items as $item => $url): ?>
-        <div class="list-group-item <?php if ($item == $item_cur) echo 'on active'; ?>">
-            <a href="<?php echo $url ?>"><?php echo lang('user_panel_' . $item) ?></a>
-        </div>
-    <?php endforeach; ?>
+<?php */ ?>
 
+<div class="nav">
+    <li class=" cai-dat">
+        <a href="<?php echo site_url('my-account') ?>">
+            <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_my_account') ?></a>
+    </li>
+    <li class=" dang-ky">
+        <a href="<?php echo site_url('my-balance') ?>"><!--<i
+                        class="fa fa-history"></i>--> <?php echo lang('user_panel_my_balance') ?></a>
+    </li>
+    <li class=" log-out">
+        <a href="<?php echo $user->_url_logout; ?>"
+            ><!--<i class="fa fa-share"></i> --><?php echo lang('button_logout'); ?></a>
+    </li>
 </div>

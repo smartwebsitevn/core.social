@@ -5,6 +5,13 @@ class User_notice extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+        if ( ! user_is_login())
+        {
+            redirect_login_return();
+        }
+        $user = user_get_account_info();
+        $this->data['user'] = $user;
+
         // Tai cac file thanh phan
         $this->lang->load('site/'.$this->_get_mod());
     }
@@ -105,6 +112,7 @@ class User_notice extends MY_Controller
      */
     private function _create_list($input = array(), $filter = array(), $filter_fields = array())
     {
+        $user  = $this->data['user'];
         $filter_input = array();
         $filter_fields = array_merge($filter_fields, model('user_notice')->fields_filter);
         $mod_filter = mod('user_notice')->create_filter($filter_fields, $filter_input);
@@ -117,6 +125,8 @@ class User_notice extends MY_Controller
             $filter['%name'] = $filter_fields['name'] = $key;
         }
         // Gan filter
+        $filter['user_id'] = $user->id;
+
         $filter['show'] = 1;
 
         //== Lay tong so

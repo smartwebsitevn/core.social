@@ -417,7 +417,7 @@ class MY_Model extends CI_Model
 
         return TRUE;
     }
-//============================== SETS FUNCTION CHECK DATA
+    //============================== SETS FUNCTION CHECK DATA
     function check_id($id)
     {//by id
         if (!$id) {

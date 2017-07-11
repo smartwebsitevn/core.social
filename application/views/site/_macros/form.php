@@ -338,12 +338,12 @@ $this->register('row', function (array $row,$rows=null) {
 				<?php elseif ($type == 'select' || $type == 'select_multi'): ?>
 
 				<?php if ($type == 'select'): ?>
-				<select name="<?php echo $param; ?>" class="form-control " style="width:100%;"
+				<select name="<?php echo $param; ?>" class="form-control "
 					<?php echo t('html')->attr($attr); ?>
 					>
 					<?php else: ?>
 					<select name="<?php echo $param; ?>[]" multiple="multiple" class="form-control select_multi"
-							style="width:100%;"
+
 						<?php echo t('html')->attr($attr); ?>
 						>
 						<?php endif; ?>
@@ -600,7 +600,7 @@ $this->register('row_', function(array $row){ ob_start(); ?>
 						<?php echo t('html')->attr(array_merge(array('class' => 'form-control'), $attr)); ?>
 					>
 				<?php else: ?>
-					<select name="<?php echo $param; ?>[]" multiple="multiple" class="left select2" style="width:100%;" 
+					<select name="<?php echo $param; ?>[]" multiple="multiple" class="left select2"
 						<?php echo t('html')->attr($attr); ?>
 					>
 				<?php endif; ?>
@@ -917,7 +917,7 @@ $this->register('info', function (array $input) {
 				$values_row = object_to_array($values_row);
 			}
 
-			$not_show_in_value = isset($values_opts['not_show_in_value']) ? $values_opts['not_show_in_value'] : 0;// khong hien thi cac gia tri da chon trong danh sãh
+			$not_show_in_value = isset($values_opts['not_show_in_value']) ? $values_opts['not_show_in_value'] : 0;// khong hien thi cac gia tri da chon trong danh sï¿½h
 
 			?>
 			<div class="dropdown search-dropdown <?php echo $class ?>" <?php //echo t('html')->attr($attr)
@@ -1046,8 +1046,8 @@ $this->register('info', function (array $input) {
 		<?php endif; ?>
 		<?php if($can_hide):
 			$hide_target = array_get($input, 'hide_target', $param);?>
-			<a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"  class="removes hide_target " title="Xóa">
-				<span class="icon"></span> Xóa
+			<a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"  class="removes hide_target " title="Xï¿½a">
+				<span class="icon"></span> Xï¿½a
 			</a>
 		<?php endif; ?>
 		<div class="clearfix"></div>
@@ -1330,7 +1330,7 @@ $this->register('info_country_multi', function (array $input) {
 		<?php endif; ?>
 		<!-- <div class="checkbox">
              <label>
-                 <input type="checkbox" value="1" name="contact_email_is_public"><span>N??c Ngoài</span>
+                 <input type="checkbox" value="1" name="contact_email_is_public"><span>N??c Ngoï¿½i</span>
              </label>
          </div>-->
 		<div class="dropdown search-dropdown">
@@ -1381,8 +1381,8 @@ $this->register('info_country_multi', function (array $input) {
 		</div>
 		<?php if($can_hide):
 			$hide_target = array_get($input, 'hide_target', $param);?>
-			<a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"  class="  removes hide_target " title="Xóa">
-				<span class="icon"></span> Xóa
+			<a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"  class="  removes hide_target " title="Xï¿½a">
+				<span class="icon"></span> Xï¿½a
 			</a>
 		<?php endif; ?>
 		<div class="clearfix"></div>
@@ -1456,8 +1456,8 @@ $this->register('info_city', function (array $input) {
 		</div>
 		<?php if($can_hide):
 			$hide_target = array_get($input, 'hide_target', $param);?>
-			<a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"  class="  removes hide_target " title="Xóa">
-				<span class="icon"></span> Xóa
+			<a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"  class="  removes hide_target " title="Xï¿½a">
+				<span class="icon"></span> Xï¿½a
 			</a>
 		<?php endif; ?>
 		<div class="clearfix"></div>
@@ -1633,7 +1633,7 @@ $this->register('cat', function ($input = array()) {
 											class="radio do_action" data-loader="_"
 											data-url="<?php echo $action . '?_act=update_rating&_type=' . $param . '&id=' . $it->id . '&rating=' . $vr ?>"
 											>
-										<label title="M?c ?? thành th?o <?php echo $vr ?>/6"
+										<label title="M?c ?? thï¿½nh th?o <?php echo $vr ?>/6"
 											   for="<?php echo $param ?>_<?php echo $it->id ?>_rating_<?php echo $vr ?>"
 											   class="rating-<?php echo $vr ?>">
 											<span><?php echo $vr ?> star</span>
@@ -1644,7 +1644,7 @@ $this->register('cat', function ($input = array()) {
 							<!--<span class="edits" title="ch?nh s?a" data-toggle="modal" data-target="#modal-<?php /*echo $param */ ?>">
                                             <span class="icon"></span>
                                         </span>-->
-                            <span title="xóa" data-id="<?php echo $it->id ?>" data-type="<?php echo $param ?>"
+                            <span title="xï¿½a" data-id="<?php echo $it->id ?>" data-type="<?php echo $param ?>"
 								  data-act="del" class="removes act-modal">
                                                 <span class="icon"></span>
                                             </span>
@@ -1658,11 +1658,11 @@ $this->register('cat', function ($input = array()) {
 			<div class="actions actions1">
 				<button class="btn btn-default <?php echo $data_multi ? 'act_datasoure_show' : 'act-modal' ?> "
 						data-target="#<?php echo $_id ?>" data-act="add" data-type="<?php echo $param ?>">
-					<i class="fa fa-plus"></i> Thêm t? th? vi?n
+					<i class="fa fa-plus"></i> Thï¿½m t? th? vi?n
 				</button>
 				<?php if ($can_addtext): ?>
 					<button class="btn btn-outline act-modal" data-act="add_text" data-type="<?php echo $param ?>">
-						<i class="fa fa-plus"></i> Thêm n?i dung riêng
+						<i class="fa fa-plus"></i> Thï¿½m n?i dung riï¿½ng
 					</button>
 				<?php endif; ?>
 			</div>
@@ -1705,7 +1705,7 @@ $this->register('cat_datasoure_single', function (array $input) {
 	<?php
 
 	$_data_info = array(
-		'name' => 'Ch?n thông tin', 'text_all' => '_', 'type' => $select_multi?'select_multi':'select',
+		'name' => 'Ch?n thï¿½ng tin', 'text_all' => '_', 'type' => $select_multi?'select_multi':'select',
 		'param' => 'id', 'value' => $ids, 'values_row' => array($values, 'id', 'name'),
 		'values_opts' => array('not_show_in_value' => 1)
 	);
@@ -1713,7 +1713,7 @@ $this->register('cat_datasoure_single', function (array $input) {
 	?>
 	<?php if ($can_rating): ?>
 		<div class="form-group">
-			<span>Ch?n m?c ?? thành th?o</span>
+			<span>Ch?n m?c ?? thï¿½nh th?o</span>
 
 			<div class="control review-control-vote2">
 				<?php foreach (range(1, 6) as $v): ?>
@@ -1744,11 +1744,11 @@ $this->register('cat_datasoure_multi', function (array $input) {
 
 	<div class="row area-act-select">
 		<div class="col-md-9 col-sm-8">
-			<!--<p class="text-right"><a href="#" class="de-xuat">?? xu?t thêm chuyên môn m?i vào th? vi?n <i class="fa fa-angle-right"></i></a></p>-->
+			<!--<p class="text-right"><a href="#" class="de-xuat">?? xu?t thï¿½m chuyï¿½n mï¿½n m?i vï¿½o th? vi?n <i class="fa fa-angle-right"></i></a></p>-->
 			<div class="table-ky-nang">
 				<div class="form-group has-feedback select-search-feedback">
 					<span aria-hidden="true" class="form-control-feedback"></span>
-					<input type="text" placeholder="Nh?p t? khóa ?? tìm m?t chuyên môn"
+					<input type="text" placeholder="Nh?p t? khï¿½a ?? tï¿½m m?t chuyï¿½n mï¿½n"
 						   class="form-control lg select-search-field">
 
 					<div class="select-container select-container-dropdown">
@@ -1813,8 +1813,8 @@ $this->register('cat_datasoure_multi', function (array $input) {
 			<div class="table-kq">
 				<!--<div class="t-head">
                     <span class="count-job">204</span>
-                    <span>vi?c làm</span>
-                    <span>Phù h?p v?i Chuyên Môn c?a b?n</span>
+                    <span>vi?c lï¿½m</span>
+                    <span>Phï¿½ h?p v?i Chuyï¿½n Mï¿½n c?a b?n</span>
                 </div>-->
 				<div class="t-alert">
 					<span><?php echo count($ids) ?></span> c?a <?php echo $count ?> danh m?c ???c ch?n
@@ -1826,7 +1826,7 @@ $this->register('cat_datasoure_multi', function (array $input) {
 							<?php if (isset($items)):
 								foreach ($items as $it): ?>
 									<?php //if(!is_numeric($it->id)) continue; ?>
-									<li title="Xóa kh?i danh sách" class="act-remove-selected"
+									<li title="Xï¿½a kh?i danh sï¿½ch" class="act-remove-selected"
 										data-id="<?php echo $it->id ?>">
 										<input name='cat_<?php echo $param ?>_id[]' value="<?php echo $it->id ?>"
 											   type="hidden"/>
@@ -1838,7 +1838,7 @@ $this->register('cat_datasoure_multi', function (array $input) {
 						</ul>
 						<!-- temp -->
 						<div id="holder-selected-temp" class="hide">
-							<li title="Xóa kh?i danh sách" data-id="{id_value}" class="act-remove-selected">
+							<li title="Xï¿½a kh?i danh sï¿½ch" data-id="{id_value}" class="act-remove-selected">
 								<input {param_name}="cat_<?php echo $param ?>_id[]" value="{id_value}" type="hidden"/>
 								{text_value}
 							</li>
@@ -1886,7 +1886,7 @@ $this->register('job', function (array $input) {
 							   data-url="<?php echo $url_info_job . '?id=' . $it->id ?>"
 							   title="<?php echo lang("view_detail") ?>"><?php echo $it->name ?></a>
 
-                            <span class="removes act-modal" title="xóa" data-id="<?php echo $it->id ?>"
+                            <span class="removes act-modal" title="xï¿½a" data-id="<?php echo $it->id ?>"
 								  data-type="jobs"
 								  data-act="del">
                                 <span class="icon"></span>
@@ -1896,7 +1896,7 @@ $this->register('job', function (array $input) {
 			</ul>
 			<div class="actions actions1">
 				<button class="btn btn-default act_datasoure_show" data-target="#<?php echo $_id ?>">
-					<i class="fa fa-plus"></i> Thêm l?nh v?c
+					<i class="fa fa-plus"></i> Thï¿½m l?nh v?c
 				</button>
 
 			</div>
@@ -1934,7 +1934,7 @@ $this->register('job_ads', function (array $input) {
 		</ul>
 		<div class="clearfix"></div>
 		<a class="btn btn-outline  btn-sm act_datasoure_show " data-target="#<?php echo $_id ?>">
-			<i class="fa fa-plus"></i> Thêm l?nh v?c
+			<i class="fa fa-plus"></i> Thï¿½m l?nh v?c
 		</a>
 
 		<!-- Data Soure-->
@@ -1969,11 +1969,11 @@ $this->register('job_datasource', function (array $input) {
 
 		<div class="row area-act-select">
 			<div class="col-md-9 col-sm-8">
-				<!--<p class="text-right"><a href="#" class="de-xuat">?? xu?t thêm l?nh v?c m?i vào th? vi?n <i class="fa fa-angle-right"></i></a></p>-->
+				<!--<p class="text-right"><a href="#" class="de-xuat">?? xu?t thï¿½m l?nh v?c m?i vï¿½o th? vi?n <i class="fa fa-angle-right"></i></a></p>-->
 				<div class="table-ky-nang">
 					<div class="form-group has-feedback select-search-feedback">
 						<span aria-hidden="true" class="form-control-feedback"></span>
-						<input type="text" placeholder="Nh?p t? khóa ?? tìm m?t l?nh v?c"
+						<input type="text" placeholder="Nh?p t? khï¿½a ?? tï¿½m m?t l?nh v?c"
 							   class="form-control lg select-search-field">
 
 						<div class="select-container select-container-dropdown">
@@ -2037,8 +2037,8 @@ $this->register('job_datasource', function (array $input) {
 				<div class="table-kq">
 					<!--<div class="t-head">
                         <span class="count-job">204</span>
-                        <span>vi?c làm</span>
-                        <span>Phù h?p v?i l?nh v?c c?a b?n</span>
+                        <span>vi?c lï¿½m</span>
+                        <span>Phï¿½ h?p v?i l?nh v?c c?a b?n</span>
                     </div>-->
 					<div class="t-alert">
 						<span><?php echo count($value) ?></span> c?a <?php echo $count ?> l?nh v?c ???c
@@ -2050,7 +2050,7 @@ $this->register('job_datasource', function (array $input) {
 
 								<?php if (isset($list)):
 									foreach ($list as $job): ?>
-										<li title="Xóa kh?i danh sách" class="act-remove-selected"
+										<li title="Xï¿½a kh?i danh sï¿½ch" class="act-remove-selected"
 											data-id="<?php echo $job->id ?>">
 											<input name='jobs[]' value="<?php echo $job->id ?>" type="hidden"/>
 											<?php echo $job->name ?>
@@ -2061,7 +2061,7 @@ $this->register('job_datasource', function (array $input) {
 							</ul>
 							<!-- temp -->
 							<div id="holder-selected-temp" class="hide">
-								<li title="Xóa kh?i danh sách" data-id="{id_value}" class="act-remove-selected">
+								<li title="Xï¿½a kh?i danh sï¿½ch" data-id="{id_value}" class="act-remove-selected">
 									<input {param_name}="jobs[]" value="{id_value}" type="hidden"/>
 									{text_value}
 								</li>

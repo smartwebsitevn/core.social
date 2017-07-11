@@ -55,7 +55,12 @@ $lang['button_buy'] = 'Mua';
 
 // User panel
 $lang['user_panel'] = 'Bảng điều khiển';
-$lang['user_panel_user'] = 'Thông tin tài khoản';
+$lang['user_panel_my_page'] = 'Xem trang của tôi';
+$lang['user_panel_my_account'] = 'Cài đặt tài khoản';
+$lang['user_panel_my_balance'] = 'Số dư tài khoản';
+$lang['user_panel_my_page'] = 'Xem trang của tôi';
+$lang['user_panel_my_posts'] = 'Quản lý bài viết';
+$lang['user_panel_user'] = 'Cài đặt tài khoản';
 $lang['user_panel_user_edit'] = 'Chỉnh sửa thông tin';
 $lang['user_panel_user_verify'] = 'Xác thực tài khoản';
 $lang['user_panel_user_bank'] = 'Tài khoản ngân hàng';
