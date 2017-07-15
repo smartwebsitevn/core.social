@@ -35,26 +35,27 @@
                 </a>
             </li>
       <?php */ ?>
-            <li class=" cai-dat">
-                <a href="<?php echo site_url('my-posts') ?>">
-                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_my_posts') ?></a>
-            </li>
-            <li class=" cai-dat">
+            <li>
                 <a href="<?php echo site_url('my-page') ?>">
-                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_my_page') ?></a>
+                    <i class="pe-7s-home " ></i> <?php echo lang('user_panel_my_page') ?></a>
             </li>
-            <li class=" cai-dat">
-                <a href="<?php echo site_url('my-account') ?>">
-                    <!--<i class="fa fa-user"></i>--> <?php echo lang('user_panel_my_account') ?></a>
+            <li >
+                <a href="<?php echo site_url('my-posts') ?>">
+                    <i class="pe-7s-note2 " ></i> <?php echo lang('user_panel_my_posts') ?></a>
             </li>
 
-            <li class=" dang-ky">
-                <a href="<?php echo site_url('my-balance') ?>"><!--<i
-                        class="fa fa-history"></i>--> <?php echo lang('user_panel_my_balance') ?></a>
+            <li >
+                <a href="<?php echo site_url('my-account') ?>">
+                    <i class="pe-7s-config " ></i> <?php echo lang('user_panel_my_account') ?></a>
             </li>
-            <li class=" log-out">
-                <a href="<?php echo $user->_url_logout; ?>"
-                    ><!--<i class="fa fa-share"></i> --><?php echo lang('button_logout'); ?></a>
+
+            <li>
+                <a href="<?php echo site_url('my-balance') ?>">
+                    <i class="pe-7s-credit " ></i>  <?php echo lang('user_panel_my_balance') ?></a>
+            </li>
+            <li>
+                <a href="<?php echo $user->_url_logout; ?>">
+                    <i class="pe-7s-power " ></i> <?php echo lang('button_logout'); ?></a>
             </li>
 
         </ul>

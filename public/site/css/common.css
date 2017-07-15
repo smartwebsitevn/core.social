@@ -25,7 +25,7 @@ textarea {
 
 .form-horizontal .col-sm-9 b {
 	margin-top: 12px;
-	display: block;
+	/*display: block;*/
 }
 .form-error,
 .form-help{

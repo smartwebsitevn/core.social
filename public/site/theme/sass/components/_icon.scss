@@ -6,21 +6,20 @@
 
 /* Icon */
 
-	.icon {
-		@include icon;
-		border-bottom: none;
-		position: relative;
+.icon {
+  position: relative;
+  background: #999999;
+  border-radius: 100%;
+  font-size: 20px;
+  padding: 3px;
+  color: #fff;
+}
 
-		> .label {
-			display: none;
-		}
+a {
 
-		&.prefix {
-		}
-
-		&.suffix {
-			&:before {
-				float: right;
-			}
-		}
-	}
+  &:hover, &.active {
+    .icon {
+      background: _palette(button-3);
+    }
+  }
+}

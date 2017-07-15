@@ -101,9 +101,12 @@ class User_mod extends MY_Mod
             $row->{'_url_' . $p} = site_url("user_account/{$p}");
         }
 
-        if (isset($row->id)) {
-            $row->_url_view = site_url('user-' . $row->id);
+        foreach (array('favorite', 'favorite_del', 'subscribe', 'subscribe_del','vote', 'vote','raty', 'report') as $p) {
+            $row->{'_url_' . $p} = site_url("user_page/{$p}/$row->id");
         }
+
+        $row->_url_view = site_url('user-' . $row->id);
+        $row->_url_message = site_url('message/send/' . $row->id);
 
         return $row;
     }

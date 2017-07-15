@@ -171,7 +171,7 @@ class Product_list extends MY_Controller
         //== Lay tong so
         if (!isset($input['limit'])) {
             $total = model('product')->filter_get_total($filter, $input);
-            $page_size =2;// config('list_limit', 'main');
+            $page_size =17;// config('list_limit', 'main');
 
             $limit = $this->input->get('per_page');
             $limit = min($limit, $total - fmod($total, $page_size));

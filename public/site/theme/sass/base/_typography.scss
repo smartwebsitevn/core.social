@@ -63,21 +63,29 @@ a {
     color: _palette(button-2);
     background-color: transparent;
     border-color: transparent;
+    text-decoration: none;
+
   }
   &:focus {
     color: _palette(button-3);
     background-color: transparent;
     border-color: transparent;
+    text-decoration: none;
+
   }
   &.focus, &:active, &.active {
     color: _palette(button-3);
     background-color: transparent;
     border-color: transparent;
+    text-decoration: none;
+
   }
   &:active:focus {
     color: _palette(button-3);
     background-color: transparent;
     border-color: transparent;
+    text-decoration: none;
+
   }
 
 }

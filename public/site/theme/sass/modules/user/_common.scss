@@ -1,4 +1,11 @@
 body.user-page {
+  #main {
+    margin: 0px;
+  }
+}
+
+body.user-account {
+
   .sidebar {
     padding-top: 10px;
     padding-bottom: 40px;
@@ -28,9 +35,10 @@ body.user-page {
       margin-bottom: 40px;
       .panel-body {
         background: #fff;
+        padding: 40px;
       }
       form {
-       /* padding: 20px;*/
+        /* padding: 20px;*/
         .form-group {
           .control-label {
             text-align: left;
@@ -43,11 +51,10 @@ body.user-page {
             width: 200px;
             float: left;
           }
-
         }
-        .actions{
+        .actions {
           position: absolute;
-          top:10px;
+          top: 10px;
           right: 10px;
         }
       }

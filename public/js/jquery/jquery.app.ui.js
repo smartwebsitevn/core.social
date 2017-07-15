@@ -920,7 +920,7 @@
                                 $this.attr('title', title);
 
                                 var text = $this.data('text-' + act);
-                                $this.text(text);
+                                $this.html(text);
                             },
                             click: function () {
                                 $this.click(function () {
@@ -1526,6 +1526,35 @@ var nfc = {
             this.mobile();
         },
         common: function () {
+            // Hide it
+            $('.hideit').click(function()
+            {
+                $(this).fadeOut();
+            });
+
+            $(document).on('click', '.hide-me',function (){
+                $(this).fadeOut();
+            });
+            // an muc cha
+            $(document).on('click', '.hide-parent',function (){
+                var parent =$(this).data('parent');
+                $(this).closest(parent).slideUp();
+            });
+
+            // chia se mang xa hoi
+            $(document).on('click', '.act-share',function (){
+                url =$(this).data('url');
+                switch ($(this).data('social')){
+                    case 'facebook': url = "http://www.facebook.com/sharer/sharer.php?u=" +url; break;
+                    case 'google': url = "https://plus.google.com/share?url=" +url; break;
+                    case 'twitter': url = "http://twitter.com/intent/tweet?url=" +url; break;
+                    case 'pinterest': url = "http://pinterest.com/pin/create/button/?url=" +url; break;
+                    case 'linkedin': url = "http://www.linkedin.com/shareArticle?mini=true&amp;url=" +url; break;
+
+                }
+                targetWin = window.open(url, '', " width=500, height=440")
+            });
+
             //= hien thong bao dang modal co ho tro load ajax
             $(document).on('click', '.act-notify-modal,.act-modal', function () {
                 var display_notify = false;
@@ -2230,7 +2259,6 @@ var nfc = {
         }
     },
     //== Khu vuc thong bao
-
     notice: function (content, title, sticky) {
         $.gritter.removeAll();// go thong bao cu
         if (title == undefined) {

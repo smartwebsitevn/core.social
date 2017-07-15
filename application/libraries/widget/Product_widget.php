@@ -738,9 +738,27 @@ class Product_widget extends MY_Widget
 
     }
 
+
     /**
      * Action khac
      */
+
+    function action_share($row,$temp = '')
+    {
+        $this->data['url_share'] = $row->_url_view;
+        // Hien thi view
+        $temp = (!$temp) ? 'share' : $temp;
+        $temp = 'tpl::_widget/product/action/'.$temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
+
+    function action_close($temp = '')
+    {
+        // Hien thi view
+        $temp = (!$temp) ? 'close' : $temp;
+        $temp = 'tpl::_widget/product/action/'.$temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
     function action_toggle_light($temp = '')
     {
 

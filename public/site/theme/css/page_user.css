@@ -1,10 +1,13 @@
-body.user-page .sidebar {
+body.user-page #main {
+  margin: 0px; }
+
+body.user-account .sidebar {
   padding-top: 10px;
   padding-bottom: 40px;
   position: relative; }
-  body.user-page .sidebar h3 {
+  body.user-account .sidebar h3 {
     margin-top: 0; }
-  body.user-page .sidebar .nav li a:hover, body.user-page .sidebar .nav li a.active {
+  body.user-account .sidebar .nav li a:hover, body.user-account .sidebar .nav li a.active {
     background: #eee;
     border-color: #e0e0e0 transparent;
     border-style: solid;
@@ -13,24 +16,25 @@ body.user-page .sidebar {
     position: relative;
     border-left-width: 4px;
     border-left-color: #f7941e; }
-body.user-page .main-content h1.panel-title {
+body.user-account .main-content h1.panel-title {
   font-size: 2em; }
-body.user-page .main-content .panel {
+body.user-account .main-content .panel {
   background: none;
   margin-bottom: 40px; }
-  body.user-page .main-content .panel .panel-body {
-    background: #fff; }
-  body.user-page .main-content .panel form {
+  body.user-account .main-content .panel .panel-body {
+    background: #fff;
+    padding: 40px; }
+  body.user-account .main-content .panel form {
     /* padding: 20px;*/ }
-    body.user-page .main-content .panel form .form-group .control-label {
+    body.user-account .main-content .panel form .form-group .control-label {
       text-align: left; }
-    body.user-page .main-content .panel form .form-group select.form-control {
+    body.user-account .main-content .panel form .form-group select.form-control {
       width: 200px;
       float: left; }
-    body.user-page .main-content .panel form .form-group .form-control {
+    body.user-account .main-content .panel form .form-group .form-control {
       width: 200px;
       float: left; }
-    body.user-page .main-content .panel form .actions {
+    body.user-account .main-content .panel form .actions {
       position: absolute;
       top: 10px;
       right: 10px; }

@@ -173,3 +173,30 @@ $lang['notice_service_not_register']		= 'Quí khách chưa đăng ký dịch v�
 $lang['you_need_to_fully_update_information']		= 'Quí khách vui lòng cập nhập đầy đủ thông tin cá nhân của mình.';
 
 
+//======== user page
+
+
+// favorite
+$lang['action_favorite']		= 'Lưu';
+$lang['action_favorite_del']		= 'Hủy lưu';
+$lang['notice_user_favorited']		= 'Thành viên đã được lưu vào danh sách yêu thích';
+$lang['notice_user_favorited_del_confirm']		= 'Bạn có chác muốn xóa thành viên này ra khỏi danh sách yêu thích không?';
+$lang['notice_user_favorited_del_succcess']		= 'Xóa thành viên yêu thích thành công.';
+
+//rate
+$lang['notice_rated'] = 'Cảm ơn bạn, bạn đã đánh giá thành viên này rồi!';
+$lang['notice_raty_success'] = 'Cảm ơn bạn đã đánh giá thành viên!';
+
+
+//report
+$lang['action_report']		= 'Thông báo vi phạm';
+$lang['report_content'] = 'Nội dung thông báo gửi Admin';
+$lang['notice_reported'] = 'Bạn đã thông báo lỗi thành viên này tới admin';
+
+
+
+
+// subscribe
+$lang['notice_user_subscribe_success']			    = 'Thành viên này đã được thêm vào danh sách theo dõi của bạn.';
+$lang['notice_user_subscribe_del_succcess']		= 'Thành viên này đã được xóa khỏi danh sách theo dõi của bạn.';
+

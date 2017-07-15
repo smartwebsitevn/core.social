@@ -1,0 +1,46 @@
+.toggle {
+
+  /*.btn-default {
+	color: #ffffff;
+	background-color: _palette(button-1);
+	border-color: _palette(button-1);
+	&:hover {
+	  color: #ffffff;
+	  background-color: _palette(button-2);
+	  border-color: _palette(button-2);
+	}
+	&:focus {
+	  background-color: _palette(button-3);
+	  border-color: _palette(button-3);
+	}
+	&.focus, &:active, &.active {
+	  color: #ffffff;
+	  background-color: _palette(button-2);
+	  border-color: _palette(button-2);
+	}
+	&:active:focus{
+	  color: #ffffff;
+	  background-color: _palette(button-2);
+	  border-color: _palette(button-2);
+	}
+  }*/
+
+  .btn-primary {
+	background-color: #337ab7;
+	border-color: #2e6da4;
+	color: #fff;
+  }
+
+  .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+	background-color: #e6e6e6;
+	border-color: #adadad;
+	color: #333;
+  }
+  .toggle-handle {
+	.btn-default {
+	  background-color: #fff;
+	  border-color: #fff;
+	}
+  }
+
+}

@@ -11,11 +11,11 @@
                 <div class="logo-cty">
                     <a href="<?php echo $author->_url_view ?>">
                         <img
-                            src="<?php echo $author->avatar->url_thumb ?>">                    </a>
+                            src="<?php echo $author->avatar->url_thumb ?>"> </a>
 
                 </div>
                 <div class="links">
-                    <a data-toggle="modal" data-target="#modal-company-info" >
+                    <a data-toggle="modal" data-target="#modal-company-info">
                         <i class="pe-7s-angle-right-circle"></i>
 
                     </a>
@@ -23,11 +23,11 @@
                         <i class="pe-7s-mail"></i>
 
                     </a>
-                    <a data-toggle="modal" data-target="#modal-company-info" >
+                    <a data-toggle="modal" data-target="#modal-company-info">
                         <i class="pe-7s-call"></i>
 
                     </a>
-                    <a data-toggle="modal" data-target="#modal-company-info" >
+                    <a data-toggle="modal" data-target="#modal-company-info">
                         <i class="pe-7s-id"></i>
 
                     </a>
@@ -37,20 +37,23 @@
                 </div>
                 <div class="short-cty">  <?php echo $author->profession ?></div>
                 <div class="item-meta">
-                    <?php if(isset($author->_city)): ?>
-                    <span class="place"> <i class="pe-7s-map-marker"></i> <b><?php  echo $author->_city->name ?></b></span>
+                    <?php if (isset($author->_city)): ?>
+                        <span class="place"> <i class="pe-7s-map-marker"></i> <b><?php echo $author->_city->name ?></b></span>
                     <?php endif; ?>
-                    <span  class="posts"> <b><?php echo number_format($author->post_total) ?></b> <?php echo lang("count_post") ?></span>
+                    <span
+                        class="posts"> <b><?php echo number_format($author->post_total) ?></b> <?php echo lang("count_post") ?></span>
 
-                    <span class="points"> <b><?php echo number_format($author->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-            <span   class="follows"> <b><?php echo number_format($author->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
+                    <span
+                        class="points"> <b><?php echo number_format($author->vote_total) ?></b> <?php echo lang("count_point") ?></span>
+                    <span
+                        class="follows"> <b><?php echo number_format($author->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
 
 
                 </div>
 
                 <hr>
-                <a class="btn btn-default"><i class="pe-7s-like"></i> Theo dõi</a>
-                <a class="btn btn-outline"><i class="pe-7s-comment"></i> Nhắn tin</a>
+                <?php widget('user')->action_subscribe($author) ?>
+                <?php widget('user')->action_message($author) ?>
                 <hr>
 
                 <div class="item-des">

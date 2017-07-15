@@ -17,18 +17,37 @@ foreach ($sort_orders as $v) {
         <input type="hidden" name="<?php echo $n; ?>" value="<?php echo $v ?>"/>
     <?php endforeach; ?>
 <?php endif; ?>
-    <div class="block-sorter">
-        <div class="total_product">
+
+    <div class="block-total">
                 <span
                     class="ajax-content-product-total fontB"><?php echo isset($total_rows) ? number_format($total_rows) : '-' ?></span>
-            Kết quả
+        Kết quả
+    </div>
+    <div>
+        <div class="block-sorter">
+            <?php
+            echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
+        </div>
+        <div class="block-layout">
+            <input id="slider_point_hander" type="text" data-provide="slider" data-slider-min="1"
+                   data-slider-max="100"
+                   data-slider-step="1"
+                   data-slider-value="3" data-slider-tooltip="hide"/>
+
+            <div class="clearfix"></div>
+            <span id="slider_point"><span id="slider_point_value">3</span> points</span>
+
         </div>
 
-        <?php
-        echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
-
-
         <?php /* ?>
+    <div class="block-layout">
+            <a class="search-results  act-filter-dropdown " href="Javascript:;" data-name="order" data-value="id|desc">
+                <i class="fa fa-list"></i>
+            </a>
+            <a class="search-results  act-filter-dropdown " href="Javascript:;" data-name="order" data-value="id|desc">
+                <i class="fa fa-list"></i>
+            </a>
+        </div>
             <div class="col-xs-12 col-sm-6">
                     Hiển thị sp/ 1 trang
                     <select style="width:130px" name="limit" class="form-control select_show">
@@ -116,30 +135,21 @@ foreach ($sort_orders as $v) {
                 </div>
                 <div class="block-content-right  col-md-4 col-sm-4 col-xs-12">
                     <div class="row">
-                        <div class=" col-md-6 col-sm-6 col-xs-12 text-right">
-                            <input id="slider_point_hander" type="text" data-provide="slider" data-slider-min="1" data-slider-max="100"
-                                   data-slider-step="1"
-                                   data-slider-value="3" data-slider-tooltip="hide"/>
-                            <div class="clearfix"></div>
-                            <span id="slider_point"><span id="slider_point_value">3</span> points</span>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 pr0">
-                            <?php echo $_data_sort(); ?>
-
-                        </div>
-
+                        <?php //echo $_data_layout(); ?>
+                        <?php echo $_data_sort(); ?>
                     </div>
 
                 </div>
+
             </div>
         </div>
     </div>
-        <?php //echo macro()->navbar_collapse_end(); ?>
+    <?php //echo macro()->navbar_collapse_end(); ?>
 </form>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("#slider_point_hander").slider();
-        $("#slider_point_hander").on("slide", function(slideEvt) {
+        $("#slider_point_hander").on("slide", function (slideEvt) {
             $("#slider_point_value").text(slideEvt.value);
         });
     })

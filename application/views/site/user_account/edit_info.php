@@ -20,115 +20,137 @@
                 src="<?php echo $public_url_js ?>/jquery/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>
         <script type="text/javascript" src="<?php echo $public_url_js ?>/jquery/plupload/script.js"></script>
         <?php
-        $rows[] = [
+        echo macro('mr::form')->row([
+            'param' => 'avatar', 'name' => lang('Avatar'),
+            'type' => 'image',
+            '_upload' => $upload_avatar,
+        ]);
+
+        echo macro('mr::form')->row([
             'param' => 'name',
-            'name' => lang('full_name'),
+            'name' => lang('name'),
             'value' => $user->name,
             'req' => true,
-        ];
-
+        ]);
+        echo macro('mr::form')->row([
+            'param' => 'profession',
+            'name' => lang('profession'),
+            'value' => $user->profession,
+            'req' => true,
+        ]);
 
         if ($user->can_edit_email) {
-            $rows[] = array(
+            echo macro('mr::form')->row(array(
                 'param' => 'email_edit',
                 'name' => lang('email'),
                 'value' => $user->email,
                 'req' => true,
-            );
+            ));
         }
         if ($user->can_edit_username) {
-            $rows[] = array(
+            echo macro('mr::form')->row(array(
                 'param' => 'username_edit',
                 'name' => lang('username'),
                 'req' => true,
                 'value' => $user->username,
-            );
+            ));
         }
-
         if ($user->can_edit_phone) {
-            $rows[] = array(
+            echo macro('mr::form')->row(array(
                 'param' => 'phone_edit',
                 'name' => lang('phone'),
                 'req' => true,
                 'value' => $user->phone,
-            );
+            ));
         }
 
-        $rows[] = [
-            'param' => 'avatar', 'name' => lang('Avatar'),
-            'type' => 'image',
-            '_upload' => $upload_avatar,
-        ];
-        $rows[] = [
-            'param' => 'gender',
-            'type' => 'bool',
-            //'req' 	=> true,
-            'value' => $user->gender ? $user->gender : 1,
-            'values' => ['1' => lang('gender_1'), '2' => lang('gender_2'), '3' => lang('gender_3')],
-        ];
-        $rows[] = [
-            'param' => 'birthday',
-            'type' => 'date',
-            //'req' 	=> true,
-            'value' => $user->birthday,
-            'attr' => ['placeholder' => lang("birthday_hint")]
 
-        ];
+        echo macro('mr::form')->row([
+            'param' => 'facebook',
+            'value' => $user->facebook,
+        ]);
+        echo macro('mr::form')->row([
+            'param' => 'website',
+            'value' => $user->website,
+        ]);
+        /* echo macro('mr::form')->row( [
+             'param' => 'gender',
+             'type' => 'bool',
+             //'req' 	=> true,
+             'value' => $user->gender ? $user->gender : 1,
+             'values' => ['1' => lang('gender_1'), '2' => lang('gender_2'), '3' => lang('gender_3')],
+        ]);
+         echo macro('mr::form')->row( [
+             'param' => 'birthday',
+             'type' => 'date',
+             //'req' 	=> true,
+             'value' => $user->birthday,
+             'attr' => ['placeholder' => lang("birthday_hint")]
+
+        ]);*/
         //pr($countrys);
-        $rows[] = [
-            'param' => 'country',
-            'type' => 'select',
-            //'req' 	=> true,
+        /* echo macro('mr::form')->row( [
+             'param' => 'country',
+             'type' => 'select',
+             //'req' 	=> true,
 
-            'value' => $user->country,
-            'values_row' => [$countrys, 'id', 'name'],
-            'attr' => ['_dropdownchild' => "city", "_url" => site_url('user/get_citys')]
-        ];
-        $rows[] = [
+             'value' => $user->country,
+             'values_row' => [$countrys, 'id', 'name'],
+             'attr' => ['_dropdownchild' => "city", "_url" => site_url('user/get_citys')]
+        ]);*/
+        echo macro('mr::form')->row([
             'param' => 'city',
             'type' => 'select',
             'value' => $user->city,
             //'req' 	=> true,
-
             'values_row' => [$citys, 'id', 'name'],
             //'attr'=>['_dropdownchild'=>"distric_id","_url"=>site_url('user/get_districs')]
-        ];
-
-        /*$rows[] =    [
+        ]);
+        /*echo macro('mr::form')->row(    [
             'param' => 'distric',
             'type' => 'select',
             'value' => $user->distric,
             'values_row' => [ $districs, 'distric_id', 'distric_name'],
-        ];*/
-        /*$rows[] = array(
-            'param' => 'subject_id','name'=>lang('subject'),'type'=>'select',
-            'value'=>$user->subject_id,'values_row'=>array($cat_type_subject,'id','name'),
-            'req' 	=> true,
-        );*/
-        foreach ([/*'profession',*/
+       ]);*/
+        /*foreach (['profession',
                      'facebook', 'twitter', 'address',] as $f) {
-            $rows[] = [
+            echo macro('mr::form')->row( [
                 'param' => $f,
                 'value' => $user->$f,
-            ];
+           ]);
         }
+        */
 
-        $rows[] = [
+        //city-country
+        $countrys = model('country')->filter_get_list(['show' => 1]);
+        $citys = model('city')->filter_get_list(["country_id"=>230,'show' => 1]);
+        ?>
+                <?php echo macro('mr::form')->info_city(array(
+                    'name' => 'City',
+                    'param' => 'working_city_id',
+                    'value' => $user->working_city_id,
+                    'values' => $citys,
+                )); ?>
+
+                <?php echo macro('mr::form')->info_country_multi(array(
+                    'name' => 'Country',
+                    'param' => 'working_country_id',
+                    'value' => $user->working_country_id,
+                    'values' => $countrys,
+                )); ?>
+        <?php
+        echo macro('mr::form')->row([
             'param' => 'desc',
             'value' => $user->desc,
             'type' => "textarea"
-        ];
+        ]);
 
-
-        /*$rows[] =    [
+        /*echo macro('mr::form')->row(    [
             'param' => 'password_old',
             'type' 	=> 'password',
             'req' 	=> true,
-        ];*/
+       ]);*/
 
-        foreach ($rows as $row) {
-            echo macro('mr::form')->row($row);
-        }
 
         ?>
 

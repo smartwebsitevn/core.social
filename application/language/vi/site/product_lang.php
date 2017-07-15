@@ -3,7 +3,7 @@ $lang['author'] = 'Giảng viên';
 $lang['author_introduce'] = 'Giới thiệu giảng viên';
 $lang['average_rating'] = 'Đánh giá trung bình';
 $lang['buy_vip'] = 'Mua gói VIP';
-$lang['product_purchase'] = 'Thanh toán sản phẩm';
+$lang['product_purchase'] = 'Thanh toán bài viết';
 $lang['free'] = 'Miễn phí';
 $lang['like'] = 'thích';
 $lang['more_options'] = 'Thông tin khác';
@@ -13,11 +13,11 @@ $lang['student_rate'] = 'Học viên đánh giá';
 $lang['students'] = 'Học viên';
 $lang['rate_times'] = 'số lượt đánh giá';
 $lang['rating'] = 'Đánh giá';
-$lang['return_to_product'] = 'Quay lại sản phẩm';
-$lang['take_this_product'] = 'Mua sản phẩm';
+$lang['return_to_product'] = 'Quay lại bài viết';
+$lang['take_this_product'] = 'Mua bài viết';
 $lang['order_confirm'] = 'Xác nhận đơn hàng';
 $lang['view_this_product'] = 'Tham gia';
-$lang['you_have_no_products'] = 'Bạn chưa có sản phẩm nào';
+$lang['you_have_no_products'] = 'Bạn chưa có bài viết nào';
 
 
 $lang['price_free'] = 'Miễn phí';
@@ -31,7 +31,7 @@ $lang['price_is_auction'] = 'Đấu giá';
 
 $lang['auction_price'] = 'Giá bạn đặt';
 
-$lang['auction_intro'] = 'Tự giới thiệu về bản thân và chiến lược phát triển dự án/sản phẩm này của bạn';
+$lang['auction_intro'] = 'Tự giới thiệu về bản thân và chiến lược phát triển dự án/bài viết này của bạn';
 
 
 
@@ -45,12 +45,12 @@ $lang['count_post'] = 'Posts';
 
 
 //==  Filter
-$lang['search_product'] = 'Tìm sản phẩm';
-$lang['filter_all'] = 'Lọc sản phẩm';
+$lang['search_product'] = 'Tìm bài viết';
+$lang['filter_all'] = 'Lọc bài viết';
 $lang['filter_day'] = 'Ngày cập nhập';
 $lang['filter_year'] = 'Năm';
 $lang['filter_name'] = 'Tên';
-$lang['filter_submit'] = 'Tìm kiếm & lọc sản phẩm';
+$lang['filter_submit'] = 'Tìm kiếm & lọc bài viết';
 $lang['filter_price'] = 'Mức giá';
 $lang['filter_category'] = 'Phân loại';
 $lang['filter_manufacture'] = 'Nhà sản xuất';
@@ -72,16 +72,16 @@ $lang['have_no_list'] = 'Không có dữ liệu';
 
 //== Info product detail
 
-$lang ['product_info'] = 'Thông tin sản phẩm';
-$lang ['product_preview'] = 'Xem qua sản phẩm';
-$lang ['product_about'] = 'Về sản phẩm';
-$lang ['product_description'] = 'Giới thiệu về sản phẩm';
+$lang ['product_info'] = 'Thông tin bài viết';
+$lang ['product_preview'] = 'Xem qua bài viết';
+$lang ['product_about'] = 'Về bài viết';
+$lang ['product_description'] = 'Giới thiệu về bài viết';
 $lang ['product_progress'] = 'Tiến trình học';
 
-$lang ['target'] = 'Mục tiêu sản phẩm';
-$lang ['description'] = 'Giới thiệu về sản phẩm';
-$lang ['requirement'] = 'Yêu cầu của sản phẩm';
-$lang ['result_bring'] = 'Kết quả đạt được sau sản phẩm';
+$lang ['target'] = 'Mục tiêu bài viết';
+$lang ['description'] = 'Giới thiệu về bài viết';
+$lang ['requirement'] = 'Yêu cầu của bài viết';
+$lang ['result_bring'] = 'Kết quả đạt được sau bài viết';
 
 $lang ['stats_time'] = 'Thời gian học';
 $lang ['stats_lesson'] = 'bài giảng';
@@ -123,10 +123,10 @@ $lang ['click_to_view'] = 'Click để xem';
 
 //== VIP
 $lang['please_login_to_view_lesson'] = 'Vui lòng đăng nhập để xem bài học';
-$lang['notice_cannot_view_lesson_need_buy'] = 'Bạn không học được bài học này, vui lòng mua sản phẩm. Kích vào nút "Mua sản phẩm"';
+$lang['notice_cannot_view_lesson_need_buy'] = 'Bạn không học được bài học này, vui lòng mua bài viết. Kích vào nút "Mua bài viết"';
 $lang['need_buy_to_view'] = 'Bạn cần mua bài học để có thể xem';
 $lang['extend_vip_to_view'] = 'Bạn cần gia hạn VIP để có thể xem';
-$lang['notice_need_login'] = 'Bạn chưa đăng nhập, vui lòng đăng nhập  tài khoản để mua sản phẩm';
+$lang['notice_need_login'] = 'Bạn chưa đăng nhập, vui lòng đăng nhập  tài khoản để mua bài viết';
 
 
 //== User product
@@ -142,7 +142,7 @@ $lang['result_of_finished_test']= 'Kết quả các bài kiểm tra đã làm';
 //=== Action
 
 // buyproducte
-$lang['action_buy']		= 'Mua sản phẩm này';
+$lang['action_buy']		= 'Mua bài viết này';
 $lang['action_vip']		= 'Đăng ký VIP';
 
 
@@ -153,21 +153,21 @@ $lang['action_auction_product']		= 'Đặt giá';
 
 
 // favorite
-$lang['action_favorite']		= 'Lưu sản phẩm';
-$lang['action_favorite_del']		= 'Hủy lưu sản phẩm';
-$lang['notice_product_favorited']		= 'Sản phẩm đã được lưu vào danh sách yêu thích';
-$lang['notice_product_favorited_del_confirm']		= 'Bạn có chác muốn xóa sản phẩm này ra khỏi danh sách yêu thích không?';
-$lang['notice_product_favorited_del_succcess']		= 'Xóa sản phẩm yêu thích thành công.';
+$lang['action_favorite']		= 'Lưu';
+$lang['action_favorite_del']		= 'Hủy lưu';
+$lang['notice_product_favorited']		= 'Bài viết đã được lưu vào danh sách yêu thích';
+$lang['notice_product_favorited_del_confirm']		= 'Bạn có chác muốn xóa bài viết này ra khỏi danh sách yêu thích không?';
+$lang['notice_product_favorited_del_succcess']		= 'Xóa bài viết yêu thích thành công.';
 
 //rate
-$lang['notice_rated'] = 'Cảm ơn bạn, bạn đã đánh giá sản phẩm này rồi!';
-$lang['notice_raty_success'] = 'Cảm ơn bạn đã đánh giá sản phẩm!';
+$lang['notice_rated'] = 'Cảm ơn bạn, bạn đã đánh giá bài viết này rồi!';
+$lang['notice_raty_success'] = 'Cảm ơn bạn đã đánh giá bài viết!';
 
 
 //report
 $lang['action_report']		= 'Thông báo vi phạm';
 $lang['report_content'] = 'Nội dung thông báo gửi Admin';
-$lang['notice_reported'] = 'Bạn đã thông báo lỗi sản phẩm này tới admin';
+$lang['notice_reported'] = 'Bạn đã thông báo lỗi bài viết này tới admin';
 
 
 //contact
@@ -185,30 +185,30 @@ $lang['notice_contacted'] = 'Cản ơn bạn đã góp ý, chúng tôi sẽ xem 
 // subscribe
 $lang['client_name']		= 'Tên của bạn';
 $lang['client_email']		= 'Email';
-$lang['action_subscribe'] = 'Theo dõi sản phẩm';
-$lang['subscribe_title']							= 'Đăng ký theo dõi sản phẩm';
-$lang['subscribe_title_series']						= 'Bộ sản phẩm này vẫn còn ra tập mới';
-$lang['subscribe_title_trailer']					= 'sản phẩm này mới chỉ có trailer';
-$lang['subscribe_hint']								= 'Bạn có muốn nhận thông tin khi sản phẩm có thể xem online không ?';
+$lang['action_subscribe'] = 'Theo dõi bài viết';
+$lang['subscribe_title']							= 'Đăng ký theo dõi bài viết';
+$lang['subscribe_title_series']						= 'Bộ bài viết này vẫn còn ra tập mới';
+$lang['subscribe_title_trailer']					= 'bài viết này mới chỉ có trailer';
+$lang['subscribe_hint']								= 'Bạn có muốn nhận thông tin khi bài viết có thể xem online không ?';
 
-$lang['subscribed_title']							= 'Bạn đang theo dõi sản phẩm này';
-$lang['subscribed_thank']			                = 'Hệ thống sẽ gửi email cho bạn khi sản phẩm được cập nhật.';
+$lang['subscribed_title']							= 'Bạn đang theo dõi bài viết này';
+$lang['subscribed_thank']			                = 'Hệ thống sẽ gửi email cho bạn khi bài viết được cập nhật.';
 
 $lang['button_subscribe_del']						= 'Hủy theo dõi';
 $lang['button_subscribe']							= 'Đăng ký theo dõi';
-$lang['notice_product_subscribe_success']			    = 'Cám ơn bạn, hệ thống sẽ gửi email cho bạn khi sản phẩm được cập nhật.';
-$lang['notice_product_subscribe_del_succcess']		= 'Xóa theo dõi sản phẩm thành công.';
+$lang['notice_product_subscribe_success']			    = 'Cám ơn bạn, hệ thống sẽ gửi email cho bạn khi bài viết được cập nhật.';
+$lang['notice_product_subscribe_del_succcess']		= 'Xóa theo dõi bài viết thành công.';
 
 
 
 //== notice
 $lang['notice_please_choice_option'] = "Vui lòng chọn %s";
-$lang['notice_add_to_cart_success'] = "Sản phẩm đã được thêm vào giỏ hàng";
-$lang['notice_add_to_cart_error'] = "Có lỗi khi thêm sản phẩm vào giỏ hàng. Vui lòng kiểm tra lại.";
+$lang['notice_add_to_cart_success'] = "Bài viết đã được thêm vào giỏ hàng";
+$lang['notice_add_to_cart_error'] = "Có lỗi khi thêm bài viết vào giỏ hàng. Vui lòng kiểm tra lại.";
 
-$lang['notice_cart_update_success'] = "Sản phẩm đã được cập nhập.";
-$lang['notice_cart_delete_success'] = "Đã xóa sản phẩm khỏi giỏ hàng.";
-$lang['notice_cart_destroy_success'] = "Đã xóa tất cả sản phẩm trong giỏ hàng.";
+$lang['notice_cart_update_success'] = "Bài viết đã được cập nhập.";
+$lang['notice_cart_delete_success'] = "Đã xóa bài viết khỏi giỏ hàng.";
+$lang['notice_cart_destroy_success'] = "Đã xóa tất cả bài viết trong giỏ hàng.";
 
 $lang['notice_coupon_using']          = "Mã giảm giá đã được sử dụng cho giỏ hàng của bạn.";
 $lang['notice_coupon_invalid']        = "Mã giảm giá không hợp lệ hoặc hết hiệu lực.";
@@ -217,11 +217,11 @@ $lang['notice_coupon_require_total']  = "Mã giảm giá này chỉ có hiệu l
 
 //=== Notice Common
 $lang['notice'] = 'Thông báo';
-$lang['notice_product_updating'] = 'sản phẩm đang dược cập nhập';
+$lang['notice_product_updating'] = 'Bài viết đang dược cập nhập';
 $lang['notice_product_view_trailer_here'] = 'Bạn có thể xem Trailer tại đây';
-$lang['notice_product_need_login_to_watch'] = 'Vui lòng đăng nhập có thể xem được sản phẩm này';
-$lang['notice_product_need_vip_to_watch'] = 'Hãy gia hạn xem để có thể xem được sản phẩm này';
-$lang['notice_product_demo1'] = 'Bạn đang xem bản Demo của sản phẩm';
+$lang['notice_product_need_login_to_watch'] = 'Vui lòng đăng nhập có thể xem được bài viết này';
+$lang['notice_product_need_vip_to_watch'] = 'Hãy gia hạn xem để có thể xem được bài viết này';
+$lang['notice_product_demo1'] = 'Bạn đang xem bản Demo của bài viết';
 $lang['notice_product_demo2'] = 'Hãy {login} hoặc {register} để xem bản đầy đủ';
 $lang['notice_product_demo3'] = 'Tài khoản của bạn đã hết hạn xem. Hãy {renew} để xem bản đầy đủ';
 $lang['notice_report_error_success'] = 'Cảm ơn bạn đã gửi thông báo! Chúng tôi sẽ khắc phục lỗi trong thời gian sớm nhất.';

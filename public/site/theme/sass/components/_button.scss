@@ -1,11 +1,12 @@
 
+
 .btn {
   border-radius: 1px;
   text-transform: capitalize;
   border-width: 2px;
   border-style: solid;
-  padding: 0 40px;
-  line-height: 27px;
+ /* padding: 0 40px;
+  line-height: 27px;*/
   font-weight: 600;
   &.form-control-feedback {
     border: none;
@@ -14,38 +15,14 @@
   &:focus {
     outline: none;
   }
-}
 
-button {
-  &.btn {
-    height: 40px;
-    line-height: 1;
-    &:hover {
-      border-width: 3px;
-      padding-left: 39px;
-      padding-right: 39px;
-    }
-  }
-  &.btn-sm {
-    height: 35px;
-    padding: 0 15px;
-    &:hover {
-      border-width: 3px;
-      padding-left: 14px;
-      padding-right: 14px;
-    }
-  }
-  &.btn.btn-link {
-    padding-left: 10px;
-    padding-right: 10px;
-    &:hover, &:focus {
-      padding-left: 9px;
-      padding-right: 9px;
-    }
+  &:active, &.active {
+    box-shadow: none;
   }
 }
 
-a.btn, span.btn {
+
+/*a.btn, span.btn {
   height: auto;
   line-height: 36px;
 }
@@ -79,7 +56,7 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
   padding-left: 9px;
   padding-right: 9px;
 }
-
+*/
 .btn-default {
   color: #ffffff;
   background-color: _palette(button-1);
@@ -105,6 +82,7 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
     border-color: _palette(button-2);
   }
 }
+
 .btn-default:active:hover,
 .btn-default.active:hover,
 .open > .dropdown-toggle.btn-default:hover,
@@ -302,4 +280,34 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
 
 .btn-rounded {
   border-radius: 20px;
+}
+
+
+button {
+  &.btn {
+    height: 40px;
+    line-height: 1;
+    &:hover {
+      border-width: 3px;
+      padding-left: 39px;
+      padding-right: 39px;
+    }
+  }
+  &.btn-sm {
+    height: 35px;
+    padding: 0 15px;
+    &:hover {
+      border-width: 3px;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+  }
+  &.btn.btn-link {
+    padding-left: 10px;
+    padding-right: 10px;
+    &:hover, &:focus {
+      padding-left: 9px;
+      padding-right: 9px;
+    }
+  }
 }

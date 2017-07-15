@@ -11,11 +11,6 @@ class User_page extends MY_Controller
         $this->lang->load('site/user');
         $this->load->language('site/user_list');
 
-        if (!user_is_login()) {
-            redirect_login_return();
-        }
-        $user = user_get_account_info();
-        $this->data['user'] = $user;
 
     }
 
@@ -24,7 +19,7 @@ class User_page extends MY_Controller
      */
     public function _remap($method, $params = array())
     {
-        return $this->_remap_action($method, $params, array('view_profile', 'invite', 'report', 'favorite', 'unfavorite', 'subscribe'));
+        return $this->_remap_action($method, $params, array('view', 'view_profile', 'invite', 'report', 'favorite', 'favorite_del', 'subscribe', 'subscribe_del'));
     }
 
     /*
@@ -100,6 +95,16 @@ class User_page extends MY_Controller
 
     protected function _action($action)
     {
+        $dont_check_login = array('report');
+        if (!in_array($action, $dont_check_login)) {
+
+            if (!user_is_login()) {
+                // $this->_response(array('msg_modal' => lang('notice_please_login_to_use_function')));
+                // return;
+                $result["modal_box"] = "modal-user-login";
+                $this->_response($result);
+            }
+        }
         // Lay input
         $id = $this->uri->rsegment(3);
         // Xu ly id
@@ -109,28 +114,28 @@ class User_page extends MY_Controller
         $info = model('user')->get_info($id);
         if (!$info) return;
         $this->data['user'] = $info;
-
+        $this->data['user_current'] = user_get_account_info();
         // kiem tra che do voi cac action
-        if (in_array($action, array('view_profile', 'invite', 'favorite', 'unfavorite'))) {
-           /* neu mo ra thi cho xem thoa mai
+        if (in_array($action, array('view_profile', 'invite', 'favorite', 'favorite_del', 'subscribe', 'subscribe_del'))) {
+            /* neu mo ra thi cho xem thoa mai
             *  if ($action == 'view_profile' ) {//&& $this->data['user']->id == $id
                 // Chuyen den ham duoc yeu cau
                 $this->{'_' . $action}();
                 return;
             }*/
+
             // kiem tra trang thai dang nhap hay chua, hoac khong cho phep hanh dong voi chinh minh
-            if (!$this->data['user'] || $this->data['user']->id == $id) {
+            if (!$info) {
                 $result['msg_modal'] = lang('notice_please_login_to_use_function');
                 $this->_response($result);
             }
-            // kiem tra che do
-            if ($this->data['user_mode'] != mod('user')->config('user_type_company')) {
-                $result['msg_modal'] = lang('notice_function_only_for_company');
+
+            /*if ( $info->id == $id) {
+                $result['msg_modal'] = lang('notice_dont_do_this_action');
                 $this->_response($result);
-            }
+            }*/
 
-
-            switch ($action) {
+            /*switch ($action) {
                 case 'favorite':
                     $key = 'save_brief';
                     break;
@@ -149,7 +154,7 @@ class User_page extends MY_Controller
             if (!$check) {
                 $result['msg_modal'] = lang('notice_please_upgrade_account_to_use_function');
                 $this->_response($result);
-            }
+            }*/
         }
         //======================================
 
@@ -163,7 +168,7 @@ class User_page extends MY_Controller
     /**
      * Moi du tuyen
      */
-    public  function _invite()
+    public function _invite()
     {
         // kiem tra co cho phep nop don
         /*if (!$this->_mod()->setting('invite_allow')) {
@@ -188,27 +193,27 @@ class User_page extends MY_Controller
                 $company = mod('company')->get_info($user_id);
                 $user = mod('user')->add_info($user, 1);
                 $user_user = mod('user')->get_info($user->user_id);
-                $re_title=[];
+                $re_title = [];
                 foreach ($recruit_ids as $id) {
-                    $recruit=mod('recruit')->get_info($id);
+                    $recruit = mod('recruit')->get_info($id);
                     $com_contact = json_decode($recruit->info_contact);
                     //$re_title[] =t('html')->a($re->_url_view,$re->title,array('target'=>'_blank'));
                     model('recruit_profile')->company_set($company->user_id, $user->user_id, $id, 'invite', $input);
-                    $email_params =array(
-                        'com_invite_content' =>  $input['content'],
+                    $email_params = array(
+                        'com_invite_content' => $input['content'],
 
                         'com_name' => $company->name,
                         'com_avatar' => $company->avatar->url_thumb,
-                        'com_contact_name' =>  $input['name'],
+                        'com_contact_name' => $input['name'],
                         'com_contact_email' => $input['email'],
-                        'com_contact_phone' =>  $input['phone'],
+                        'com_contact_phone' => $input['phone'],
                         //'com_contact_address' => $com_contact->contact_address,
                         're_name' => $recruit->title,
                         'can_name' => $user->name,
                         'can_title' => $user->title,
                         'can_company' => $user->company_name,
-                        'can_email' =>  $user->email,
-                        'can_phone' =>  $user->phone,
+                        'can_email' => $user->email,
+                        'can_phone' => $user->phone,
                         'can_avatar' => $user->avatar->url_thumb,
                         'url_re_view' => $recruit->_url_view, // xem chi tiet tin tuyen dung
                         'url_com_view' => $company->_url_view,
@@ -216,13 +221,13 @@ class User_page extends MY_Controller
                         //'url_com_apply' => site_url('company_recruit/apply') . '?recruit_id=' . $recruit->id,
                         'url_can_view' => $user->_url_view,
                         'url_can_attach' => $user->attach->url,
-                        'url_can_re_apply' => site_url('user_recruit/apply') ,// den muc quan ly viec da ung tuyen
+                        'url_can_re_apply' => site_url('user_recruit/apply'),// den muc quan ly viec da ung tuyen
                         'user_email' => $user->email,
-                        'user_pass' =>mod('user')->encode_password($user_user->password , $user_user->id,'decode'),
+                        'user_pass' => mod('user')->encode_password($user_user->password, $user_user->id, 'decode'),
 
                     );
                     //pr($company);
-                    mod('email')->send('company_notice_invite', $user->email,$email_params  );
+                    mod('email')->send('company_notice_invite', $user->email, $email_params);
                 }
 
                 // tru trong goi
@@ -279,29 +284,83 @@ class User_page extends MY_Controller
      */
     function _favorite()
     {
-        //kiem tra da luu hay chua
-        $favorited = mod('company')->user_get($this->data['user']->id, $this->data['user']->user_id, 'favorite');
-        if ($favorited) {
-            return false;
+        $id = $this->data['info']->id;
+        if ($this->data['user']) {
+            //kiem tra da luu hay chua
+            $favorited = model('user_to_favorite')->check_exits(array('user_id' => $id, 'user_id' => $this->data['user']->id));
+            if ($favorited) {
+                $this->_response(array('msg_toast' => lang('notice_user_favorited')));
+            }
+            //them vao table user_favorite
+            $data = array();
+            $data ['user_id'] = $this->data['info']->id;
+            $data ['user_id'] = $this->data['user']->id;
+            $data ['created'] = now();
+            model('user_to_favorite')->create($data);
+        } else {
+            mod('user')->guest_owner_add($id, "favorited");;
         }
-        mod('company')->user_set($this->data['user']->id, $this->data['user']->user_id, 'favorite');
-        // tru trong goi
-        mod('user')->setPackages(mod('user')->config('user_type_company'), array('save_brief' => -1), $this->data['user']);
 
-        set_output('json', json_encode(array('complete' => true)));
+        $this->_response(array('msg_toast' => lang('notice_user_favorited')));
+    }
+
+    function _favorite_del()
+    {
+        $id = $this->data['info']->id;
+        if ($this->data['user']) {
+
+            //kiem tra da luu hay chua
+            $favorited = model('user_to_favorite')->check_exits(array('user_id' => $id, 'user_id' => $this->data['user']->id));
+            if (!$favorited) {
+                $this->_response(array('msg_toast' => 'Error'));
+            }
+            $data = array();
+            $data ['user_id'] = $this->data['info']->id;
+            $data ['user_id'] = $this->data['user']->id;
+            model('user_to_favorite')->del_rule($data);
+        } else {
+            mod('user')->guest_owner_del($id, "favorited");;
+        }
+        $this->_response(array('msg_toast' => lang('notice_user_favorited_del_succcess')));
 
     }
 
-    function _unfavorite()
+    function _subscribe()
+    {
+        $user_current_id = $this->data['user_current']->id;
+        $user_id = $this->data['user']->id;
+        //kiem tra da luu hay chua
+        $data = array();
+        $data ['action'] = 'subscribe';
+        $data ['table'] = 'user';
+        $data ['table_id'] = $user_id;
+
+        $subscribed = mod('user_storage')->get($user_current_id, $data);
+        if ($subscribed) {
+            $this->_response(array('msg_toast' => lang('notice_user_subscribe_success')));
+        }
+        //them vao table user_storage
+        $data ['created'] = now();
+        mod('user_storage')->set($user_current_id, $data);
+
+        $this->_response(array('msg_toast' => lang('notice_user_subscribe_success')));
+    }
+
+    function _subscribe_del()
     {
         //kiem tra da luu hay chua
-        $favorited = mod('company')->user_get($this->data['user']->id, $this->data['user']->user_id, 'favorite');
-        if (!$favorited) {
-            return false;
+        $user_current_id = $this->data['user_current']->id;
+        $user_id = $this->data['user']->id;
+        $data = array();
+        $data ['action'] = 'subscribe';
+        $data ['table'] = 'user';
+        $data ['table_id'] = $user_id;
+        $subscribed = mod('user_storage')->get($user_current_id, $data);
+        if (!$subscribed) {
+            $this->_response(array('msg_toast' => 'Error'));
         }
-        mod('company')->user_del($this->data['user']->id, $this->data['user']->user_id, 'favorite');
-        set_output('json', json_encode(array('complete' => true)));
-
+        mod('user_storage')->del($user_current_id, $data);
+        $this->_response(array('msg_toast' => lang('notice_user_subscribe_del_succcess')));
     }
 
     // xem thong tin ca nhan
@@ -312,7 +371,7 @@ class User_page extends MY_Controller
         $user = mod('user')->add_info($user);
         // pr($user);
 
-       // tam tat chuc nang nay
+        // tam tat chuc nang nay
         //kiem tra da luu hay chua
         $viewed = mod('company')->user_get($user->id, $user->user_id, 'view_profile');
         if (!$viewed) {
@@ -337,46 +396,57 @@ class User_page extends MY_Controller
 
     }
 
-    public   function index()
-    {
-        $user= $this->data['user'];
-        $this->view($user->id);
-    }
-    public   function view($id)
+
+    public function _view()
     {
         // Cap nhat so luot view
-       // model('user')->update_stats($id, array('count_view' => 1));
+        // model('user')->update_stats($id, array('count_view' => 1));
         // Xu ly thong tin
-        $user= $this->data['user'];
-        $page= $this->input->get('page');
-        if(!in_array($page,['follow','follow_me','posts']))
-            $page= 'posts';
-       /* switch($page){
-            case 'follow':     $this->_page_follow(); break;
-            case 'follow_by':     $this->_page_follow_by(); break;
-            case 'posts':
-            default:
-                 $this->_page_posts(); break;
+        $user = $this->data['user'];
+        $page = $this->input->get('page');
+        if (!in_array($page, ['follow', 'follow_me', 'posts']))
+            $page = 'posts';
+        /* switch($page){
+             case 'follow':     $this->_page_follow(); break;
+             case 'follow_by':     $this->_page_follow_by(); break;
+             case 'posts':
+             default:
+                  $this->_page_posts(); break;
 
-        }*/
+         }*/
         $this->data['page'] = $page;
         $this->data['info'] = mod('user')->add_info($user);
         $this->_display($page);
 
     }
-/*
-    public  function _page_posts()
-    {
-        $this->_display('posts');
-    }
 
-    public  function _page_follow()
+    /*
+        public  function _page_posts()
+        {
+            $this->_display('posts');
+        }
+
+        public  function _page_follow()
+        {
+            $this->_display('follow');
+        }
+        public  function _page_follow_by()
+        {
+            $this->_display('follow_by');
+        }*/
+
+    public function index()
     {
-        $this->_display('follow');
+
+        if (!user_is_login()) {
+            // $this->_response(array('msg_modal' => lang('notice_please_login_to_use_function')));
+            // return;
+            $result["modal_box"] = "modal-user-login";
+            redirect();
+        }
+        $user = user_get_account_info();
+        $this->data['user'] = $user;
+        $this->_view($this->data['user']->id);
     }
-    public  function _page_follow_by()
-    {
-        $this->_display('follow_by');
-    }*/
 }
 

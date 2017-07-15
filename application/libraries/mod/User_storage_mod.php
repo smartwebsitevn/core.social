@@ -24,10 +24,18 @@ class User_storage_mod extends MY_Mod
     {
         $where = [];
         $where['user_id'] = $user_id;
-        $where['action'] = array_get($input, 'type');
+        $where['action'] = array_get($input, 'action');
         $where['table'] = array_get($input, 'table');
         $where['table_id'] = array_get($input, 'table_id');
-        return  model('user_storage')->get_info_rule($where);
+        $where['deleted'] = 0;// khong lay tda xoa tam
+        $rs=model('user_storage')->get_info_rule($where);
+       // pr_db($rs);
+        return $rs;
+    }
+    public function del($user_id, $input = [])
+    {
+        $input['deleted'] = now();
+        return  $this->set($user_id,$input);
     }
     function set($user_id, $input = [])
     {
@@ -36,6 +44,7 @@ class User_storage_mod extends MY_Mod
         $where['action'] = array_get($input, 'action');
         $where['table'] = array_get($input, 'table');
         $where['table_id'] = array_get($input, 'table_id');
+
         $data =$where;
         $storage =  model('user_storage')->get_info_rule($where);
         if (!$storage) {
@@ -48,6 +57,16 @@ class User_storage_mod extends MY_Mod
             model('user_storage')->create($where);
         } else {
             $update=false;
+            if(isset($input['deleted'])){
+                $data['deleted'] = $input['deleted'];
+                $update =true;
+            }else{
+                if($storage->deleted){
+                    $data['deleted'] = 0;// reset
+                    $update =true;
+                }
+
+            }
             if(isset($input['count'])){
                 $count= array_get($input, 'count', 1);
                 $data['count'] = $count + $storage->count;

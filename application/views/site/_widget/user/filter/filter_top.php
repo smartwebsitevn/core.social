@@ -1,31 +1,36 @@
 <?php
 //pr($filter);
-$_data_sort = function ()
-use ($filter, $total_rows, $sort_orders, $sort_order)
+$_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) {
+    ob_start();
+    $sort_orders_data = [];
+    foreach ($sort_orders as $v) {
+        $sort_orders_data[$v] = lang('ordering_' . $v);
+    }
 
-{
-ob_start();
-$sort_orders_data = [];
-foreach ($sort_orders as $v) {
-    $sort_orders_data[$v] = lang('ordering_' . $v);
-}
+    ?>
+    <input type="hidden" name="limitstart"/>
+    <?php if (isset($filter['input_hidden']) && $filter['input_hidden']): ?>
+        <?php foreach ($filter['input_hidden'] as $n => $v): ?>
+            <input type="hidden" name="<?php echo $n; ?>" value="<?php echo $v ?>"/>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
-?>
-<input type="hidden" name="limitstart"/>
-<?php if (isset($filter['input_hidden']) && $filter['input_hidden']): ?>
-    <?php foreach ($filter['input_hidden'] as $n => $v): ?>
-        <input type="hidden" name="<?php echo $n; ?>" value="<?php echo $v ?>"/>
-    <?php endforeach; ?>
-<?php endif; ?>
-    <div class="block-sorter">
-        <div class="total_user">
-                <span
-                    class="ajax-content-user-total fontB"><?php echo isset($total_rows) ? number_format($total_rows) : '-' ?></span>
-            Kết quả
+    <div class="block-total">
+                <span class="ajax-content-user-total fontB"><?php echo isset($total_rows) ? number_format($total_rows) : '-' ?></span>    Kết quả
+    </div>
+    <div >
+        <div class="block-sorter">
+            <?php
+            echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
         </div>
-        <?php
-        echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
-
+        <div class="block-layout">
+            <a class="search-results  act-filter-dropdown " href="Javascript:;" data-name="order" data-value="id|desc">
+                <i class="pe-7s-menu icon " ></i>
+            </a>
+            <a class="search-results  act-filter-dropdown " href="Javascript:;" data-name="order" data-value="id|desc">
+                <i class="pe-7s-keypad icon " ></i>
+            </a>
+        </div>
 
         <?php /* ?>
             <div class="col-xs-12 col-sm-6">
@@ -39,20 +44,19 @@ foreach ($sort_orders as $v) {
             </div>
              <?php */ ?>
     </div>
-<?php return ob_get_clean();
+    <?php return ob_get_clean();
 };
-/*$_data_layout = function () use ($filter, $_data_dropdown) {
+$_data_layout = function () use ($filter) {
     ob_start();
-    */ ?><!--
-    <div class="sorter pull-right">
+    ?>
 
-    </div>
-    --><?php /*return ob_get_clean();
-};*/
+    <?php return ob_get_clean();
+};
 
 ?>
 
-<form id="form_filter_advance" name="form_filter_advance" event-hook="userFilter" action="<?php echo $action; ?>" method="get">
+<form id="form_filter_advance" name="form_filter_advance" event-hook="moduleCoreFilter" action="<?php echo $action; ?>"
+      method="get">
     <div class="block block-search">
         <div class="block-content clearfix">
             <div class="input-group">
@@ -90,7 +94,8 @@ foreach ($sort_orders as $v) {
                 </div>
             </div>
             <div class="action">
-                <button class="btn btn-outline" type="submit">Tìm thành viên<?php //echo lang("search_recruit") ?></button>
+                <button class="btn btn-outline" type="submit">Tìm thành
+                    viên<?php //echo lang("search_recruit") ?></button>
             </div>
         </div>
     </div>
@@ -101,14 +106,17 @@ foreach ($sort_orders as $v) {
             //pr($user_cats);
             ?>
             <div class="row">
-                <div class="block-content-left col-md-10 col-sm-10 col-xs-12">
+                <div class="block-content-left col-md-9 col-sm-10 col-xs-12">
 
                     <?php echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <a href="#0" class="btn btn-link btn-clear-all">Xóa dữ liệu
                         lọc<?php //echo lang("clear_all_filters")  ?></a>
                 </div>
-                <div class="block-content-right  col-md-2 col-sm-2 col-xs-12">
+                <div class="block-content-right  col-md-3 col-sm-3 col-xs-12">
+                <div class="row">
+                    <?php //echo $_data_layout(); ?>
                     <?php echo $_data_sort(); ?>
+                </div>
                 </div>
 
             </div>

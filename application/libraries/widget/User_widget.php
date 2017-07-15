@@ -512,23 +512,36 @@ class User_widget extends MY_Widget
      * HANDLE ACTION
      * =================================*/
     /**
-     * Thêm vào gi? hàng
+     * Dang ky theo doi
      */
-    function action_add_cart($user, $temp = '')
+    function action_subscribe($user, $temp = '')
     {
+        $user_current = user_get_account_info();
+
         $id = $user->id;
+        $can_do = false;
+        $subscribed = false;
+        if ($user_current) {
+            $can_do = true;
 
-        $this->data['can_do'] = $user->_can_order;
+            $data = array();
+            $data ['action'] = 'subscribe';
+            $data ['table'] = 'user';
+            $data ['table_id'] =$id;
+            $subscribed = mod('user_storage')->get($user_current->id, $data);
+        }
+
+        $this->data['can_do'] = $can_do;
         $this->data['user'] = $user;
-        $this->data['user_order_quick'] = mod("user")->setting('user_order_quick');
+        $this->data['user_current'] = $user_current;
+        $this->data['subscribed'] = $subscribed;
+        $this->data['url_subscribe'] =$user->_url_subscribe;
+        $this->data['url_subscribe_del'] = $user->_url_subscribe_del;
 
-        $this->data['url_add_cart'] = site_url('user_cart/del/' . $id);
-        $this->data['url_add_cart_del'] = site_url('user_cart/del/' . $id);
-
-
-        $temp = (!$temp) ? 'add_cart' : $temp;
+        $temp = (!$temp) ? 'subscribe' : $temp;
         $temp = 'tpl::_widget/user/action/' . $temp;
         $this->_display($this->_make_view($temp, __FUNCTION__));
+
     }
 
     /**
@@ -593,50 +606,6 @@ class User_widget extends MY_Widget
         $this->_display($this->_make_view($temp, __FUNCTION__));
     }
 
-    /**
-     * Gui yeu cau
-     */
-    function action_contact($temp = '')
-    {
-        // Tai cac file thanh phan
-        //$this->lang->load('site/user_request');
-        $can_do = false;
-        $user = user_get_account_info();
-        if ($user) {
-            $can_do = true;
-        }
-        $this->data['can_do'] = $can_do;
-        $this->data['url_contact'] = site_url('user/contact');
-        $this->data['captcha'] = site_url('captcha');
-
-        // Hien thi view
-        $temp = (!$temp) ? 'contact' : $temp;
-        $temp = 'tpl::_widget/user/action/' . $temp;
-        $this->_display($this->_make_view($temp, __FUNCTION__));
-    }
-
-    /**
-     * Gui yeu cau
-     */
-    function action_request($temp = '')
-    {
-        // Tai cac file thanh phan
-        //$this->lang->load('site/user_request');
-        $can_do = false;
-        $user = user_get_account_info();
-        if ($user) {
-            $can_do = true;
-        }
-        $this->data['can_do'] = $can_do;
-        $this->data['url_request'] = site_url('user/request');
-        $this->data['captcha'] = site_url('captcha');
-
-        // Hien thi view
-        $temp = (!$temp) ? 'request' : $temp;
-        $temp = 'tpl::_widget/user/action/' . $temp;
-        $this->_display($this->_make_view($temp, __FUNCTION__));
-    }
-
 
     /**
      * Bao cao
@@ -664,66 +633,39 @@ class User_widget extends MY_Widget
     }
 
 
-    /**
-     * Dang ky theo doi phim
-     */
-    function action_subscribe($user, $temp = '')
-    {
-        $id = $user->id;
 
-        if (!$user || $user->type == mod('user')->config('user_type_user'))
-            return;
-
-        // neu la phim bo thi kiem tra xem da up het so tap chua
-        if ($user->type == mod('user')->config('user_type_series')) {
-            if ($user->episode >= $user->episode_total)
-                return;
-        }
-
-
-        /*if(!user_is_login())
-        {
-            return false;
-        }*/
-        $can_do = false;
-        $subscribed = false;
-        if (!user_is_login()) {
-            $subscribeds = get_cookie('subscribed_users');
-            if (!empty($subscribeds) && $subscribeds != 'null')// neu chua luu thi luu lai
-            {
-                $subscribeds = json_decode($subscribeds);
-                //$subscribeds=security_encrypt($subscribeds,'decode');
-            } else
-                $subscribeds = array();
-
-
-            if (in_array($id, $subscribeds)) {
-                $subscribed = true;
-
-            }
-
-
-        } else {
-            $user = user_get_account_info();
-            $can_do = true;
-            $subscribed = model('user_subscribe')->check_exits(array('user_id' => $id, 'user_id' => $user->id));
-        }
-
-        $this->data['can_do'] = $can_do;
-        $this->data['user'] = $user;
-        $this->data['subscribed'] = $subscribed;
-        $this->data['url_subscribe'] = site_url('user/subscribe/' . $id);
-        $this->data['url_subscribe_del'] = site_url('user/subscribe_del/' . $id);
-
-        $temp = (!$temp) ? 'subscribe' : $temp;
-        $temp = 'tpl::_widget/user/action/' . $temp;
-        $this->_display($this->_make_view($temp, __FUNCTION__));
-
-    }
 
     /**
      * Action khac
      */
+    function action_message($row,$temp = '')
+    {
+        $can_do = true;
+        $this->data['can_do'] = $can_do;
+
+        $this->data['url_message'] = $row->_url_message;
+        // Hien thi view
+        $temp = (!$temp) ? 'message' : $temp;
+        $temp = 'tpl::_widget/user/action/'.$temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
+
+    function action_share($row,$temp = '')
+    {
+        $this->data['url_share'] = $row->_url_view;
+        // Hien thi view
+        $temp = (!$temp) ? 'share' : $temp;
+        $temp = 'tpl::_widget/user/action/'.$temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
+
+    function action_close($temp = '')
+    {
+        // Hien thi view
+        $temp = (!$temp) ? 'close' : $temp;
+        $temp = 'tpl::_widget/user/action/'.$temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
     function action_toggle_light($temp = '')
     {
 

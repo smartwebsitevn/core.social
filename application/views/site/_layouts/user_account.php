@@ -3,7 +3,7 @@
 <head>
     <?php widget('site')->head(["css" => "page_user"]); ?>
 </head>
-<body class="user-page">
+<body class="user-account">
 <div class="wrapper">
     <?php echo $header; ?>
     <!-- MAIN -->

@@ -407,17 +407,23 @@ $lang['notice_mesage'] = "Thông Báo";
 $lang['notice_mesage_from_admin'] = "Thông báo từ quản trị";
 $lang['notice_you_have_mesage_notread'] = "Bạn có %s thông báo chưa đọc";
 $lang['notice_see_all_mesage'] = "Xem tất cả thông báo";
-$lang['notice_see_all_mesage'] = "Xem tất cả thông báo";
 //other
 $lang['notice_function_is_disable'] = "Chức năng này tạm thời dừng hoạt động";
-$lang['notice_page_not_found'] = 'Không tìm thấy trang được yêu cầu';
-$lang['notice_do_not_have_permission'] = 'Bạn không có quyền truy cập trang này';
+$lang["notice_function_is_building"] = "Chức năng này đang hoàn thiện.";
+
+$lang['notice_dont_have_permission'] = 'Bạn không có quyền để thực hiện thao tác này.';
+$lang['notice_dont_have_enought_level'] =' Cấp bậc của bạn không đủ để thực thi điều này.';
+$lang['notice_dont_delete_yourself'] = 'Bạn không thể xóa chính tài khoản của chính bạn.';
+$lang['notice_dont_do_this_action'] = 'Bạn không thể thực hiện hành động này.';
+
+
 
 $lang['notice_please_login'] = "Khu vực bạn truy cập yêu cầu đăng nhập.";
 $lang['notice_please_upgrade_account_to_use_function'] = "Vui lòng nâng cấp tài khoản để sử dụng chức năng này.";
 $lang['notice_please_login_to_use_function'] = 'Vui lòng đăng nhập để sử dụng chức năng này';
 
-
+$lang['notice_page_not_found'] = 'Không tìm thấy trang được yêu cầu';
+$lang['notice_do_not_have_permission'] = 'Bạn không có quyền truy cập trang này';
 //============================ CPANEL =====================================
 $lang['version'] = 'Shop V3.2.170603'; // - Core 3.0.170603
 $lang['copyright_full'] = '%s Powered by <a href="http://smartwebsite.vn" target="_blank">Smartwebsite.vn</a>';

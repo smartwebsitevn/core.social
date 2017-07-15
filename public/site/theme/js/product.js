@@ -90,6 +90,7 @@ var product_nfc = {
                 $('body').on('change', '.quantity-up-down-select .quantity-select', function () {
                     up_down_quantity(2)
                 });
+
                 function up_down_quantity(type){
                     var  $select = $(".quantity-up-down-select .quantity-select");
                     var total = $select.find("option").length
@@ -121,11 +122,9 @@ var product_nfc = {
                     }
                 }
                 // thay doi
-
                 $('#product_form_action').nstUI('formActionAdv', {
                     event_complete: function (data) {
                         productUpdateCart(data);
-
                     }
                 });
 
