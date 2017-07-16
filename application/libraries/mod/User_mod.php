@@ -7,7 +7,6 @@ class User_mod extends MY_Mod
     protected $setting = array();
 
 
-
     /**
      * Khoi tao doi tuong
      */
@@ -27,9 +26,9 @@ class User_mod extends MY_Mod
 
     public function add_info($row)
     {
-        $row =  user_add_info($row);
+        $row = user_add_info($row);
         $row = $this->url($row);
-        return  $row;
+        return $row;
     }
 
     /**
@@ -100,14 +99,14 @@ class User_mod extends MY_Mod
         foreach (array('edit') as $p) {
             $row->{'_url_' . $p} = site_url("user_account/{$p}");
         }
+        if (isset($row->id)) {
+            foreach (array('favorite', 'favorite_del', 'subscribe', 'subscribe_del', 'vote', 'vote', 'raty', 'report') as $p) {
+                $row->{'_url_' . $p} = site_url("user_page/{$p}/$row->id");
+            }
 
-        foreach (array('favorite', 'favorite_del', 'subscribe', 'subscribe_del','vote', 'vote','raty', 'report') as $p) {
-            $row->{'_url_' . $p} = site_url("user_page/{$p}/$row->id");
+            $row->_url_view = site_url('user-' . $row->id);
+            $row->_url_message = site_url('message/send/' . $row->id);
         }
-
-        $row->_url_view = site_url('user-' . $row->id);
-        $row->_url_message = site_url('message/send/' . $row->id);
-
         return $row;
     }
 
@@ -262,22 +261,20 @@ class User_mod extends MY_Mod
 
     /**
      * Lay vi tien
-     * @param UserModel     $user
+     * @param UserModel $user
      * @param CurrencyModel $currency
      */
     public function get_purse($user = '', $currency_id = '')
     {
-        if(!$user)
-        {
+        if (!$user) {
             $user = App\User\UserFactory::auth()->user();
         }
-        if(!$currency_id)
-        {
+        if (!$currency_id) {
             //$currency_id = config('currency_btc_id', 'main');
             $currency_id = currency_get_default()->id;
             $currency = App\Currency\Model\CurrencyModel::findWhere(['id' => $currency_id]);
 
-        }else{
+        } else {
             $currency = App\Currency\Model\CurrencyModel::findWhere(['id' => $currency_id]);
 
         }
@@ -305,17 +302,17 @@ class User_mod extends MY_Mod
     {
         $currency_id = $purse->currency_id;
         $data = array(
-            'status'         => $status,
-            'purse_id'       => $purse->id,
-            'purse_amount'   => $amount,
-            'reason_key'     => $purse->id,
-            'amount'         => currency_convert_amount_default($amount, $currency_id),
-            'desc'           => $status.$amount,
-            'user_id'        => $user->id,
-            'currency_id'    => $currency_id,
-            'created'        => now(),
-            'ip'             => t('input')->ip_address(),
-            'user_agent'     => t('input')->user_agent(),
+            'status' => $status,
+            'purse_id' => $purse->id,
+            'purse_amount' => $amount,
+            'reason_key' => $purse->id,
+            'amount' => currency_convert_amount_default($amount, $currency_id),
+            'desc' => $status . $amount,
+            'user_id' => $user->id,
+            'currency_id' => $currency_id,
+            'created' => now(),
+            'ip' => t('input')->ip_address(),
+            'user_agent' => t('input')->user_agent(),
             'referer       ' => site_url(),
         );
         model('log_balance')->create($data);
@@ -341,7 +338,6 @@ class User_mod extends MY_Mod
 
         return $is_expired ? false : true;
     }
-
 
 
 }
