@@ -94,7 +94,7 @@ class Product extends MY_Controller
         //== Them thong tin
         $info = $this->_mod()->add_info($info, true);
 
-        // Lựa chọn sản phẩm
+        // Lựa chọn tin bài
         $info->_option = model('product_to_option')->get_list_rule(array('product_id' => $info->id));
         $ids = array_gets(
             $info->_option,
@@ -755,7 +755,7 @@ class Product extends MY_Controller
     }
 
     /**
-     * Danh gia sản phẩm
+     * Danh gia tin bài
      */
     function _raty()
     {

@@ -1,6 +1,6 @@
 <?php
 $lang['combo_info']             = 'Thông tin combo';
-$lang['service_info']           = 'Thông tin sản phẩm dịch vụ';
+$lang['service_info']           = 'Thông tin tin bài dịch vụ';
 $lang['buy_combo']              = 'Mua ngay';
 $lang['title_combo_list']       = 'Danh sách combo';
 $lang['customer_email']         = 'Email khách hàng';

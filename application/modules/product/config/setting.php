@@ -22,7 +22,7 @@ $setting = array(
 
     'rate_allow' => array(
         'type' => 'bool',
-        'name' => 'Cho phép đánh giá sản phẩm',
+        'name' => 'Cho phép đánh giá tin bài',
     ),
     'comment_fb_allow' => array(
         'type' => 'bool',

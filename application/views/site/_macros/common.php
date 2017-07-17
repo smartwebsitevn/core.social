@@ -235,7 +235,7 @@ $this->register('filter_dropdown_category', function ($input) {
 									$active_status =  $cat->id == $value ? 1 : 0;
 								?>
                                 <li class="search-results act-filter-dropdown <?php echo $active_status ? 'active' : '' ?>"
-                                    data-name="cat_id" data-value="<?php echo $cat->id ?>">
+                                    data-name="<?php echo $param ?>" data-value="<?php echo $cat->id ?>">
                                     <a class="search-results-option" href="#"
                                        title="<?php echo $cat->name ?>"><?php echo $cat->name ?></a>
                                     <?php if ($cat->parent_id == 0 && $cat->_subs): ?>
@@ -248,7 +248,7 @@ $this->register('filter_dropdown_category', function ($input) {
 													$active_status =  $row->id == $value ? 1 : 0;
                                                 ?>
                                                 <li class="search-results act-filter-dropdown <?php echo $active_status ? 'active' : '' ?>"
-                                                    data-name="cat_id" data-value="<?php echo $row->id ?>">
+                                                    data-name="<?php echo $param ?>" data-value="<?php echo $row->id ?>">
                                                     <a class="search-results-option" href="#"
                                                        title="<?php echo $row->name ?>"><?php echo $row->name ?></a>
                                                 </li>

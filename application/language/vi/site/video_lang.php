@@ -1,3 +1,3 @@
 <?php
-$lang["contents"] = "Thông tin sản phẩm";
+$lang["contents"] = "Thông tin tin bài";
 $lang["comment"] = "Bình luận";

@@ -180,7 +180,7 @@ class Social extends MY_Controller
             // neu la khoa hoc thi chi cho comment 1 lan
             if($table_name =="product"){
                 if(model("comment")->check_exits(["table_id"=>$table_id,"table_name"=>$table_name,"user_id"=>$user->id]))
-                   set_output('json', json_encode(['user' => "Bạn đã đánh giá sản phẩm này rồi!"]));
+                   set_output('json', json_encode(['user' => "Bạn đã đánh giá tin bài này rồi!"]));
 
             }
             // Lay content

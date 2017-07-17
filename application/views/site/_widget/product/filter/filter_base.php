@@ -27,10 +27,10 @@
             <div class="col-xs-12 col-sm-6">
                     Hiển thị sp/ 1 trang
                     <select style="width:130px" name="limit" class="form-control select_show">
-                        <option value="20">20 sản phẩm</option>
-                        <option value="35">35 sản phẩm</option>
-                        <option value="45">45 sản phẩm</option>
-                        <option value="50">50 sản phẩm</option>
+                        <option value="20">20 tin bài</option>
+                        <option value="35">35 tin bài</option>
+                        <option value="45">45 tin bài</option>
+                        <option value="50">50 tin bài</option>
                     </select>
             </div>
              <?php */ ?>

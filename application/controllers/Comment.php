@@ -184,7 +184,7 @@ class Comment extends MY_Controller
             // neu la khoa hoc thi chi cho comment 1 lan
             /*if($table_name =="product"){
                 if(model("comment")->check_exits(["table_id"=>$table_id,"table_name"=>$table_name,"user_id"=>$user->id]))
-                   set_output('json', json_encode(['user' => "Bạn đã đánh giá sản phẩm này rồi!"]));
+                   set_output('json', json_encode(['user' => "Bạn đã đánh giá tin bài này rồi!"]));
 
             }*/
             // Lay content
@@ -406,7 +406,7 @@ class Comment extends MY_Controller
     function _update_table_infos($data, $table_name, $table_id)
     {
         //them so lan nhan xet
-        $model = model($table_name)->get_info($table_id, 'id,seo_url, comment_count, rate_total, rate_one, rate_two, rate_three, rate_four, rate_five');
+        $model = model($table_name)->get_info($table_id);
         $model = mod($table_name)->add_info_url($model);
         $_data = array();
         $_data['comment_count'] = $model->comment_count + 1;

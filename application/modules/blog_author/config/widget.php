@@ -22,7 +22,7 @@ $_data_list =function($k='',$deny=array()){
 	if(!in_array('id',$deny))
 		$settings['id'.$k]=[
 			'type'   => 'select_multi',
-			'name'   => 'sản phẩm hiển thị',
+			'name'   => 'tin bài hiển thị',
 			'value'  => '',
 			'values' => [],
 			'desc'   => 'Chọn blog_author muốn hiển thị',

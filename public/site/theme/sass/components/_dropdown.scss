@@ -31,7 +31,6 @@
     text-align: center;
   }
 }
-
 .dropdown-menu {
   padding: 0;
   background-color: #fff;
@@ -90,6 +89,9 @@
         color: #f7941e;
       }
     }
+  }
+  .active a,.active a:hover,.active  a:focus{
+    background: none !important;
   }
   .dropdown-header {
     color: #777;
@@ -200,6 +202,7 @@
 }
 
 /*=======Dropdown Style==========*/
+
 .drop-dropdown {
   position: relative;
   display: inline-block;
@@ -734,7 +737,7 @@
 .search-dropdown {
   .dropdown-toggle {
     border: 2px solid #e0e0e0;
-    width: 200px;
+    /*width: 200px;*/
     position: relative;
     padding-left: 30px;
     padding-right: 27px;

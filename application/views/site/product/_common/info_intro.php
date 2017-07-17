@@ -2,7 +2,7 @@
     $_data_tmp = function () use ($info) {
         ob_start() ?>
         <div class="mb40">
-            <h4>Giới thiệu về sản phẩm<?php //echo lang("description") ?></h4>
+            <h4>Giới thiệu về tin bài<?php //echo lang("description") ?></h4>
             <hr/>
             <?php echo $info->description ?>
         </div>

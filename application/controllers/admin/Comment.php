@@ -135,19 +135,18 @@ class Comment extends MY_Controller
             $data['status'] = config('verify_yes', 'main');
             $data['created'] = now();
 
-                //them so lan nhan xet
-                if ($data['table_name'] == 'course'){
-                    model('lesson_course')->update_stats($data['table_id'],['comment_count'=>1]);
-
-                }
-                elseif ($data['table_name'] == 'lesson')
-                    model('lesson')->update_stats($data['table_id'],['comment_count'=>1]);
-
-
-
             set_message(lang('notice_update_success'));
             model("comment")->create($data);
 
+            if($info->user_id){
+                $url_view ='';
+                $model= model( $info->table_name)->get_info($info->table_id);
+                if($model){
+                    $model= mod($info->table_name)->_url($model);
+                    $url_view =$model->_url_view;
+                }
+                mod('user_notice')->send($info->user_id,'Admin đã trả lởi bình luận của bạn',['url'=>$url_view]);
+            }
             // Khai bao du lieu tra ve
             $result['complete'] = TRUE;
 
@@ -298,10 +297,7 @@ class Comment extends MY_Controller
             $table = trim($it->table_name);
             $it->model = null;
             if ($table != "site") {
-                if ($table == 'course')
-                    $table = "lesson_course";
                  $it->model = mod($table)->get_info($it->table_id);
-
                 $filter['parent_id']    = $it->id;
                 $subs = $this->_model()->filter_get_list($filter);
                 foreach ($subs as $sub)
@@ -330,7 +326,7 @@ class Comment extends MY_Controller
         $pages_config['cur_page'] = $limit;
         $this->data['pages_config'] = $pages_config;
         $actions = array();
-        foreach (array('del', 'verify', 'unverify',) as $v) {
+        foreach (array('del', 'verify', 'unverify','view') as $v) {
             $url = admin_url(strtolower(__CLASS__) . '/' . $v);
             if (!admin_permission_url($url)) continue;
 

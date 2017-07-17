@@ -247,9 +247,9 @@
              * Load Ajax
              */
             function loadAjaxHandle() {
+
                 var url = options.url;
                 var field = options.field;
-
                 if (!url) return false;
 
                 nfc.loader('show', field.load);
@@ -1717,7 +1717,6 @@ var nfc = {
                 }, 500);
             });
 
-
             /* Dropdown hover */
             $(".dropdown-hover").hover(
                 function () {
@@ -1730,7 +1729,8 @@ var nfc = {
             );
 
             // tao them open2 cho dropdown de co the click vao cac input trong dropdow do
-            $('.search-dropdown .dropdown-toggle').click(function () {
+            $(document).on('click', '.search-dropdown .dropdown-toggle', function () {
+
                 if (!$(this).parent().hasClass("open2")) {
                     $(".search-dropdown").removeClass("open2");
                     $(this).parents(".dropdown ").addClass("open2");
@@ -1741,8 +1741,8 @@ var nfc = {
                     $(this).parent().removeClass("open2");
                     $(this).parent().parents(".dropdown ").addClass("open2");
                 }
+               $(document).on('click', 'body', function (event) {
 
-                $('body').click(function (event) {
                     var $target = $(event.target);
 
                     if ($target.parents('.search-dropdown').length == 0) {
@@ -1929,8 +1929,7 @@ var nfc = {
                      }, 500);
 
                      });*/
-
-                    $(".act-filter-dropdown").bind("click", function () {
+                    $(document).on('click', '.act-filter-dropdown',function (){
                         //reset
 
                         if (typeof $(this).data('parent') === 'undefined') {
@@ -1964,7 +1963,8 @@ var nfc = {
                     });
 
                     //== click check box loc va hien ten
-                    $('.search-results span').click(function (e) {
+                    $(document).on('click', '.search-results span',function (){
+
                         //var maxlength = 3;
                         var checkbox = $(this).prev();
                         var type = checkbox.attr('type');
@@ -2066,7 +2066,8 @@ var nfc = {
                     });
 
                     //== su kien xoa du lieu loc
-                    $('span.search-remove').click(function (e) {
+                    $(document).on('click', 'span.search-remove',function (e){
+
                         var $this = this;
                         var parent = $($this).parent();
                         // xoa du lieu doi voi check box
@@ -2101,7 +2102,8 @@ var nfc = {
                     });
 
                     // su kien sort tren menu
-                    $('.sortOrderAjax').click(function () {
+                    $(document).on('click', '.sortOrderAjax',function (e){
+
                         var sort = $(this).data('sort');
                         if (!sort) {
                             return false;

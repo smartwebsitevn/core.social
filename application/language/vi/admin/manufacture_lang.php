@@ -23,6 +23,6 @@ $lang ['comment_fb_allow'] = 'Cho phép bình luận bằng Facebook';
 
 
 
-$lang ['target'] = 'Mục tiêu Sản phẩm';
-$lang ['requirement'] = 'Yêu cầu của Sản phẩm';
-$lang ['result_bring'] = 'Kết quả mang lại của Sản phẩm';
+$lang ['target'] = 'Mục tiêu Tin bài';
+$lang ['requirement'] = 'Yêu cầu của Tin bài';
+$lang ['result_bring'] = 'Kết quả mang lại của Tin bài';

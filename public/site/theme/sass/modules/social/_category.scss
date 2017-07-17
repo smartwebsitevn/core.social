@@ -42,6 +42,9 @@
     padding: 40px 40px 28px 40px;
     background-color: #ffffff;
     margin-bottom: 10px;
+    .ajax-filter {
+      display: inline-block;
+    }
     .search-dropdown {
       display: inline-block;
       vertical-align: top;
@@ -67,11 +70,7 @@
         margin-bottom: 10px;
       }
       .sort-dropdown {
-        .dropdown-menu {
-          left: auto;
-          right: 0;
-          width: 170px;
-        }
+
         .search-rendered {
           line-height: 26px;
         }
@@ -80,6 +79,7 @@
             line-height: 26px;
           }
         }
+
       }
     }
 

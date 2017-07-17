@@ -10,7 +10,7 @@ var product_nfc = {
             $(document).ready(function () {
                 /*=========== CART ============*/
                 $('body').on('click', 'a.product-empty-cart', function (e) {
-                    if (confirm('Bản có muốn xóa toàn bộ sản phẩm trong giỏ hàng?')) {
+                    if (confirm('Bản có muốn xóa toàn bộ tin bài trong giỏ hàng?')) {
                         $.ajax({
                             type: "POST", dataType: "JSON", async: false, url: $(this).attr('data_url'),
                             success: function (data) {
@@ -23,7 +23,7 @@ var product_nfc = {
                 });
                 $('body').on('click', 'a.product-delete-cart', function (e) {
                     //$("a.product-delete-cart").on("click",function(){
-                    if (confirm('Bản có muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+                    if (confirm('Bản có muốn xóa tin bài này khỏi giỏ hàng?')) {
                         var product_key = $(this).attr("data_product_key");
                         $.ajax({
                             type: "POST", async: false, url: $(this).attr('data_url'),
@@ -42,7 +42,7 @@ var product_nfc = {
                     var qty = $("#product-qty-key-" + product_key).val();
                     // neu co so luong thi kiem tra xem so co hop le
                     if (isNaN(qty)) {
-                        alert(qty + "Số lượng sản phẩm không hợp lệ");
+                        alert(qty + "Số lượng tin bài không hợp lệ");
                         return false;
                     }
                     $.ajax({
@@ -351,10 +351,14 @@ function productFilter(option) {
             //$target_data.find('span.loader_block').remove()
             $('body > .loader_mini').remove();
             if (rs.status) {
+                $(".ajax-filter").html();
+                if (rs.filter != undefined) {
+                   $(".ajax-filter").html(rs.filter);
+                }
+
                 if(load_more){
                     // xoa phan trang va nut load more
                     $('.page-pagination').remove();
-                    // alert(1)
                     $target_data.find('.product-list').append(rs.content);
                 }
                 else{

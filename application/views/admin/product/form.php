@@ -30,16 +30,8 @@ echo macro()->page($_macro);
 					<ul class="nav nav-tabs tab-color-dark background-dark white">
 						<li class="active"><a href="#tab_general" data-toggle="tab"><i class="fa fa-dashboard"></i> <?php echo lang('tab_general') ?></a></li>
 						<li><a href="#tab_detail" data-toggle="tab"><i class="fa fa-table"></i> <?php echo lang('tab_detail') ?></a></li>
-						<?php /* ?>
-						<li><a href="#tab_to_attribute" data-toggle="tab"><i class="fa fa-table"></i> <?php echo lang('tab_to_attribute') ?></a></li>
- 						<li><a href="#tab_to_option" data-toggle="tab"><i class="fa fa-table"></i> <?php echo lang('tab_to_option') ?></a></li>
-						<?php */ ?>
-						<li><a href="#tab_to_discount" data-toggle="tab"><i class="fa fa-table"></i> <?php echo lang('tab_to_discount') ?></a></li>
-						<li><a href="#tab_to_special" data-toggle="tab"><i class="fa fa-table"></i> <?php echo lang('tab_to_special') ?></a></li>
-						<li><a href="#tab_to_addon" data-toggle="tab"><i class="fa fa-table"></i> <?php echo lang('tab_to_addon') ?></a></li>
 
 						<?php /* ?>
-
 						<li><a href="#tab_advance" data-toggle="tab"><i class="fa fa-table"></i> <?php echo lang('tab_advance') ?></a></li>
 						<?php */ ?>
 
@@ -47,14 +39,6 @@ echo macro()->page($_macro);
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_general"><?php t('view')->load('tpl::product/form/general'); ?></div>
 						<div class="tab-pane" id="tab_detail"><?php t('view')->load('tpl::product/form/detail'); ?></div>
-						<?php /* ?>
-						<div class="tab-pane" id="tab_to_attribute"><?php //t('view')->load('tpl::product/form/to_attribute'); ?></div>
-
-					 <div class="tab-pane" id="tab_to_option"><?php t('view')->load('tpl::product/form/to_option'); ?></div>
-<?php */ ?>
- 						<div class="tab-pane" id="tab_to_discount"><?php t('view')->load('tpl::product/form/to_discount'); ?></div>
-						<div class="tab-pane" id="tab_to_special"><?php t('view')->load('tpl::product/form/to_special'); ?></div>
-						<div class="tab-pane" id="tab_to_addon"><?php t('view')->load('tpl::product/form/to_addon'); ?></div>
 
 						<?php /* ?>
 						<div class="tab-pane" id="tab_advance"><?php t('view')->load('tpl::product/form/advance'); ?></div>

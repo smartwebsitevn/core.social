@@ -40,7 +40,7 @@ $_data_stats = function () use ($info) {
     <form id="product_form_action"  class="form-horizontal" method="post" action="<?php echo site_url("product_cart/add") ?>">
         <input type="hidden" name="id" value="<?php echo $info->id ?>">
         <div class="form-group">
-            <label for="input-voucher" class="col-sm-6 control-label">Giá sản phẩm:</label>
+            <label for="input-voucher" class="col-sm-6 control-label">Giá tin bài:</label>
             <div class="col-sm-6">
                 <span class="item-price"><?php echo $info->_price; ?> </span>
             </div>

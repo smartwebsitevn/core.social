@@ -1,5 +1,5 @@
 <?php
-$lang['option_group_info']					    = 'Quản lý nhóm thuộc tính sản phẩm';
+$lang['option_group_info']					    = 'Quản lý nhóm thuộc tính tin bài';
 $lang['option_add']                             = 'Thêm thuộc tính';
 $lang['select_cat']								= 'Chọn thể loại';
 $lang['handle_sort_list']                       = 'Kéo để sắp xếp thứ tự';

@@ -83,10 +83,10 @@ $lang['user_panel_register'] = 'Đăng ký tài khoản';
 $lang['user_panel_forgot'] = 'Quên mật khẩu';
 
 //===
-$lang['user_panel_product_owner'] = 'Sản phẩm của tôi';
-$lang['user_panel_product_watched'] = 'Sản phẩm đã xem';
-$lang['user_panel_product_favorited'] = 'Sản phẩm đã lưu';
-$lang['user_panel_product_subscribed'] = 'Sản phẩm đang theo dõi';
+$lang['user_panel_product_owner'] = 'Tin bài của tôi';
+$lang['user_panel_product_watched'] = 'Tin bài đã xem';
+$lang['user_panel_product_favorited'] = 'Tin bài đã lưu';
+$lang['user_panel_product_subscribed'] = 'Tin bài đang theo dõi';
 //=============
 $lang['button_login'] = 'Đăng nhập';
 $lang['button_register'] = 'Đăng ký';

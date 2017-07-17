@@ -2,14 +2,14 @@
 $lang['title_checkout_page']					= 'Đặt hàng';
 
 $lang['wrong_id']								= 'Lỗi xảy ra';
-$lang['not_found']								= 'Không tìm thấy sản phẩm';
-$lang['existed_item']							= 'Sản phẩm đã có trong giỏ hàng';
+$lang['not_found']								= 'Không tìm thấy tin bài';
+$lang['existed_item']							= 'Tin bài đã có trong giỏ hàng';
 $lang['update_successfully']					= 'Cập nhật thành công';
 $lang['insert_successfully']					= 'Đã thêm vào giỏ hàng';
-$lang['cart_is_empty']							= 'Không có sản phẩm nào trong giỏ hàng!';
+$lang['cart_is_empty']							= 'Không có tin bài nào trong giỏ hàng!';
 $lang['contact']								= 'Liên hệ';
 $lang['delete_successfully']					= 'Đã xóa khỏi giỏ hàng';
-$lang['product_not_found_in_cart']				= 'Không có sản phẩm này trong giỏ hàng!';
+$lang['product_not_found_in_cart']				= 'Không có tin bài này trong giỏ hàng!';
 $lang["title_confirm_checkout_page"] = "Xác nhận đơn hàng";
 
 
@@ -23,7 +23,7 @@ $lang['tax']									= 'Thuế';
 $lang['tax_total']								= 'Tổng thuế';
 
 $lang['billing_information']					= 'Thông tin thanh toán';
-$lang['product_name']							= 'Sản phẩm';
+$lang['product_name']							= 'Tin bài';
 $lang['name']									= 'Họ & tên';
 $lang['voucher']									= 'Mã Voucher';
 $lang['city']									= 'Thành phố';
@@ -58,7 +58,7 @@ $lang['updating']								= 'Đang cập nhật...';
 $lang['field_cannot_be_empty']					= 'Không được phép để trống';
 $lang['order_successfully']						= 'Đặt hàng thành công.';
 $lang['cart_destroy_successfully']				= 'Xóa giỏ hàng thành công.';
-$lang['no_product']								= 'Chưa có sản phẩm';
+$lang['no_product']								= 'Chưa có tin bài';
 
 $lang['company_name']							= 'Tên công ty';
 $lang['company_tax_code']							= 'Mã số thuế';

@@ -199,6 +199,10 @@ class Product_widget extends MY_Widget
         $this->data['total_rows'] = $total_rows;
 
 
+        // loc theo loai dong
+
+        $this->data['type_cats'] = model('type_cat')->get_hierarchy_data();
+
         // loc theo cac loai danh muc
         $cat_types = mod('cat')->get_cat_types();
         foreach ($cat_types as $t) {

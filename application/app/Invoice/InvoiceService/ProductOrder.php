@@ -49,7 +49,7 @@ class ProductOrder extends InvoiceService
     public function info()
     {
         return [
-            'name' => 'Mua sản phẩm',
+            'name' => 'Mua tin bài',
         ];
     }
 

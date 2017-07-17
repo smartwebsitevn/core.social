@@ -221,7 +221,7 @@ class Product_mod extends MY_Mod
         if ($row->_tax_class)
             $option_html .= '<br/>( <i>' . $row->_tax_class->name . '</i> )';
 
-        $option_selected = model('product_to_option')->get_list_rule(array('product_id' => $row->id));                // S?n ph?m n�y ?� ch?n nh?ng options
+        $option_selected = model('product_to_option')->get_list_rule(array('product_id' => $row->id));                // Tin b�i n�y ?� ch?n nh?ng options
         $option_value_selected = model('product_to_option_value')->get_list_rule(array('product_id' => $row->id));    // C?u h�nh c?a nh?ng options ?� ch?n
         $options = model('option')->get_list(array('type' => 'asc'));                                                // Th�ng tin v? options
         $option_values = model('option_value')->get_list(array('type' => 'asc'));                                            // Th�ng tin v? options
@@ -286,7 +286,7 @@ class Product_mod extends MY_Mod
         //== Su ly gia Options
         $option_html = [];
         // Kiem tra lai xem co dung cac addo cua san pham ko
-        $option_selected = model('product_to_addon')->filter_get_list(array('product_id' => $row->id, 'addon_id' => $addons));                // S?n ph?m n�y ?� ch?n nh?ng options
+        $option_selected = model('product_to_addon')->filter_get_list(array('product_id' => $row->id, 'addon_id' => $addons));                // Tin b�i n�y ?� ch?n nh?ng options
 
         $addon_ids = array_gets($option_selected, 'addon_id');
         $options = model('addon')->filter_get_list(array('id' => $addon_ids, 'show' => 1));
@@ -963,6 +963,35 @@ class Product_mod extends MY_Mod
 
         if (count($data))
             model('product_to_addon')->create_rows($data);
+    }
+
+    public function to_types($product_id, $values, $type_cat_id)
+    {
+        $this->_to_types($values, $type_cat_id, $product_id, 'product');
+    }
+
+    function _to_types($types, $type_cat_id, $table_id, $table)
+    {
+        //pr($types);
+        if (!$types || !$type_cat_id || !$table_id || !$table) return false;
+        // xoa cac ban ghi cu
+        $where = array();
+        $where['type_cat_id'] = $type_cat_id;
+        $where['table'] = $table;
+        $where['table_id'] = $table_id;
+        model('type_table')->del_rule($where);
+        // them moi tag
+        foreach ($types as $type=>$item) {
+            //echo '<br> type:'.$type.' - item:'.$item;
+            if ($type && $item) {
+                $where['type_id'] = $type;
+                $where['type_item_id'] = $item;
+                model('type_table')->create($where);
+               // pr_db($where,0);
+            }
+        }
+       // pr(1);
+        return true;
     }
 
     public function can_do($row, $action)

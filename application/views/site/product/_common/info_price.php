@@ -32,7 +32,7 @@
     <div class="item-price-discount">
             <?php
             foreach ($info->_price_discount as $k => $v)
-                echo "từ <b>$k</b> sản phẩm: {$v[1]}<br />";
+                echo "từ <b>$k</b> tin bài: {$v[1]}<br />";
             ?>
     </div>
 <?php endif; ?>

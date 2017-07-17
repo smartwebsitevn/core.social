@@ -206,12 +206,18 @@ $lang["mod_form_content"] = "Mẫu nội dung";
 
 $lang['mod_manufacture'] = 'Hãng sản xuất';
 
-$lang['mod_attribute'] = 'Thuộc tính sản phẩm';
-$lang['mod_attribute_group'] = 'Nhóm thuộc tính sản phẩm';
+$lang['mod_attribute'] = 'Thuộc tính tin bài';
+$lang['mod_attribute_group'] = 'Nhóm thuộc tính tin bài';
 $lang['mod_option'] = 'Tùy chọn ';
 $lang['mod_color'] = 'Màu sắc';
 $lang['mod_addon']						= 'Addon';
 $lang['mod_addon_cat']					= 'Danh mục Addon';
+
+
+$lang['mod_type']						= 'Type';
+$lang['mod_type_cat']					= 'Type Cat';
+$lang['mod_type_item']					= 'Type Item ';
+
 
 $lang['group_geo_zone'] = 'Khu vực';
 $lang['mod_geo_zone'] = 'Khu vực';
@@ -220,9 +226,9 @@ $lang['mod_tax_class'] = 'Loại thuế';
 $lang['mod_shipping_rate'] = 'Cước vận chuyển';
 
 //== Group_Product
-$lang['group_product'] = 'Quản lý sản phẩm';
-$lang['mod_product'] = 'Sản phẩm';
-$lang['mod_product_cat'] = 'Danh mục sản phẩm';
+$lang['group_product'] = 'Quản lý tin bài';
+$lang['mod_product'] = 'Tin bài';
+$lang['mod_product_cat'] = 'Danh mục tin bài';
 $lang['mod_product_owner'] = 'Đăng ký học';
 $lang['mod_product_setting'] = 'Cài đặt';
 

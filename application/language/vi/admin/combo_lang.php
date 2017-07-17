@@ -2,7 +2,7 @@
 $lang['combo_info']         	= 'Quản lý các Combo';
 $lang['payment_type']           = 'Kiểu thanh toán';
 $lang['data_type']              = 'Kiểu hiển thị';
-$lang['pservice']               = 'Sản phẩm và dịch vụ';
+$lang['pservice']               = 'Tin bài và dịch vụ';
 $lang['expire']                 = 'Hạn';
 $lang['expired']                = 'Hết hạn';
 $lang['unexpire']               = 'Còn hạn';

@@ -47,4 +47,4 @@ $lang['notice_confirm_success'] 			= 'Bạn có chắc chắn muốn hoàn thàn
 $lang['notice_confirm_cancel']				= 'Bạn có chắc chắn muốn hủy bỏ hóa đơn này không?';
 $lang['notice_confirm_delete']				= 'Bạn có chắc chắn muốn xóa hóa đơn này không?';
 $lang['notice_invoice_not_exist']			= 'Hóa đơn không tồn tại hoặc đã bị xóa.';
-$lang['thank']								= 'Cảm ơn bạn đã lựa chọn sản phẩm của chúng tôi. Chúng tôi tin rằng bạn sẽ hài lòng với dịch vụ của chúng tôi.';
+$lang['thank']								= 'Cảm ơn bạn đã lựa chọn tin bài của chúng tôi. Chúng tôi tin rằng bạn sẽ hài lòng với dịch vụ của chúng tôi.';

@@ -5,8 +5,8 @@ $config = [
     'menu' => [
         'home' => ['home'],
         'product' => array(
-            'product',   'product_cat',   'manufacture',
-
+            'product',   'product_cat',
+            //   'manufacture',
             //'product_to_subscribe','product_to_report',  'product_request',
 
             'product_setting',
@@ -15,23 +15,24 @@ $config = [
             'cat',
             'range',
             //'form_content',
-           '-',
-           'addon',
+           //'-',
+           //'addon',
            //'option',
            //'attribute',//    'attribute_group',
-
+           '-',
+         'type_item',  'type','type_cat',
            '-',
            'country',
             'city',
            'geo_zone',
            '-',
-
+            /*
             'tax_class',
             'tax_rate',
            '-',
 
            'shipping_rate',
-           'payment_method',
+           'payment_method',*/
 
        ),
         'sales' => [

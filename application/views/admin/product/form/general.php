@@ -31,7 +31,7 @@ echo macro('mr::advForm')->row(array(
 echo macro('mr::advForm')->row(array(
     'param' => 'link_demo', 'value' => $info['link_demo'],
 ));
-echo '<hr/>';
+/*echo '<hr/>';
 
 echo '<div class="form-group param_number ">
         <label class="col-sm-3  control-label " for="price">'.lang('price'). '</label>
@@ -41,28 +41,25 @@ echo '<div class="form-group param_number ">
             <div name="price_error" class="error help-block"></div>
         </div>
     <div class="clearfix"></div>
-</div>';
+</div>';*/
 /*echo macro('mr::advForm')->row(array(
     'param' => 'price',
     'value' => $info['price'],
     'placeholder' => '0.000000',
     'type' => 'number',
 ));*/
-echo macro('mr::advForm')->row(array(
+/*echo macro('mr::advForm')->row(array(
     'param' => 'price_is_contact',
     'value' => $info['price_is_contact'],
     'values' => array(0 => lang('no'), 1 => lang('yes')),
     'type' => 'bool',
-    //  'type' => 'checkbox',
 
 ));
-//pr($info);
 echo macro('mr::advForm')->row(array(
     'param' => 'price_is_auction',
     'value' => $info['price_is_auction'],
     'values' => array(0 => lang('off'), 1 => lang('on')),
     'type' => 'bool',
-    //'type' => 'checkbox',
 
     'attr' => ["class" => "toggle_status_ tc"],
     'desc' => lang('price_is_auction_desc'),
@@ -73,9 +70,7 @@ $auction_data = null;
 if ($info && isset($info['_price_is_auction_data'])) {
     $auction_data = $info['_price_is_auction_data'];
 }
-//pr($auction_data);
 echo '<div id="price_is_auction_content_1" class="price_is_auction_content" >';
-
 echo macro('mr::advForm')->row(array(
     'param' => 'price_is_auction_data[intro]',
     'name' => lang('price_is_auction_data_intro'),
@@ -84,22 +79,27 @@ echo macro('mr::advForm')->row(array(
 
 ));
 echo '</div>';
-echo '<hr/>';
+echo '<hr/>';*/
 
+$type_cat_data= function(){
 
+};
+echo macro('mr::advForm')->row(array(
+    'name' => lang('type_cat'),
+    'param' => 'type_cat_id',
+    'type' => 'select2',
+    'value' => $info['type_cat_id'],
+    'values_row' => array($type_cats, 'id', '_name'),
+    //'attr' => ["class" => "load_ajax",'_field'=>'a','_url'=>admin_url('type_cat/types'),'onChange'=>'load_ajax(this)'],
+
+));
+echo '<div id="data_types"></div>';
 echo macro('mr::advForm')->row(array(
     'name' => lang('cat'),
     'param' => 'cat_id',
     'type' => 'select2',
     'value' => $info['cat_id'],
     'values_row' => array($categories, 'id', '_name')
-));
-echo macro('mr::advForm')->row(array(
-    'name' => lang('manufacture'),
-    'param' => 'manufacture_id',
-    'type' => 'select2',
-    'value' => $info['manufacture_id'],
-    'values_row' => array($manufactures, 'id', 'name')
 ));
 /*echo macro('mr::form')->row(array(
     'param' => 'country_id', 'name' => lang('country'),
@@ -132,11 +132,6 @@ echo macro('mr::advForm')->row(array(
 ));
 
 echo macro('mr::advForm')->row(array(
-    'param' => 'technical',
-    'type' => 'html',
-    'value' => $info['technical'],
-));
-echo macro('mr::advForm')->row(array(
     'param' => 'note',
     'type' => 'html',
     'value' => $info['note'],
@@ -152,12 +147,6 @@ echo macro('mr::advForm')->row(array(
 ));
 echo '<hr/>';
 
-echo macro('mr::advForm')->row(array(
-    'param' => 'is_sellbest',
-    'name' => lang('sellbest'),
-    'type' => 'bool',
-    'value' => (isset($info['is_sellbest']) ? $info['is_sellbest'] : 0)
-));
 echo macro('mr::advForm')->row(array(
     'param' => 'is_new',
     'name' => lang('new'),

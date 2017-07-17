@@ -16,7 +16,7 @@ $lang = [
 	 * Errors
 	 */
 	'error_quantity_invalid' => 'Số lượng không hợp lệ',
-	'error_out_of_stock' => 'Hiện tại sản phẩm này đã hết hàng',
+	'error_out_of_stock' => 'Hiện tại tin bài này đã hết hàng',
 	'error_quantity_over' => 'Số lượng vượt quá giới hạn cho phép. Số lượng tối đa: {quantity_max}',
 	'error_phone_invalid' => 'Số điện thoại không hợp lệ',
 	'error_phone_provider_invalid' => 'Số điện thoại không thuộc nhà mạng đã chọn',

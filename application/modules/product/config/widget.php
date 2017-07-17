@@ -22,10 +22,10 @@ $_data_list =function($k='',$deny=array()){
 	if(!in_array('id',$deny))
 		$settings['id'.$k]=[
 			'type'   => 'select_multi',
-			'name'   => 'sản phẩm hiển thị',
+			'name'   => 'tin bài hiển thị',
 			'value'  => '',
 			'values' => [],
-			'desc'   => 'Chọn sản phẩm muốn hiển thị',
+			'desc'   => 'Chọn tin bài muốn hiển thị',
 		];
 	$settings['sp01'] =  array(
 		'type' => 'separate',
@@ -59,7 +59,7 @@ $_data_list =function($k='',$deny=array()){
 	if(!in_array('sellbest',$deny))
 		$settings['sellbest'.$k]=[
 			'type'   => 'select',
-			'name'   => 'Chỉ hiển thị sản phẩm được gán là bán chạy',
+			'name'   => 'Chỉ hiển thị tin bài được gán là bán chạy',
 			'value'  => '',
 			'values' => [
 				'yes'     => 'Có',
@@ -69,7 +69,7 @@ $_data_list =function($k='',$deny=array()){
 	if(!in_array('new',$deny))
 		$settings['new'.$k]=[
 			'type'   => 'select',
-			'name'   => 'Chỉ hiển thị sản phẩm được gán là mới nhất',
+			'name'   => 'Chỉ hiển thị tin bài được gán là mới nhất',
 			'value'  => '',
 			'values' => [
 				'yes'     => 'Có',
@@ -80,7 +80,7 @@ $_data_list =function($k='',$deny=array()){
 	if(!in_array('feature',$deny))
 		$settings['feature'.$k]=[
 			'type'   => 'select',
-			'name'   => 'Chỉ hiển thị sản phẩm được gán là nổi bật',
+			'name'   => 'Chỉ hiển thị tin bài được gán là nổi bật',
 			'value'  => '',
 			'values' => [
 				'yes'     => 'Có',
@@ -92,7 +92,7 @@ $_data_list =function($k='',$deny=array()){
 	/*if(!in_array('soon',$deny))
 		$settings['soon'.$k]=[
 			'type'   => 'select',
-			'name'   => 'Chỉ hiển thị sản phẩm sắp ra mắt',
+			'name'   => 'Chỉ hiển thị tin bài sắp ra mắt',
 			'value'  => '',
 			'values' => [
 				'yes'     => 'Có',
@@ -102,7 +102,7 @@ $_data_list =function($k='',$deny=array()){
 	if(!in_array('image',$deny))
 		$settings['image'.$k]=[
 			'type'   => 'select',
-			'name'   => 'Chỉ hiển thị sản phẩm có ảnh',
+			'name'   => 'Chỉ hiển thị tin bài có ảnh',
 			'value'  => '',
 			'values' => [
 				'yes'     => 'Có',
@@ -112,7 +112,7 @@ $_data_list =function($k='',$deny=array()){
 	if(!in_array('total',$deny))
 		$settings['total'.$k]=[
 			'type'  => 'text',
-			'name'  => 'Số sản phẩm hiển thị',
+			'name'  => 'Số tin bài hiển thị',
 			'value' => 10,
 		];
 	if(!in_array('order',$deny))
@@ -143,7 +143,7 @@ $_data_list =function($k='',$deny=array()){
 
 $widget = [];
 //================ List
-$widget  ['list']['name'] = 'Danh sách sản phẩm';
+$widget  ['list']['name'] = 'Danh sách tin bài';
 $widget  ['list']['setting'] = $_data_list();
 $widget  ['list']['setting']['sp1'] =  array(
 	'type' => 'separate',
@@ -151,7 +151,7 @@ $widget  ['list']['setting']['sp1'] =  array(
 );
 /*$widget  ['list']['setting']['layout_id'] =[
         'type'   => 'select_multi',
-        'name'   => 'sản phẩm đặc biệt',
+        'name'   => 'tin bài đặc biệt',
         'value'  => '',
         'values' => [],
     ];*/
@@ -165,19 +165,19 @@ $widget  ['list']['setting']['style'] = [
 		'page_item' => 'Hiển thị ở trang chủ: style top',
 		/*'page_home3' => 'Hiển thị ở trang chủ: style 3',
 		'page_home4' => 'Hiển thị ở trang chủ: style 4',
-		'page_product' => 'Hiển thị ở trang sản phẩm',*/
+		'page_product' => 'Hiển thị ở trang tin bài',*/
 	],
 	'values_opts' => array('value_required' => true),
 ];
 //================ List fix
-$widget  ['list_fixed']['name'] = 'Danh sách sản phẩm tùy chọn';
+$widget  ['list_fixed']['name'] = 'Danh sách tin bài tùy chọn';
 
 for($i=1;$i<=3;$i++){
-	$widget['list_fixed']["setting"]['sp'.$i]=['type' => 'separate',	'name' => 'Danh sách sản phẩm '.$i];
+	$widget['list_fixed']["setting"]['sp'.$i]=['type' => 'separate',	'name' => 'Danh sách tin bài '.$i];
 	$widget['list_fixed']["setting"]['name'.$i]=['type' => 'text',	'name' => 'Tiêu đề '];
 	$widget['list_fixed']['setting']['id'.$i] =[
 		'type'   => 'select_multi',
-		'name'   => 'Danh sách sản phẩm ',
+		'name'   => 'Danh sách tin bài ',
 		'value'  => '',
 		'values' => [],
 	];

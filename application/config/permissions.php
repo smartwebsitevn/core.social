@@ -102,6 +102,7 @@ $_permissions_content = [
     'product', 'product_cat', 'manufacture', 'product_order',
     //== Module hotro cho cac module khac
     'cat','range','form_content',
+    'type','type_cat','type_item',
     'country','city','disctric',
     'option','attribute',
     'geo_zone',  'tax_class', 'tax_rate',  'shipping_rate',

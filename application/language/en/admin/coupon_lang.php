@@ -1,7 +1,7 @@
 <?php
 $lang['coupon_info']								= 'Quản lý mã giảm giá';
 
-$lang['select_discount_type']                       = 'Đơn vị/1 sản phẩm';
+$lang['select_discount_type']                       = 'Đơn vị/1 tin bài';
 $lang['code']                                       = 'Mã';
 $lang['discount']                                   = 'Khuyến mại';
 $lang['discount_type']                              = 'Kiểu khuyến mại';

@@ -27,15 +27,8 @@ $_macro['table']['filters'] = array(
         'value' => isset($filter['cat_id']) && $filter['cat_id'] != '' ? $filter['cat_id'] : '-1',
         'values_row' => array($categories, 'id', '_name')
     ),
-    array(
-        'name' => lang('manufacture'),
-        'type' => 'select',
-        'param' => 'manufacture_id',
-        'value' => isset($filter['manufacture_id']) && $filter['manufacture_id'] != '' ? $filter['manufacture_id'] : '-1',
-        'values_row' => array($manufactures, 'id', 'name')
-    ),
 
-    array(
+   /* array(
         'type' => 'number',
         'param' => 'price_gt',
         'name' => lang('price_greater'),
@@ -46,7 +39,7 @@ $_macro['table']['filters'] = array(
         'param' => 'price_lt',
         'name' => lang('price_lesser'),
         'value' => isset($filter['price_lt']) ? $filter['price_lt'] : ''
-    ),
+    ),*/
 
 
     array(
@@ -61,16 +54,6 @@ $_macro['table']['filters'] = array(
     ),
 
 
-    array(
-        'name' => lang('sellbest'),
-        'type' => 'select',
-        'param' => 'is_sellbest',
-        'value' => isset($filter['is_sellbest']) && $filter['is_sellbest'] != '' ? $filter['is_sellbest'] : '-1',
-        'values' => array(
-            '1' => lang('yes'),
-            '0' => lang('no')
-        ),
-    ),
     array(
         'name' => lang('new'),
         'type' => 'select',
@@ -91,36 +74,6 @@ $_macro['table']['filters'] = array(
             '0' => lang('no')
         ),
     ),
-    /* array(
-         'name' => lang('soon'),
-         'type' => 'select',
-         'param' => 'is_soon',
-         'value' => isset($filter['is_soon']) && $filter['is_soon'] != '' ? $filter['is_soon'] : '-1',
-         'values' => array(
-             '1' => lang('yes'),
-             '0' => lang('no')
-         ),
-     ),*/
-    array(
-        'name' => lang('has_voucher'),
-        'type' => 'select',
-        'param' => 'has_voucher',
-        'value' => isset($filter['has_voucher']) && $filter['has_voucher'] != '' ? $filter['has_voucher'] : '-1',
-        'values' => array(
-            '1' => lang('yes'),
-            '0' => lang('no')
-        ),
-    ),
-    /* array(
-         'name' => lang('has_combo'),
-         'type' => 'select',
-         'param' => 'has_combo',
-         'value' => isset($filter['has_combo']) && $filter['has_combo'] != '' ? $filter['has_combo'] : '-1',
-         'values' => array(
-             '1' => lang('yes'),
-             '0' => lang('no')
-         ),
-     ),*/
 
     /*  array('name' => lang('from_date'), 'param' => 'created', 'type' => 'date',
           'value' => $filter['created'],

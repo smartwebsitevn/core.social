@@ -17,10 +17,10 @@ $lang['intro'] = 'Giới thiệu';
 $lang['brief'] = 'Tóm tắt';
 $lang['description'] = 'Giới thiệu';
 
-$lang['product_info'] = 'Quản lý sản phẩm';
-$lang['name'] = 'Tên sản phẩm';
+$lang['product_info'] = 'Quản lý tin bài';
+$lang['name'] = 'Tên tin bài';
 $lang['link_demo'] = 'Link demo';
-$lang['model'] = 'Mã sản phẩm';
+$lang['model'] = 'Mã tin bài';
 $lang['tags'] = 'Thẻ';
 $lang['description'] = 'Mô tả';
 $lang['manufacture'] = 'Thương hiệu';
@@ -40,31 +40,31 @@ $lang['price_discount'] = 'Đang khuyến mại';
 $lang['price_contact'] = 'Giá liên hệ';
 $lang['price_is_contact'] = 'Giá liên hệ';
 $lang['price_is_auction'] = 'Cho phép đấu giá';
-$lang['price_is_auction_desc'] = 'Cho phép đấu giá chỉ áp dụng với thiết lập mua từng sản phẩm';
+$lang['price_is_auction_desc'] = 'Cho phép đấu giá chỉ áp dụng với thiết lập mua từng tin bài';
 
 $lang['price_is_auction_data_intro'] = 'Mô tả khi người mua tạo đơn hàng đấu giá';
 
 $lang['point'] = 'Điểm thưởng';
 $lang['taxclass'] = 'Thuế';
 $lang['quantity'] = 'Số lượng';
-$lang['quantity_hint'] = 'Số lượng sản phẩm hiện có trong kho';
+$lang['quantity_hint'] = 'Số lượng tin bài hiện có trong kho';
 $lang['stock'] = 'Kho để hàng';
 $lang['banner'] = 'Banner video giới thiệu';
-$lang['images'] = 'Hình ảnh mô tả sản phẩm';
+$lang['images'] = 'Hình ảnh mô tả tin bài';
 $lang['files'] = 'Danh sách tệp tin đính kèm';
 
 
 $lang['shipping'] = 'Vận chuyển';
-$lang['shipping_hint'] = 'Nếu thiết lập là có, thì sản phẩm này có vận chuyển giao đến tận nơi cho người bán';
+$lang['shipping_hint'] = 'Nếu thiết lập là có, thì tin bài này có vận chuyển giao đến tận nơi cho người bán';
 $lang['weight'] = 'Trọng lượng';
 $lang['dimension'] = 'Kích thước ( Dài x Rộng x Cao )';
 
 
 $lang['country'] = 'Xuất sứ';
-$lang['manufacture'] = 'Thương hiệu sản phẩm';
-$lang['category'] = 'Danh mục sản phẩm';
+$lang['manufacture'] = 'Thương hiệu tin bài';
+$lang['category'] = 'Danh mục tin bài';
 $lang['location'] = 'Kho hàng';
-$lang['relate'] = 'Sản phẩm liên quan';
+$lang['relate'] = 'Tin bài liên quan';
 $lang['news'] = 'Bài viết liên quan';
 
 $lang['warranty'] = 'Thời gian bảo hành';
@@ -84,15 +84,15 @@ $lang['products1'] = 'Gói đặc biệt';
 $lang['products2'] = 'Kết hợp tốt nhất';
 
 
-$lang['import'] = 'Import sản phẩm';
+$lang['import'] = 'Import tin bài';
 $lang['color'] = 'Màu sắc';
-$lang['add_color'] = 'Thêm màu sắc sản phẩm';
-$lang['list_color'] = 'Danh sách màu sắc sản phẩm';
+$lang['add_color'] = 'Thêm màu sắc tin bài';
+$lang['list_color'] = 'Danh sách màu sắc tin bài';
 $lang['model'] = 'Xuất xứ';
 
 $lang['installment'] = 'Trả góp';
 $lang['vat'] = 'Thuế VAT';
-$lang['note_vat'] = 'Thuế VAT tính theo % / giá 1 sản phẩm';
+$lang['note_vat'] = 'Thuế VAT tính theo % / giá 1 tin bài';
 $lang['vat_status'] = 'Sử dụng thuế VAT';
 
 $lang['discount'] = 'Khuyến mại';
@@ -106,7 +106,7 @@ $lang['price_old'] = 'Giá gốc';
 $lang['price'] = 'Giá bán';
 $lang['price_other'] = 'Giá thị trường';
 $lang['price_input'] = 'Giá nhập kho';
-$lang['notice_total'] = 'Số lượng sản phẩm có trong kho';
+$lang['notice_total'] = 'Số lượng tin bài có trong kho';
 $lang['total'] = 'Số lượng';
 $lang['count_buy'] = 'Đã bán';
 $lang['gifts'] = 'Tặng quà';
@@ -126,7 +126,7 @@ $lang['option']                                 = 'Thông số kĩ thuật';
 $lang['attributes']                             = 'Tùy chọn';
 $lang['option_product']                         = 'Thuộc tính riêng';
 $lang['add_option_product']                     = 'Thêm thuộc tính riêng';
-$lang['notice_option_product']                  = 'Thuộc tính được hiển trong <br/>trang chi tiết sản phẩm';
+$lang['notice_option_product']                  = 'Thuộc tính được hiển trong <br/>trang chi tiết tin bài';
 $lang['del_option_product']                     = 'Xóa thuộc tính';
 
 $lang['del_options_cat'] = 'Xóa thuộc tính';
@@ -162,8 +162,8 @@ $lang['permission'] = 'Cấp quyền truy cập';
 //== Premium
 $lang ['config_default'] = 'Theo cấu hình mặc định';
 
-$lang ['watch_config'] = 'Cài đặt giới hạn xem cho Sản phẩm';
-$lang ['watch_expired'] = 'Hạn xem của Sản phẩm';
+$lang ['watch_config'] = 'Cài đặt giới hạn xem cho Tin bài';
+$lang ['watch_expired'] = 'Hạn xem của Tin bài';
 $lang ['watch_times'] = 'Số lần xem tối đa các bài học trong khóa';
 
 $lang ['comment_allow'] = 'Cho phép bình luận bằng tài khoản';

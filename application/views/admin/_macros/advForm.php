@@ -531,8 +531,14 @@ $this->register('row', function (array $row, $rows = null) {
     /* Select 2 */
     else if ($type == 'select2')
     {
+    $class = ' form-control select_multi ' ;
+    if($attr && isset($attr['class'])){
+        $attr['class'] =   $attr['class']. $class;
+    }else{
+        $attr['class'] = $class;
+    }
     ?>
-        <select name="<?php echo $param; ?>" class="form-control select_multi" style="width:100%;" <?php echo t('html')->attr($attr); ?> >
+        <select name="<?php echo $param; ?>" style="width:100%;" <?php echo t('html')->attr($attr); ?> >
            
         <?php 
             if (! array_get($values_opts, 'value_required', false))
@@ -604,13 +610,28 @@ $this->register('row', function (array $row, $rows = null) {
     
     /* Select */
     else if ($type == 'select' || $type == 'select_multi')
-    { 
+    {
+
         ?>
 
-            <?php if ($type == 'select'): ?>
-                <select name="<?php echo $param; ?>" class="form-control " style="width:100%;" <?php echo t('html')->attr($attr); ?> >
-            <?php else: ?>
-                <select name="<?php echo $param; ?>[]" multiple="multiple" class="form-control select_multi" style="width:100%;" <?php echo t('html')->attr($attr); ?> >
+            <?php if ($type == 'select'):
+             $class = ' form-control' ;
+    if($attr && isset($attr['class'])){
+        $attr['class'] =   $attr['class']. $class;
+    }else{
+        $attr['class'] = $class;
+    }
+    ?>
+                <select name="<?php echo $param; ?>" style="width:100%;" <?php echo t('html')->attr($attr); ?> >
+            <?php else:
+              $class = ' form-control select_multi ' ;
+    if($attr && isset($attr['class'])){
+        $attr['class'] =   $attr['class']. $class;
+    }else{
+        $attr['class'] = $class;
+    }
+             ?>
+                <select name="<?php echo $param; ?>[]" multiple="multiple"  style="width:100%;" <?php echo t('html')->attr($attr); ?> >
             <?php endif; ?>
                
             <?php if (!array_get($values_opts, 'value_required', false)): ?>

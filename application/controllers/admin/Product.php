@@ -8,6 +8,7 @@ class Product extends MY_Controller
         $this->lang->load('admin/'.$this->_get_mod());
 
         $this->data['currency'] = currency_get_default();
+        $this->data['type_cats'] = model('type_cat')->get_hierarchy_data();
         $this->data['categories'] = model('product_cat')->get_hierarchy_data();
         $this->data['manufactures'] = model('manufacture')->get_list();
 
@@ -71,7 +72,31 @@ class Product extends MY_Controller
      *  Actions
      * ------------------------------------------------------
      */
+    function get_types()
+    {
+        $type_cat_id=$this->input->post('type_cat_id');
+        $product_id=$this->input->post('product_id');
 
+        if(!$type_cat_id) return;
+
+        $types = model('type')->filter_get_list(['cat_id'=>$type_cat_id], ['select'=>'id,name,image_id,image_name,seo_url']);
+        $types_values=[];
+       if($product_id){
+           $types_values = model('type_table')->filter_get_list(['type_cat_id'=>$type_cat_id,'table_id'=>$product_id,'table_'=>'product']);
+
+       }
+        if ($types) {
+            foreach($types as $type){
+                $type_items = model('type_item')->filter_get_list(['type_id'=>$type->id], ['select'=>'id,name,image_id,image_name,seo_url']);
+                $type->items =$type_items;
+            }
+        }
+        $this->data['types'] =$types;
+        $this->data['types_values'] =$types_values;
+        //pr($types_values);
+        view('tpl::type_cat/types', $this->data);
+
+    }
     /**
      * Them moi
      */
@@ -302,11 +327,12 @@ class Product extends MY_Controller
     protected function _update_infos($id, $data)
     {
         $this->_mod()->tags_set($id, $this->input->post('tags'));
-        $this->_mod()->to_option( $id, $this->input->post('option'), $this->input->post('option_value') );
+         $this->_mod()->to_types( $id, $this->input->post('types'), $this->input->post('type_cat_id') );
+        // $this->_mod()->to_option( $id, $this->input->post('option'), $this->input->post('option_value') );
        // $this->_mod()->to_attribute( $id, $this->input->post('attribute') );
-        $this->_mod()->to_discount( $id, $this->input->post('discount') );
-        $this->_mod()->to_special( $id, $this->input->post('special') );
-        $this->_mod()->to_addon( $id, $this->input->post('addon') );
+       // $this->_mod()->to_discount( $id, $this->input->post('discount') );
+       // $this->_mod()->to_special( $id, $this->input->post('special') );
+       // $this->_mod()->to_addon( $id, $this->input->post('addon') );
 
 
     }

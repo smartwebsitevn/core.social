@@ -33,7 +33,7 @@ class Product_model extends MY_Model
         //== Info lien ket bang khac
         'cat_id','manufacture_id', 'country_id',
         'stock_id', 'warranty_id',
-
+        'type_cat_id',
         //== Info thuoc tinh bool
        // 'comment_allow',  'comment_fb_allow',
         'has_voucher', //  'has_combo',
@@ -55,7 +55,7 @@ class Product_model extends MY_Model
         //== cat
         'cat_id', 'author_id',
         'manufacture_id',    'stock_id', 'warranty_id','country_id',
-
+        'type_cat_id',
         //== attr
         'has_voucher', 'has_combo',
 

@@ -11,7 +11,7 @@
 
 		// Lightbox
 		$('.lightbox').nstUI('lightbox');
-		
+		$('.load_ajax').nstUI('loadAjax');
 		// Form handle
 		$('#form, .form_action').each(function()
 		{

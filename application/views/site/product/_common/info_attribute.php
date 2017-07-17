@@ -50,7 +50,7 @@
             <?php  if($info->quantity <=0):?>
                 Hết hàng
             <?php else: ?>
-                Còn <?php echo $info->quantity  ?> sản phẩm
+                Còn <?php echo $info->quantity  ?> tin bài
             <?php  endif; ?>
 
         </b>
@@ -63,7 +63,7 @@
             <?php  if($info->quantity ==0):?>
                 Hết hàng
                 <?php else: ?>
-                Còn <?php echo $info->quantity  ?> sản phẩm
+                Còn <?php echo $info->quantity  ?> tin bài
             <?php endif; ?>
 
           </b>

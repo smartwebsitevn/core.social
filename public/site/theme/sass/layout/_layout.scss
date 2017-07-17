@@ -226,6 +226,7 @@ a:hover .caret-user.user-uv {
 
 .select-search-default .select-rendered .select-input {
   display: block;
+  width: 100%;
   input {
     width: 100%;
     padding-right: 35px;
@@ -259,6 +260,7 @@ a:hover .caret-user.user-uv {
 
 .select-input {
   display: block;
+  width: 90%;
 }
 
 .select-input-field {
@@ -267,6 +269,8 @@ a:hover .caret-user.user-uv {
   border: none;
   outline: none;
   font-weight: 600;
+  width: 100%;
+
   &:focus {
     padding: 2px;
     color: #333;

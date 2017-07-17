@@ -1,5 +1,5 @@
 <?php
-$lang['prodcut_cat_info']					= 'Thuộc tính sản phẩm';
+$lang['prodcut_cat_info']					= 'Thuộc tính tin bài';
 $lang['parent_id']							= 'Danh mục cha';
 $lang['icon']								= 'Icon';
 $lang['banner']								= 'Banner';

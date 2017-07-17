@@ -11,7 +11,7 @@ if (isset($info->_price_discount)) : ?>
             <span class="info">
             <?php
             foreach ($info->_price_discount as $k => $v)
-                echo "> $k sản phẩm: {$v[1]}<br />";
+                echo "> $k tin bài: {$v[1]}<br />";
             ?>
             </span>
     </div>

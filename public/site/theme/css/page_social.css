@@ -1041,6 +1041,8 @@
     padding: 40px 40px 28px 40px;
     background-color: #ffffff;
     margin-bottom: 10px; }
+    .block-filter .block-content .ajax-filter {
+      display: inline-block; }
     .block-filter .block-content .search-dropdown {
       display: inline-block;
       vertical-align: top;
@@ -1059,10 +1061,6 @@
       float: right; }
       .block-filter .block-content .block-sorter .total_product {
         margin-bottom: 10px; }
-      .block-filter .block-content .block-sorter .sort-dropdown .dropdown-menu {
-        left: auto;
-        right: 0;
-        width: 170px; }
       .block-filter .block-content .block-sorter .sort-dropdown .search-rendered {
         line-height: 26px; }
       .block-filter .block-content .block-sorter .sort-dropdown .dropdown-toggle:hover .search-rendered, .block-filter .block-content .block-sorter .sort-dropdown .dropdown-toggle:focus .search-rendered {

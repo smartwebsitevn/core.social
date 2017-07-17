@@ -247,6 +247,8 @@ class Product_list extends MY_Controller
     private function _create_list_ajax()
     {
         if ($this->input->is_ajax_request()) {
+
+
             //= su ly hien thi danh sach theo danh muc
             $category = $style_display = '';
             if (isset($this->data['category'])) {
@@ -262,9 +264,10 @@ class Product_list extends MY_Controller
             $temp = $this->input->get('temp');
             $temp = $temp ? $temp : $style_display;
             $load_more = $this->input->get("load_more", false);
-            echo json_encode(
-                array(
+
+             $response=   [
                     'status' => true,
+                    'total' => number_format($this->data['total']),
                     'content' => widget('product')->display_list(
                         $this->data['list'], $temp,
                         array(
@@ -272,8 +275,17 @@ class Product_list extends MY_Controller
                             'pages_config' => $this->data['pages_config'],
                             'load_more' => $load_more)
                     ),
-                    'total' => number_format($this->data['total']))
-            );
+
+             ];
+            //= su ly hien thi bo loc dong
+            if (isset($this->data['filter']['type_cat_id'])) {
+                $type_cat_id=$this->data['filter']['type_cat_id'];
+                $response['filter']=  widget('type')->filter_types(
+                    $type_cat_id, $this->data['filter'],'',[ 'return' => 1]
+                );
+            }
+
+             echo json_encode($response);
             exit;
         }
     }

@@ -51,10 +51,10 @@ foreach ($sort_orders as $v) {
             <div class="col-xs-12 col-sm-6">
                     Hiển thị sp/ 1 trang
                     <select style="width:130px" name="limit" class="form-control select_show">
-                        <option value="20">20 sản phẩm</option>
-                        <option value="35">35 sản phẩm</option>
-                        <option value="45">45 sản phẩm</option>
-                        <option value="50">50 sản phẩm</option>
+                        <option value="20">20 tin bài</option>
+                        <option value="35">35 tin bài</option>
+                        <option value="45">45 tin bài</option>
+                        <option value="50">50 tin bài</option>
                     </select>
             </div>
              <?php */ ?>
@@ -125,13 +125,18 @@ foreach ($sort_orders as $v) {
             <div class="row">
                 <div class="block-content-left col-md-8 col-sm-8 col-xs-12">
                     <?php
-                    $product_cats = model('product_cat')->get_list_hierarchy([], ['show' => 1]);
-                    echo macro()->filter_dropdown_category(['value' => $filter['cat_id'], 'values' => $product_cats, 'param' => 'price', 'name' => lang('filter_category'), 'obj' => 'product_cat']); ?>
+                    //$product_cats = model('product_cat')->get_list_hierarchy([], ['show' => 1]);
+                   // echo macro()->filter_dropdown_category(['value' => $filter['cat_id'], 'values' => $product_cats, 'param' => 'price', 'name' => lang('filter_category'), 'obj' => 'product_cat']);
+                    $product_cats = model('type_cat')->get_list_hierarchy([], ['show' => 1]);
+
+                    echo macro()->filter_dropdown_category(['value' => $filter['type_cat_id'], 'values' => $product_cats, 'param' => 'type_cat_id', 'name' => lang('filter_category'), 'obj' => 'type_cat']); ?>
                     <?php //echo macro()->filter_dropdown_obj(['value' => $filter['price'], 'values' => $range_type_price, 'param' => 'price', 'name' => lang('filter_price')]); ?>
                     <?php //echo macro()->filter_dropdown_obj(['value' => $filter['manufacture_id'], 'values' => $manufactures, 'param' => 'manufacture_id', 'name' => lang('filter_manufacture')]); ?>
                     <?php //echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
-                    <a href="#0" class="btn btn-link btn-clear-all">Xóa dữ liệu
-                        lọc<?php //echo lang("clear_all_filters")  ?></a>
+                    <div class="ajax-filter"></div>
+
+                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close" style="font-size: 32px"></i></a>
+                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock" style="font-size: 32px"></i></a>
                 </div>
                 <div class="block-content-right  col-md-4 col-sm-4 col-xs-12">
                     <div class="row">
