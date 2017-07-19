@@ -1137,14 +1137,14 @@ class MY_Model extends CI_Model
             return;
 
         // Compare
-        if( preg_match("#_gt#", $key) )
-
+        if( preg_match("#_gt$#", $key) )
         {
             $this->db->where( substr( $key, 0, strlen($key) - 3 ) . ' >', $filter[$key] );
             return;
         }
-        if( preg_match("#_gte#", $key) )
+        if( preg_match("#_gte$#", $key) )
         {
+
             $this->db->where( substr( $key, 0, strlen($key) - 4 ) . ' >=', $filter[$key] );
             return;
         }

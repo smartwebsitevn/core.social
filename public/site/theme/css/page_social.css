@@ -1016,7 +1016,7 @@
 .block-search .block-content {
   border: 2px solid #e0e0e0;
   border-bottom: none;
-  padding: 40px 40px 28px 40px;
+  padding: 40px;
   background-color: #ffffff; }
 
 .sticky-wrapper.is-sticky .block-content {
@@ -1038,15 +1038,18 @@
     padding: 0; }
   .block-filter .block-content {
     border: 2px solid #e0e0e0;
-    padding: 40px 40px 28px 40px;
+    padding: 40px;
     background-color: #ffffff;
     margin-bottom: 10px; }
-    .block-filter .block-content .ajax-filter {
+    .block-filter .block-content .ajax-filter, .block-filter .block-content .action-filter {
       display: inline-block; }
+    .block-filter .block-content .block-content-left {
+      margin-top: 15px; }
     .block-filter .block-content .search-dropdown {
       display: inline-block;
-      vertical-align: top;
-      margin-bottom: 12px; }
+      /* vertical-align: top;
+       margin-bottom: 12px;*/
+      margin-right: 10px; }
     .block-filter .block-content .block-total {
       text-align: right;
       margin-bottom: 10px; }
@@ -1071,6 +1074,23 @@
   .block-filter .filter-dropdow .search-dropdown .search-rendered {
     font-size: 13px;
     line-height: 26px; }
+
+.block-post .block-content {
+  border: 2px solid #e0e0e0;
+  padding: 10px  40px;
+  background-color: #ffffff;
+  margin-bottom: 10px; }
+  .block-post .block-content img {
+    border-radius: 100%;
+    display: inline-block;
+    height: 100px;
+    margin-bottom: 5px;
+    transition: all 1s ease 0s;
+    width: 100px; }
+  .block-post .block-content .message {
+    margin-top: 40px; }
+  .block-post .block-content .btn {
+    margin-top: 30px; }
 
 .block-search {
   margin: 0px;
@@ -1156,9 +1176,17 @@
 .form-search .select2-container.select2-container--focus + input.input-clear, .form-search .select2-container.select2-container--open + input.input-clear {
   background-image: url(../img/icon/da-xem-xong-2.png); }
 
+.list-social {
+  margin-bottom: 40px;
+  /* background-color: #ffffff;
+   border: 1px solid #e0e0e0;*/
+  color: #666; }
+
 .item-social {
-  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
   padding: 35px 25px 25px 35px;
+  margin-bottom: 10px;
   position: relative;
   display: block; }
   .item-social .item-photo {
@@ -1260,12 +1288,6 @@
     position: absolute;
     right: 25px;
     bottom: 10px; }
-
-.list-social {
-  margin-bottom: 40px;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  color: #666; }
 
 /*====================*\
 //Detail product

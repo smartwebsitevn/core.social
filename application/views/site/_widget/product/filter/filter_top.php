@@ -28,17 +28,24 @@ foreach ($sort_orders as $v) {
             <?php
             echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
         </div>
+        <div class="block-layout act-filter-choice-group">
+            <a class="act-filter-choice" href="Javascript:;" data-name="layout" data-value="block">
+                <i class="pe-7s-menu icon "></i>
+            </a>
+            <a class="act-filter-choice" href="Javascript:;" data-name="layout" data-value="grid">
+                <i class="pe-7s-keypad icon "></i>
+            </a>
+        </div>
         <div class="block-layout">
-            <input id="slider_point_hander" type="text" data-provide="slider" data-slider-min="1"
+            <input name="point" class="act-filter-slider" id="slider_point_hander" type="hidden" data-provide="slider" data-slider-min="1"
                    data-slider-max="100"
-                   data-slider-step="1"
-                   data-slider-value="3" data-slider-tooltip="hide"/>
+                   data-slider-step="10"
+                   data-slider-value="0" data-slider-tooltip="hide"/>
 
             <div class="clearfix"></div>
-            <span id="slider_point"><span id="slider_point_value">3</span> points</span>
+            <span id="slider_point"><span id="slider_point_value">0</span> points</span>
 
         </div>
-
         <?php /* ?>
     <div class="block-layout">
             <a class="search-results  act-filter-dropdown " href="Javascript:;" data-name="order" data-value="id|desc">
@@ -116,8 +123,8 @@ foreach ($sort_orders as $v) {
             </div>
         </div>
     </div>
-    <?php //echo macro()->navbar_collapse_start(); ?>
-    <div class="block block-filter sticky-element">
+    <?php //echo macro()->navbar_collapse_start(); sticky-element ?>
+    <div class="block block-filter ">
         <div class="block-content clearfix">
             <?php
             //pr($product_cats);
@@ -126,7 +133,7 @@ foreach ($sort_orders as $v) {
                 <div class="block-content-left col-md-8 col-sm-8 col-xs-12">
                     <?php
                     //$product_cats = model('product_cat')->get_list_hierarchy([], ['show' => 1]);
-                   // echo macro()->filter_dropdown_category(['value' => $filter['cat_id'], 'values' => $product_cats, 'param' => 'price', 'name' => lang('filter_category'), 'obj' => 'product_cat']);
+                    // echo macro()->filter_dropdown_category(['value' => $filter['cat_id'], 'values' => $product_cats, 'param' => 'price', 'name' => lang('filter_category'), 'obj' => 'product_cat']);
                     $product_cats = model('type_cat')->get_list_hierarchy([], ['show' => 1]);
 
                     echo macro()->filter_dropdown_category(['value' => $filter['type_cat_id'], 'values' => $product_cats, 'param' => 'type_cat_id', 'name' => lang('filter_category'), 'obj' => 'type_cat']); ?>
@@ -134,9 +141,11 @@ foreach ($sort_orders as $v) {
                     <?php //echo macro()->filter_dropdown_obj(['value' => $filter['manufacture_id'], 'values' => $manufactures, 'param' => 'manufacture_id', 'name' => lang('filter_manufacture')]); ?>
                     <?php //echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <div class="ajax-filter"></div>
-
-                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close" style="font-size: 32px"></i></a>
-                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock" style="font-size: 32px"></i></a>
+                    <div class="action-filter">
+                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close " style="font-size: 32px"></i></a>
+                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"
+                                                                       style="font-size: 32px"></i></a>
+                    </div>
                 </div>
                 <div class="block-content-right  col-md-4 col-sm-4 col-xs-12">
                     <div class="row">
@@ -149,7 +158,32 @@ foreach ($sort_orders as $v) {
             </div>
         </div>
     </div>
-    <?php //echo macro()->navbar_collapse_end(); ?>
+    <?php
+    $user_current = user_get_account_info();
+    ?>
+    <?php if ($user_current):
+       $user_current = mod('user')->add_info($user_current) ;
+       // pr($user_current);
+    ?>
+        <div class="block block-post ">
+            <div class="block-content clearfix">
+                <div class="">
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                            <a href="<?php echo $user_current->_url_view; ?>" class="item-img">
+                                <img src="<?php echo $user_current->avatar->url_thumb  ?>"     alt="<?php echo $user_current->name; ?>">
+                            </a>
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <p class="message">Hôm nay bạn muốn chia sẻ điều gì?</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <a  href="<?php echo site_url('product_post') ?>" class="btn btn-default pull-right">Đăng tin</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 </form>
 <script type="text/javascript">
     $(document).ready(function () {

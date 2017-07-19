@@ -49,6 +49,8 @@ class Product_model extends MY_Model
         //'affiliate_options' ,
     );
     public $fields_filter = array(
+        'point','!point','point_gt', 'point_gte', 'point_lt', 'point_lte',
+
         //== price
         'price','price_gt', 'price_lt','price_gte', 'price_lte',
         'price_is_contact',   'price_is_auction',
@@ -104,7 +106,6 @@ class Product_model extends MY_Model
     function _filter_get_where(array $filter)
     {
         $where = parent::_filter_get_where($filter);
-        //pr($filter);
         foreach ($this->fields_filter as $key) {
             if (isset($filter[$key]) && $filter[$key] != -1) {
                 //echo '<br>key='.$key.', v='.$filter[$key];

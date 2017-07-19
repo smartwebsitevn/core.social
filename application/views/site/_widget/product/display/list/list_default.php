@@ -3,6 +3,7 @@
         ob_start() ?>
         <?php foreach ($list as $row):
             $row = mod('product')->add_info_images($row);
+
             $layout_full = (!$row->video && !$row->images);
             $author = $row->_author;// pr($row);
             ?>
@@ -28,10 +29,10 @@
                             <span>
                             <a class="do_action" data-type=""
                                data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=like" ?>"><i
-                                    class="pe-7s-angle-up-circle"></i></a>
+                                    class="pe-7s-up-arrow"></i></a>
                             <a class="do_action" data-type=""
                                data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=dislike" ?>"><i
-                                    class="pe-7s-angle-down-circle"></i></a>
+                                    class="pe-7s-bottom-arrow"></i></a>
                             </span>
                                 <span
                                     class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
@@ -66,16 +67,16 @@
         <?php else: ?>
             <?php if (isset($row->images) && $row->images): //pr($info->images) ?>
                 <div class="product-images">
-                <div class="owl-carousel">
-                <?php $i = 0;
-                foreach ($row->images as $img): $i++;// pr($row)?>
-                    <div class="item" data-dot="<img src='<?php echo $img->_url_thumb; ?>'>">
-                        <img class="img-slide" src="<?php echo $img->_url; ?>">
+                    <div class="owl-carousel">
+                    <?php $i = 0;
+                    foreach ($row->images as $img): $i++;// pr($row)?>
+                        <div class="item" data-dot="<img src='<?php echo $img->_url_thumb; ?>'>">
+                            <img class="img-slide" src="<?php echo $img->_url; ?>">
 
+                        </div>
+                    <?php endforeach; ?>
                     </div>
-                <?php endforeach; ?>
-        </div>
-        </div>
+                </div>
         <?php endif; ?>
 
         <?php endif; ?>

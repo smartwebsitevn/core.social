@@ -99,8 +99,8 @@ $_data_layout = function () use ($filter) {
             </div>
         </div>
     </div>
-    <?php //echo macro()->navbar_collapse_start(); ?>
-    <div class="block block-filter sticky-element">
+    <?php //echo macro()->navbar_collapse_start(); sticky-element ?>
+    <div class="block block-filter ">
         <div class="block-content clearfix">
             <?php
             //pr($user_cats);

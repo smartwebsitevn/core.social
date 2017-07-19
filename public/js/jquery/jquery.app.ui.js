@@ -1428,7 +1428,7 @@
                 }
 
                 // Tu dong rut gon list
-                show_block_short(false);
+                show_block_short(true);
 
                 // Xem tat ca
                 act_all.click(function () {
@@ -1438,7 +1438,7 @@
 
                 // Xem rut gon
                 act_short.click(function () {
-                    show_block_short(false);
+                    show_block_short(true);
                     return false;
                 });
 
@@ -1527,29 +1527,38 @@ var nfc = {
         },
         common: function () {
             // Hide it
-            $('.hideit').click(function()
-            {
+            $('.hideit').click(function () {
                 $(this).fadeOut();
             });
 
-            $(document).on('click', '.hide-me',function (){
+            $(document).on('click', '.hide-me', function () {
                 $(this).fadeOut();
             });
             // an muc cha
-            $(document).on('click', '.hide-parent',function (){
-                var parent =$(this).data('parent');
+            $(document).on('click', '.hide-parent', function () {
+                var parent = $(this).data('parent');
                 $(this).closest(parent).slideUp();
             });
 
             // chia se mang xa hoi
-            $(document).on('click', '.act-share',function (){
-                url =$(this).data('url');
-                switch ($(this).data('social')){
-                    case 'facebook': url = "http://www.facebook.com/sharer/sharer.php?u=" +url; break;
-                    case 'google': url = "https://plus.google.com/share?url=" +url; break;
-                    case 'twitter': url = "http://twitter.com/intent/tweet?url=" +url; break;
-                    case 'pinterest': url = "http://pinterest.com/pin/create/button/?url=" +url; break;
-                    case 'linkedin': url = "http://www.linkedin.com/shareArticle?mini=true&amp;url=" +url; break;
+            $(document).on('click', '.act-share', function () {
+                url = $(this).data('url');
+                switch ($(this).data('social')) {
+                    case 'facebook':
+                        url = "http://www.facebook.com/sharer/sharer.php?u=" + url;
+                        break;
+                    case 'google':
+                        url = "https://plus.google.com/share?url=" + url;
+                        break;
+                    case 'twitter':
+                        url = "http://twitter.com/intent/tweet?url=" + url;
+                        break;
+                    case 'pinterest':
+                        url = "http://pinterest.com/pin/create/button/?url=" + url;
+                        break;
+                    case 'linkedin':
+                        url = "http://www.linkedin.com/shareArticle?mini=true&amp;url=" + url;
+                        break;
 
                 }
                 targetWin = window.open(url, '', " width=500, height=440")
@@ -1700,7 +1709,6 @@ var nfc = {
             $('[data-toggle="tooltip"]').tooltip();
 
 
-
             /*Back to top */
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 50) {
@@ -1741,7 +1749,7 @@ var nfc = {
                     $(this).parent().removeClass("open2");
                     $(this).parent().parents(".dropdown ").addClass("open2");
                 }
-               $(document).on('click', 'body', function (event) {
+                $(document).on('click', 'body', function (event) {
 
                     var $target = $(event.target);
 
@@ -1867,7 +1875,7 @@ var nfc = {
                 $(this).toggleClass('active');
                 $(".nav-menu.navbar-left").toggleClass("has-open");
                 $(this).find(".dropdown").addClass("open");
-             //   $(".nav-menu.navbar-left").find(".dropdown").addClass("open");
+                //   $(".nav-menu.navbar-left").find(".dropdown").addClass("open");
 
                 return false;
             });
@@ -1876,7 +1884,7 @@ var nfc = {
                 $(".nav-menu.navbar-right").toggleClass("has-open");
                 $(".nav-menu.navbar-right .dropdown-user").removeClass("open");
                 $(".nav-menu.navbar-right .dropdown-user").addClass("open");
-               // $(".nav-menu.navbar-right").find(".dropdown").addClass("open");
+                // $(".nav-menu.navbar-right").find(".dropdown").addClass("open");
                 return false;
             });
             $("[data-action='close-nav']").on('click', function () {
@@ -1885,11 +1893,11 @@ var nfc = {
 
             });
             /*if(viewport == 'mobile'){
-            $(".nav-menu.navbar-right .dropdown,.nav-menu.navbar-left .dropdown").on('click', function (event) {
-                event.preventDefault();
-                return false;
-            });
-            }*/
+             $(".nav-menu.navbar-right .dropdown,.nav-menu.navbar-left .dropdown").on('click', function (event) {
+             event.preventDefault();
+             return false;
+             });
+             }*/
 
             $('body').click(function (event) {
                 var $target = $(event.target);
@@ -1898,10 +1906,10 @@ var nfc = {
                     $target.parents(".nav-menu.navbar-right").length == 0
                 ) {
                     close_menu_sidebar();
-                  //  event.preventDefault();
+                    //  event.preventDefault();
                 }
             });
-            function close_menu_sidebar(){
+            function close_menu_sidebar() {
                 $("[data-action='toggle-navbar-left']").removeClass('active');
                 $("[data-action='toggle-navbar-right']").removeClass('active');
                 $(".nav-menu.navbar-left").removeClass("has-open");
@@ -1929,9 +1937,8 @@ var nfc = {
                      }, 500);
 
                      });*/
-                    $(document).on('click', '.act-filter-dropdown',function (){
+                    $(document).on('click', '.act-filter-dropdown', function () {
                         //reset
-
                         if (typeof $(this).data('parent') === 'undefined') {
                             $(this).closest('.search-dropdown').find('input[type="hidden"]').remove();
                             $(this).closest('.search-dropdown').find('li.active').removeClass('active');
@@ -1961,9 +1968,32 @@ var nfc = {
                         nfc.catch_hook_event(this);
                         return false;
                     });
+                    $(document).on('click', '.act-filter-choice', function () {
+                        if ($(this).hasClass('active')) {
+                            return;
+                        }
+                        var parent = $(this).closest('.act-filter-choice-group');
+                        //reset
+                        parent.find('input[type="hidden"]').remove();
+                        parent.find('.active').removeClass('active');
+
+                        $(this).toggleClass('active');
+                        html = ' <input type="hidden" name="' + $(this).data('name') + '" value="' + $(this).data('value') + '"  />';
+                        $(this).append(html);
+
+                        nfc.catch_hook_event(this);
+                        return false;
+                    });
+                    $( ".act-filter-slider" ).slider().on("slideStop", function(ev) {
+                           // console.log($(this).val());
+                        //alert($(this).val())
+                        nfc.catch_hook_event(this);
+                        return false;
+
+                    });
 
                     //== click check box loc va hien ten
-                    $(document).on('click', '.search-results span',function (){
+                    $(document).on('click', '.search-results span', function () {
 
                         //var maxlength = 3;
                         var checkbox = $(this).prev();
@@ -2066,17 +2096,23 @@ var nfc = {
                     });
 
                     //== su kien xoa du lieu loc
-                    $(document).on('click', 'span.search-remove',function (e){
+                    $(document).on('click', 'span.search-remove', function (e) {
 
                         var $this = this;
-                        var parent = $($this).parent();
+                        var parent = $($this).closest('form');
                         // xoa du lieu doi voi check box
                         parent.find('.search-results.checkbox.checked span').click();
                         // xoa du lieu doi voi filter
                         parent.find('.act-filter-dropdown.active input[type="hidden"]').remove();
                         parent.find('.act-filter-dropdown.active').removeClass('active');
-                        // xoa du lieu doi voi input
 
+                        // xoa du lieu voi filter dong
+                        parent.find('.ajax-filter').remove();
+
+                        // xoa du lieu voi filter dong
+                        parent.find('.act-filter-slider').val('');
+
+                        // xoa du lieu doi voi input
                         parent.find('.act-input.active input[type="hidden"]').remove();
                         parent.find('.act-input.active').removeClass('active');
 
@@ -2102,7 +2138,7 @@ var nfc = {
                     });
 
                     // su kien sort tren menu
-                    $(document).on('click', '.sortOrderAjax',function (e){
+                    $(document).on('click', '.sortOrderAjax', function (e) {
 
                         var sort = $(this).data('sort');
                         if (!sort) {
@@ -2283,10 +2319,10 @@ var nfc = {
         $.gritter.removeAll();// go thong bao cu
     },
     modal: function (content, title, option) {
-        var $modal=$('#modal-system-notify');
+        var $modal = $('#modal-system-notify');
         if (option != undefined) {
-            if(option.modal != undefined)
-                $modal  = $(option.modal);
+            if (option.modal != undefined)
+                $modal = $(option.modal);
             if (option.width != undefined) {
                 $modal.find('.modal-dialog').css("width", option.width);
             }
@@ -2302,7 +2338,7 @@ var nfc = {
          $modal.find('.modal-footer').show();
          }*/
         //- set lai tieu de thong bao neu co
-        if (title != undefined )
+        if (title != undefined)
             $modal.find('.modal-title').html(title);
 
         $modal.find('.modal-body').html(content);
@@ -2578,7 +2614,7 @@ function moduleCoreFilter(option) {
         type: "GET",
         url: url,
         dataType: 'json',
-       // data: {'id_new': id_new},
+        // data: {'id_new': id_new},
         success: function (rs) {
             history.pushState('data', '', url);
             //nfc.loader("hide");

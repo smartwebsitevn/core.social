@@ -149,7 +149,11 @@ class Product_list extends MY_Controller
             unset($filter['name']);
             $filter['%name'] = $filter_fields['name'] = $key;
         }
+        if (isset($filter['point']) && $filter['point']) {
+            $filter['point_gte'] =$filter['point'];
+            unset($filter['point']);
 
+        }
         // lay thong tin cua cac khoang tim kiem
         foreach (array('price',) as $range) {
             if (isset($filter[$range])) {
@@ -163,6 +167,7 @@ class Product_list extends MY_Controller
                 unset($filter[$range]);
             }
         }
+
         //pr($filter);
         //pr($input);
         // Gan filter
@@ -202,7 +207,7 @@ class Product_list extends MY_Controller
         /*if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
         }*/
-        //pr($filter);
+       // pr($filter);
         $list = model('product')->filter_get_list($filter, $input);
        // pr_db($list);
         foreach ($list as $row) {
@@ -261,7 +266,12 @@ class Product_list extends MY_Controller
             if ($category && isset($category->common_data->display) && $category->common_data->display)
                 $style_display = $category->common_data->display;
 
-            $temp = $this->input->get('temp');
+            //$temp = $this->input->get('temp');
+            $temp= $this->input->get('layout');
+            if(!in_array($temp,['block','grid'])){
+                $temp =$style_display ;
+            }
+
             $temp = $temp ? $temp : $style_display;
             $load_more = $this->input->get("load_more", false);
 
