@@ -5,11 +5,11 @@ class Country extends MY_Controller {
 		'name' => 'required|trim|xss_clean',
 		'dial_code' => 'trim|xss_clean',
 		'code' => 'trim|xss_clean',
+		'feature' => 'trim|xss_clean',
 		'status' => 'trim|xss_clean',
 	);
-	public $filter = array('name', 'code', 'group_id', 'status');
-	public $actions = array('edit', 'del', 'on', 'off');
-
+	public $filter = array('name', 'code', 'group_id', 'status','feature');
+	public $actions = array('edit', 'del', 'on', 'off','feature', 'feature_del');
 
 	function __construct()
 	{
@@ -23,7 +23,7 @@ class Country extends MY_Controller {
 	 */
 	function _remap($method)
 	{
-		if (in_array($method, array('edit', 'del', 'on', 'off')))
+		if (in_array($method, $this->actions))
 		{
 			$this->_action($method);
 		}
@@ -243,9 +243,8 @@ class Country extends MY_Controller {
 			// Kiem tra co the thuc hien hanh dong nay khong
 			if (!$this->_mod()->can_do($info, $action)) continue;
 
-
 			// Chuyen den ham duoc yeu cau
-			if (in_array($action, array('on', 'off'))) {
+			if (in_array($action, array('on', 'off','feature', 'feature_del'))) {
 				// thuc hien yeu cau
 				set_message(lang('notice_update_success'));
 				$this->_mod()->action($info, $action);
@@ -288,7 +287,24 @@ class Country extends MY_Controller {
 		// Tai cac file thanh phan
 		$this->load->helper('site');
 		$this->load->helper('form');
-		
+		// Cap nhat sort_order
+		if ($this->input->get('act') == 'update_order')
+		{
+			$items = $this->input->post('items');
+			$items = explode(',', $items);
+
+			foreach ($items as $i => $id)
+			{
+				$data = array();
+				$data['sort_order']	= $i;
+				$this->_model()->update($id, $data);
+			}
+			//$this->_model()->cache_update();
+
+			$output = json_encode(array('complete' => TRUE));
+			set_output('json', $output);
+		}
+
 		// Tao filter
 		$filter_input 	= array();
 		$filter = $this->_model()->filter_create($this->filter, $filter_input);
@@ -304,7 +320,6 @@ class Country extends MY_Controller {
 		$input = array();
 		$input['limit'] = array($limit, $page_size);
 		$list = $this->_model()->filter_get_list($filter, $input);
-		
 		$list = admin_url_create_option($list, strtolower(__CLASS__), 'id', $this->actions);
 		foreach ($list as $row)
 		{
@@ -347,6 +362,7 @@ class Country extends MY_Controller {
 			$actions[$v] = $url;
 		}
 		$this->data['actions'] = $actions;
+		$this->data['sort_url_update'] = current_url().'?act=update_order';
 
 		// Luu bien gui den view
 		$this->data['action'] 	= current_url();

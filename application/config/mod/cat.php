@@ -29,8 +29,7 @@
 //	'level',// trinh do thanh vien
 */
 $_tmp = array(
-	'stock',// kho hang
-	'warranty',// thoi gian b?o hành
+	'user_job',
 	);
 
 

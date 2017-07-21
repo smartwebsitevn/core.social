@@ -26,14 +26,16 @@ body.user-account .main-content .panel {
     padding: 40px; }
   body.user-account .main-content .panel form {
     /* padding: 20px;*/ }
-    body.user-account .main-content .panel form .form-group .control-label {
-      text-align: left; }
-    body.user-account .main-content .panel form .form-group select.form-control {
-      width: 200px;
-      float: left; }
-    body.user-account .main-content .panel form .form-group .form-control {
-      width: 200px;
-      float: left; }
+    body.user-account .main-content .panel form .form-group {
+      margin: 0; }
+      body.user-account .main-content .panel form .form-group .control-label {
+        text-align: left; }
+      body.user-account .main-content .panel form .form-group select.form-control {
+        width: 200px;
+        float: left; }
+      body.user-account .main-content .panel form .form-group .form-control {
+        width: 100%;
+        float: left; }
     body.user-account .main-content .panel form .actions {
       position: absolute;
       top: 10px;

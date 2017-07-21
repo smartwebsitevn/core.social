@@ -27,10 +27,61 @@ class User_mod extends MY_Mod
     public function add_info($row)
     {
         $row = user_add_info($row);
+        $row = $this->add_info_working_city($row);
+        $row = $this->add_info_working_country($row);
         $row = $this->url($row);
         return $row;
     }
 
+
+    public function add_info_working_city($row)
+    {
+        // city
+        foreach (array( 'working_city'  )as $t)
+        {   $names = $citys =array();
+            if (isset($row->$t) && !empty($row->$t)){
+                $ids = explode(',',$row->$t);
+                $row->$t=$ids;
+
+                foreach($ids as $id){
+                    $it= model('city')->get($id);
+                    if($it){
+                        $citys[] =$it;
+                        $names[] =$it->name;
+                    }
+                }
+            }
+            $row->{"_".$t.'_name'} = implode(', ',$names);
+            $row->{"_".$t}[] = $citys;
+        }
+
+
+        return $row;
+    }
+
+    public function add_info_working_country($row)
+    {
+
+        foreach (array('working_country') as $t) {
+            $names = $citys = array();
+            if (isset($row->$t) && !empty($row->$t)) {
+                $ids = explode(',', $row->$t);
+
+                foreach ($ids as $id) {
+                    $it = model('country')->get($id);
+                    if ($it) {
+                        $citys[] = $it;
+                        $names[] = $it->name;
+                    }
+                }
+                $row->$t = $ids;
+            }
+            $row->{"_" . $t . '_name'} = implode(', ', $names);
+            $row->{"_" . $t} = $citys;
+        }
+
+        return $row;
+    }
     /**
      * Kiem tra co the su dung so du
      */

@@ -1,4 +1,5 @@
 <form class="form form-horizontal form_action" method="post" action="<?php echo $user->_url_edit; ?>">
+	<input type="hidden" name="_type" value="password">
 
 	<div class="panel-heading">
 		<div class="row">

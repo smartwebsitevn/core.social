@@ -40,6 +40,7 @@ body.user-account {
       form {
         /* padding: 20px;*/
         .form-group {
+          margin:0;
           .control-label {
             text-align: left;
           }
@@ -48,8 +49,9 @@ body.user-account {
             float: left;
           }
           .form-control {
-            width: 200px;
+            width: 100%;
             float: left;
+
           }
         }
         .actions {

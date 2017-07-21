@@ -59,7 +59,7 @@ $lang['upload_completed']				   	= 'Đã tải lên';
 
 $lang['country']				   		= 'Quốc gia';
 $lang['city']				   		= 'Thành phố';
-
+$lang['profession']				   		= 'Chức danh';
 $lang['birthday']				   		= 'Ngày sinh';
 $lang['birthday_hint']				   		= 'Ngày-Tháng-Năm';
 $lang['notice_birthday_invalid']				   		= 'Ngày sinh không họp lệ';

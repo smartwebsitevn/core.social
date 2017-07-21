@@ -39,11 +39,13 @@
                 <a href="<?php echo site_url('my-page') ?>">
                     <i class="pe-7s-home " ></i> <?php echo lang('user_panel_my_page') ?></a>
             </li>
+    <?php /* ?>
+
             <li >
                 <a href="<?php echo site_url('my-posts') ?>">
                     <i class="pe-7s-note2 " ></i> <?php echo lang('user_panel_my_posts') ?></a>
             </li>
-
+     <?php */ ?>
             <li >
                 <a href="<?php echo site_url('my-account') ?>">
                     <i class="pe-7s-config " ></i> <?php echo lang('user_panel_my_account') ?></a>

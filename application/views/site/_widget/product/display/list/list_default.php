@@ -36,8 +36,7 @@
                             </span>
                                 <span
                                     class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-                            <span
-                                class="views"> <b><?php echo number_format($row->view_total) ?></b> <?php echo lang("count_view") ?></span>
+                            <!--<span  class="views"> <b><?php /*echo number_format($row->view_total) */?></b> <?php /*echo lang("count_view") */?></span>-->
                             <span
                                 class="comments"> <b><?php echo number_format($row->comment_count) ?></b> <?php echo lang("count_comment") ?></span>
                             <!--<span class="date_created"> <b><?php /*echo $row->_created */

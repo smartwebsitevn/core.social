@@ -43,10 +43,17 @@ $_macro['form']['rows'][] = array(
 
 /* Hide this record */
 $_macro['form']['rows'][] = array(
-	'param' 	=> 'show',
+	'param' 	=> 'feature',
+	'name'		=> lang('feature'),
+	'type' 		=> 'bool_status',
+	'value'		=> (isset($info['feature']) ? $info['feature'] : 0)
+);
+
+$_macro['form']['rows'][] = array(
+	'param' 	=> 'status',
 	'name'		=> lang('status'),
 	'type' 		=> 'bool_status',
-	'value'		=> (isset($info['show']) ? $info['show'] : 1)
+	'value'		=> (isset($info['status']) ? $info['status'] : 1)
 );
 
 echo macro('mr::advForm')->page($_macro);

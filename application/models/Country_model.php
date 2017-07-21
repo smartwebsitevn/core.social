@@ -5,8 +5,9 @@
 class Country_model extends MY_Model {
 
 	public $table 	= 'country';
-	public $order 	= array('name', 'asc');
-
+	//public $order 	= array('name', 'asc');
+	//var $order = array(array('sort_order', 'asc'),array('name', 'asc'));
+	var $order = array(array('sort_order', 'asc'),array('feature', 'desc'),array('name', 'asc'));
 
 	/**
 	 * Filter handle
@@ -25,7 +26,7 @@ class Country_model extends MY_Model {
 			$where[$this->table.'.'.'id'] = $filter['id'];
 		}
 
-		if (isset($filter['group_id']))
+		if (isset($filter['group_id']) && $filter['group_id']>0)
 		{
 			$where[$this->table.'.'.'group_id'] = $filter['group_id'];
 		}
@@ -42,7 +43,10 @@ class Country_model extends MY_Model {
 			$this->search('country', 'code', $filter['code']);
 		}
 
-
+		if (isset($filter['feature']))
+		{
+			$where[$this->table.'.feature>'] = 0;
+		}
 		if (isset($filter['show']))
 		{
 				$where[$this->table.'.'.'status'] = 1;

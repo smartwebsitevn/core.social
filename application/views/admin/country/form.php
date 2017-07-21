@@ -50,13 +50,19 @@ $_macro['form']['rows'][] = array(
 	'placeholder' => lang('country_code'),
 	'req' 	=> true,
 );
-
 /* Hide this record */
 $_macro['form']['rows'][] = array(
-	'param' 	=> 'show',
+	'param' 	=> 'feature',
+	'name'		=> lang('feature'),
+	'type' 		=> 'bool_status',
+	'value'		=> (isset($info['feature']) ? $info['feature'] : 0)
+);
+/* Hide this record */
+$_macro['form']['rows'][] = array(
+	'param' 	=> 'status',
 	'name'		=> lang('status'),
 	'type' 		=> 'bool_status',
-	'value'		=> (isset($info['show']) ? $info['show'] : 1)
+	'value'		=> (isset($info['status']) ? $info['status'] : 1)
 );
 
 

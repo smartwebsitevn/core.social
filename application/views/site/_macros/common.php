@@ -220,7 +220,7 @@ $this->register('filter_dropdown_category', function ($input) {
 	<!-- city-->
 	<div class="dropdown search-dropdown <?php echo $class ?>" <?php echo t('html')->attr($attr) ?>>
                         <div class="dropdown-toggle" type="button" data-toggle="dropdown">
-                            <span class="search-rendered">Phân loại<?php //echo lang("all_cat_idcat") ?></span>
+                            <span class="search-rendered" data-label="<?php echo $name ?>"><?php echo $name ?></span>
                             <span class="search-caret"></span>
                         </div>
                         <span class="search-remove"></span>
@@ -278,7 +278,8 @@ $this->register('filter_dropdown_country', function ($input) {
 	<!-- city-->
 	<div class="dropdown search-dropdown <?php echo $class ?>" <?php echo t('html')->attr($attr) ?>>
 		<div class="dropdown-toggle" type="button" data-toggle="dropdown">
-			<span class="search-rendered"><?php echo $name ?></span>
+			<span class="search-rendered" data-label="<?php echo $name ?>"><?php echo $name ?></span>
+
 			<span class="search-caret"></span>
 		</div>
 		<span class="search-remove"></span>
@@ -330,7 +331,8 @@ $this->register('filter_dropdown_obj', function ($input) {
 	<?php if ($values): ?>
 		<div class="dropdown search-dropdown <?php echo $class ?>" <?php echo t('html')->attr($attr) ?>>
 			<div class="dropdown-toggle" type="button" data-toggle="dropdown">
-				<span class="search-rendered"><?php echo $name ?></span>
+				<span class="search-rendered" data-label="<?php echo $name ?>"><?php echo $name ?></span>
+
 				<span class="search-caret"></span>
 			</div>
 			<span class="search-remove"></span>
@@ -375,7 +377,7 @@ $this->register('filter_dropdown_list', function ($input) {
 		?>
 		<div class="dropdown search-dropdown <?php echo $class ?>" <?php echo t('html')->attr($attr) ?>>
 			<div class="dropdown-toggle" type="button" data-toggle="dropdown">
-				<span class="search-rendered"><?php echo $name ?></span>
+				<span class="search-rendered" data-label="<?php echo $name ?>"><?php echo $name ?></span>
 				<span class="search-caret"></span>
 			</div>
 			<span class="search-remove"></span>

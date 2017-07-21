@@ -1,4 +1,5 @@
 <form class="form form-horizontal form_action" method="post" action="<?php echo $user->_url_edit; ?>">
+    <input type="hidden" name="_type" value="info">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-6">
@@ -97,7 +98,7 @@
              'value' => $user->country,
              'values_row' => [$countrys, 'id', 'name'],
              'attr' => ['_dropdownchild' => "city", "_url" => site_url('user/get_citys')]
-        ]);*/
+        ]);
         echo macro('mr::form')->row([
             'param' => 'city',
             'type' => 'select',
@@ -105,40 +106,36 @@
             //'req' 	=> true,
             'values_row' => [$citys, 'id', 'name'],
             //'attr'=>['_dropdownchild'=>"distric_id","_url"=>site_url('user/get_districs')]
-        ]);
-        /*echo macro('mr::form')->row(    [
+        ]);echo macro('mr::form')->row(    [
             'param' => 'distric',
             'type' => 'select',
             'value' => $user->distric,
             'values_row' => [ $districs, 'distric_id', 'distric_name'],
        ]);*/
-        /*foreach (['profession',
-                     'facebook', 'twitter', 'address',] as $f) {
-            echo macro('mr::form')->row( [
-                'param' => $f,
-                'value' => $user->$f,
-           ]);
-        }
-        */
-
+        $user->job = explode(',', $user->job);
+        echo macro('mr::form')->info_cat_multi(array(
+            'name' => 'Lĩnh vực hoạt động',
+            'param' => 'job',
+            'value' => $user->job,
+            'values' => $cat_type_user_job,
+        ));
         //city-country
-        $countrys = model('country')->filter_get_list(['show' => 1]);
+        //$countrys = model('country')->filter_get_list(['show' => 1]);
         $citys = model('city')->filter_get_list(["country_id"=>230,'show' => 1]);
-        ?>
-                <?php echo macro('mr::form')->info_city(array(
-                    'name' => 'City',
-                    'param' => 'working_city_id',
-                    'value' => $user->working_city_id,
-                    'values' => $citys,
-                )); ?>
+        $user->working_city = explode(',', $user->working_city);
+         echo macro('mr::form')->info_city(array(
+            'name' => 'Nơi làm việc',
+            'param' => 'working_city',
+            'value' => $user->working_city,
+            'values' => $citys,
+        ));
+       /* echo macro('mr::form')->info_country_multi(array(
+            'name' => 'Country',
+            'param' => 'working_country,
+            'value' => $user->working_country,
+            'values' => $countrys,
+        ));*/
 
-                <?php echo macro('mr::form')->info_country_multi(array(
-                    'name' => 'Country',
-                    'param' => 'working_country_id',
-                    'value' => $user->working_country_id,
-                    'values' => $countrys,
-                )); ?>
-        <?php
         echo macro('mr::form')->row([
             'param' => 'desc',
             'value' => $user->desc,

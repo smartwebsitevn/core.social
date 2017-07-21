@@ -370,41 +370,6 @@ class User_account extends MY_Controller
         return TRUE;
     }
 
-    /**
-     * Kiem tra paypal emails
-     */
-    function _check_paypal_emails()
-    {
-        $list = $this->_get_paypal_emails();
-        if (!count($list)) {
-            $this->form_validation->set_message(__FUNCTION__, lang('notice_value_invalid'));
-            return FALSE;
-        }
-
-        return TRUE;
-    }
-
-    function _get_paypal_emails()
-    {
-        // Tai file thanh phan
-        $this->load->helper('email');
-
-        // Lay input
-        $value = $this->input->post('paypal_emails');
-        $value = explode("\n", $value);
-
-        // Lay gia tri
-        $list = array();
-        foreach ($value as $v) {
-            $v = trim($v);
-            if (valid_email($v)) {
-                $list[] = $v;
-            }
-        }
-        $list = array_unique($list);
-
-        return $list;
-    }
 
 
     /**
@@ -609,6 +574,7 @@ class User_account extends MY_Controller
      *  Edit
      * ------------------------------------------------------
      */
+
     /**
      * Chinh sua thong tin
      */
@@ -654,63 +620,56 @@ class User_account extends MY_Controller
 
         $this->_form($form);
     }
-
-    function _edit_confirm($user)
+    /**
+     * Edit view
+     */
+    protected function _edit_view($user)
     {
-        $data = t('session')->userdata('user_edit');
-        if (!$data) {
-            redirect(site_url('user/edit'));
+        $user = mod("user")->add_info($user);
+        $user =user_add_info_other($user);
+        $user = mod('user')->url($user);
+
+        $this->data['action'] = current_url();
+        $this->data['user'] = $user;
+        $this->data['password_lenght'] = model('user')->_password_lenght;
+
+
+        // Khai bao cac bien cua widget upload
+        $widget_upload = array();
+        $widget_upload['mod'] = 'single';
+        $widget_upload['file_type'] = 'image';
+        $widget_upload['status'] = config('file_public', 'main');
+        $widget_upload['resize'] = TRUE;
+        $widget_upload['thumb'] = TRUE;
+
+        $widget_upload['table'] = $this->_get_mod();
+        $widget_upload['table_id'] = $user->id;
+        //- up anh avatar
+        $widget_upload['url_update'] = ($user->id > 0) ? current_url() . '?act=update_image&field=avatar' : null;
+        $widget_upload['table_field'] = 'avatar';
+        $this->data['upload_avatar'] = $widget_upload;
+
+        //- up file dinh kem
+        /*$widget_upload['file_type'] 	= 'file';
+        $widget_upload['table_field'] = 'attach';
+        $widget_upload['url_update']	= ($user->id > 0) ? current_url().'?act=update_image&field=attach' : null;
+        $widget_upload['allowed_types'] =  'pdf|doc|docx';
+        $this->data['upload_files'] 	= $widget_upload;*/
+        $this->data['countrys'] = model("country")->get_all();
+        $this->data['citys'] = model("city")->get_list_rule(["country_id"=>$user->country]);;
+        $cat_types = mod('cat')->get_cat_types();
+        foreach ($cat_types as $t) {
+            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
         }
 
-        $this->data['key_confirm'] = 'user_edit';
-        $this->data['user_edit_param'] = mod('user_security')->param();
-
-        // Tai cac file thanh phan
-        $this->load->library('form_validation');
-        $this->load->helper('form');
-
-        // Xu ly form
-        if ($this->input->post('_submit')) {
-            // Gan dieu kien cho cac bien
-            $params = array($this->data['user_edit_param']);
-            $this->_set_rules($params);
-
-            // Xu ly du lieu
-            $result = array();
-            if ($this->form_validation->run()) {
-
-                // Cap nhat vao data
-                model('user')->update($user->id, $data);
-
-                // Khai bao du lieu tra ve
-                $result['complete'] = TRUE;
-                $result['location'] = site_url('user/edit');
-
-                set_message(lang('confirmComplate'));
-            } else {
-                foreach ($params as $param) {
-                    $result[$param] = form_error($param);
-                }
-            }
-
-            // Form output
-            $this->_form_submit_output($result);
-        }
-
-        // Hien thi view
-        $this->_display();
     }
 
-
-    /**
-     * Edit params
-     */
     protected function _edit_params($user)
     {
-        $params = array(/*'password_old',*/
-            'name', 'address',
-            'gender','birthday','country','city'
-        );
+        $type = $this->input->post('_type');
+        if (!$type) return;
+        $params = $this->_edit_fields($type);
+       // $params [] = 'no';
 
 
         //neu dang ky tai khoan bang sms va chua cap nhat email lan nao
@@ -731,16 +690,65 @@ class User_account extends MY_Controller
         return $params;
     }
 
+
+    protected function _edit_fields($type)
+    {
+        // Thiet lap setting mac dinh
+        $fields = array();
+        $fields['info'] = array(
+            'name',  /*'email', 'phone',*/ 'address','gender','birthday',
+            'job','country','city',   'working_country', 'working_city',
+            "website",'profession','desc','facebook','twitter',
+        );
+        $fields['password'] = array('password','password_old','password_repeat');
+        return isset($fields[$type]) ? $fields[$type] : array();
+
+    }
+
+
+
+
+
+    /**
+     * Lay input
+     */
+    protected function _edit_get_inputs($type)
+    {
+        $data = array();
+        $fields = $this->_edit_fields($type);
+        foreach ($fields as $f) {
+            $v = $this->input->post($f);
+            if (is_array($v)){
+                $v= array_unique($v);
+                $v = implode(',', $v);
+            }
+            $data[$f] = $v;
+        }
+        // anh
+        /* $image = $this->_get_image();
+         if ($image)
+         {
+             $data['image_id']	= $image->id;
+             $data['image_name']	= $image->file_name;
+         }*/
+        // pr($data);
+        return $data;
+    }
+    /**
+     * Edit params
+     */
+
     /**
      * Edit submit
      */
+
     protected function _edit_submit($user)
     {
-        $data = array_only($this->input->post(),
-            ['name', 'address','gender','birthday','country','city',
-                "website",'profession','desc','facebook','twitter',
-            ]);
+        $type = $this->input->post('_type');
+        if (!$type) return;
 
+        $data = $this->_edit_get_inputs($type);
+        //pr($data);
         $can_confirm = false;
         if ($data['name'] != $user->name /*|| $data['address'] != $user->address*/) {
             $can_confirm = true;
@@ -798,51 +806,50 @@ class User_account extends MY_Controller
 
     }
 
-    /**
-     * Edit view
-     */
-    protected function _edit_view($user)
+    protected function _edit_confirm($user)
     {
-        $user = mod("user")->add_info($user);
-        $user =user_add_info_other($user);
-        $user = mod('user')->url($user);
-
-        $this->data['action'] = current_url();
-        $this->data['user'] = $user;
-        $this->data['password_lenght'] = model('user')->_password_lenght;
-
-
-        // Khai bao cac bien cua widget upload
-        $widget_upload = array();
-        $widget_upload['mod'] = 'single';
-        $widget_upload['file_type'] = 'image';
-        $widget_upload['status'] = config('file_public', 'main');
-        $widget_upload['resize'] = TRUE;
-        $widget_upload['thumb'] = TRUE;
-
-        $widget_upload['table'] = $this->_get_mod();
-        $widget_upload['table_id'] = $user->id;
-        //- up anh avatar
-        $widget_upload['url_update'] = ($user->id > 0) ? current_url() . '?act=update_image&field=avatar' : null;
-        $widget_upload['table_field'] = 'avatar';
-        $this->data['upload_avatar'] = $widget_upload;
-
-        //- up file dinh kem
-        /*$widget_upload['file_type'] 	= 'file';
-        $widget_upload['table_field'] = 'attach';
-        $widget_upload['url_update']	= ($user->id > 0) ? current_url().'?act=update_image&field=attach' : null;
-        $widget_upload['allowed_types'] =  'pdf|doc|docx';
-        $this->data['upload_files'] 	= $widget_upload;*/
-        $this->data['countrys'] = model("country")->get_all();
-        $this->data['citys'] = model("city")->get_list_rule(["country_id"=>$user->country]);;
-
-        $cat_types = mod('cat')->get_cat_types();
-        foreach ($cat_types as $t) {
-            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
+        $data = t('session')->userdata('user_edit');
+        if (!$data) {
+            redirect(site_url('user/edit'));
         }
 
+        $this->data['key_confirm'] = 'user_edit';
+        $this->data['user_edit_param'] = mod('user_security')->param();
 
+        // Tai cac file thanh phan
+        $this->load->library('form_validation');
+        $this->load->helper('form');
 
+        // Xu ly form
+        if ($this->input->post('_submit')) {
+            // Gan dieu kien cho cac bien
+            $params = array($this->data['user_edit_param']);
+            $this->_set_rules($params);
+
+            // Xu ly du lieu
+            $result = array();
+            if ($this->form_validation->run()) {
+
+                // Cap nhat vao data
+                model('user')->update($user->id, $data);
+
+                // Khai bao du lieu tra ve
+                $result['complete'] = TRUE;
+                $result['location'] = site_url('user/edit');
+
+                set_message(lang('confirmComplate'));
+            } else {
+                foreach ($params as $param) {
+                    $result[$param] = form_error($param);
+                }
+            }
+
+            // Form output
+            $this->_form_submit_output($result);
+        }
+
+        // Hien thi view
+        $this->_display();
     }
 
     /**
@@ -852,7 +859,7 @@ class User_account extends MY_Controller
     {
         $field = $this->input->get('field');
         // Lay thong tin cua file
-        $file = $this->_edit_get_image($id, $field);
+        $file = $this->_get_image($id, $field);
         if (!$file) {
             $file = new stdClass();
             $file->id = 0;
@@ -867,17 +874,434 @@ class User_account extends MY_Controller
         model('user')->update($id, $data);
     }
 
+
+    protected function _edit_update_infos($id, $data)
+    {
+        // Cap nhat vao blog info
+        foreach ($this->_model()->table_info_adv as $p) {
+            if (in_array($p, array('lang')))
+                $_p = 'cat_' . $p . '_id';
+            elseif (in_array($p, array('job', 'job_cat', 'job_city'))) {
+                $_p = $p . '_id';
+
+            } elseif (in_array($p, array('user_school', 'user_specialize', 'user_meetwork', 'user_skill')))
+                $_p = str_replace('user', 'cat_u', $p) . '_id';
+
+            // Them vao table info
+            if (isset($data[$_p]) && $data[$_p]) {
+                if (is_array($data[$_p]))
+                    $values = $data[$_p];
+                else
+                    $values = explode(',', $data[$_p]);
+                if (count($values) > 0) {
+                    $this->_model()->info_set($p, $id, $values);
+                }
+
+            }
+
+        }
+
+
+    }
+
+
+    protected function _edit_update_verify($id)
+    {
+        // neu da xac thuc th thoi
+        if($this->data['cancidate']->verify)
+            return;
+
+        $settings = $this->data['recruit_settings'];
+        if ($settings['mode_verify_cancidate'] == 'auto') {
+            // lay thong tin moi nhat
+            $info = $this->_mod()->get_info($id);
+            // neu chua cap nhan ten, linh vuc thi mien
+            foreach (array('title','name','phone','job_id') as  $f ) {
+                if(!$info->$f) return;
+            }
+            $completed= mod('cancidate')->caculate_complete_info($info);
+            // neu hoan thanh ho so tren 50% thi tu dong xac thuc
+            if($completed > 50)
+                $this->_model()->update_field($id,'verify',1);
+        }
+    }
+
+
+
+    /*
+       * ------------------------------------------------------
+       *  Prepare data handle
+       * ------------------------------------------------------
+       */
+
     /**
      * Lay image
      */
-    protected function _edit_get_image($id, $field = 'image')
+    protected function _get_image($id, $field = 'image')
     {
         $image = model('file')->get_info_of_mod($this->_get_mod(), $id, $field, 'id, file_name');
         return $image;
     }
 
+    /**
+     * Lay input dang add them noi dung rieng
+     */
+    protected function _get_data_addtext_inputs($type,$info,$act)
+    {
+        $data =$this->input->post('text');
+        $type = 'cat_' . $type . '_id';// chuyen ve ten truong giong trong CSDL
+        // pr( $data_type);
+        if (empty($info->$type))// neu chua co du lieu
+            $list = array();
+        else {
+            // echo $type;           pr($info);
+            if (!is_array($info->$type) && !is_object($info->$type))
+                $list = json_decode($info->$type);
+            else
+                $list = $info->$type;
+
+        }
+
+        /*  [id] => 39
+            [name] => Giám Sát Tác Gi?
+            [sort_order] => 1
+            [priority] => 1
+            [rating] =>
+        )*/
+
+        $list = object_to_array($list);
+        if ($act == 'add_text') {
+            $tmp =array();
+            $tmp['id']=random_string('md5');
+            $tmp['name']=$data[lang_get_default()->id];
+            $tmp['sort_order']=0;
+            $tmp['priority']=0;
+            $tmp['rating']=3;
+            $tmp['content']=$data;
+
+            array_push($list, $tmp);
+        }
+        /*elseif ($act == 'updatetext') {
+            $id = $this->input->post('_id');
+            if (isset($list[$id])) {
+                $list[$id] = $data;
+            }
+        }*/
+
+        // pr($list);
+        return $list;
+
+    }
+    // su ly du lieu dang rating
+    protected function _get_data_multi_inputs($type, $info, $act)
+    {
+        $data = array();
+        $fields = $this->_fields($type);
+        $data_type= 0; //0: la mang du lieu don ,1 la mang du lieu cac thanh phan
+        foreach ($fields as $f) {
+            $v = $this->input->post($f);
+            if(is_array($v))
+            {
+                foreach ($v as $_v)
+                    $data[][$f] = $_v;
+                $data_type =1;
+            }
+            else
+                $data[$f] = $v;
+            // pr($langs);
+        }
+
+        // pr($data);
+        $type = 'cat_' . $type . '_id';// chuyen ve ten truong giong trong CSDL
+
+        // pr( $data_type);
+        if (empty($info->$type))// neu chua co du lieu
+            $list = array();
+        else {
+            // echo $type;           pr($info);
+            if (!is_array($info->$type) && !is_object($info->$type))
+                $list = json_decode($info->$type);
+            else
+                $list = $info->$type;
+
+        }
+        $list = object_to_array($list);
+        if ($act == 'add') {
+            if($data_type)
+                $list=  array_merge($list, $data);
+            else
+                array_push($list, $data);
+
+        }
+        /*elseif ($act == 'update') {
+
+            $id = $this->input->post('_id');
+            if (isset($list[$id])) {
+                $list[$id] = $data;
+            }
+        }*/
+        // pr($list,0);
+        // loc bo id trung
+        $list = array_unique_key($list, 'id');
+        // pr($list,1);
+        // sap sep du lieu , du lieu rieng dc day xuong duoi cung
+        $list = array_values(array_sort($list, function ($value) {
+            return !is_numeric($value['id']);
+        }));
+
+        // pr($list);
+        return $list;
+    }
+
+    // du lieu la 1 danh sach ma nguoi dung chon moi
+    protected function _get_data_multi_special_inputs($type, $info, $act)
+    {
+        $data = array();
+        $fields = $this->_fields($type);
+
+        $new_list = array();
+        if ($act == 'add') {
+            foreach ($fields as $f) {
+                $new_list = $this->input->post($f);
+            }
+        }
+        // Tai dung lai du lieu cu
+        $type = 'cat_' . $type . '_id';// chuyen ve ten truong giong trong CSDL
+
+        // pr( $type);
+        if (empty($info->$type))// neu chua co du lieu
+            $list = array();
+        else {
+
+            if (!is_array($info->$type) && !is_object($info->$type))
+                $list = json_decode($info->$type);
+            else
+                $list = $info->$type;
+
+        }
+        // pr($list);
+        // Bat dau su ly voi su thay doi
+
+        $list = object_to_array($list);
+
+        if ($act == 'add') {
+            $tmp_list = array(); // tao danh sach tam chua su ket hop cua 2 danh sach
+            // duyet qua danh sach moi va tao 1 danh sach dua tren danh sach cu
+            foreach ($new_list as $id) {
+                $exist = false;
+                foreach ($list as $it) {
+                    if ($it['id'] == $id)// neu danh sach cu co phan tu nay
+                    {
+                        $exist = true;
+                        $tmp_list[] = $it;// sao chep phan tu cu vao danh sach moi
+                        break;// thoat len vong lap tren
+                    }
+                }
+                // neu phan tu chua ton tai, thi tao moi
+                if (!$exist) {
+                    $tmp_list[] = array('id' => $id, 'rating' => 3);
+                }
+            }
+            // sap sep du lieu , du lieu rieng dc day xuong duoi cung
+            $tmp_list = array_values(array_sort($tmp_list, function ($value) {
+                return !is_numeric($value['id']);
+            }));
+            $list = $tmp_list;
+        } elseif ($act == 'update') {
+
+            $id = $this->input->post('_id');
+            if (isset($list[$id])) {
+                $list[$id] = $data;
+            }
+        }
+
+        //pr($list);
+        return $list;
+    }
+
+    /**
+     * Lay input jobs
+     */
+    protected function _get_data_job_inputs()
+    {
+
+        $data = $jobs = $job_cats = array();
+
+        // $ids = $this->input->post('jobs');
+        $ids =$this->data['jobs'];
+        foreach ($ids as $id) {
+            $job = model('job')->get_info($id, 'cat_id');
+
+            if ($job) {
+                $jobs[] = $id;
+                $job_cats[] = $job->cat_id;
+            }
+        }
+
+        $jobs = array_unique($jobs);
+        $job_cats = array_unique($job_cats);
+
+        //pr($jobs,0);
+        //pr($job_cats);
+        if ($jobs) {
+            $data['job_id'] = implode(',', $jobs);
+        }
+        if ($job_cats) {
+            $data['job_cat_id'] = implode(',', $job_cats);
+        }
+        return $data;
+    }
+    /**
+     * Lay input jobs
+     */
+    protected function _get_data_ads_job_inputs()
+    {
+        $data = $jobs =$job_cat = array();
+        $ids =$this->data['jobs'];// $this->input->post('jobs');
+        if ($ids) {
+            foreach ($ids as $id) {
+                $job = model('job')->get_info($id, 'cat_id');
+                if ($job) {
+                    $jobs[] = $id;
+                    $job_cat[]=$job->cat_id;
+                }
+            }
+            $jobs = array_unique($jobs);
+            $job_cat = array_unique($job_cat);
+            // kiem tra so job toi da co the them
+            $setting = $this->data['recruit_settings'];
+            if (count($jobs) > $setting['ads_cancidate_max_number_job'])
+                $this->_response(array('msg_alert' => 'B?n ch? ???c ch?n t?i ?a ' . $setting['ads_cancidate_max_number_job'] . ' l?nh v?c'));
+            //========================================
 
 
+
+            if ($jobs) {
+                // neu co linh vuc thi bat chuc nang quang cao len dong thoi lay thoi gian quang cao tu goi
+                $cancidate_packages =$this->data['cancidate_packages'];
+                // pr($cancidate_packages);
+                $data['ads_job_id'] = implode(',', $jobs);
+                $data['ads_job_cat_id'] = implode(',', $job_cat);
+                $data['ads_status'] =1;
+                if($cancidate_packages['ads_company'] == -1){
+                    $data['ads_time'] =-1;
+                    $data['ads_expired'] =-1;
+                }
+                else{
+                    //pr($cancidate_packages);
+                    $data['ads_time'] =$cancidate_packages['ads_company'];
+                    $data['ads_expired'] =$cancidate_packages['_ads_company'];
+                }
+
+
+            }
+        }
+        else{
+            $data['ads_job_id']='';
+            $data['ads_status'] =0;
+            $data['ads_time'] =0;
+            $data['ads_expired'] =0;
+        }
+        //pr($data);
+        return $data;
+    }
+
+    // su ly du lieu dang danh sach, nhieu ngon nu
+    protected function _get_data_list_inputs($type, $info, $act)
+    {
+        $data = array();
+        $fields = $this->_fields($type);
+        foreach ($fields as $f) {
+            $vs = $this->input->post($f);
+            if (is_array($vs)) {
+                foreach ($vs as $l => $v) {
+                    $data[$l][$f] = $v;
+                }
+            }
+            // pr($langs);
+        }
+        // pr( $data_type);
+        if (empty($info->$type))// neu chua co du lieu
+            $list = array();
+        else {
+            $list =json_decode($info->$type);
+        }
+        // pr($data);
+        if ($act == 'add') {
+            if($list)
+                array_push($list, $data);
+            else
+                $list[] =$data;
+        }
+        elseif ($act == 'update') {
+
+            $id = $this->input->post('_id');
+            if (isset($list[$id])) {
+                $list[$id] = $data;
+            }
+        }
+
+        // pr( $list);
+
+        return $list;
+    }
+
+    protected function _get_content_inputs($type)
+    {
+        $data = array();
+        $fields = $this->_content_fields($type);
+        foreach ($fields as $f) {
+            $vs = $this->input->post($f);
+            //echo $f; pr($vs,0);
+            if (is_array($vs))
+                foreach ($vs as $l => $v) {
+                    //if(!$v) continue;
+                    $data[$l][$f] = $v;
+                }
+
+        }
+        /*  if ($type != 'infos_intro')
+              foreach ($data as $l => $d) {
+                  $data[$l]['name'] = $d['first_name'] . ' ' . $d['last_name'];
+              }*/
+        // pr($data);
+        return $data;
+    }
+
+    protected function _get_letter_content_inputs($type)
+    {
+        $data = array();
+        $fields = $this->_fields($type);
+        foreach ($fields as $f) {
+            $vs = $this->input->post($f);
+            if (is_array($vs)) {
+                foreach ($vs as $l => $v) {
+                    $data[$l][$f] = $v;
+                }
+            }
+            // pr($langs);
+        }
+        // pr($data);
+        return $data;
+    }
+
+    function _get_jobs()
+    {
+        // Kiem tra format
+        $ids = $this->input->post('jobs');
+        //pr($infos);
+        $result = array();
+
+        foreach ($ids as $id) {
+            $id = model('job')->check_id($id);
+
+            if ($id) {
+                $result[] = $id;
+            }
+        }
+
+        return $result;
+    }
 
 
 }

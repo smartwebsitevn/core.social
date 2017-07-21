@@ -20,18 +20,27 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
     </div>
     <div >
         <div class="block-sorter">
-            <?php
-            echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
+           <?php      echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
+        </div>
+        <div class="block-layout act-filter-choice-group">
+            <a class="act-filter-choice active" href="Javascript:;" data-name="layout" data-value="block">
+                <i class="pe-7s-menu icon "></i>
+            </a>
+            <a class="act-filter-choice" href="Javascript:;" data-name="layout" data-value="grid">
+                <i class="pe-7s-keypad icon "></i>
+            </a>
         </div>
         <div class="block-layout">
-            <a class="search-results  act-filter-dropdown " href="Javascript:;" data-name="order" data-value="id|desc">
-                <i class="pe-7s-menu icon " ></i>
-            </a>
-            <a class="search-results  act-filter-dropdown " href="Javascript:;" data-name="order" data-value="id|desc">
-                <i class="pe-7s-keypad icon " ></i>
-            </a>
-        </div>
+            <input name="point" class="act-filter-slider" id="slider_point_hander" type="hidden" data-provide="slider"
+                   data-slider-min="0"
+                   data-slider-max="100"
+                   data-slider-step="10"
+                   data-slider-value="0" data-slider-tooltip="hide"/>
 
+            <div class="clearfix"></div>
+            <span id="slider_point"><span id="slider_point_value">0</span> points</span>
+
+        </div>
         <?php /* ?>
             <div class="col-xs-12 col-sm-6">
                     Hiển thị sp/ 1 trang
@@ -106,13 +115,13 @@ $_data_layout = function () use ($filter) {
             //pr($user_cats);
             ?>
             <div class="row">
-                <div class="block-content-left col-md-9 col-sm-10 col-xs-12">
+                <div class="block-content-left col-md-8 col-sm-8 col-xs-12">
 
                     <?php echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <a href="#0" class="btn btn-link btn-clear-all">Xóa dữ liệu
                         lọc<?php //echo lang("clear_all_filters")  ?></a>
                 </div>
-                <div class="block-content-right  col-md-3 col-sm-3 col-xs-12">
+                <div class="block-content-right  col-md-4 col-sm-8 col-xs-12">
                 <div class="row">
                     <?php //echo $_data_layout(); ?>
                     <?php echo $_data_sort(); ?>

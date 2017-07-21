@@ -919,14 +919,16 @@ $this->register('info', function (array $input) {
                 <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown"
                      type="button">
 					<span class="search-rendered">
-						<?php /* if ($value == ''): ?><?php //echo 'All' //lang("all_u_education")?>
+                                                 <?php rendered_value($value, $values); ?>
+
+                                                 <?php /* if ($value == ''): ?><?php //echo 'All' //lang("all_u_education")?>
                         <?php else: ?>
                             <?php if ($values): ?><?php echo $values[$value] ?>
                             <?php elseif ($values_single): ?><?php echo $value ?>
                             <?php elseif ($values_row): ?><?php echo $values_row[$value] ?>
                             <?php endif; ?>
                         <?php endif; */
-                        ?>
+                                                 ?>
 					</span>
                     <span class="search-caret"></span>
                 </div>
@@ -1073,11 +1075,13 @@ $this->register('info_cat_single', function (array $input) {
         <div class="dropdown search-dropdown">
             <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
 										<span class="search-rendered">
-											<?php if (!isset($info['_' . $param]->name)): ?>
+                                                                     <?php rendered_value($value, $values); ?>
+
+                                                                     <?php /*if (!isset($info['_' . $param]->name)): ?>
                                                 <?php echo 'All' //lang("all_u_education")?>
                                             <?php else: ?>
                                                 <?php echo $info['_' . $param]->name ?>
-                                            <?php endif; ?>
+                                            <?php endif; */ ?>
 										</span>
                 <span class="search-caret"></span>
             </div>
@@ -1115,51 +1119,56 @@ $this->register('info_cat_multi', function (array $input) {
     $req = array_get($input, 'req');
     //$_id = '_'.random_string('unique');
     ?>
-    <div class="form-group form-group-index">
-        <?php if ($name): ?>
-            <label><?php echo $name ?> <?php if ($req): ?><b class="red">*</b><?php endif; ?></label>
-        <?php endif; ?>
-        <div class="dropdown search-dropdown">
-            <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
+
+    <?php if ($name): ?>
+        <div class="form-group form-group-index">
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><b
+                class="red">*</b><?php endif; ?></label>
+        <div class="col-sm-9">
+    <?php endif; ?>
+    <div class="dropdown search-dropdown">
+        <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
 				<span class="search-rendered">
 
-					<span class="search-rendered">
-											<?php if (!isset($info['_' . $param . '_names'])): ?>
+											<?php /*if (!isset($info['_' . $param . '_names'])): ?>
                                                 <?php echo 'All' //lang("all_u_education")?>
                                             <?php else: ?>
                                                 <?php echo $info['_' . $param . '_names'] ?>
-                                            <?php endif; ?>
-										</span>
-				</span>
-                <span class="search-caret"></span>
-            </div>
-            <span class="search-remove"></span>
+                                            <?php endif; */ ?>
+                                            <?php rendered_value($value, $values); ?>
 
-            <div class="dropdown-menu dropdown-2colums clearfix">
-                <div class="dropdown-menu dropdown-menu-left  slimscroll">
-                    <div class="form-group">
-                        <input type="text" placeholder="" class="form-control lg searachSelect">
-                    </div>
-                    <?php foreach ($values as $row): ?>
-                        <?php $checked = (is_array($value) && in_array($row->id, $value)) ? 1 : 0; ?>
-                        <div class="search-results checkbox <?php echo $checked ? ' active_filter ' : ''; ?> ">
-                            <label>
-                                <input type="checkbox"
-                                    <?php if (isset($lang) && $lang->is_default): ?>
-                                        name="<?php echo $param ?>[]"
-                                    <?php endif; ?>
-                                       value="<?php echo $row->id ?>" <?php //echo empty($checked) ?: 'checked="checked"'; ?> >
-                                <span class="<?php echo $linked ?>" data-type="checkbox"><?php echo $row->name ?></span>
-                            </label>
-                        </div>
-                    <?php endforeach; ?>
+				</span>
+            <span class="search-caret"></span>
+        </div>
+        <span class="search-remove"></span>
+
+        <div class="dropdown-menu dropdown-2colums clearfix">
+            <div class="dropdown-menu dropdown-menu-left  slimscroll">
+                <div class="form-group">
+                    <input type="text" placeholder="" class="form-control lg searachSelect">
                 </div>
+                <?php foreach ($values as $row): ?>
+                    <?php $checked = (is_array($value) && in_array($row->id, $value)) ? 1 : 0; ?>
+                    <div class="search-results checkbox <?php //echo $checked ? ' active_filter ' : ''; ?> ">
+                        <label>
+                            <input type="checkbox"
+                                   name="<?php echo $param ?>[]"
+                                   value="<?php echo $row->id ?>" <?php echo empty($checked) ?: 'checked="checked"'; ?> >
+                            <span class="<?php echo $linked ?>" data-type="checkbox"><?php echo $row->name ?></span>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div name="<?php echo $param; ?>_error" class="error"></div>
     </div>
+    <div class="clearfix"></div>
+    <div name="<?php echo $param; ?>_error" class="error"></div>
 
+    <?php if ($name): ?>
+        </div>
+        </div>
+
+    <?php endif; ?>
     <?php return ob_get_clean();
 });
 $this->register('info_job', function (array $input) {
@@ -1185,11 +1194,13 @@ $this->register('info_job', function (array $input) {
         <div class="dropdown search-dropdown">
             <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
 				<span class="search-rendered">
-					<?php if (!isset($info['_' . $param]->name)): ?>
+					<?php /*if (!isset($info['_' . $param]->name)): ?>
                         <?php echo $text_all ?>
                     <?php else: ?>
                         <?php echo $info['_' . $param]->name ?>
-                    <?php endif; ?>
+                    <?php endif; */ ?>
+                    <?php rendered_value($value, $values); ?>
+
                     <span class="search-caret"></span>
             </div>
             <span class="search-remove"></span>
@@ -1248,13 +1259,12 @@ $this->register('info_country', function (array $input) {
     <div class="dropdown search-dropdown">
         <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
 				<span class="search-rendered">
-					<span class="search-rendered">
-											<?php if (!isset($info['_' . $param]->name)): ?>
+                         <?php rendered_value($value, $values); ?>
+                         <?php /*if (!isset($info['_' . $param]->name)): ?>
                                                 <?php echo 'All' //lang("all_u_education")?>
                                             <?php else: ?>
                                                 <?php echo $info['_' . $param]->name ?>
-                                            <?php endif; ?>
-										</span>
+                                            <?php endif; */ ?>
 				</span>
             <span class="search-caret"></span>
         </div>
@@ -1333,7 +1343,7 @@ $this->register('info_country_multi', function (array $input) {
         <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown"
              type="button">
 				<span class="search-rendered">
-					<?php echo 'All' //lang("all_u_education")?>
+                    <?php rendered_value($value, $values); ?>
 				</span>
             <span class="search-caret"></span>
         </div>
@@ -1392,7 +1402,7 @@ $this->register('info_city', function (array $input) {
     ob_start(); ?>
 
     <?php
-    $linked = array_get($input, 'linked', 'select-linked');// value lien ket
+    //$linked = array_get($input, 'linked', 'select-linked');// value lien ket
     $name = array_get($input, 'name');
     $param = array_get($input, 'param');
     $value = array_get($input, 'value', '');
@@ -1408,33 +1418,34 @@ $this->register('info_city', function (array $input) {
     <div class="dropdown search-dropdown">
         <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
 				<span class="search-rendered">
-												<?php echo 'All' //lang("all_u_education")?>
+                    <?php rendered_value($value, $values); ?>
 				</span>
             <span class="search-caret"></span>
         </div>
         <span class="search-remove"></span>
+
         <div class="dropdown-menu p10">
             <div class="form-group">
                 <input type="text" placeholder="Nhập tên thành phố muốn tìm<?php //echo lang("city_out_the_country") ?>"
                        class="form-control lg searachSelect">
             </div>
             <div class="slimscroll limit-height">
-                    <?php
-
-                    foreach ($values as $row) {
-                        $checked = false;
-                        if ($value)
-                            $checked = (in_array($row->id, $value)) ? 1 : 0;
-                        //pr($checked);
-                        ?>
-                        <div class="search-results checkbox <?php echo $checked ? '  active_filter' : ''; ?>">
-                            <label>
-                                <input type="checkbox" name="<?php echo $param ?>[]" value="<?php echo $row->id ?>">
-                                <span class=" <?php echo $linked ?>"
+                <?php
+                foreach ($values as $row) {
+                    /*$checked = false;
+                    if ($value)
+                        $checked = (in_array($row->id, $value)) ? 1 : 0;*/
+                    //pr($checked);
+                    ?>
+                    <div class="search-results checkbox <?php // echo $checked ? '  active_filter' : ''; ?>">
+                        <label>
+                            <input id="_<?php echo $param . $row->id ?>" type="checkbox" name="<?php echo $param ?>[]"
+                                   value="<?php echo $row->id ?>" <?php echo (in_array($row->id, $value)) ? '  checked' : ''; ?> >
+                                <span for="_<?php echo $param . $row->id ?>" class=" <?php //echo $linked ?>"
                                       data-type="checkbox"><?php echo $row->name ?></span>
-                            </label>
-                        </div>
-                    <?php } ?>
+                        </label>
+                    </div>
+                <?php } ?>
             </div>
         </div>
 
@@ -1444,8 +1455,8 @@ $this->register('info_city', function (array $input) {
     <?php if ($can_hide):
         $hide_target = array_get($input, 'hide_target', $param); ?>
         <a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"
-           class="  removes hide_target " title="X�a">
-            <span class="icon"></span> X�a
+           class="  removes hide_target " title="Xóa">
+            <span class="icon"></span> Xóa
         </a>
     <?php endif; ?>
     <div class="clearfix"></div>
@@ -1489,14 +1500,12 @@ $this->register('info_city_country', function (array $input) {
 
         <div class="dropdown search-dropdown">
             <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
-				<span class="search-rendered">
-					<span class="search-rendered">
-											<?php if (!isset($info['_' . $city_param . '_names'])): ?>
+				<span class="search-rendered"> <?php rendered_value($value, $values); ?>
+                    <?php /* if (!isset($info['_' . $city_param . '_names'])): ?>
                                                 <?php //echo lang("all_address") ?>
                                             <?php else: ?>
                                                 <?php echo $info['_' . $city_param . '_names'] ?>
-                                            <?php endif; ?>
-										</span>
+                                            <?php endif; */ ?>
 				</span>
                 <span class="search-caret"></span>
             </div>
@@ -2075,3 +2084,18 @@ $this->register('job_datasource', function (array $input) {
     <?php echo macro()->modal_end; ?>
     <?php return ob_get_clean();
 });
+
+function rendered_value($value, $values)
+{
+    if ($value) {
+        $selected = [];
+        foreach ($values as $row) {
+            if (in_array($row->id, $value)) {
+                $selected[] = $row->name;
+            }
+        }
+        if ($selected)
+            echo implode(',', $selected);
+    } else
+        echo 'All';
+}

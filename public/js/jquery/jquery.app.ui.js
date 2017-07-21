@@ -1921,8 +1921,9 @@ var nfc = {
         boot: function () {
             this.add_input_hidden();
             //this.auto_complete();
-            //this.scroll_down();
         },
+        // them input hidden vao form tim kiem
+
         add_input_hidden: function () {
             var form = {
                 init: function () {
@@ -1992,9 +1993,10 @@ var nfc = {
 
                     });
 
-                    //== click check box loc va hien ten
-                    $(document).on('click', '.search-results span', function () {
+                    //== click check box  va hien ten
+                    //== thuc hien active khi load trang
 
+                    $(document).on('click', '.search-results span', function () {
                         //var maxlength = 3;
                         var checkbox = $(this).prev();
                         var type = checkbox.attr('type');
@@ -2048,6 +2050,14 @@ var nfc = {
                         }, 500);
 
                     });
+                    $('.act-filter-dropdown.active').each(function () {
+                        if ($(this).hasClass('checkbox')) {
+                            $(this).find('span').click();
+                        }
+                        else {
+                            $(this).click();
+                        }
+                    });
 
                     // su kien tim kiem
                     $('.searachSelect').keyup(function () {
@@ -2099,26 +2109,22 @@ var nfc = {
                     $(document).on('click', 'span.search-remove', function (e) {
 
                         var $this = this;
-                        var parent = $($this).closest('form');
+                        var parent = $($this).parent();
                         // xoa du lieu doi voi check box
                         parent.find('.search-results.checkbox.checked span').click();
                         // xoa du lieu doi voi filter
                         parent.find('.act-filter-dropdown.active input[type="hidden"]').remove();
                         parent.find('.act-filter-dropdown.active').removeClass('active');
-
-                        // xoa du lieu voi filter dong
-                        parent.find('.ajax-filter').remove();
-
-                        // xoa du lieu voi filter dong
-                        parent.find('.act-filter-slider').val('');
-
                         // xoa du lieu doi voi input
                         parent.find('.act-input.active input[type="hidden"]').remove();
                         parent.find('.act-input.active').removeClass('active');
+                        // xoa ajax filter neu co (filter dong)
+                        if (parent.data('ajax-filter') != undefined) {
+                            $($this).closest('form').find('.ajax-filter').html('');
+                        }
 
                         // gan lai ten ve vi tri cu
-                        parent.find('.search-rendered').text(parent.find('.search-rendered').data('textbackup'));
-
+                        parent.find('.search-rendered').text(parent.find('.search-rendered').data('label'));
                         if (e.clientX) { // kiem tra xem nguoi dung click hay khong (truong hop dung code click nhu trong ham .btn-clear-all thi khong su ly)
                             setTimeout(function () {
                                 // $('form.autoSubmitFrom').submit()
@@ -2129,7 +2135,29 @@ var nfc = {
                     // su kien xoa toan bo du lieu loc hien tai
                     $('.btn-clear-all').click(function () {
                         var $this = this;
-                        $('span.search-remove').click();
+                        var parent = $($this).closest('form');
+                        // xoa du lieu doi voi check box
+                        parent.find('.search-results.checkbox.checked span').click();
+                        // xoa du lieu doi voi filter
+                        parent.find('.act-filter-dropdown.active input[type="hidden"]').remove();
+                        parent.find('.act-filter-dropdown.active').removeClass('active');
+                        // xoa du lieu doi voi input
+                        parent.find('.act-input.active input[type="hidden"]').remove();
+                        parent.find('.act-input.active').removeClass('active');
+
+                        // gan lai ten ve vi tri cu
+                        parent.find('.search-rendered').each(function () {
+                            $(this).text($(this).data('label'));
+
+                        });
+                        // xoa du lieu voi filter dong
+                        parent.find('.ajax-filter').html('');
+
+                        // xoa du lieu voi filter dong
+                        parent.find('.act-filter-slider').val('');
+
+
+
                         setTimeout(function () {
                             // $('form.autoSubmitFrom').submit()
                             nfc.catch_hook_event($this);
@@ -2162,15 +2190,8 @@ var nfc = {
                         return false;
                     })
 
-                    //== thuc hien active khi load trang
-                    $('.act-filter-dropdown.active').each(function () {
-                        if ($(this).hasClass('checkbox')) {
-                            $(this).find('span').click();
-                        }
-                        else {
-                            $(this).click();
-                        }
-                    });
+
+
                     // $('.sortOrderAjax.active').closest('.search-dropdown').find('.search-rendered').text($.trim($('.sortOrderAjax.active').text()));
                 },
 
@@ -2179,7 +2200,7 @@ var nfc = {
 
             form.init();
         },
-        // them input hidden vao form tim kiem
+
         auto_complete: function () {
             $('[data-autocomplete]').each(function (index) {
                 var redirect = $(this).data('redirect');

@@ -23,6 +23,8 @@ class User_list extends MY_Controller
     {
         // redirect($this->_url("all"));
         $this->_create_list();
+        $this->data['page'] = 'all';
+
         $this->_display();
     }
 
@@ -47,6 +49,7 @@ class User_list extends MY_Controller
         }
         else
             $this->data['list'] = null;
+        $this->data['page'] = 'follow';
 
         $this->_display();
     }
@@ -64,6 +67,7 @@ class User_list extends MY_Controller
         }
         else
             $this->data['list'] = null;
+        $this->data['page'] = 'follow_me';
 
         $this->_display();
     }
@@ -115,12 +119,14 @@ class User_list extends MY_Controller
         //== Sort Order
         $sort_orders = array(
             'id|desc',
-            'price|asc', 'price|desc',
+            'point_total|desc',
+            'post_total|desc',
             'count_view|desc',
+
             /*'count_buy|desc',
             'new|desc',
             'feature|desc',
-            'rate|desc',
+
             'name|asc',*/
         );
         $order = $this->input->get("order", true);

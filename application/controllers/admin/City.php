@@ -5,10 +5,11 @@ class City extends MY_Controller {
 		'name' => 'required|trim|xss_clean',
 		'code' => 'trim|xss_clean',
 		'country_id' => 'required|trim|xss_clean',
-		'show' => 'trim|xss_clean'
+		'feature' => 'trim|xss_clean',
+		'status' => 'trim|xss_clean'
 	);
-	public $filter = array('name', 'code', 'country_id', 'show');
-	public $actions = array('edit', 'del');
+	public $filter = array('name', 'code', 'country_id', 'status','feature');
+	public $actions = array('edit', 'del', 'on', 'off','feature', 'feature_del');
 
 	/**
 	 * Ham khoi dong
@@ -232,10 +233,48 @@ class City extends MY_Controller {
 			if ( ! $this->_mod()->can_do($info, $action)) continue;
 			
 			// Chuyen den ham duoc yeu cau
-			$this->{'_'.$action}($info);
+			if (in_array($action, array('feature', 'feature_del')))
+			{
+				$this->_action_option($info, $action);
+			}
+			else
+			{
+				$this->{'_'.$action}($info);
+			}
 		}
 	}
-	
+
+	/**
+	 * Xu ly hanh dong voi cac thuoc tinh
+	 */
+	function _action_option($info, $action)
+	{
+		// Xu ly voi cac option
+		$data = array();
+		switch ($action)
+		{
+			case 'feature':
+			{
+				$data[$action] = now();
+				break;
+			}
+			case 'feature_del':
+			{
+				$p = preg_replace('#_del$#i', '', $action);
+				$data[$p] = 0;
+				break;
+			}
+		}
+
+		// Cap nhat data
+		if (count($data))
+		{
+			$this->_model()->update($info->id, $data);
+
+			$output = json_encode(array('complete' => TRUE));
+			set_output('json', $output);
+		}
+	}
 
 
 
@@ -248,14 +287,14 @@ class City extends MY_Controller {
 
 
 
-	
 
 
 
 
 
 
-	
+
+
 	/*
 	 * ------------------------------------------------------
 	 *  Danh sach
@@ -266,7 +305,25 @@ class City extends MY_Controller {
 		// Tai cac file thanh phan
 		$this->load->helper('site');
 		$this->load->helper('form');
-		
+		// Cap nhat sort_order
+		if ($this->input->get('act') == 'update_order')
+		{
+			$items = $this->input->post('items');
+			$items = explode(',', $items);
+
+			foreach ($items as $i => $id)
+			{
+				$data = array();
+				$data['sort_order']	= $i;
+				$this->_model()->update($id, $data);
+			}
+			//$this->_model()->cache_update();
+
+			$output = json_encode(array('complete' => TRUE));
+			set_output('json', $output);
+		}
+
+
 		// Tao filter
 		$filter_input 	= array();
 		$filter = $this->_model()->filter_create($this->filter, $filter_input);
@@ -325,7 +382,8 @@ class City extends MY_Controller {
 
 		// Lay danh sach cat
 		$this->data['country'] = model('country')->get_list();
-		
+		$this->data['sort_url_update'] = current_url().'?act=update_order';
+
 		// Luu bien gui den view
 		$this->data['action'] 	= current_url();
 		$this->data['options'] 	= $this->_model()->_options;
@@ -340,7 +398,7 @@ class City extends MY_Controller {
 	 */
 	function _remap($method)
 	{
-		if (in_array($method, array('edit', 'del')))
+		if (in_array($method, $this->actions))
 		{
 			$this->_action($method);
 		}

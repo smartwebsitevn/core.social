@@ -59,14 +59,15 @@ $lang['filter_country'] = 'Xuất xứ';
 //==  Sort
 $lang['ordering'] = 'Xếp theo';
 $lang['ordering_id|desc'] = 'Mới nhất';
-$lang['ordering_price|asc'] = 'Giá thấp nhất';
-$lang['ordering_price|desc'] = 'Giá cao nhất';
-$lang['ordering_count_view|desc'] = 'Xem nhiều';
+$lang['ordering_count_view|desc'] = 'Xem nhiều nhất';
 $lang['ordering_count_buy|desc'] = 'Mua nhiều';
 $lang['ordering_new|desc'] = 'Mới';
 $lang['ordering_feature|desc'] = 'Nổi bật';
 $lang['ordering_rate|desc'] = 'Đánh giá';
 $lang['ordering_name|asc'] = 'Tên a->z';
+$lang['ordering_point_total|desc'] = 'Tích cực nhất';
+$lang['ordering_post_total|desc'] = 'Nhiều bài nhất';
+
 $lang['have_no_list'] = 'Không có dữ liệu';
 
 //== Info product detail

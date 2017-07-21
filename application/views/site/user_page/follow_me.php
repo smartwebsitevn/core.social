@@ -10,6 +10,5 @@
 <script type="text/javascript">
     $(document).ready(function () {
         moduleCoreFilter({'url': '<?php echo site_url('user_list/follow_me')?>'})
-
     });
 </script>
