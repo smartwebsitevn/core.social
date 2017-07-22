@@ -83,10 +83,15 @@ class User_list extends MY_Controller
         $key = $this->input->get('name');
         $key = str_replace(array('-', '+'), ' ', $key);
         if (isset($filter['name']) && $filter['name']) {
+            $filter['%name'] = $key;
             unset($filter['name']);
-            $filter['%name'] = $filter_fields['name'] = $key;
-        }
 
+        }
+        $point = $this->input->get('point');
+        if ($point) {
+            $filter['vote_total_gte'] =$point;
+
+        }
         // lay thong tin cua cac khoang tim kiem
         foreach (array('price',) as $range) {
             if (isset($filter[$range])) {
@@ -138,9 +143,9 @@ class User_list extends MY_Controller
         /*if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
         }*/
-        //pr($filter);
         $list = model('user')->filter_get_list($filter, $input);
-       // pr_db($list);
+       // pr($filter,0);
+        //pr_db($list);
         foreach ($list as $row) {
             $row = mod('user')->add_info($row);
         }

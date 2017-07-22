@@ -225,6 +225,9 @@ $this->register('filter_dropdown_category', function ($input) {
                         </div>
                         <span class="search-remove"></span>
                         <ul class="dropdown-menu">
+							<li class="search-results  act-filter-dropdown "	href="Javascript:;"	data-name="<?php echo $param ?>" data-value="">
+								<a class="search-results-option " href="#0">Tất cả</a>
+							</li>
                             <?php foreach ($values as $cat) {
                                 if ($cat->parent_id > 0) continue;
 
@@ -337,6 +340,9 @@ $this->register('filter_dropdown_obj', function ($input) {
 			</div>
 			<span class="search-remove"></span>
 			<ul class="dropdown-menu">
+				<li class="search-results  act-filter-dropdown "	href="Javascript:;"	data-name="<?php echo $param ?>" data-value="">
+					<a class="search-results-option " href="#0">Tất cả</a>
+				</li>
 				<?php foreach ($values as $row):
 					if (is_array($value))
 						$active_status = (in_array($row->id, $value)) ? 1 : 0;
@@ -382,6 +388,9 @@ $this->register('filter_dropdown_list', function ($input) {
 			</div>
 			<span class="search-remove"></span>
 			<ul class="dropdown-menu">
+				<li class="search-results  act-filter-dropdown "	href="Javascript:;"	data-name="<?php echo $param ?>" data-value="">
+					<a class="search-results-option " href="#0">Tất cả</a>
+				</li>
 				<?php foreach ($values as $v => $label):
 					if (is_array($value))
 						$active_status = (in_array($v, $value)) ? 1 : 0;
@@ -417,6 +426,7 @@ $this->register('filter_list', function ($input) {
 	$attr = array_get($input, 'attr', array());
 	ob_start(); ?>
 	<?php if ($values): ?>
+
 		<?php foreach ($values as $v => $label):
 			if (is_array($value))
 				$active_status = (in_array( $v->id, $value)) ? 1 : 0;

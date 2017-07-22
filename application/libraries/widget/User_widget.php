@@ -264,6 +264,9 @@ class User_widget extends MY_Widget
         $this->data['sort_orders'] = $sort_orders;
         $this->data['total_rows'] = $total_rows;
 
+
+        $this->data['user_groups'] = model('user_group')->filter_get_list(['show' => 1]);
+
         // loc theo cac loai danh muc
         $cat_types = mod('cat')->get_cat_types();
         foreach ($cat_types as $t) {
@@ -272,8 +275,7 @@ class User_widget extends MY_Widget
         // Lay danh sach country, city
         $this->data['countrys'] = model('country')->filter_get_list(['show' => 1]);
         // $this->data['countrys'] = model('country')->get_grouped();
-        // $this->data['citys'] = model('city')->get_list();
-
+        $this->data['citys'] = model('city')->filter_get_list(['show' => 1,'country_id'=>230]);
         // lay cac loai danh muc
         $cat_types = mod('cat')->get_cat_types();
         foreach ($cat_types as $t) {

@@ -2,8 +2,9 @@
     <?php if (mod("user")->setting('register_allow')): ?>
         <li class="dropdown-singup register">
             <a class="cd-signup link-register" href="javascript:void(0)">
-                <span class="icon"></span>
-                <span class="text"><?php echo lang('button_register'); ?> </span>
+                <span class="text ">
+                    <i class="fa fa-pencil f16" ></i>
+                    <?php echo lang('button_register'); ?> </span>
             </a>
         </li>
     <?php endif; ?>
@@ -11,8 +12,9 @@
 
         <li class="dropdown-login login">
             <a class="cd-signin link-login" href="javascript:void(0)">
-                <span class="icon"></span>
-                <span class="text"><?php echo lang('button_login'); ?></span>
+                <span class="text ">
+                    <i class="fa fa-sign-in f18" ></i>
+                    <?php echo lang('button_login'); ?></span>
             </a>
         </li>
     <?php endif; ?>

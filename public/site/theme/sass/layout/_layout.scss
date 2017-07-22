@@ -60,40 +60,6 @@
   }
 }
 
-.dropdown-login > a {
-  .icon {
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url(../img/icon/log-out-1.png);
-  }
-  &:hover .icon {
-    background-image: url(../img/icon/log-out-2.png);
-  }
-  &:focus .icon {
-    background-image: url(../img/icon/log-out-3.png);
-  }
-}
-
-.dropdown-singup > a {
-  .icon {
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url(../img/icon/sigup-1.png);
-  }
-  &:hover .icon {
-    background-image: url(../img/icon/sigup-2.png);
-  }
-  &:focus .icon {
-    background-image: url(../img/icon/sigup-3.png);
-  }
-}
-
 
 .caret {
   width: 11px;

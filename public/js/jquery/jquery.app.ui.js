@@ -1919,10 +1919,19 @@ var nfc = {
     },
     form: {
         boot: function () {
+            this.auto_filter();
             this.add_input_hidden();
             //this.auto_complete();
         },
-        // them input hidden vao form tim kiem
+        auto_filter : function ()
+        {
+            $(document).on('submit', 'form.ajax_form_filter', function(){
+
+                nfc.catch_hook_event(this);
+
+                return false;
+            })
+        },
 
         add_input_hidden: function () {
             var form = {
@@ -1996,22 +2005,26 @@ var nfc = {
                     //== click check box  va hien ten
                     //== thuc hien active khi load trang
 
-                    $(document).on('click', '.search-results span', function () {
-                        //var maxlength = 3;
+                    $(document).on('click', '.search-results span', function (e) {
+                        var $this = this;
+                        var maxlength = 3;
                         var checkbox = $(this).prev();
                         var type = checkbox.attr('type');
                         //alert(checkbox.is(":checked"));
+                        //alert(type);
+
                         if (type == 'checkbox') {
                             if (checkbox.is(":checked")) {
                                 $(this).closest('.search-results').removeClass('checked');
                             }
                             else {
-                                /*if($(this).closest('.dropdown-menu').find('>.checked').length >= maxlength)
+                               var num_checked =$(this).closest('.dropdown-menu').find('.checkbox.checked').length;
+
+                                if(num_checked >= maxlength)
                                  {
-                                 $.gritter.add({text: 'Bạn chí có thể chọn tối đa '+maxlength + ' dữ liệu',});
-                                 //hm.setWarning('Bạn chí có thể chọn tối đa '+maxlength + ' dữ liệu');
-                                 return false;
-                                 }*/
+                                     $.gritter.add({text: 'Bạn chí có thể chọn tối đa '+maxlength + ' dữ liệu',});
+                                     return false;
+                                 }
                                 $(this).closest('.search-results').addClass('checked');
                             }
                         }
@@ -2042,11 +2055,10 @@ var nfc = {
                         if (!e.clientX)
                             return true;
 
-                        if (!$(this).parents('.autoSubmitFrom').length)
-                            return true;
-                        var form = $(this).parents('form');
+
+
                         setTimeout(function () {
-                            form.submit()
+                            nfc.catch_hook_event($this);
                         }, 500);
 
                     });
@@ -2550,7 +2562,6 @@ var nfc = {
         if (params == undefined)
             var params = {};
         params.ele = ele;
-
         if ($(ele).attr('event-hook') != undefined) {
             nfc.call($(ele).attr('event-hook'), params);
         }
@@ -2608,7 +2619,6 @@ var module_core_nfc = {
 }
 module_core_nfc.boot();
 function moduleCoreFilter(option) {
-    // nfc.pr(option);
     var form = $(option.ele).closest("form")
     //nfc.pr($(form).attr("id"));
     var $target_data = $(".ajax-content-list");
@@ -2616,6 +2626,17 @@ function moduleCoreFilter(option) {
     // nfc.loader("show");
     //$target_data.append('<span class="loader_block"></span>');
     $('body').append('<div class="loader_mini">Loading...</div>');
+
+    var matches = 0;
+    $("#form_filter_advance .block-filter input[type=hidden]").each(function(i, val) {
+        //if ($(this).val() == '1')
+        matches++;
+    });
+    if(matches>1)
+        $('.btn-clear-all').show();
+    else
+        $('.btn-clear-all').hide();
+
     //== su ly du lieu submit
     var url = '';
     var load_more = false;
@@ -2642,6 +2663,11 @@ function moduleCoreFilter(option) {
             //$target_data.find('span.loader_block').remove()
             $('body > .loader_mini').remove();
             if (rs.status) {
+                $(".ajax-filter").html();
+                if (rs.filter != undefined) {
+                    $(".ajax-filter").html(rs.filter);
+                }
+
                 if (load_more) {
                     // xoa phan trang va nut load more
                     $target_data.find('.page-pagination').remove();

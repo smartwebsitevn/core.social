@@ -34,8 +34,14 @@ class User_model extends MY_Model
 
 	public $fields_filter = array(
 		//== price
-		'cat_id', 'country_id',
+		'cat_id', 'country', 'city', 'working_country', 'working_city',
+		'job',
+		'vote_total','!vote_total','vote_total_gt', 'vote_total_gte', 'vote_total_lt', 'vote_total_lte',
 
+		'vote_total',
+		'verify', 'user_group','user_group_id','gender',
+		'city','country','birthday_year','subject_id',
+		'user_affiliate_id',
 		//== core
 		'name', '%name',  'BINARY name',
 		'id','!id','id_gt', 'id_gte', 'id_lt', 'id_lte',
@@ -43,6 +49,8 @@ class User_model extends MY_Model
 		'is_feature', 'is_new', 'is_live',
 		'status','created', 'created_to',
 	);
+	//public $fields_type_relation_cat = array( 'job');
+	public $fields_type_relation_cat_multi = array( 'job');
 
 	// Cac table thong tin thanh phan
 	var $table_info_adv = array(
@@ -66,14 +74,11 @@ class User_model extends MY_Model
 	public function _filter_get_where(array $filter)
 	{
 		$where = parent::_filter_get_where($filter);
-		
-		foreach (array('id', 'phone', 'verify', 'user_group','gender',
-					 'city','country','birthday_year','subject_id',
-				  'user_affiliate_id') as $p)
-		{
-			$f = (in_array($p, array('user_group'))) ? $p.'_id' : $p;
-			$f = 'user.'.$f;
-			$this->_filter_set_where($filter, $p, $f, $where);
+		foreach ($this->fields_filter as $key) {
+			if (isset($filter[$key]) && $filter[$key] != -1) {
+				//echo '<br>key='.$key.', v='.$filter[$key];
+				$this->_filter_parse_where($key, $filter);
+			}
 		}
 		// -=Modified=-
 		if (isset($filter['!id']))

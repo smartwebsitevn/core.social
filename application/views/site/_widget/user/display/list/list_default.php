@@ -1,7 +1,7 @@
 <?php if (isset($list) && $list): ?>
     <?php $_data_list = function () use ($list) {
         ob_start() ?>
-        <?php foreach ($list as $row): //pr($row);?>
+        <?php foreach ($list as $row):// pr($row);?>
             <div class="item-user <?php echo isset($row->_ads) ? 'item-user-ads' : '' ?> ">
                 <div class="clearfix">
                     <div class="item-photo">
@@ -18,8 +18,8 @@
                         </div>
                         <div class="item-profession"><?php echo character_limiter($row->profession, 250); ?>    </div>
                         <div class="item-meta">
-                            <?php if(isset($row->_city)): ?>
-                                <span class="place"> <i class="pe-7s-map-marker"></i> <b><?php  echo $row->_city->name ?></b></span>
+                            <?php if(isset($row->_working_city) && $row->_working_city): ?>
+                                <span class="place"> <i class="pe-7s-map-marker"></i> <b><?php echo $row->_working_city_name.', '.$row->_working_country_name?></b></span>
                             <?php endif; ?>
                             <span  class="posts"> <b><?php echo number_format($row->post_total) ?></b> <?php echo lang("count_post") ?></span>
 
@@ -39,6 +39,7 @@
                             <?php //widget('user')->action_close() ?>
                         </div>
                         <?php //t('view')->load('tpl::_widget/user/display/item/infos') ?>
+                        <?php t('view')->load('tpl::_widget/user/display/item/info_tags',['row'=>$row]) ?>
                     </div>
                     <div class="item-profile">
                         <div class="avatar">

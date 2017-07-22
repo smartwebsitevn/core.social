@@ -79,7 +79,7 @@ class Product_model extends MY_Model
     public $fields_type_list_json = array('common_data', 'stats_data','price_is_auction_data');
     //public $fields_list_comma = array('common_data', 'stats_data');
     // cac thuoc tinh lien ket voi bang cat (chu y: chi de ten fiel ko co id)
-    public $fields_type_relation_cat = array( 'warranty', 'stock',  );
+    public $fields_type_relation_cat = array( 'warranty_id', 'stock_id',  );
 
     public $actions_row = array('edit', 'del', 'feature', 'feature_del', 'translate');
     public $actions_list = array('del');

@@ -14,6 +14,14 @@
 	/*height: 0;*/
 
 }
+.clearfix:after,
+.clearfix:before {
+	content: " ";
+	display: table
+}
+.clearfix:after {
+	clear: both
+}
 /**
  * Main css
  */
@@ -201,6 +209,18 @@
 .bg-black-force {
 	background-color: #000!important
 }
+.text-grey {
+	color: #aaa
+}
+.text-grey-force {
+	color: #aaa !important
+}
+.bg-grey {
+	background-color: #aaa
+}
+.bg-grey-force {
+	background-color: #aaa !important
+}
 
 .text-light-grey {
 	color: #f4f4f4
@@ -219,14 +239,16 @@
 	color: #cbcbcb
 }
 .text-highlight-grey-force {
-	color: #cbcbcb!important
+	color: #cbcbcb !important
 }
 .bg-highlight-grey {
 	background-color: #cbcbcb
 }
 .bg-highlight-grey-force {
-	background-color: #cbcbcb!important
+	background-color: #cbcbcb !important
 }
+
+
 
 .text-dark-grey {
 	color: rgba(0, 0, 0, .8)
@@ -393,7 +415,7 @@
 	font-size: 18px!important;
 }
 .f19 {
-	font-size: 18px!important;
+	font-size: 19px!important;
 }
 .f20 {
 	font-size: 20px!important;
@@ -404,7 +426,36 @@
 .f24 {
 	font-size: 24px!important;
 }
-
+.f25 {
+	font-size: 25px!important;
+}
+.f26 {
+	font-size:26px!important;
+}
+.f27 {
+	font-size: 27px!important;
+}
+.f28 {
+	font-size: 28px!important;
+}
+.f29 {
+	font-size: 29px!important;
+}
+.f30 {
+	font-size: 30px!important;
+}
+.f35 {
+	font-size: 35px!important;
+}
+.f40 {
+	font-size: 30px!important;
+}
+.f50 {
+	font-size: 50px!important;
+}
+.f60 {
+	font-size: 60px!important;
+}
 .fontB {
 	font-weight: bold!important;
 }
@@ -619,14 +670,7 @@
 .va-m-force {
 	vertical-align: middle!important
 }
-.clearfix:after,
-.clearfix:before {
-	content: " ";
-	display: table
-}
-.clearfix:after {
-	clear: both
-}
+
 .center-block {
 	display: block;
 	margin-left: auto;

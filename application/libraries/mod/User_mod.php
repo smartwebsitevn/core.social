@@ -29,6 +29,7 @@ class User_mod extends MY_Mod
         $row = user_add_info($row);
         $row = $this->add_info_working_city($row);
         $row = $this->add_info_working_country($row);
+        $row = $this->add_info_relation_cat_multi($row);
         $row = $this->url($row);
         return $row;
     }
@@ -37,23 +38,22 @@ class User_mod extends MY_Mod
     public function add_info_working_city($row)
     {
         // city
-        foreach (array( 'working_city'  )as $t)
-        {   $names = $citys =array();
-            if (isset($row->$t) && !empty($row->$t)){
-                $ids = explode(',',$row->$t);
-                $row->$t=$ids;
+        $t = 'working_city';
+        $names = $citys = array();
+        if (isset($row->$t) && !empty($row->$t)) {
+            $ids = explode(',', $row->$t);
+            $row->$t = $ids;
 
-                foreach($ids as $id){
-                    $it= model('city')->get($id);
-                    if($it){
-                        $citys[] =$it;
-                        $names[] =$it->name;
-                    }
+            foreach ($ids as $id) {
+                $it = model('city')->get($id);
+                if ($it) {
+                    $citys[] = $it;
+                    $names[] = $it->name;
                 }
             }
-            $row->{"_".$t.'_name'} = implode(', ',$names);
-            $row->{"_".$t}[] = $citys;
         }
+        $row->{"_" . $t . '_name'} = implode(', ', $names);
+        $row->{"_" . $t}= $citys;
 
 
         return $row;
@@ -82,6 +82,7 @@ class User_mod extends MY_Mod
 
         return $row;
     }
+
     /**
      * Kiem tra co the su dung so du
      */
@@ -368,7 +369,7 @@ class User_mod extends MY_Mod
         );
         model('log_balance')->create($data);
 
-        //tr? ti?n t? ví BTC c?a thành viên
+        //tr? ti?n t? vï¿½ BTC c?a thï¿½nh viï¿½n
         return (new App\Purse\Job\ChangePurseBalance(
             $purse, $amount, $status
         ))->handle();

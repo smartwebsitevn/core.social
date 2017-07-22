@@ -41,5 +41,5 @@ foreach ($_tmp as $k => $v)
 
 
 $config['cat_hiarachy_types']  = array();//'cat'
-$config['cat_feature_types']  = array();
-$config['cat_image_types']  = array();
+$config['cat_feature_types']  = array('user_job');
+$config['cat_image_types']  = array('user_job');

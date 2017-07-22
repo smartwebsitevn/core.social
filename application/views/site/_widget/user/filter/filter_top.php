@@ -61,10 +61,9 @@ $_data_layout = function () use ($filter) {
 
     <?php return ob_get_clean();
 };
-
 ?>
 
-<form id="form_filter_advance" name="form_filter_advance" event-hook="moduleCoreFilter" action="<?php echo $action; ?>"
+<form class="ajax_form_filter" id="form_filter_advance" name="form_filter_advance" event-hook="moduleCoreFilter" action="<?php echo $action; ?>"
       method="get">
     <div class="block block-search">
         <div class="block-content clearfix">
@@ -117,9 +116,62 @@ $_data_layout = function () use ($filter) {
             <div class="row">
                 <div class="block-content-left col-md-8 col-sm-8 col-xs-12">
 
-                    <?php echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
-                    <a href="#0" class="btn btn-link btn-clear-all">Xóa dữ liệu
-                        lọc<?php //echo lang("clear_all_filters")  ?></a>
+                    <?php //echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
+                    <?php // echo macro()->filter_dropdown_city(['value' => $filter['working_city'], 'values' => $citys, 'param' => 'working_city', 'name' => lang('filter_city')]); ?>
+                    <?php echo macro()->filter_dropdown_obj(['value' => $filter['user_group_id'], 'values' =>$user_groups, 'param' => 'user_group_id', 'name' => "Thành viên"]); ?>
+                    <?php echo macro()->filter_dropdown_obj(['value' => $filter['job'], 'values' => $cat_type_user_job, 'param' => 'job', 'name' => 'Lĩnh vực']); ?>
+                    <!-- city-->
+                    <div class="dropdown search-dropdown">
+                        <div class="dropdown-toggle"  type="button" data-toggle="dropdown" >
+                            <span class="search-rendered">Địa điểm</span>
+                            <span class="search-caret"></span>
+                        </div>
+                        <span class="search-remove"></span>
+                        <div class="dropdown-menu dropdown-2colums clearfix" >
+                            <div class="dropdown-menu dropdown-menu-left ">
+                                <div class="form-group">
+                                    <input type="text"  class="searachSelect form-control lg">
+                                </div>
+                                <div class="slimscroll limit-height">
+                                    <?php foreach($citys as $row){ ?>
+                                        <div class="search-results checkbox <?php echo (isset($filter['city'])&& is_array($filter['city']) && in_array($row->id, $filter['city'])) ? 'active_filter' : ''?>">
+                                            <label>
+                                                <input type="checkbox" name="city[]" value="<?php echo $row->id ?>"> <span><?php echo $row->name ?></span>
+                                            </label>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <?php  /* ?>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="form-group">
+                                    <input type="text" placeholder="<?php echo lang("city_out_the_country")?>" class="form-control lg searachSelect">
+                                </div>
+                                <div class="slimscroll limit-height">
+                                    <ul>
+                                        <?php $path = public_url().'/img/world/'; ?>
+                                        <?php foreach ($countrys as $v): ?>
+                                            <?php ?>
+                                    <li class="search-results active act-filter <?php echo (isset($filter['groupcountries']) && $row->id == $filter['groupcountries']) ? 'active_filter' : ''?>" data-name="groupcountries" data-value="<?php echo $group->id; ?>">
+                                        <a class="search-results-option" href="#"><?php echo $group->name; ?></a>
+                                    </li>
+                                     <?php  ?>
+
+                                            <?php //foreach ($group->countries as $v): ?>
+                                            <li class="search-results act-filter <?php echo (isset($filter['country']) && $row->id == $filter['country']) ? 'active_filter' : ''?>" data-name="country" data-value="<?php echo $v->id; ?>">
+                                                <a class="search-results-option" href="#"  data-value="<?php echo $v->id; ?>">
+                                                    <img src="<?php echo $path.strtolower($v->id).'.gif'?>"> <?php echo $v->name; ?></a>
+                                            </li>
+                                            <?php //endforeach; ?>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                            <?php  */ ?>
+
+                        </div>
+                    </div>
+                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close " style="font-size: 48px"></i></a>
                 </div>
                 <div class="block-content-right  col-md-4 col-sm-8 col-xs-12">
                 <div class="row">

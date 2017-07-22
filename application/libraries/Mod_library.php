@@ -340,10 +340,9 @@ class MY_Mod
         if (!$row)
             return $row;
         foreach ($this->_model()->fields_type_relation_cat as $p) {
-            $p_id = $p . '_id';
-            if (isset($row->$p_id) && $row->$p_id) {
+            if (isset($row->$p) && $row->$p) {
                 $name = '';
-                $it = model('cat')->get($row->$p_id);
+                $it = model('cat')->get($row->$p);
                 if ($it) {
                     $name = $it->name;
                 }
@@ -359,11 +358,10 @@ class MY_Mod
         if (!$row)
             return $row;
         foreach ($this->_model()->fields_type_relation_cat_multi as $p) {
-            $p_id = $p . '_id';
-            if (isset($row->$p_id) && $row->$p_id) {
+            if (isset($row->$p) && $row->$p) {
                 $names = array();
                 $list = array();
-                $ids = explode(',', $row->$p_id);
+                $ids = explode(',', $row->$p);
                 foreach ($ids as $id) {
                     $it = model('cat')->get($id);
                     if ($it) {
@@ -371,7 +369,7 @@ class MY_Mod
                         $names[] = $it->name;
                     }
                 }
-                $row->{"_" . $p_id} = $ids;
+                $row->{"_" . $p} = $ids;
                 $row->{"_" . $p} = $list;
                 $row->{"_" . $p . "_name"} = implode(', ', $names);
             }

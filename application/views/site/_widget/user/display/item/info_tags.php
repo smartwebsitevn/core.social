@@ -1,44 +1,17 @@
-<?php
-$_data_link = function($list) use($url_info_cat){
-    ob_start(); ?>
-    <?php if ($list): ?>
-        <?php foreach ($list as $it):
-            if(!isset($it->name) || !$it->name) continue;
-            $link_cat='';
-            if(is_numeric($it->id))
-                $link_cat ='href="javascript:void(0)"   class=" act-display-cat"  data-url="'.$url_info_cat . '?id=' . $it->id. '"';
-            ?>
-            <a <?php echo $link_cat; ?>  ><?php echo ucfirst($it->name) ?></a>,
-        <?php endforeach; ?>
-    <?php endif; ?>
-
-    <?php return ob_get_clean();
-};
-?>
-
-    <div class="item-decaption limit-height">
-        <?php
-        if($row->desc )
-        echo $row->desc .','?>
-        <?php // if($row->user_id ==1) pr($row->cat_u_specialize_id);
-        foreach(array('_cat_u_specialize_id','_cat_u_meetwork_id','_cat_u_quality_id') as $f){
-            if(isset($row->$f))
-                echo $_data_link($row->$f);
-        }
-        ?>
-    </div>
-
-<?php if (isset($row->_cat_u_skill_id)): ?>
+<?php if (isset($row->_job) && $row->_job): ?>
     <ul class="item-list-tag">
         <?php
-        $d=count($row->_cat_u_skill_id);
-        foreach ($row->_cat_u_skill_id as $it):
+
+        $url_filter_cat = site_url('user_list');
+        $d=count($row->_job);
+        foreach ($row->_job as $it):
             if(!isset($it->name) || !$it->name) continue;
+            $url_filter_cat  .='?' . url_build_query(['job'=>$it->id]);
 
             $class ='item-tag-title ';
             if(is_numeric($it->id))
-                $link_cat ='href="javascript:void(0)"   data-url="'.$url_info_cat . '?id=' . $it->id. '"';
-              $class ='item-tag-title  act-display-cat';
+                $link_cat ='href="'.$url_filter_cat .  '"';
+              $class ='item-tag-title  ';
             ?>
             <li class="item-tag">
                 <a  class="<?php echo $class ?>" <?php echo $link_cat; ?> ><?php echo $it->name ?></a>
