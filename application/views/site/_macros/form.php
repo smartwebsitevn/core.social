@@ -810,18 +810,22 @@ $this->register('info', function (array $input) {
     <?php
     $info = array_get($input, 'info');
     $lang = array_get($input, 'lang', null);
-    $act_input = array_get($input, 'act_input', 'act-input');// cho phep thay doi cac su ly tao input
+    $act_input = array_get($input, 'act_input', 'act-input-dropdown');// cho phep thay doi cac su ly tao input
 
     //==
     $type = array_get($input, 'type', 'text');
     $name = array_get($input, 'name');
     $param = array_get($input, 'param');
     $value = array_get($input, 'value', '');// value la dang don
+    $value_default = array_get($input, 'value_default', '');// value la dang don
 
+    //==
     $req = array_get($input, 'req');
     $desc = array_get($input, 'desc', '');
     $unit = array_get($input, 'unit', '');
     $placeholder = array_get($input, 'placeholder', '');
+    $show_error = array_get($input, 'show_error', true);// value la dang don
+
     //== holder
     $class = array_get($input, 'class', '');
     $attr = array_get($input, 'attr', array());
@@ -830,15 +834,15 @@ $this->register('info', function (array $input) {
     $input_class = array_get($input, 'input_class', '');
     $input_attr = array_get($input, 'input_attr', array());
 
-    $linked = array_get($input, 'linked');// value lien ket
+    $linked = array_get($input, 'linked','');// value lien ket
     $can_hide = array_get($input, 'can_hide', 0);
     //neu khong truyen
-    if (!$linked) {
+    /*if (!$linked) {
         if ($type == 'text')
             $linked = 'input-linked';
         elseif ($type == 'select')
             $linked = 'select-linked';
-    }
+    }*/
     //$data_name ten de link toi input cua lang khac (ten nay dc dung khi thuoc tinh param no khac nhau o cac ngon ngu)
     $data_name = array_get($input, 'data_name', $param);
 
@@ -858,14 +862,17 @@ $this->register('info', function (array $input) {
 
 
     ?>
-    <div class="form-group form-group-index <?php echo $class ?>" <?php echo t('html')->attr($attr) ?> >
-        <?php if ($name): ?>
+    <?php if ($name): ?>
+    <div class="form-group  <?php echo $class ?>" <?php echo t('html')->attr($attr) ?> >
+
             <label>
                 <?php echo $name ?><?php echo (!empty($unit) && $type != 'range') ? ' (' . $unit . ')' : ''; ?>
                 <?php if ($req): ?><b class="red">*</b><?php endif; ?>
             </label>
             <div class="clearfix"></div>
         <?php endif; ?>
+
+
         <?php if ($type == 'text'): ?>
             <input type="text" <?php $_show_param_name() ?> value="<?php echo $value ?>"
                    data-name="<?php echo $data_name ?>"
@@ -914,12 +921,11 @@ $this->register('info', function (array $input) {
             $not_show_in_value = isset($values_opts['not_show_in_value']) ? $values_opts['not_show_in_value'] : 0;// khong hien thi cac gia tri da chon trong danh s�h
 
             ?>
-            <div class="dropdown search-dropdown <?php echo $class ?>" <?php //echo t('html')->attr($attr)
-            ?>>
+            <div class="dropdown search-dropdown <?php echo $input_class ?>" <?php echo t('html')->attr($input_attr) ?>>
                 <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown"
                      type="button">
 					<span class="search-rendered">
-                                                 <?php rendered_value($value, $values); ?>
+                                                 <?php rendered_value($value, $values,$value_default); ?>
 
                                                  <?php /* if ($value == ''): ?><?php //echo 'All' //lang("all_u_education")?>
                         <?php else: ?>
@@ -935,7 +941,7 @@ $this->register('info', function (array $input) {
                 <span class="search-remove"></span>
 
                 <?php if ($type == 'select'): ?>
-                    <ul class="dropdown-menu  slimscroll">
+                    <ul class="dropdown-menu  ">
                         <?php if ($values): ?>
                             <?php foreach ($values as $v => $n): ?>
                                 <?php if ($not_show_in_value && $value == $v) continue; ?>
@@ -1043,13 +1049,22 @@ $this->register('info', function (array $input) {
         <?php if ($can_hide):
             $hide_target = array_get($input, 'hide_target', $param); ?>
             <a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"
-               class="removes hide_target " title="X�a">
-                <span class="icon"></span> X�a
+               class="removes hide_target " title="Xóa">
+                <span class="icon"></span> Xóa
             </a>
         <?php endif; ?>
+
+    <?php if($param && $show_error): ?>
         <div class="clearfix"></div>
         <div name="<?php echo $param; ?>_error" class="error"></div>
+    <?php endif; ?>
+    <?php if ($desc): ?>
+        <small><?php echo $desc; ?></small>
+    <?php endif; ?>
+    <?php if ($name): ?>
     </div>
+    <?php endif; ?>
+
     <?php return ob_get_clean();
 });
 $this->register('info_cat_single', function (array $input) {
@@ -1067,7 +1082,7 @@ $this->register('info_cat_single', function (array $input) {
     $req = array_get($input, 'req');
     //$_id = '_'.random_string('unique');
     ?>
-    <div class="form-group form-group-index">
+    <div class="form-group ">
         <?php if ($name): ?>
             <label><?php echo $name ?> <?php if ($req): ?><b class="red">*</b><?php endif; ?></label>
         <?php endif; ?>
@@ -1121,7 +1136,7 @@ $this->register('info_cat_multi', function (array $input) {
     ?>
 
     <?php if ($name): ?>
-        <div class="form-group form-group-index">
+        <div class="form-group ">
         <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><b
                 class="red">*</b><?php endif; ?></label>
         <div class="col-sm-9">
@@ -1186,7 +1201,7 @@ $this->register('info_job', function (array $input) {
     $values = array_get($input, 'values', array());
     //$_id = '_'.random_string('unique');
     ?>
-    <div class="form-group form-group-index">
+    <div class="form-group ">
         <?php if ($name): ?>
             <label><?php echo $name ?></label>
         <?php endif; ?>
@@ -1249,7 +1264,7 @@ $this->register('info_country', function (array $input) {
     ?>
 
     <?php if ($name): ?>
-        <div class="form-group form-group-index">
+        <div class="form-group ">
 
         <label class="col-sm-3  control-label "><?php echo $name ?> <?php if ($req): ?><b
                 class="red">*</b><?php endif; ?></label>
@@ -1333,7 +1348,7 @@ $this->register('info_country_multi', function (array $input) {
 
 
     <?php if ($name): ?>
-        <div class="form-group form-group-index">
+        <div class="form-group ">
 
         <label class="col-sm-3  control-label "><?php echo $name ?></label>
         <div class="col-sm-9">
@@ -1410,7 +1425,7 @@ $this->register('info_city', function (array $input) {
     $can_hide = array_get($input, 'can_hide', 0);
     ?>
     <?php if ($name): ?>
-        <div class="form-group form-group-index">
+        <div class="form-group ">
         <label class="col-sm-3  control-label "><?php echo $name ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
@@ -1493,7 +1508,7 @@ $this->register('info_city_country', function (array $input) {
 
     //$_id = '_'.random_string('unique');
     ?>
-    <div class="form-group form-group-index">
+    <div class="form-group ">
         <?php if ($name): ?>
             <label><?php echo $name ?></label>
         <?php endif; ?>
@@ -2085,7 +2100,7 @@ $this->register('job_datasource', function (array $input) {
     <?php return ob_get_clean();
 });
 
-function rendered_value($value, $values)
+function rendered_value($value, $values,$name=null)
 {
     if ($value) {
         $selected = [];
@@ -2097,5 +2112,8 @@ function rendered_value($value, $values)
         if ($selected)
             echo implode(',', $selected);
     } else
-        echo 'All';
+        if($name)
+             echo $name;
+        else
+            echo 'All';
 }

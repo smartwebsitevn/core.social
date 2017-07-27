@@ -146,9 +146,9 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
     color: transparent;
     background-color: _palette(button-1);
   }
-  &:focus {
+ /* &:focus {
     border-style: dotted;
-  }
+  }*/
 }
 
 .btn-inline {

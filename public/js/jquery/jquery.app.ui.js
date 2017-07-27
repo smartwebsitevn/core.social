@@ -49,6 +49,8 @@
         tabs: {class_active: 'active', class_tab: 'tab', class_tab_content: 'tab_content', effect: '', duration: 0},
         moreList: {item: '', num: 0},
         moreBlock: {height: '200px'},
+        moreWord: {},
+
         copyValue: {from: '', to: ''},
         needProcessing: {field_load: '', event_complete: ''},
 
@@ -195,6 +197,11 @@
                 case 'moreBlock':
                 {
                     moreBlockHandle();
+                    break;
+                }
+                case 'moreWord':
+                {
+                    moreWordHandle();
                     break;
                 }
                 case 'needProcessing':
@@ -1426,6 +1433,10 @@
                     act_short.hide();
                     return;
                 }
+                else{
+                    act_all.show();
+                    act_short.hide();
+                }
 
                 // Tu dong rut gon list
                 show_block_short(true);
@@ -1443,7 +1454,7 @@
                 });
 
                 // Hien thi list rut gon
-                function show_block_short(scroll) {
+                function show_block_short(scrollTo) {
                     // Remove class block_all
                     //$this.removeClass('block_all');
                     $this.find('.more_block_content').css({
@@ -1453,7 +1464,7 @@
                     });
 
                     // Dua man hinh len dau block
-                    if (scroll) {
+                   if (scrollTo) {
                         $.scrollTo($this, 800);
                     }
 
@@ -1477,7 +1488,46 @@
 
                 return false;
             }
+            /**
+             * View more word
+             */
+            function moreWordHandle() {
+                var act_all = $this.find('.act_show_all');
+                var act_short = $this.find('.act_show_short');
+                // Xem tat ca
+                act_all.click(function () {
+                    show_word_all();
+                    return false;
+                });
 
+                // Xem rut gon
+                act_short.click(function () {
+                    show_word_short(true);
+                    return false;
+                });
+
+                // Hien thi list rut gon
+                function show_word_short(scrollTo) {
+                    $this.find('.more_word_content').html( $this.data('content-shorted'));
+                    // Dua man hinh len dau block
+                    if (scrollTo) {
+                        $.scrollTo($this, 800);
+                    }
+                    // Xu ly act
+                    act_all.show();
+                    act_short.hide();
+                }
+
+                // Hien thi toan bo list
+                function show_word_all() {
+                    $this.find('.more_word_content').html( $this.data('content-full'));
+                    // Xu ly act
+                    act_all.hide();
+                    act_short.show();
+                }
+
+                return false;
+            }
             /**
              * Load needProcessing
              */
@@ -1690,6 +1740,11 @@ var nfc = {
                     height = $this.data('height')
                 $this.nstUI('moreBlock', {height: height});
             });
+
+            $('.more_word').each(function () {
+                var $this = $(this);
+                $this.nstUI('moreWord', {});
+            });
             // sticky
             if ($('.sticky-element').length > 0) {
                 $('.sticky-element').sticky({topSpacing: 0});
@@ -1708,6 +1763,13 @@ var nfc = {
             // too
             $('[data-toggle="tooltip"]').tooltip();
 
+            /*scrollTo */
+            var uri_goto = window.location.href.split('#goto=');
+            if (uri_goto[1]  != undefined) {
+                var el=$(uri_goto[1]);
+                el.show() // neu el an thi khong go to den dc
+                $.scrollTo(el, 800);
+            }
 
             /*Back to top */
             $(window).scroll(function () {
@@ -1947,6 +2009,61 @@ var nfc = {
                      }, 500);
 
                      });*/
+                    $(document).on('click', '.act-input', function () {
+                        //reset
+                        $(this).parent().find('input[type="hidden"]').remove();
+                        $(this).parent().find('li.active').removeClass('active');
+
+                        $(this).toggleClass('active');
+                        if($(this).hasClass('active')){
+                            html = ' <input type="hidden" name="'+ $(this).data('name')+'" value="'+ $(this).data('value')+'"  />';
+                            $(this).append(html);
+                        }
+                        nfc.catch_hook_event(this);
+                        return false;
+                    });
+                    $(document).on('click', '.act-input-dropdown', function () {
+                        //reset
+                        if (typeof $(this).data('parent') === 'undefined') {
+                            $(this).closest('.search-dropdown').find('input[type="hidden"]').remove();
+                            $(this).closest('.search-dropdown').find('li.active').removeClass('active');
+                        }
+                        else {
+                            $(this).closest((this).data('parent')).find('input[type="hidden"]').remove();
+                            $(this).closest((this).data('parent')).find('li.active').removeClass('active');
+                        }
+
+                        $(this).toggleClass('active');
+                        if ($(this).hasClass('active')) {
+                            html = ' <input type="hidden" name="' + $(this).data('name') + '" value="' + $(this).data('value') + '"  />';
+                            $(this).append(html);
+                        }
+
+                        // form.request();
+                        // Su ly hien thi ten da chon
+                        var parent = $(this).closest('.search-dropdown');
+                        var search_rendered = parent.find('.search-rendered');
+                        if (typeof search_rendered.data('textbackup') === 'undefined') {
+                            search_rendered.data('textbackup', search_rendered.text());
+                        }
+                        search_rendered.text($(this).find('>a:first').text());
+                        parent.removeClass('open2');
+                        nfc.catch_hook_event(this);
+                        return false;
+                    });
+                    $(document).on('click', '.act-filter', function () {
+                        //reset
+                        $(this).parent().find('input[type="hidden"]').remove();
+                        $(this).parent().find('li.active').removeClass('active');
+
+                        $(this).toggleClass('active');
+                        if($(this).hasClass('active')){
+                            html = ' <input type="hidden" name="'+ $(this).data('name')+'" value="'+ $(this).data('value')+'"  />';
+                            $(this).append(html);
+                        }
+                        nfc.catch_hook_event(this);
+                        return false;
+                    });
                     $(document).on('click', '.act-filter-dropdown', function () {
                         //reset
                         if (typeof $(this).data('parent') === 'undefined') {
@@ -2002,7 +2119,6 @@ var nfc = {
 
                     });
 
-                    //== click check box  va hien ten
                     //== thuc hien active khi load trang
 
                     $(document).on('click', '.search-results span', function (e) {
@@ -2119,7 +2235,6 @@ var nfc = {
 
                     //== su kien xoa du lieu loc
                     $(document).on('click', 'span.search-remove', function (e) {
-
                         var $this = this;
                         var parent = $($this).parent();
                         // xoa du lieu doi voi check box
@@ -2571,13 +2686,11 @@ var nfc = {
                 //alert(event.attr('event-hook'));
                 nfc.call(event.attr('event-hook'), params);
             } else {
-
                 if (hook_default != undefined)
                     nfc.call(hook_default, params);
-                else {
+               /* else {
                     nfc.call('moduleCoreFilter', params);
-
-                }
+                }*/
             }
         }
     },
@@ -2618,6 +2731,7 @@ var module_core_nfc = {
     },
 }
 module_core_nfc.boot();
+
 function moduleCoreFilter(option) {
     var form = $(option.ele).closest("form")
     //nfc.pr($(form).attr("id"));
@@ -2667,7 +2781,6 @@ function moduleCoreFilter(option) {
                 if (rs.filter != undefined) {
                     $(".ajax-filter").html(rs.filter);
                 }
-
                 if (load_more) {
                     // xoa phan trang va nut load more
                     $target_data.find('.page-pagination').remove();

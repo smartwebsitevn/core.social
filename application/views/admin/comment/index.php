@@ -72,18 +72,26 @@ $_data_content = function ($row) {
     <div>
         <b>Trả lời</b>: <?php echo count($row->subs); ?>
     </div>
-    <?php foreach ($row->subs as $sub): ?>
-        <div>
-            <?php ///* ?>
-            <b class="name"
-               style="color:#eba119"><?php echo $sub->user ? $sub->user->name : '<span style="color:red">Admin</span>' ?>
-                :</b>
-            <?php //*/ ?>
-
-            <span>(<?php echo $sub->_created; ?>)</span>
-            <?php echo $sub->content ?>
+    <ul class="list-group more_list" data-num="1" data-item=".list-group-item">
+        <div class="more_block_list">
+            <?php foreach ($row->subs as $sub): ?>
+                <li class="list-group-item">
+                    <b class="name"
+                       style="color:#eba119"><?php echo $sub->user ? $sub->user->name : '<span style="color:red">Admin</span>' ?>
+                        :</b>
+                    <span>(<?php echo $sub->_created; ?>)</span>
+                    <?php echo $sub->content ?>
+                    <a _url="<?php echo admin_url('comment/del/' . $sub->id) ?>"
+                       notice="Bạn có chắc muốn xóa mục đã chọn?"
+                       class="btn btn-danger btn-xs  verify_action pull-right ">Xóa</a>
+                </li>
+            <?php endforeach; ?>
         </div>
-    <?php endforeach; ?>
+        <div class="mt5">
+            <a href="javascript:void(0)" class="act_list_all" style="display: none">+ More >></a>
+            <a href="javascript:void(0)" class="act_list_short " style="display: none">Less<<</a>
+        </div>
+    </ul>
     <?php return ob_get_clean();
 };
 

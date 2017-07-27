@@ -108,7 +108,7 @@
                 }
             });
         });
-
+       // call_editor($(document));
         nfc.boot();
 
 
@@ -142,7 +142,6 @@ function temp_set_value(html, params) {
         var regex = new RegExp('{' + param + '}', "igm");
         html = html.replace(regex, value);
     });
-
     return html;
 }
 
@@ -194,4 +193,24 @@ function modal_show(content) {
     //- hien thong bao
     $modal.modal('show')
 
+}
+function call_editor($main) {
+    $main.find('.editor').each(function () {
+        var $this = jQuery(this);
+        var id = $this.attr('id');
+
+        var config = $this.attr('_config');
+        config = (config) ? JSON.parse(config) : {};
+
+        if (typeof(CKEDITOR.instances[id]) != 'undefined')
+            CKEDITOR.instances[id].destroy(true);
+
+
+        CKEDITOR.replace(id, config);
+        CKEDITOR.instances[id].on('change', function() { CKEDITOR.instances[id].updateElement() });
+
+        if (CKEDITOR.env.ie && CKEDITOR.env.version == 8) {
+            document.getElementById('ie8-warning').className = 'tip alert';
+        }
+    });
 }

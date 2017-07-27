@@ -19,6 +19,10 @@
       cursor: pointer;
     }
   }
+  .item-overview {
+    margin-top: 20px;
+    text-align: justify;
+  }
 }
 
 .product-navigation {
@@ -36,14 +40,13 @@
   }
 }
 
-
 .block-author {
   border: 1px solid #ccc;
   background-color: #fff;
   padding-bottom: 20px;
   position: relative;
   margin-bottom: 40px;
-  padding: 9px 20px 30px 20px;
+  padding: 9px 10px 30px 10px;
   text-align: center;
   &:hover {
     border-color: #f60;
@@ -90,8 +93,17 @@
       text-align: center;
 
     }
+    .place {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100px;
 
-
+    }
+    .item-list-tag {
+      margin-top: 10px;
+    }
     .item-meta {
       display: block;
       color: #666;
@@ -101,21 +113,20 @@
       span {
         margin-right: 20px;
       }
-      .do_action{
+      .do_action {
         font-size: 48px;
         cursor: pointer;
       }
     }
-    .short-desc {
+    .item-des {
       margin-bottom: 25px;
+      text-align: justify;
     }
   }
   button.btn {
     font-style: italic;
   }
 }
-
-
 
 .block-postRelated2 {
   margin-bottom: 30px;

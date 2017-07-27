@@ -4,7 +4,8 @@
 class Product_model extends MY_Model
 {
     public $table = 'product';
-    public $order = array( array('sort_order', 'asc'), array('product.id', 'desc'));
+   // public $order = array( array('sort_order', 'asc'), array('product.id', 'desc'));
+    public $order = array( array('product.id', 'desc'));
     public $translate_auto = TRUE;
     public $translate_fields = array(
         'name',
@@ -23,7 +24,7 @@ class Product_model extends MY_Model
         'price_prefix','price_suffix',
         'price_is_contact',   'price_is_auction','price_is_auction_data',
 
-        'model','link_demo',
+        'model','link',
         'video', 'brief', 'description',     'technical', 'note',    'tags',
 
         'quantity', 'point',
@@ -33,7 +34,7 @@ class Product_model extends MY_Model
         //== Info lien ket bang khac
         'cat_id','manufacture_id', 'country_id',
         'stock_id', 'warranty_id',
-        'type_cat_id',
+        'type_cat_id',  'user_id',
         //== Info thuoc tinh bool
        // 'comment_allow',  'comment_fb_allow',
         'has_voucher', //  'has_combo',
@@ -55,7 +56,7 @@ class Product_model extends MY_Model
         'price','price_gt', 'price_lt','price_gte', 'price_lte',
         'price_is_contact',   'price_is_auction',
         //== cat
-        'cat_id', 'author_id',
+        'cat_id', 'author_id', 'user_id',
         'manufacture_id',    'stock_id', 'warranty_id','country_id',
         'type_cat_id',
         //== attr
@@ -70,13 +71,14 @@ class Product_model extends MY_Model
     );
     public $fields_rule = array(
         'name' => 'required',
+        'description' => 'required',
     );
 
     public $fields_type_currency = array( 'price',  );
     public $fields_type_image = array(/*'avatar',*/ 'image', 'banner', 'icon');
 
     public $fields_type_content = array('brief', 'description', 'technical' ,'note',);
-    public $fields_type_list_json = array('common_data', 'stats_data','price_is_auction_data');
+    public $fields_type_list_json = array('link_data','common_data', 'stats_data','price_is_auction_data');
     //public $fields_list_comma = array('common_data', 'stats_data');
     // cac thuoc tinh lien ket voi bang cat (chu y: chi de ten fiel ko co id)
     public $fields_type_relation_cat = array( 'warranty_id', 'stock_id',  );

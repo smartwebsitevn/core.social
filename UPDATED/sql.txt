@@ -168,3 +168,32 @@ ALTER TABLE `city`
 ALTER TABLE `country`
 	ADD COLUMN `feature` TINYINT(1) NOT NULL DEFAULT '0' AFTER `status`,
 	ADD COLUMN `sort_order` INT(11) NOT NULL DEFAULT '0' AFTER `feature`;
+
+
+//== 24-7-2017:
+ALTER TABLE `product`
+	ADD COLUMN `is_form` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1' AFTER `is_in_menu`,
+	ADD COLUMN `is_draft` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1' AFTER `is_form`,
+	CHANGE COLUMN `status` `status` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1' AFTER `is_draft`,
+	ADD COLUMN `adsed` INT(10) UNSIGNED NOT NULL AFTER `rate_five`,
+	ADD COLUMN `adsed_option` INT(10) UNSIGNED NOT NULL AFTER `adsed`,
+	ADD COLUMN `verified` INT UNSIGNED NOT NULL AFTER `expired_option`,
+	ADD COLUMN `verified_by` INT UNSIGNED NOT NULL AFTER `verified`,
+	ADD COLUMN `deleted` INT(11) UNSIGNED NOT NULL AFTER `created_by`,
+	ADD COLUMN `deleted_by` INT(11) UNSIGNED NOT NULL AFTER `deleted`;
+
+
+
+//== sang 26-7-2017 
+ALTER TABLE `comment`	ADD COLUMN `reuped` INT(11) NOT NULL AFTER `status`;
+
+ALTER TABLE `product`	ADD COLUMN `reuped` INT(11) NOT NULL AFTER `rate_five`;
+
+
+ALTER TABLE `product` 
+	ADD COLUMN `link` VARCHAR(255) NOT NULL AFTER `tags`,
+	ADD COLUMN `link_data` TEXT NOT NULL AFTER `link`;
+
+ALTER TABLE `product`
+	ADD COLUMN `shared` INT(11) NOT NULL AFTER `expired_option`,
+	ADD COLUMN `shared_by` INT(11) NOT NULL AFTER `shared`;

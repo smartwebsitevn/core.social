@@ -40,6 +40,8 @@ $asset_theme = $asset . '/site/theme/';
 <script src="<?php echo public_url('js/angular/angular.min.js') ?>"></script>
 <script src="<?php echo public_url('js/angular/angular-ng-modules/angular-ng-modules.js') ?>"></script>
 
+<script src="<?php echo public_url('js/lodash.js') ?>"></script>
+
 <!-- Countdown -->
 <script src="<?php echo public_url('js/jquery/countdown/jquery.countdown.js') ?>"></script>
 <!-- Cookie -->

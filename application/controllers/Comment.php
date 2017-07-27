@@ -300,25 +300,44 @@ class Comment extends MY_Controller
             $data['content'] = $content;
             $data['user_id'] = $user->id;
             $data['parent_id'] = $comment->id;
-            $data['level'] = $comment->level +1;
+            $data['level'] = $comment->level + 1;
             $comment_active_status = 1;// mod("product")->setting('comment_auto_verify');
 
             if ($comment_active_status == config('status_on', 'main')) {
                 $data['status'] = config('verify_yes', 'main');
             }
             $data['created'] = now();
+            $data['reuped'] = $data['created'];
             //pr($data);
             model("comment")->create($data);
 
-            //them so lan nhan xet cho bang lien quan
-            $model= $this->_update_table_infos($data, $table_name, $table_id);
-            //gui thong bao
-            if($model && $comment->user_id&& $comment->user_id!=$user->id){
-                mod('user_notice')->send($comment->user_id,$user->name.' đã trả lởi bình luận của bạn',['url'=>$model->_url_view]);
+            // reup lai parent, va set la chua view
+            model('comment')->update($comment->id,["readed"=>0, "reuped"=> now()]);
 
+            //==them so lan nhan xet cho bang lien quan
+            $model = $this->_update_table_infos($data, $table_name, $table_id);
+
+            //==gui thong bao
+            if ($model){
+                // gui cho chu topic
+                if ($comment->user_id && $comment->user_id != $user->id)
+                    mod('user_notice')->send($comment->user_id, $user->name . ' đã trả lởi bình luận của bạn', ['url' => $model->_url_view]);
+                // gui cho nhung nguoi dang binh luan topic nay
+                $comments = model('comment')->filter_get_list(['parent_id' => $comment->id]);
+                if ($comments) {
+                    $users = array_gets($comments, 'user_id');
+                    // khong gui thong bao cho nguoi gui binh luan
+                    $users = array_diff($users, [$user->id]); // xoa nguoi binh luan khoi danh sach
+                    if ($users) {
+                        $msg = $user->name . ' đã bình luận chủ đề bạn quan tâm';
+                        foreach ($users as $v) {
+                            mod('user_notice')->send($v, $msg, ['url' => $model->_url_view]);
+                        }
+                    }
+
+                }
             }
-
-            // Khai bao du lieu tra ve
+            //== Khai bao du lieu tra ve
             $result['complete'] = TRUE;
 
             if ($comment_active_status == config('status_on', 'main')) {
@@ -437,7 +456,7 @@ class Comment extends MY_Controller
             model($table_name)->update($model->id, $_data);
 
 
-    return $model;
+        return $model;
 
     }
 

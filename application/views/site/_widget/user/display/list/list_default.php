@@ -17,18 +17,14 @@
                             <?php echo widget('user')->action_favorite($row) ?>
                         </div>
                         <div class="item-profession"><?php echo character_limiter($row->profession, 250); ?>    </div>
+
                         <div class="item-meta">
-                            <?php if(isset($row->_working_city) && $row->_working_city): ?>
-                                <span class="place"> <i class="pe-7s-map-marker"></i> <b><?php echo $row->_working_city_name.', '.$row->_working_country_name?></b></span>
-                            <?php endif; ?>
-                            <span  class="posts"> <b><?php echo number_format($row->post_total) ?></b> <?php echo lang("count_post") ?></span>
-
-                            <span class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-                            <span   class="follows"> <b><?php echo number_format($row->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
-
-
+                            <?php t('view')->load('tpl::_widget/user/display/item/info_meta',['row'=>$row]) ?>
                         </div>
-                        <div class="item-desc"><?php echo character_limiter($row->desc, 250); ?>    </div>
+
+                        <div class="item-desc">
+                            <?php echo macro()->more_word($row->desc,40); ?>
+                        </div>
 
 
                         <div class="item-action">
@@ -49,26 +45,12 @@
 
                         </div>
                         <div class="group">  <?php echo $row->user_group_name; ?></div>
-                        <div class="links">
-                            <a data-toggle="modal" data-target="#modal-company-info">
-                                <i class="pe-7s-angle-right-circle"></i>
+                        <?php t('view')->load('tpl::_widget/user/display/item/info_contact',['row'=>$row]) ?>
+                        <div class="mt10">
 
-                            </a>
-                            <a data-toggle="modal" data-target="#modal-company-info">
-                                <i class="pe-7s-mail"></i>
-
-                            </a>
-                            <a data-toggle="modal" data-target="#modal-company-info">
-                                <i class="pe-7s-call"></i>
-
-                            </a>
-                            <a data-toggle="modal" data-target="#modal-company-info">
-                                <i class="pe-7s-id"></i>
-
-                            </a>
+                        <?php widget('user')->action_subscribe($row) ?>
+                        <?php widget('user')->action_message($row) ?>
                         </div>
-
-                        <a class="btn btn-default btn-outline"><i class="pe-7s-like"></i> Theo dõi</a>
                     </div>
                 </div>
             </div>
@@ -92,5 +74,8 @@
     <?php endif; ?>
 
 <?php else: ?>
-    <span class="red"><?php echo lang("have_no_list") ?></span>
+    <div class="clearfix mt20"></div>
+    <div class="well">
+        <?php echo lang('have_no_list') ?>
+    </div>
 <?php endif; ?>

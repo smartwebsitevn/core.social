@@ -190,10 +190,8 @@ class Site_widget extends MY_Widget {
 		$config['mod'] 			= ( ! isset($config['mod'])) ? 'single' : $config['mod'];
 		$config['file_type'] 	= ( ! isset($config['file_type'])) ? 'file' : $config['file_type'];
 		$config['server'] 		= ( ! isset($config['server'])) ? TRUE : $config['server']['status'];
-
 		// Lay config
 		$config_main = config('upload', 'main');
-		//pr($config_main,0);
 		$upload_config = array();
 		$upload_config['max_size'] = $config_main['max_size'];
 		$upload_config['allowed_types'] = ($config['file_type'] == 'image') ? $config_main['img']['allowed_types'] : $config_main['allowed_types'];
@@ -201,7 +199,6 @@ class Site_widget extends MY_Widget {
 		{
 			$upload_config['allowed_types'] = $config['allowed_types'];
 		}
-		//pr($upload_config);
 
 		// Xay dung query upload
 		$upload_query = array();

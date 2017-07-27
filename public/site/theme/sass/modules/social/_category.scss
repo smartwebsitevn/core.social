@@ -57,6 +57,10 @@
     .block-total{
       text-align: right;
       margin-bottom: 10px;
+      span{
+        font-weight: bold;
+        font-size: 25px;
+      }
     }
     .block-point{
       float: right;
@@ -273,6 +277,10 @@
         -o-transition: 1s;
         transition: 1s;
       }
+      .profession{
+        color: #ccc;
+        font-size: 12px;
+      }
     }
   }
   .item-info {
@@ -293,11 +301,55 @@
   .item-media {
     float: right;
     width: 35%;
-    .product-images .owl-dots {
-      bottom: 40px;
-    }
-    .product-images .owl-carousel .owl-item img {
+    .images{
       margin: 0 auto;
+      .item{
+        float: left;
+        img{
+          width: 100%;
+          padding: 1px;
+          max-height: 200px;
+        }
+      }
+      &-2{
+        .item{
+          width: 50%;
+        }
+      }
+      &-3{
+        .item{
+          &-1{
+            width: 100%;
+          }
+          &-2,&-3{
+            width: 50%;
+          }
+        }
+      }
+      &-4{
+        .item{
+          &-1{
+            width: 100%;
+          }
+          &-2,&-3,&-4{
+            width: 33.3%;
+          }
+        }
+      }
+      &-5{
+        .item{
+          &-1,&-2{
+            width: 50%;
+          }
+          &-3,&-4,&-5{
+            width: 33.3%;
+          }
+        }
+      }
+    }
+    .media{
+      border: 1px solid #eee;
+      padding: 10px;
     }
 
   }
@@ -320,7 +372,7 @@
   }
 
   .item-meta {
-    width: 100%;
+    float: left;
     display: flex;
     color: #666;
     font-weight: 300;
@@ -330,15 +382,17 @@
       margin-right: 20px;
     }
     .do_action {
-      font-size: 48px;
+      font-size: 32px;
       cursor: pointer;
     }
   }
   .item-actions {
-    width: 100%;
+    float: right;
     text-align: right;
+    margin-top: 10px;
+
     .btn{
-      margin-right: 10px;
+     /* margin-right: 10px;*/
     }
     a {
       .fa {

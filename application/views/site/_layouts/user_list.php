@@ -10,7 +10,7 @@
 	<!-- MAIN -->
 	<div id="main">
 		<div class="container">
-			<?php t('view')->load('tpl::user_list/top') ?>
+			<?php t('view')->load('tpl::user_list/_common/top') ?>
 			<?php echo widget('user')->filter([], "top") ?>
 			<?php //echo $content_top; ?>
 			<?php echo $content; ?>

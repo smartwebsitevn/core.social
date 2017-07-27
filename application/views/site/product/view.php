@@ -3,7 +3,7 @@
         <div class="col-md-8 col-sm-12 col-xs-12">
             <div class="product-navigation">
                 <div class="category">
-                    ABD
+                    <?php echo $info->_cat_name ?>
                 </div>
                 <div class="next-page">
                     <?php if (isset($info_prev) && $info_prev): ?>

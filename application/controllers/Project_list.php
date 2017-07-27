@@ -195,10 +195,13 @@ class Project_list extends MY_Controller
         $order = $this->input->get("order", true);
         if ($order && in_array($order, $sort_orders)) {
             $orderex = explode('|', $order);
-        } else {
+            $input['order'] = array($orderex[0], $orderex[1]);
+
+        }
+        /*else {
             $orderex = explode('|', $sort_orders[0]);
         }
-        /*if (!isset($input['order'])) {
+        if (!isset($input['order'])) {
            $input['order'] = array($orderex[0], $orderex[1]);
            // $input['order'] = array(array('sort_order', 'asc'), array('id', 'desc'));
         }*/

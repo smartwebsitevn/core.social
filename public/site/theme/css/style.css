@@ -1481,11 +1481,13 @@ a.btn.btn-link:hover, span.btn.btn-link:hover, a.btn.btn-link:focus, span.btn.bt
   background-color: transparent;
   border-color: #eb8305; }
 
-.btn-outline .badge {
-  color: transparent;
-  background-color: #f7941e; }
-.btn-outline:focus {
-  border-style: dotted; }
+.btn-outline {
+  /* &:focus {
+     border-style: dotted;
+   }*/ }
+  .btn-outline .badge {
+    color: transparent;
+    background-color: #f7941e; }
 
 .btn-inline {
   color: #f7941e;
@@ -2068,6 +2070,90 @@ table {
     border: 0;
     border-radius: 0;
     padding: 0; }
+
+.more_word .more_word_content {
+  text-align: justify; }
+.more_word .act_show_all, .more_word .act_show_short {
+  font-size: 13px; }
+
+.item-tag {
+  display: inline-block; }
+
+.act-display-cat,
+.act-display-job {
+  position: relative;
+  color: #494949; }
+
+.item-tag-title {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #e0e0e0;
+  font-size: 12px;
+  line-height: 22px;
+  padding: 0 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+  color: #494949; }
+
+.item-tag-title:hover {
+  color: #fff;
+  background-color: #ffab4b; }
+
+.item-tag-title:focus {
+  color: #fff;
+  background-color: #eb8305; }
+
+.item-tag-content {
+  padding: 15px;
+  font-size: 13px; }
+
+.item-tag-content a {
+  color: #f7941e; }
+
+.item-tag-content a:hover {
+  color: #ffab4b; }
+
+.item-tag-content a:hover {
+  color: #eb8305; }
+
+.item-tag-content hr {
+  margin: 12px 0; }
+
+.item-tag-content .item-tag-category {
+  display: block;
+  color: #999999;
+  text-transform: capitalize;
+  line-height: 18px; }
+
+.item-tag-content .item-tag-name {
+  display: block;
+  text-transform: capitalize;
+  line-height: 16px;
+  margin-bottom: 8px;
+  font-weight: 600; }
+
+.item-tag-content .item-tag-info {
+  display: block;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.item-tag-content .item-tag-view,
+.item-tag-content .item-tag-add {
+  display: block;
+  line-height: 18px;
+  margin-bottom: 5px; }
+
+.item-tag-content .item-tag-view i,
+.item-tag-content .item-tag-add i {
+  padding-right: 5px; }
+
+.item-tag-content .item-tag-edit {
+  font-weight: 600;
+  text-transform: capitalize; }
 
 /* Wrapper */
 #wrapper {

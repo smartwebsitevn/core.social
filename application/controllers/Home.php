@@ -8,6 +8,7 @@ class Home extends MY_Controller
 	 */
 	public function index()
 	{
+		redirect(site_url('ban-tin'));
 
 		$this->_display( 'index' );
 	}

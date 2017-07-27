@@ -8,7 +8,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal"  class="btn btn-danger">Ok<?php //echo $this->lang->line('Ok'); ?></button>
+                <a  data-dismiss="modal"  class="btn btn-default">Ok<?php //echo $this->lang->line('Ok'); ?></a>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

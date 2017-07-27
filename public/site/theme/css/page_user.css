@@ -94,8 +94,6 @@ body.user-account .main-content .panel {
       .list-user .item-user .item-profile .links a {
         font-size: 25px;
         margin: 0 5px; }
-      .list-user .item-user .item-profile .btn-outline {
-        margin-top: 5px; }
     .list-user .item-user .item-name {
       display: block;
       color: #000;
@@ -156,69 +154,6 @@ body.user-account .main-content .panel {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis; }
-    .list-user .item-user .item-tag {
-      display: inline-block; }
-    .list-user .item-user .act-display-cat,
-    .list-user .item-user .act-display-job {
-      position: relative;
-      color: #494949; }
-    .list-user .item-user .item-tag-title {
-      position: relative;
-      cursor: pointer;
-      display: inline-block;
-      border-radius: 3px;
-      background-color: #e0e0e0;
-      font-size: 12px;
-      line-height: 22px;
-      padding: 0 10px;
-      margin-right: 5px;
-      margin-bottom: 5px;
-      text-transform: capitalize;
-      color: #494949; }
-    .list-user .item-user .item-tag-title:hover {
-      color: #fff;
-      background-color: #ffab4b; }
-    .list-user .item-user .item-tag-title:focus {
-      color: #fff;
-      background-color: #eb8305; }
-    .list-user .item-user .item-tag-content {
-      padding: 15px;
-      font-size: 13px; }
-    .list-user .item-user .item-tag-content a {
-      color: #f7941e; }
-    .list-user .item-user .item-tag-content a:hover {
-      color: #ffab4b; }
-    .list-user .item-user .item-tag-content a:hover {
-      color: #eb8305; }
-    .list-user .item-user .item-tag-content hr {
-      margin: 12px 0; }
-    .list-user .item-user .item-tag-content .item-tag-category {
-      display: block;
-      color: #999999;
-      text-transform: capitalize;
-      line-height: 18px; }
-    .list-user .item-user .item-tag-content .item-tag-name {
-      display: block;
-      text-transform: capitalize;
-      line-height: 16px;
-      margin-bottom: 8px;
-      font-weight: 600; }
-    .list-user .item-user .item-tag-content .item-tag-info {
-      display: block;
-      height: 60px;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-    .list-user .item-user .item-tag-content .item-tag-view,
-    .list-user .item-user .item-tag-content .item-tag-add {
-      display: block;
-      line-height: 18px;
-      margin-bottom: 5px; }
-    .list-user .item-user .item-tag-content .item-tag-view i,
-    .list-user .item-user .item-tag-content .item-tag-add i {
-      padding-right: 5px; }
-    .list-user .item-user .item-tag-content .item-tag-edit {
-      font-weight: 600;
-      text-transform: capitalize; }
     .list-user .item-user:hover .item-name {
       color: #f67004; }
       .list-user .item-user:hover .item-name a {
@@ -274,12 +209,12 @@ body.user-account .main-content .panel {
         margin: 0 5px; }
     .detail-user .item-user .item-info {
       float: left;
-      width: calc(75% - 190px); }
+      width: calc(85% - 190px); }
       .detail-user .item-user .item-info-full {
         width: calc(100% - 190px); }
     .detail-user .item-user .item-profile {
       float: right;
-      width: 22%;
+      width: 15%;
       padding-bottom: 20px;
       position: relative;
       text-align: center; }
@@ -314,6 +249,12 @@ body.user-account .main-content .panel {
       line-height: 48px; }
       .detail-user .item-user .item-meta span {
         margin-right: 20px; }
+        .detail-user .item-user .item-meta span.place {
+          display: inline-block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 280px; }
       .detail-user .item-user .item-meta .do_action {
         font-size: 48px;
         cursor: pointer; }

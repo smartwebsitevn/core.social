@@ -122,6 +122,7 @@
         //city-country
         //$countrys = model('country')->filter_get_list(['show' => 1]);
         $citys = model('city')->filter_get_list(["country_id"=>230,'show' => 1]);
+        if(is_string($user->working_city))
         $user->working_city = explode(',', $user->working_city);
          echo macro('mr::form')->info_city(array(
             'name' => 'Nơi làm việc',

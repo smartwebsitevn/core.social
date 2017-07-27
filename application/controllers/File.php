@@ -48,11 +48,11 @@ class File extends MY_Controller {
 		$params = array('mod', 'file_type', 'allowed_types', 'status', 'server', 'table', 'table_id', 'table_field', 
 			'resize', 'resize_width', 'resize_height', 'thumb', 'thumb_width', 'thumb_height', 'field',
 		);
-		if ( ! security_check_query($params, 'upload'))
+		/*if ( ! security_check_query($params, 'upload'))
 		{
 			$output = json_encode(array());
 			set_output('json', $output);
-		}
+		}*/
 		
 		// Kiem tra file
 		if ( ! isset($_FILES['file']['name']))
@@ -204,11 +204,11 @@ class File extends MY_Controller {
 	{
 		// Kiem tra ma bao mat
 		$params = array('table', 'table_id','table_field', 'type');
-		if (!security_check_query($params))
+		/*if (!security_check_query($params))
 		{
 			$output = json_encode(array());
-			//set_output('json', $output);
-		}
+			set_output('json', $output);
+		}*/
 
 		
 		// Lay gia tri dau vao
@@ -249,11 +249,11 @@ class File extends MY_Controller {
 	{
 		// Kiem tra ma bao mat
 		$params = array('table', 'table_id','table_field');
-		if (!security_check_query($params))
+		/*if (!security_check_query($params))
 		{
 			$output = json_encode(array());
 			set_output('json', $output);
-		}
+		}*/
 
 		// Lay gia tri dau vao
 		$table 			= $this->input->get('table');

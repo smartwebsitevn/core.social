@@ -45,8 +45,9 @@
         <?php t('view')->load('tpl::product/_common/info_images') ?>
 
     </div>
-    <div class="product-overview">
-        <?php echo $info->brief ?>
+    <div class="item-overview">
+        <?php echo macro()->more_word($info->brief,63); ?>
+
     </div>
 
 

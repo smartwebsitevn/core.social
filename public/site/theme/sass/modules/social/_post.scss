@@ -1,0 +1,24 @@
+.page-product-post{
+  .search-dropdown{
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+  }
+  .upload-action{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+
+    i{
+      font-size: 64px;
+      display: block;
+    }
+    a span{
+      color: #111;
+    }
+    div:first-child{
+      border-right:1px solid #ccc ;
+    }
+
+  }
+}

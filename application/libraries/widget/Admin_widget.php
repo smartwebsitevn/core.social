@@ -253,7 +253,6 @@ class Admin_widget extends MY_Widget
 		$config['mod'] 			= ( ! isset($config['mod'])) ? 'single' : $config['mod'];
 		$config['file_type'] 	= ( ! isset($config['file_type'])) ? 'file' : $config['file_type'];
 		$config['server'] 		= ( ! isset($config['server'])) ? TRUE : $config['server']['status'];
-		
 		// Lay config
 		$config_main = config('upload', 'main');
 		$upload_config = array();

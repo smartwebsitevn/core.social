@@ -14,42 +14,14 @@
                             src="<?php echo $author->avatar->url_thumb ?>"> </a>
 
                 </div>
-                <div class="links">
-                    <a data-toggle="modal" data-target="#modal-company-info">
-                        <i class="pe-7s-angle-right-circle"></i>
+                <?php t('view')->load('tpl::_widget/user/display/item/info_contact',['row'=>$author]) ?>
 
-                    </a>
-                    <a data-toggle="modal" data-target="#modal-company-info">
-                        <i class="pe-7s-mail"></i>
-
-                    </a>
-                    <a data-toggle="modal" data-target="#modal-company-info">
-                        <i class="pe-7s-call"></i>
-
-                    </a>
-                    <a data-toggle="modal" data-target="#modal-company-info">
-                        <i class="pe-7s-id"></i>
-
-                    </a>
-                </div>
                 <div class="name-cty">
                     <a href="<?php echo $author->_url_view ?>"><?php echo $author->name ?></a>
                 </div>
                 <div class="short-cty">  <?php echo $author->profession ?></div>
-                <div class="item-meta">
-                    <?php if (isset($author->_city)): ?>
-                        <span class="place"> <i class="pe-7s-map-marker"></i> <b><?php echo $author->_city->name ?></b></span>
-                    <?php endif; ?>
-                    <span
-                        class="posts"> <b><?php echo number_format($author->post_total) ?></b> <?php echo lang("count_post") ?></span>
-
-                    <span
-                        class="points"> <b><?php echo number_format($author->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-                    <span
-                        class="follows"> <b><?php echo number_format($author->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
-
-
-                </div>
+                <?php t('view')->load('tpl::_widget/user/display/item/info_meta',['row'=>$author]) ?><br>
+                <?php t('view')->load('tpl::_widget/user/display/item/info_tags',['row'=>$author]) ?>
 
                 <hr>
                 <?php widget('user')->action_subscribe($author) ?>
@@ -57,7 +29,7 @@
                 <hr>
 
                 <div class="item-des">
-                    <?php echo macro()->more_block($author->desc); ?>
+                    <?php echo macro()->more_word($author->desc,50); ?>
                 </div>
 
             </div>

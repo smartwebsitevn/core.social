@@ -4,7 +4,7 @@
 	<?php //widget('site')->head(["css"=>"page_home"]); ?>
 	<?php widget('site')->head(); ?>
 </head>
-<body  >
+<body class="page-product-list" >
 <div class="wrapper">
 	<?php echo $header; ?>
 	<!-- MAIN -->

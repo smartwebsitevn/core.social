@@ -287,6 +287,7 @@ class Comment extends MY_Controller
 
         // Lay danh sach
         $input = array();
+        $input['order'] = array('reuped', 'desc');
         $input['limit'] = array($limit, $page_size);
         $list = $this->_model()->filter_get_list($filter, $input);
         //pr_db($filter_input);

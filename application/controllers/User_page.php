@@ -95,7 +95,7 @@ class User_page extends MY_Controller
 
     protected function _action($action)
     {
-        $dont_check_login = array('report');
+        /*$dont_check_login = array('report');
         if (!in_array($action, $dont_check_login)) {
 
             if (!user_is_login()) {
@@ -104,7 +104,7 @@ class User_page extends MY_Controller
                 $result["modal_box"] = "modal-user-login";
                 $this->_response($result);
             }
-        }
+        }*/
         // Lay input
         $id = $this->uri->rsegment(3);
         // Xu ly id
@@ -373,23 +373,21 @@ class User_page extends MY_Controller
 
         // tam tat chuc nang nay
         //kiem tra da luu hay chua
-        $viewed = mod('company')->user_get($user->id, $user->user_id, 'view_profile');
+        /*$viewed = mod('company')->user_get($user->id, $user->user_id, 'view_profile');
         if (!$viewed) {
             mod('company')->user_set($user->id, $user->user_id, 'view_profile');
             // tru trong goi
             mod('user')->setPackages(mod('user')->config('user_type_company'), array('view_detail_brief' => -1), $user);
         }
-
-
         $attach = $this->input->get('attach');
         if ($attach) {
             // $this->load->helper('download');
             // $data = file_get_contents($user->attach->url); // Read the file's contents
             //force_download($user->attach_name, $data);
             $this->_response(array('location' => $user->attach->url));
-        }
+        }*/
         // neu da luu roi thi hien thong tin
-        $result['msg_modal'] = widget('user')->info_private($user, array(), 'info_private_ajax', array('return' => 1));
+        $result['msg_modal'] = t('view')->load('tpl::_widget/user/info/contact',['info'=>$user],true) ;//// widget('user')->info_private($user, array(), 'info_private_ajax', array('return' => 1));
         $result['msg_modal_title'] = 'Thông tin cá nhân';
         $this->_response($result);
 
@@ -397,56 +395,410 @@ class User_page extends MY_Controller
     }
 
 
-    public function _view()
-    {
-        // Cap nhat so luot view
-        // model('user')->update_stats($id, array('count_view' => 1));
-        // Xu ly thong tin
-        $user = $this->data['user'];
-        $page = $this->input->get('page');
-        if (!in_array($page, ['follow', 'follow_me', 'posts']))
-            $page = 'posts';
-        /* switch($page){
-             case 'follow':     $this->_page_follow(); break;
-             case 'follow_by':     $this->_page_follow_by(); break;
-             case 'posts':
-             default:
-                  $this->_page_posts(); break;
-
-         }*/
-        $this->data['page'] = $page;
-        $this->data['info'] = mod('user')->add_info($user);
-        $this->_display($page);
-
-    }
-
-    /*
-        public  function _page_posts()
-        {
-            $this->_display('posts');
-        }
-
-        public  function _page_follow()
-        {
-            $this->_display('follow');
-        }
-        public  function _page_follow_by()
-        {
-            $this->_display('follow_by');
-        }*/
-
     public function index()
     {
-
         if (!user_is_login()) {
-            // $this->_response(array('msg_modal' => lang('notice_please_login_to_use_function')));
-            // return;
-            $result["modal_box"] = "modal-user-login";
             redirect();
         }
         $user = user_get_account_info();
         $this->data['user'] = $user;
-        $this->_view($this->data['user']->id);
+        $page = $this->input->get('page');
+        if (!in_array($page, ['posts', 'posts_draft', 'posts_save'])) {
+            $page = 'posts';
+        }
+        $this->{'_my_' . $page}();
+        $this->data['page'] = $page;
+        $this->data['info'] = mod('user')->add_info($user);
+        $this->_display('my_'.$page);
+    }
+    public function _my_posts()
+    {
+        $user = $this->data['user'];
+        // Filter set
+        $filter = array();
+        $filter['user_id'] = $user->id;
+        $this->_post_create_list([], $filter);
+    }
+    public function _my_posts_draft()
+    {
+        $user = $this->data['user'];
+        // Filter set
+        $filter = array();
+        $filter['user_id'] = $user->id;
+        $this->_post_create_list([], $filter);
+    }
+    public function _my_posts_save()
+    {
+        $user = $this->data['user'];
+        // Filter set
+        $filter = array();
+        $filter['user_id'] = $user->id;
+        $this->_post_create_list([], $filter);
+    }
+
+
+
+    public function _view()
+    {
+        $page = $this->input->get('page');
+        if (!in_array($page, ['follow', 'follow_by', 'posts'])) {
+            $page = 'posts';
+        }
+        $this->{'_view_' . $page}();
+
+        $this->data['page'] = $page;
+        $this->data['info'] = mod('user')->add_info($this->data['user']);
+        //$this->data['user_current'] = mod('user')->add_info( $this->data['user_current']);
+        $this->_display($page);
+    }
+    public function _view_posts()
+    {
+        $user = $this->data['user'];
+        // Filter set
+        $filter = array();
+        $filter['user_id'] = $user->id;
+        $this->_post_create_list([], $filter);
+
+    }
+
+
+    public function _view_follow()
+    {
+        $user = $this->data['user'];
+        $input['where']['us.action'] = 'follow';
+        $input['where']['us.table'] = 'user';
+        $input['where']['us.user_id'] = $user->id;
+        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+        $filter = array();
+        $this->_user_create_list($input, $filter);
+    }
+
+    public function _view_follow_by()
+    {
+        $user = $this->data['user'];
+        $input['where']['us.action'] = 'follow';
+        $input['where']['us.table'] = 'user';
+        $input['where']['us.table_id'] = $user->id;
+        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+        $filter = array();
+        $this->_user_create_list($input, $filter);
+
+    }
+
+
+    //====================== Tao danh sach hien thi ===========================
+    private function _post_create_list($input = array(), $filter = array(), $filter_fields = array())
+    {
+        $filter_input = array();
+        $filter_fields = array_merge($filter_fields, model('product')->fields_filter);
+        $mod_filter = mod('product')->create_filter($filter_fields, $filter_input);
+        $filter = array_merge($filter, $mod_filter);
+        // pr($filter_input);
+
+        $key = $this->input->get('name');
+        $key = str_replace(array('-', '+'), ' ', $key);
+        if (isset($filter['name']) && $filter['name']) {
+            unset($filter['name']);
+            $filter['%name'] = $filter_fields['name'] = $key;
+        }
+        if (isset($filter['point']) && $filter['point']) {
+            $filter['point_gte'] = $filter['point'];
+            unset($filter['point']);
+
+        }
+        // lay thong tin cua cac khoang tim kiem
+        foreach (array('price',) as $range) {
+            if (isset($filter[$range])) {
+                if (is_array($filter[$range])) {
+                    foreach ($filter[$range] as $key => $row) {
+                        $filter[$range . '_range'][$key] = model('range')->get($row, $range);
+                    }
+                } else {
+                    $filter[$range . '_range'] = model('range')->get($filter[$range], $range);
+                }
+                unset($filter[$range]);
+            }
+        }
+
+        //pr($filter);
+        //pr($input);
+        // Gan filter
+        $filter['show'] = 1;
+
+        //== Lay tong so
+        if (!isset($input['limit'])) {
+            $total = model('product')->filter_get_total($filter, $input);
+            $page_size = 17;// config('list_limit', 'main');
+
+            $limit = $this->input->get('per_page');
+            $limit = min($limit, $total - fmod($total, $page_size));
+            $limit = max(0, $limit);
+            //== Lay danh sach
+            $input['limit'] = array($limit, $page_size);
+        }
+        //== Sort Order
+        $sort_orders = array(
+            'id|desc',
+            'feature|desc',
+            //'price|asc',
+            //'price|desc',
+            'point_total|desc',
+            'view_total|desc',
+            /*'count_buy|desc',
+            'new|desc',
+
+            'rate|desc',
+            'name|asc',*/
+        );
+        $order = $this->input->get("order", true);
+        if ($order && in_array($order, $sort_orders)) {
+            $orderex = explode('|', $order);
+        } else {
+            $orderex = explode('|', $sort_orders[0]);
+        }
+        /*if (!isset($input['order'])) {
+            $input['order'] = array($orderex[0], $orderex[1]);
+        }*/
+        // pr($filter);
+        $list = model('product')->filter_get_list($filter, $input);
+      // pr_db($filter);
+        foreach ($list as $row) {
+            $row = mod('product')->add_info($row);
+        }
+        // Tao chia trang
+        $pages_config = array();
+        if (isset($total)) {
+            $pages_config['page_query_string'] = TRUE;
+            $pages_config['base_url'] = current_url() . '?' . url_build_query($filter_input);
+            // pr( $pages_config['base_url'] );
+            // $pages_config['base_url'] = current_url(1);
+            $pages_config['total_rows'] = $total;
+            $pages_config['per_page'] = $page_size;
+            $pages_config['cur_page'] = $limit;
+        }
+
+        $this->data['pages_config'] = $pages_config;
+        $this->data['total'] = $total;
+        $this->data['list'] = $list;
+        $this->data['filter'] = $filter_input;
+        $this->data['sort_orders'] = $sort_orders;
+        $this->data['sort_order'] = $order;
+        $this->data['action'] = current_url();
+
+        //===== Ajax list====
+        $this->_post_create_list_ajax();
+
+        // luu lai thong so loc va ket qua
+        mod('product')->sess_data_set('list_filter', $filter);// phuc vu loc du lieu
+        mod('product')->sess_data_set('list_filter_input', $filter_input);// phuc vu hien thi
+        mod('product')->sess_data_set('list_sort_orders', $sort_orders);// phuc vu hien thi
+        mod('product')->sess_data_set('list_sort_order', $order);// phuc vu hien thi
+        mod('product')->sess_data_set('list_total_rows', $total);// phuc vu hien thi
+
+    }
+
+    /*
+ * ------------------------------------------------------
+ *  Ajax handle
+ * ------------------------------------------------------
+ */
+    private function _post_create_list_ajax()
+    {
+        if ($this->input->is_ajax_request()) {
+
+
+            //= su ly hien thi danh sach theo danh muc
+            $category = $style_display = '';
+            if (isset($this->data['category'])) {
+                $category = $this->data['category'];
+            } else {
+                $cat_id = $this->input->get('cat_id');
+                if ($cat_id)
+                    $category = model("product_cat")->get_info($cat_id);
+            }
+            if ($category && isset($category->common_data->display) && $category->common_data->display)
+                $style_display = $category->common_data->display;
+
+            //$temp = $this->input->get('temp');
+            $temp = $this->input->get('layout');
+            if (!in_array($temp, ['block', 'grid'])) {
+                $temp = $style_display;
+            }
+
+            $temp = $temp ? $temp : $style_display;
+            $load_more = $this->input->get("load_more", false);
+
+            $response = [
+                'status' => true,
+                'total' => number_format($this->data['total']),
+                'content' => widget('product')->display_list(
+                    $this->data['list'], $temp,
+                    array(
+                        'return_data' => 1,
+                        'pages_config' => $this->data['pages_config'],
+                        'load_more' => $load_more)
+                ),
+
+            ];
+            //= su ly hien thi bo loc dong
+            if (isset($this->data['filter']['type_cat_id'])) {
+                $type_cat_id = $this->data['filter']['type_cat_id'];
+                $response['filter'] = widget('type')->filter_types(
+                    $type_cat_id, $this->data['filter'], '', ['return' => 1]
+                );
+            }
+
+            echo json_encode($response);
+            exit;
+        }
+    }
+
+    private function _user_create_list($input = array(), $filter = array(), $filter_fields = array())
+    {
+        $filter_input = array();
+        $filter_fields = array_merge($filter_fields, model('user')->fields_filter);
+        $mod_filter = mod('user')->create_filter($filter_fields, $filter_input);
+        $filter = array_merge($filter, $mod_filter);
+        // pr($filter_input);
+
+        $key = $this->input->get('name');
+        $key = str_replace(array('-', '+'), ' ', $key);
+        if (isset($filter['name']) && $filter['name']) {
+            $filter['%name'] = $key;
+            unset($filter['name']);
+
+        }
+        $point = $this->input->get('point');
+        if ($point) {
+            $filter['vote_total_gte'] = $point;
+
+        }
+        // lay thong tin cua cac khoang tim kiem
+        foreach (array('price',) as $range) {
+            if (isset($filter[$range])) {
+                if (is_array($filter[$range])) {
+                    foreach ($filter[$range] as $key => $row) {
+                        $filter[$range . '_range'][$key] = model('range')->get($row, $range);
+                    }
+                } else {
+                    $filter[$range . '_range'] = model('range')->get($filter[$range], $range);
+                }
+                unset($filter[$range]);
+            }
+        }
+        //pr($filter);
+        //pr($input);
+        // Gan filter
+        $filter['show'] = 1;
+
+        //== Lay tong so
+        if (!isset($input['limit'])) {
+            $total = model('user')->filter_get_total($filter, $input);
+            $page_size = config('list_limit', 'main');
+
+            $limit = $this->input->get('per_page');
+            $limit = min($limit, $total - fmod($total, $page_size));
+            $limit = max(0, $limit);
+            //== Lay danh sach
+            $input['limit'] = array($limit, $page_size);
+        }
+        //== Sort Order
+        $sort_orders = array(
+            'id|desc',
+            'point_total|desc',
+            'post_total|desc',
+            'count_view|desc',
+
+            /*'count_buy|desc',
+            'new|desc',
+            'feature|desc',
+
+            'name|asc',*/
+        );
+        $order = $this->input->get("order", true);
+        if ($order && in_array($order, $sort_orders)) {
+            $orderex = explode('|', $order);
+        } else {
+            $orderex = explode('|', $sort_orders[0]);
+        }
+        /*if (!isset($input['order'])) {
+            $input['order'] = array($orderex[0], $orderex[1]);
+        }*/
+        $list = model('user')->filter_get_list($filter, $input);
+        // pr($filter,0);
+        //pr_db($list);
+        foreach ($list as $row) {
+            $row = mod('user')->add_info($row);
+        }
+        // Tao chia trang
+        $pages_config = array();
+        if (isset($total)) {
+            $pages_config['page_query_string'] = TRUE;
+            $pages_config['base_url'] = current_url() . '?' . url_build_query($filter_input);
+            // pr( $pages_config['base_url'] );
+            // $pages_config['base_url'] = current_url(1);
+            $pages_config['total_rows'] = $total;
+            $pages_config['per_page'] = $page_size;
+            $pages_config['cur_page'] = $limit;
+        }
+
+        $this->data['pages_config'] = $pages_config;
+        $this->data['total'] = $total;
+        $this->data['list'] = $list;
+        $this->data['filter'] = $filter_input;
+        $this->data['sort_orders'] = $sort_orders;
+        $this->data['sort_order'] = $order;
+        $this->data['action'] = current_url();
+
+        //===== Ajax list====
+        $this->_user_create_list_ajax();
+
+        // luu lai thong so loc va ket qua
+        mod('user')->sess_data_set('list_filter', $filter);// phuc vu loc du lieu
+        mod('user')->sess_data_set('list_filter_input', $filter_input);// phuc vu hien thi
+        mod('user')->sess_data_set('list_sort_orders', $sort_orders);// phuc vu hien thi
+        mod('user')->sess_data_set('list_sort_order', $order);// phuc vu hien thi
+        mod('user')->sess_data_set('list_total_rows', $total);// phuc vu hien thi
+
+    }
+
+    /*
+ * ------------------------------------------------------
+ *  Ajax handle
+ * ------------------------------------------------------
+ */
+    private function _user_create_list_ajax()
+    {
+        if ($this->input->is_ajax_request()) {
+            //= su ly hien thi danh sach theo danh muc
+            $category = $style_display = '';
+            if (isset($this->data['category'])) {
+                $category = $this->data['category'];
+            } else {
+                $cat_id = $this->input->get('cat_id');
+                if ($cat_id)
+                    $category = model("user_cat")->get_info($cat_id);
+            }
+            if ($category && isset($category->common_data->display) && $category->common_data->display)
+                $style_display = $category->common_data->display;
+
+            $temp = $this->input->get('temp');
+            $temp = $temp ? $temp : $style_display;
+            $load_more = $this->input->get("load_more", false);
+            echo json_encode(
+                array(
+                    'status' => true,
+                    'content' => widget('user')->display_list(
+                        $this->data['list'], $temp,
+                        array(
+                            'return_data' => 1,
+                            'pages_config' => $this->data['pages_config'],
+                            'load_more' => $load_more)
+                    ),
+                    'total' => number_format($this->data['total']))
+            );
+            exit;
+        }
     }
 }
 

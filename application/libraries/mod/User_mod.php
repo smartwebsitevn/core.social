@@ -155,8 +155,11 @@ class User_mod extends MY_Mod
             foreach (array('favorite', 'favorite_del', 'subscribe', 'subscribe_del', 'vote', 'vote', 'raty', 'report') as $p) {
                 $row->{'_url_' . $p} = site_url("user_page/{$p}/$row->id");
             }
-
             $row->_url_view = site_url('user-' . $row->id);
+            $row->_url_view_profile = site_url('user_page/view_profile/' . $row->id);
+            $row->_url_my_account = site_url('my-account');
+            $row->_url_my_page = site_url('my-page');
+
             $row->_url_message = site_url('message/send/' . $row->id);
         }
         return $row;

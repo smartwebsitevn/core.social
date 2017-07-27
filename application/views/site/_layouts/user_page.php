@@ -8,7 +8,6 @@
     <?php echo $header; ?>
     <!-- MAIN -->
     <div id="main">
-        <?php t('view')->load('tpl::user_page/top') ?>
         <?php echo $content; ?>
     </div>
     <?php echo $footer; ?>

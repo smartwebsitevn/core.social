@@ -109,46 +109,7 @@
 			$this.tagsInput(setting);
 		});
 
-//=====================================================
-		//=== Su ly cac hanh dong thong dung cua he thong ===//
-		//=====================================================
-		// hien thong bao dang modal
-		$(document).on('click', '.act-notify-modal',function (){
-			var $modal = $('#modal-system-notify' );
-			var modal_body = $(this).data('content');
-			if (modal_body != undefined){
-				//- set lai tieu de thong bao neu co
-				var modal_title = $(this).data('title');
-				if (modal_title != undefined)
-					$modal.find('.modal-title').html(modal_title);
 
-				$modal.find('.modal-body').html(modal_body);
-				// hien thong bao
-				$modal.modal('show')
-			}
-
-		});
-
-		// hien thong bao dang toast
-		$(document).on('click', '.act-notify-toast',function (){
-			var content = $(this).data('content');
-			if (content != undefined) {
-				$.gritter.removeAll();// go thong bao cu
-				$.gritter.add({
-					// title: 'SUCCESS!',
-					//image: 'assets/images/user-profile-2.jpg',
-					text: content,
-					sticky: true,
-					//position: 'bottom-right', // defaults to 'top-right' but can be 'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
-					//fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-					//fade_out_speed: 2000, // how fast the notices fade out
-					//time: 6000 // hang on the screen for...
-					//class_name: 'bg-warning gritter-center',   'bg-success','bg-info', 'gritter-light',
-
-				});
-			}
-
-		});
 		//====== List handle
 
 		$('table th input:checkbox').on('click' , function(){
@@ -265,6 +226,11 @@
 			return false;
 		});
 
+
+
+
+
+		nfc.boot();
 
 	});
 })(jQuery);
