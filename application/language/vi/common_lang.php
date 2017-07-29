@@ -385,6 +385,7 @@ $lang['notice_confirm'] = "Bạn có chắc muốn thực hiện hành động n
 $lang['notice_confirm_action'] = "Bạn có chắc muốn {action}?";
 $lang['notice_confirm_del_all'] = "Bạn có chắc muốn xóa tất cả dữ liệu?";
 $lang['notice_confirm_del'] = "Bạn có chắc muốn xóa mục đã chọn?";
+$lang['notice_confirm_delete'] = "Bạn có chắc muốn xóa mục đã chọn?";
 $lang['notice_confirm_cancel'] = "Bạn có chắc muốn hủy bỏ mục đã chọn?";
 
 

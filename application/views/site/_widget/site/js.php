@@ -60,6 +60,9 @@ $asset_theme =$asset. '/site/theme/';
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/bootstrap-slider/bootstrap-slider.min.js"></script>
 <link   type="text/css" href="<?php echo $asset_js ?>/jquery/bootstrap-slider/bootstrap-slider.min.css" rel="stylesheet" />
 
+<script type="text/javascript" src="<?php echo $asset_js ?>/jquery/colorbox/jquery.colorbox.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $asset_js; ?>/jquery/colorbox/colorbox.css" media="screen" />
+
 <!-- Rate -->
 <link type="text/css" href="<?php echo $asset_js ?>/jquery/rate/rateit.css" rel="stylesheet" />
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/rate/jquery.rateit.js"></script>

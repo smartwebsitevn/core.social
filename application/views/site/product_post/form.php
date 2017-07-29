@@ -29,6 +29,7 @@
     </div>
 </div>
 
+<?php t('view')->load('tpl::product_post/form/modal_youtube') ?>
 
 <script type="text/javascript" src="<?php echo public_url('js') ?>/ckeditor/ckeditor.js"></script>
 <?php t('view')->load('tpl::product_post/_js') ?>

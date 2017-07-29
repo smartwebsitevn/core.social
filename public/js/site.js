@@ -125,7 +125,6 @@
 function load_ajax($this) {
     var field = jQuery($this).attr('_field');
     var url = jQuery($this).attr('_url');
-
     jQuery($this).nstUI('loadAjax', {
         url: url,
         field: {load: field + '_load', show: field + '_show'},

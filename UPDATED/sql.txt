@@ -197,3 +197,6 @@ ALTER TABLE `product`
 ALTER TABLE `product`
 	ADD COLUMN `shared` INT(11) NOT NULL AFTER `expired_option`,
 	ADD COLUMN `shared_by` INT(11) NOT NULL AFTER `shared`;
+
+
+ALTER TABLE `file` ADD COLUMN `data` TEXT NOT NULL AFTER `server`;

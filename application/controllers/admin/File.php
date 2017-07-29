@@ -278,6 +278,8 @@ class File extends MY_Controller {
 		}
 		
 		set_message(lang('notice_del_success'));
+		$this->_response();
+
 	}
 	
 	/**

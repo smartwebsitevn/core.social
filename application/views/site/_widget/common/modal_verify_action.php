@@ -10,8 +10,8 @@
             </div>
             <div id="modal-verify-action-load" class="form_load"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger accept-action"><?php echo $this->lang->line('button_accept'); ?></button>
-                <button type="button" class="btn  cancel-action"><?php echo $this->lang->line('button_cancel'); ?></button>
+                <a  class="btn btn-default accept-action"><?php echo $this->lang->line('button_accept'); ?></a>
+                <a class="btn  cancel-action"><?php echo $this->lang->line('button_cancel'); ?></a>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

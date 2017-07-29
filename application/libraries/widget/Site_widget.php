@@ -228,7 +228,6 @@ class Site_widget extends MY_Widget {
 			{
 				case 'single':
 				{
-					//$upload_url['get'] = site_url('file/get').'?'.http_build_query($query);
 					$upload_url['get'] = site_url('file/get').'?'.security_create_query($query);
 					break;
 				}
@@ -237,7 +236,6 @@ class Site_widget extends MY_Widget {
 				{
 					$query['file_type'] = $config['file_type'];
 					$query['sort'] = array_get($config, 'sort', true);
-					//$upload_url['get'] = site_url('file').'?'.http_build_query($query);
 					$upload_url['get'] = site_url('file/index').'?'.security_create_query($query);
 					break;
 				}
@@ -256,13 +254,13 @@ class Site_widget extends MY_Widget {
 
 		// Lay file temp
 		$temp = (isset($config_html['temp'])) ? $config_html['temp'] : '';
+
 		if ( ! $temp)
 		{
 			$temp = $config['mod'];
 			$temp .= ($config['file_type'] == 'image') ? '_image' : '';
 			$temp = 'tpl::_widget/upload/'.$temp;
 		}
-
 		// Hien thi view
 		$this->load->view($temp, $this->data);
 	}

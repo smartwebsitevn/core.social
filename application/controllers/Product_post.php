@@ -55,7 +55,7 @@ class Product_post extends MY_Controller
      *  Actions
      * ------------------------------------------------------
      */
-    function _load_types()
+    function _load_types($id)
     {
         $type_cat_id = $this->input->get('type_cat');
         $product_id = $this->input->get('product_id');
@@ -77,9 +77,9 @@ class Product_post extends MY_Controller
         $this->data['types'] = $types;
         $this->data['types_values'] = $types_values;
         //pr($types_values);
-        return view('tpl::product_post/form/_commom/types', $this->data, 1);
+        return view('tpl::product_post/form/_common/types', $this->data, 1);
     }
-    function _load_url()
+    function _load_url($id)
     {
         $url= $this->input->get('url');
         if (!$url) return;
@@ -102,6 +102,117 @@ class Product_post extends MY_Controller
 
         return $tags;
     }
+    /**
+     * Lay danh sach file
+     */
+    function _load_files($id)
+    {
+        // Cap nhat sort_order
+        if ($this->input->get('sort'))
+        {
+            $items = $this->input->post('items');
+            $items = explode(',', $items);
+            foreach ($items as $i => $v)
+            {
+                model('file')->update_field($v, 'sort_order', $i+1);
+            }
+            $this->_response();
+        }
+        $file_type 		= $this->input->get('file_type');
+
+        // Lay gia tri dau vao
+        $table_id 		= $id;
+        $table_field 	= $this->input->get('fiels');
+        $table 			= 'product';
+
+        // Lay danh sach file
+        $list = model('file')->get_list_of_mod($table, $table_id, $table_field);
+        if(!$list ) return;
+        foreach ($list as $row)
+        {
+            $row = file_add_info($row);
+            $row->_url_del 		= site_url('file/del').'?'.security_create_query(array('id' => $row->id));
+            $row->_url_download = site_url('file/download').'?'.security_create_query(array('id' => $row->id));
+            if (isset($row->table) && isset($row->table_id))
+            {
+                $row->_url_get 	= site_url('file/get').'?'.security_create_query(array('table' => $row->table, 'table_id' => $row->table_id, 'table_field' => $row->table_field,));
+            }
+        }
+        //pr($list);
+        $this->data['list'] = $list;
+
+        // Luu cac bien gui den view
+        $this->data['message'] = get_message();
+        $this->data['url_update_order'] = $this->_url().'?_act=load_files&sort=1';
+
+        $this->data['sort'] = (int) $this->input->get('sort');
+
+        // Hien thi view
+        $temp 		= $this->input->get('temp');
+        if(!$temp){
+            $temp = ($file_type == 'image') ? 'slides' : 'files';
+        }
+        return view('tpl::_widget/product/upload/file/'.$temp, $this->data, 1);
+    }
+
+    /**
+     * Them moi
+     */
+    function _post_youtube($fake_id)
+    {
+        $form = array();
+        $form['validation']['params'] =['youtube'];
+        $form['submit'] = function () use ($fake_id) {
+            $youtube=$this->data['youtube_info'];
+            $image_name = $this->_process_dowload_image($youtube);
+            if(!$image_name) return;
+            $user = $this->data['user'];
+
+            // Them vao table file
+            $data = array();
+            $data['file_name'] 		= $image_name;
+            $data['orig_name'] 		= $image_name;
+            $data['table'] 			= $this->_get_mod();
+            $data['table_id'] 		= $fake_id;
+            $data['table_field'] 	= 'images';
+            $data['type'] 	        = 'youtube';
+            $data['user_id'] 	    = $user->id;
+            $data['created'] 		= now();
+            model('file')->create($data);
+
+
+
+            return;
+            $user = mod('user')->add_info($user);
+            $id = 0;
+            $data = $this->_get_inputs($id, $fake_id);
+            $data['created'] = now();
+            model('product')->create($data, $id);
+            $this->_update_infos($id, $data);
+            // Cap nhat lai anh
+            //model('file')->update_table_id_of_mod('product', $fake_id, $id);
+            //fake_id_del('product');
+        };
+        $this->_form($form);
+
+    }
+    public function _process_dowload_image($youtube) {
+        // Lay folder upload file
+        $status = config('file_public', 'main');
+        $folders 	= config('file', 'main');
+        $folder 	= $folders[$status];
+        // Tao config upload
+        $config 				= config('upload', 'main');
+        $path= $config['path'].$config['folder'].'/'.$folder.'/';
+        $image_url = trim ($youtube->url_thumb );
+        $path_img_new = $path . $youtube->id.'.jpg';
+        if (lib("curl")->download ( $image_url, $path_img_new )) {
+            file_create_thumb($path_img_new);
+            return $youtube->id.'.jpg';
+        }
+
+
+    }
     /*
      * ------------------------------------------------------
      *  Actions
@@ -113,13 +224,13 @@ class Product_post extends MY_Controller
      */
     function index()
     {
+        $fake_id = $this->_get_id_cur();
         $act = $this->input->get('_act');
         if ($act && $this->input->is_ajax_request()) {
-            if(!in_array($act,['load_types','load_url'])) return;
-            set_output('html',  $this->{'_' . $act}());
+            if(!in_array($act,['post_youtube','load_types','load_url','load_files'])) return;
+            set_output('html',  $this->{'_' . $act}($fake_id));
             return;
         }
-        $fake_id = $this->_get_id_cur();
         $form = array();
         $form['validation']['params'] = $this->_get_params();
         $form['submit'] = function () use ($fake_id) {
@@ -247,9 +358,46 @@ class Product_post extends MY_Controller
     function _set_rules($params = array())
     {
         $rules = parent::_form_set_rules($params);
+
+        $rules['youtube'] = array('youtube', 'required|trim|xss_clean|callback__check_youtube');
+
         $this->form_validation->set_rules_params($params, $rules);
     }
+    // Su ly link thuoc loai chuyen biet
+    function _check_youtube($link)
+    {
+        $rs =lib('youtube')->getVideoInfo($link,false);
+        // neu la link youtube
+        if (!$rs) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_value_invalid'));
+            return FALSE;
+        }
+        $this->data['youtube_info'] =$rs;
+        return true;
+    }
 
+    // kiem tra xem url co phai link youtube
+    function _get_link_youtube($url)
+    {
+        if (empty($url))
+            return false;
+
+        $parse_url = parse_url($url);
+        if (!isset($parse_url ['query']))
+            return false;
+        $array = explode("&", $parse_url ['query']);
+        $param = explode("=", $array [0]);
+        //pr($param);
+        if ($parse_url ['path'] != '/watch' || $param [0] != "v") {
+            return false;
+        }
+        $key = $param [1];
+        /*if (!$this->checkVideoExist($key)) {
+            return false;
+        }*/
+        return $key;
+
+    }
     /**
      * Kiem tra city
      */
@@ -392,6 +540,10 @@ class Product_post extends MY_Controller
     protected function _create_view_data($id, $info = null)
     {
         parent::_form_create_view($id, $info);
+       // $this->data['widget_upload_images']['url_get'] =$this->_url().'?_act=load_files&file_type=image';
+        $this->data['widget_upload_images']['url_get'] =$this->_url().'?_act=load_files&file_type=image&field=images';
+        $this->data['widget_upload_files']['url_get'] =$this->_url().'?_act=load_files&file_type=file&field=files';
+
         // Xu ly thong tin
         if (isset($info->user_id) && $info->user_id)
             $info->_user = model('user')->get_info($info->user_id, 'email,username,name');
@@ -404,14 +556,8 @@ class Product_post extends MY_Controller
         $info = isset($info) ? (array)$info : null;
         $this->data['info'] = $info;
 
-        $this->data['taxclasses'] = model('tax_class')->get_list();
         $this->data['countrys'] = model('country')->get_grouped();
 
-        $this->data['options'] = model('option')->get_list(array('type' => 'asc'));
-        $this->data['option_values'] = model('option_value')->get_list(array('sort' => 'asc'));
-        $this->data['attribute_groups'] = model('attribute_group')->get_list(array('sort' => 'asc', 'id' => 'desc'));
-        $this->data['attributes'] = model('attribute')->get_list(array('sort' => 'asc', 'id' => 'desc'));
-        $this->data['addons'] = model('addon')->get_list(array('sort' => 'asc', 'id' => 'desc'));
         $this->data['user'] = mod('user')->add_info($this->data['user']);
 
     }

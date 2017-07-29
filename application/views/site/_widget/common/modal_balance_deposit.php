@@ -9,8 +9,8 @@
                 Số dư không đủ để thực hiện giao dịch, vui lòng nạp tiền vào tài khoản.
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal"  class="btn">Hủy bỏ<?php //echo $this->lang->line('Ok'); ?></button>
-                <a type="button" href="<?php echo site_url("deposit_card")?>" class="btn btn-danger">Nạp tiền vào tài khoản<?php //echo $this->lang->line('Ok'); ?></a>
+                <a  data-dismiss="modal"  class="btn">Hủy bỏ<?php //echo $this->lang->line('Ok'); ?></a>
+                <a href="<?php echo site_url("deposit_card")?>" class="btn btn-default">Nạp tiền vào tài khoản<?php //echo $this->lang->line('Ok'); ?></a>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

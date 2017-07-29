@@ -48,11 +48,11 @@ class File extends MY_Controller {
 		$params = array('mod', 'file_type', 'allowed_types', 'status', 'server', 'table', 'table_id', 'table_field', 
 			'resize', 'resize_width', 'resize_height', 'thumb', 'thumb_width', 'thumb_height', 'field',
 		);
-		/*if ( ! security_check_query($params, 'upload'))
+		if ( ! security_check_query($params, 'upload'))
 		{
 			$output = json_encode(array());
 			set_output('json', $output);
-		}*/
+		}
 		
 		// Kiem tra file
 		if ( ! isset($_FILES['file']['name']))
@@ -202,15 +202,34 @@ class File extends MY_Controller {
 	 */
 	function index()
 	{
+		// Cap nhat sort_order
+		if ($this->input->get('act') == 'update_order')
+		{
+			$items = $this->input->post('items');
+			$items = explode(',', $items);
+			foreach ($items as $i => $id)
+			{
+				$this->file_model->update_field($id, 'sort_order', $i+1);
+			}
+
+			$output = json_encode(array('complete' => TRUE));
+			set_output('json', $output);
+		}
+
 		// Kiem tra ma bao mat
-		$params = array('table', 'table_id','table_field', 'type');
-		/*if (!security_check_query($params))
+		$params = array('table', 'table_id','table_field');
+		$file_type 		= $this->input->get('file_type');
+		if($file_type){
+			$params[]='file_type';
+			$params[]='sort';
+		}
+
+		if (!security_check_query($params))
 		{
 			$output = json_encode(array());
 			set_output('json', $output);
-		}*/
+		}
 
-		
 		// Lay gia tri dau vao
 		$table 			= $this->input->get('table');
 		$table_id 		= $this->input->get('table_id');
@@ -238,8 +257,12 @@ class File extends MY_Controller {
 		$this->data['sort'] = (int) $this->input->get('sort');
 		
 		// Hien thi view
-		$temp = ($file_type == 'image') ? 'index_image' : 'index';
-		$this->load->view('admin/file/'.$temp, $this->data);
+		$temp 		= $this->input->get('temp');
+		if(!$temp){
+			$temp = ($file_type == 'image') ? 'index_image' : 'index';
+
+		}
+		$this->load->view('site/file/'.$temp, $this->data);
 	}
 	
 	/**
@@ -249,11 +272,11 @@ class File extends MY_Controller {
 	{
 		// Kiem tra ma bao mat
 		$params = array('table', 'table_id','table_field');
-		/*if (!security_check_query($params))
+		if (!security_check_query($params))
 		{
 			$output = json_encode(array());
 			set_output('json', $output);
-		}*/
+		}
 
 		// Lay gia tri dau vao
 		$table 			= $this->input->get('table');
@@ -343,8 +366,8 @@ class File extends MY_Controller {
 		{
 			set_message(lang('notice_page_not_found'));
 		}
-		
 		set_message(lang('notice_del_success'));
+		$this->_response();
 	}
 	
 	/**

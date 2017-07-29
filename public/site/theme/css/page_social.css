@@ -724,8 +724,11 @@ select option {
   background: #ccc;
   /* padding: 10px 0;
    border: 2px solid #f2b600;*/ }
-.product-images .owl-carousel .owl-item img {
-  width: auto; }
+.product-images .owl-carousel .owl-item img.img-slide {
+  display: block;
+  margin: auto;
+  width: auto;
+  height: 442px; }
 .product-images .owl-carousel .owl-prev, .product-images .owl-carousel .owl-next {
   margin-top: 0px;
   top: 35%; }
@@ -1489,3 +1492,12 @@ select option {
     color: #111; }
   .page-product-post .upload-action div:first-child {
     border-right: 1px solid #ccc; }
+.page-product-post .upload-medias {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  text-align: center; }
+  .page-product-post .upload-medias i {
+    font-size: 64px;
+    display: block; }
+  .page-product-post .upload-medias a span {
+    color: #111; }

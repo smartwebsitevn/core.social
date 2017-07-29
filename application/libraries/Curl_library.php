@@ -116,7 +116,174 @@ class Curl_library {
     	
     	return $values;
     }
-    
+	/**
+	 * Down Load
+	 *
+	 * Down file v? m�y
+	 *
+	 * @param	string	url file c?n down
+	 * @param	string	thu m?c ch?a file khi down v?
+	 * @param	bool	replace file cu hay kh�ng?
+	 */
+	public function download($from, $to , $replace = FALSE)
+	{
+		// L?y url chu?n c?a $to
+		$arr = explode('\?', $to);
+		$to = $arr[0];
+
+		$local = $to;
+		if ($replace === FALSE && file_exists($local))
+			return TRUE;
+		$content = $this->read($from, FALSE);
+		if ($content)
+		{
+			$this->write($to, $content);
+			return TRUE;
+		}
+		return FALSE;
+	}
+	/**
+	 * Read File
+	 *
+	 * L?y n?i dung c?a m?t file
+	 *
+	 * @param string du?ng d?n d?n file
+	 * @param string c� gi?i m� code html kh�ng?
+	 */
+	function read($url, $decode = TRUE)
+	{
+		$content = '';
+
+		// N?u l� file t? trang web kh�c
+		if ($this->is_http($url))
+		{
+			$url = preg_replace('/^https/is', 'http', $url);
+			$url = str_replace(' ', '%20', $url);
+		}
+		// N?u l� file tr�n m�y
+		else
+		{
+			// L?y url chu?n c?a file tr�n m�y
+			$arr = explode('\?', $url);
+			$url = $arr[0];
+			$url = $url;
+		}
+		$content = $this->get($url);
+		// Gi?i m� html
+		if ($decode === TRUE)
+		{
+			$content = htmlspecialchars_decode($content);
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Write File
+	 *
+	 * Ghi n?i dung v�o m?t file
+	 *
+	 * @param string url file
+	 * @param string n?i dung file
+	 */
+	function write($url, $data)
+	{
+		$arr = explode('\?', $url);
+		$url = $arr[0];
+		$url = $url;
+		$info = $this->get_info($url);
+		// T?o thu m?c ch?a file
+		$this->create_dir($info['path']);
+
+		// Luu file
+		$fp = fopen($url, "w");
+		flock($fp, 2);
+		fwrite($fp, $data);
+		flock($fp, 1);
+		fclose($fp);
+	}
+	/**
+	 * Create Dir
+	 *
+	 * T?o thu m?c
+	 *
+	 * @param	string	t�n c�y thu m?c
+	 */
+	function create_dir($path)
+	{
+		if (!$path) return FALSE;
+
+		$path = str_replace('\\', '/', $path);
+		$path = trim($path, '/');
+		$arr = explode('/', $path);
+		$dir = '';
+
+		foreach ($arr as $folder)
+		{
+			$dir .= $folder.'/';
+			if (!file_exists($dir))
+			{
+				mkdir($dir);
+			}
+		}
+	}
+	/**
+	 * Is http
+	 *
+	 * Ki?m tra li�n k?t c� ph?i d?ng http hay kh�ng?
+	 *
+	 * @param string li�n k?t c?n ki?m tra
+	 */
+	function is_http($url)
+	{
+		if (preg_match('/^([\w\d]+?):\/\//is', $url)) return TRUE;
+		else return FALSE;
+	}
+
+	/**
+	 * Get Url Info
+	 *
+	 * L?y th�ng tin file t? url
+	 *
+	 * @param	string	url file
+	 */
+	function get_info($url)
+	{
+		// Neu url c� dang http
+		if ($this->is_http($url))
+		{
+
+			// Th�m k� t? / v�o sau url n?u url ch? l� domain (http://domain.ext)
+			if (!preg_match('/:\/\/([^\/]+?)\//is', $url))
+			{
+				$url .= '/';
+			}
+
+			$match = array();
+			preg_match('/^([\w\d]+?):\/\/([^\/]+?)\/(.*?)$/is', $url, $match);
+			$info['http'] = $match[1];
+			$info['domain'] = $match[2];
+			$pathinfo = pathinfo($match[3]);
+		}
+		// N?u l� li�n k?t thu?ng
+		else
+		{
+			$info['http'] = '';
+			$info['domain'] = '';
+			$pathinfo = pathinfo($url);
+		}
+		//echo '<br>url='.$url;
+		//echo '<br>';pr($pathinfo);
+		$info['path'] = ($pathinfo['dirname'] != '.') ? $pathinfo['dirname'] : '';
+		$info['basename'] = $pathinfo['basename'];
+		$info['filename'] = $pathinfo['filename'];
+		$info['ext'] = $pathinfo['extension'];
+		$info['url'] = ($info['path']) ? $info['path'].'/'.$pathinfo['basename'] : $pathinfo['basename'];
+		$info['namelocal'] = ($info['path']) ? str_replace('/', '_', $info['path']).'_' : '';
+		$info['namelocal'] .= ($info['filename']) ? $info['filename'].'.html' : 'index.html';
+
+		return $info;
+	}
 	// --------------------------------------------------------------------
 	
 	/**

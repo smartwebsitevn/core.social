@@ -532,3 +532,5 @@ img.captcha{
 .star.hover i:hover, .star.hover .active, .star.hover i:hover ~ i, .star.hover .active ~ i {
 	opacity: 1;
 }
+
+

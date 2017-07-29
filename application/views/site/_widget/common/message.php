@@ -51,7 +51,7 @@ $_data_message = function ($close = 1) use ($message) {
                         <?php echo $_data_message(0) ?>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal"  class="btn btn-default">Ok<?php //echo $this->lang->line('Ok'); ?></button>
+                        <a  data-dismiss="modal"  class="btn btn-default">Ok<?php //echo $this->lang->line('Ok'); ?></a>
                     </div>
                 </div>
             </div>

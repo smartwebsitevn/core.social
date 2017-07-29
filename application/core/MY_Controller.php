@@ -294,8 +294,6 @@ class MY_Controller extends CI_Controller
 		// up anh multi
 		$widget_upload['mod'] = 'multi';
 		$widget_upload['table_field'] = 'images';
-		//$widget_upload['resize'] = FALSE;
-		//$widget_upload['thumb'] = FALSE;
 		$this->data['widget_upload_images'] = $widget_upload;
 
 		// up files

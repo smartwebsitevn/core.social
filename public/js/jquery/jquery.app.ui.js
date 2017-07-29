@@ -772,6 +772,7 @@
                     datatype: 'json',
                     modaler: null,// modal cua confirm
                     do_action: function () {
+
                         $(this).nstUI('loadAjax', {
                             url: handle.url,
                             data: handle.data,
@@ -782,8 +783,9 @@
                                 if (typeof options.event_complete == "function") {
                                     options.event_complete.call(this, data, options);
                                 }
-                                else
+                                else{
                                     nfc.server_response(data)
+                                }
                                 // Reset value
                                 handle.reset();
                             },

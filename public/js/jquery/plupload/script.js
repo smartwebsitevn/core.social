@@ -97,7 +97,7 @@
 				}
 			}
 			
-			
+
 			/**
 			 * Single image
 			 */
@@ -105,16 +105,16 @@
 			{
 				// Update thong tin file hien tai
 				update_file_info();
-				
+
 				// Khai bao cac bien
 				var upload_info = t.find('.upload_info');
 				var upload_error = t.find('.upload_error');
 				var upload_action = t.find('.upload_action');
-				
+
 				// Tao id random cho upload_action
 				var action_upload_id = 'action_upload_'+Math.floor((Math.random()*10000000)+1);
 				upload_action.find('#action_upload').attr('id', action_upload_id);
-				
+
 				// Khoi tao plupload
 				var uploader = new plupload.Uploader({
 					runtimes: 			'gears,html5,flash,silverlight,browserplus',
@@ -126,8 +126,8 @@
 					silverlight_xap_url:g_setting.plugin_path+'/plupload.silverlight.xap',
 					filters: 			[{title : "Files", extensions: g_setting.config_extensions}]
 				});
-				
-				
+
+
 				// Khi file duoc chon
 				uploader.bind('FilesAdded', function(up, files)
 				{
@@ -138,13 +138,13 @@
 									file_progress: '0'
 								};
 					upload_info.html(temp_set_value(t.find('#temp #upload_info').html(), params)).show();
-					
+
 					// An thong tin loi
 					upload_error.hide();
-					
+
 					// An nut upload
 					upload_action.hide();
-					
+
 					// Reposition Flash/Silverlight
 					up.refresh();
 				});
@@ -162,7 +162,7 @@
 					// Cap nhat progress
 					upload_info.find('.progress').css('width', file.percent+'%');
 				});
-				
+
 				// Upload hoan thanh
 				uploader.bind('UploadComplete', function(up, files)
 				{
@@ -171,20 +171,20 @@
 					{
 						$.get(g_setting.url_update);
 					}
-					
+
 					// Cap nhat thong tin file
 					update_file_info();
-					
+
 					// An thong tin file upload
 					upload_info.hide();
-					
+
 					// An thong tin loi
 					upload_error.hide();
-					
+
 					// Hien thi nut upload
 					upload_action.show();
 				});
-				
+
 				// Error
 				uploader.bind('Error', function(up, err)
 				{
@@ -195,30 +195,30 @@
 									file_size: plupload.formatSize(err.file.size)
 								};
 					upload_error.html(temp_set_value(t.find('#temp #upload_error').html(), params)).show();
-					
+
 					// An thong tin file
 					upload_info.hide();
-					
+
 					// Hien thi nut upload
 					upload_action.show();
 
 					// Reposition Flash/Silverlight
 					up.refresh();
 				});
-				
+
 				// Khoi dong uploader
 				uploader.init();
-				
-				
+
+
 				// Xoa file
 				var is_deleting = false;
 				upload_action.find('#action_del').click(function()
 				{
-					
+
 					if (is_deleting == false)
 					{
 						is_deleting = true;
-						
+
 						$(this).nstUI({
 							method:	"loadAjax",
 							loadAjax:{
@@ -233,7 +233,7 @@
 									{
 										$.get(g_setting.url_update);
 									}
-					
+
 									// Cap nhat thong tin file hien tai
 									update_file_info();
 
@@ -246,7 +246,7 @@
 
 					return false;
 				});
-				
+
 				// Cap nhat thong tin file da upload
 				function update_file_info()
 				{
@@ -260,14 +260,14 @@
 							{
 								var upload_complete = t.find('.upload_complete');
 								upload_complete.hide();
-								
+
 								var params = {
 									file_url: data['_url'],
 									file_name: data['orig_name'],
 									file_size: data['_size'],
 									url_download: data['_url_download']
 								};
-								
+
 								if (g_setting.mod == 'single')
 								{
 									if (data != null)
@@ -281,7 +281,7 @@
 										t.find('.upload_action #action_del').attr('href', data._url_del);
 									}
 								}
-								
+
 								else if (g_setting.mod == 'single_image')
 								{
 									var html = temp_set_value(t.find('#temp #upload_complete').html(), params);
@@ -289,7 +289,7 @@
 									if(data.id != '0'){
 										t.find('.upload_action #span_action_del').show();
 										t.find('.upload_action #span_action_modify').show();
-										
+
 										t.find('.upload_action #action_del').attr('href', data._url_del);
 										t.find('.upload_action #action_modify').attr('href', data._url_modify);
 									}else{
@@ -301,9 +301,9 @@
 						}
 					});
 				}
-				
+
 			}
-			
+
 			
 		});
 	}

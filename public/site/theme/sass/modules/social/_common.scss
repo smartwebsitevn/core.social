@@ -936,8 +936,11 @@ select{
     border: 2px solid #f2b600;*/
   }
   .owl-carousel {
-    .owl-item img {
-      width: auto;
+    .owl-item img.img-slide {
+        display: block;
+        margin: auto;
+        width: auto;
+        height: 442px;
     }
     .owl-prev, .owl-next {
       margin-top: 0px;

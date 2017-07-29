@@ -86,50 +86,10 @@
             </label>
 
             <div class="col-sm-12">
-                <?php  widget('site')->upload($widget_upload_image) ?>
+                <?php widget('site')->upload($widget_upload_files, array('temp' => 'tpl::_widget/product/upload/files')) ?>
 
-                <?php widget('site')->upload($widget_upload_files) ?>
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
 
-
-<?php /* ?>
-<div class="block block-up-img">
-    <div class="block-title">
-        Hình ảnh giới thiệu về công việc
-        <a title="Xóa" class="removes hide_target " data-param="images" style="width: 50px;margin-left:10px ">
-            <span class="icon"></span> Xóa
-        </a>
-    </div>
-    <div class="block-content">
-        <span class="label-text">Hãy thêm 3 hình ảnh để giới thiệu thêm về môi trường làm việc hoặc văn hóa công ty của bạn</span>
-
-        <div class="row file-up-image">
-            <?php widget('site')->upload($widget_upload_images) ?>
-
-        </div>
-    </div>
-</div>
-
-<div class="block block-up-img mt20 ">
-    <div class="block-title">
-        Đính kèm file
-        <a title="Xóa" class="removes hide_target " data-param="files" style="width: 50px;margin-left:10px ">
-            <span class="icon"></span> Xóa
-        </a>
-    </div>
-    <div class="block-content">
-        <span class="label-text">Bạn có thể đính kèm file để giới thiệu thêm cho tin tuyển dụng của bạn</span>
-        <div class="profile-file " title="Tải profile" >
-            <?php widget('site')->upload($widget_upload_files) ?>
-        </div>
-
-    </div>
-</div>
-<script type="text/javascript" src="<?php echo public_url('site') ?>/theme/js/script.js"></script>
-<script type="text/javascript" src="<?php echo public_url('js') ?>/jquery/plupload/plupload.full.js"></script>
-<script type="text/javascript" src="<?php echo public_url('js') ?>/jquery/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>
-<script type="text/javascript" src="<?php echo public_url('js') ?>/jquery/plupload/script.js"></script>
-<?php */ ?>
