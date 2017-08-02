@@ -1420,7 +1420,7 @@ $this->register('info_city', function (array $input) {
     //$linked = array_get($input, 'linked', 'select-linked');// value lien ket
     $name = array_get($input, 'name');
     $param = array_get($input, 'param');
-    $value = array_get($input, 'value', '');
+    $value = array_get($input, 'value', []);
     $values = array_get($input, 'values', array());
     $can_hide = array_get($input, 'can_hide', 0);
     ?>
@@ -1447,15 +1447,15 @@ $this->register('info_city', function (array $input) {
             <div class="slimscroll limit-height">
                 <?php
                 foreach ($values as $row) {
-                    /*$checked = false;
+                    $checked = false;
                     if ($value)
-                        $checked = (in_array($row->id, $value)) ? 1 : 0;*/
+                        $checked = (in_array($row->id, $value)) ? 1 : 0;
                     //pr($checked);
                     ?>
                     <div class="search-results checkbox <?php // echo $checked ? '  active_filter' : ''; ?>">
                         <label>
                             <input id="_<?php echo $param . $row->id ?>" type="checkbox" name="<?php echo $param ?>[]"
-                                   value="<?php echo $row->id ?>" <?php echo (in_array($row->id, $value)) ? '  checked' : ''; ?> >
+                                   value="<?php echo $row->id ?>" <?php echo $checked ? '  checked' : ''; ?> >
                                 <span for="_<?php echo $param . $row->id ?>" class=" <?php //echo $linked ?>"
                                       data-type="checkbox"><?php echo $row->name ?></span>
                         </label>

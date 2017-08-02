@@ -253,7 +253,15 @@ function get_message_display($default = 'text')
     return $v;
 
 }
-
+function get_message_options()
+{
+    $v= t()->session->userdata('message_options');
+    if($v){
+        t()->session->unset_userdata('message_options');
+        return $v;
+    }
+    return null;
+}
 /**
  * Gan message
  * @param string $message Noi dung message

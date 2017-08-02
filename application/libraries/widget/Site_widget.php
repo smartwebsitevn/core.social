@@ -113,7 +113,9 @@ class Site_widget extends MY_Widget {
 		}
 
 		$this->data['message'] = $message;
-		$this->data['message_display'] = get_message_display('modal');
+		$this->data['message_display'] = get_message_display('toast');
+		$this->data['message_options'] = get_message_options();
+
 		$this->load->view('tpl::_widget/common/message', $this->data);
 	}
 

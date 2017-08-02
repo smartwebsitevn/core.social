@@ -1206,6 +1206,7 @@ class User extends MY_Controller
      */
     protected function _index($user)
     {
+        redirect(site_url('user_account'));
         /*if(!$user->email || !$user->username || !$user->phone)
         {
             set_message(lang('you_need_to_fully_update_information'));
@@ -1232,6 +1233,7 @@ class User extends MY_Controller
      */
     protected function _edit($user)
     {
+        redirect(site_url('user_account'));
         // Cap nhat thong tin
         if ($this->input->get('act') == 'update_image') {
             $this->_edit_update_image($user->id);

@@ -26,8 +26,5 @@
             <div class="p10 text-center"><a href="<?php echo site_url('user_notice') ?>">Xem tất cả</a></div>
         </ul>
 
-
-    <?php else: ?>
-        <span class="red"><?php echo lang("have_no_list") ?></span>
     <?php endif; ?>
 </li>

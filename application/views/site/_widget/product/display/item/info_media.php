@@ -30,17 +30,34 @@
         </div>
     </div>
 <?php elseif (isset($row->images) && $row->images):
-        $total_images = count($row->images);
-        //pr($info->images)
-        ?>
-        <div class="images images-<?php echo $total_images > 5 ? 5 : $total_images; ?>">
-            <?php $i = 0;
-            foreach ($row->images as $img): $i++;// pr($row)
-                if ($i > 5) break; ?>
-                <div class="item item-<?php echo $i ?>">
-                    <img src="<?php echo $img->_url; ?>">
-                </div>
-            <?php endforeach; ?>
-        </div>
+    $total_images = count($row->images);
+    //pr($row->images)
+    ?>
+    <div class="images images-<?php echo $total_images > 5 ? 5 : $total_images; ?>">
+        <?php $i = 0;
+        foreach ($row->images as $img): $i++;// pr($row)
+            if ($i > 5) break;
+
+            $type ='image';
+            $youtube_id='';
+            if($img->type =='youtube'){
+                $type = 'video';
+                $youtube_id=$img->data;
+            }
+            ?>
+            <div class="item item-<?php echo $i ?>">
+                <img src="<?php echo $img->_url; ?>">
+                <?php if($youtube_id): ?>
+                    <div class="item-video" >
+                        <div class="item-video-icon"  <?php echo $youtube_id?' data-youtube="'.$youtube_id.'"':'' ?> ></div>
+                        <div class="item-video-player"></div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+        <?php if($total_images>5): ?>
+            <div class="over">+<?php echo $total_images ?>...</div>
+        <?php endif; ?>
+    </div>
 
 <?php endif; ?>

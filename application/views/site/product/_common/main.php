@@ -6,16 +6,6 @@
     <div class="product-meta">
         <p>
             <?php echo view('tpl::_widget/product/display/item/info_rate', array('info' => $info)); ?>
-
-            <?php /* ?>
-            Giảng viên:
-            <a href="#gVien" target="_self" class="instructor-links__link">
-                <?php //echo $info->_author_name ?>
-            </a>
-
-
-            - <?php echo lang("last_update") ?>&nbsp;: <?php echo get_date($info->updated) ?>
-     <?php */ ?>
         </p>
     </div>
 
@@ -40,15 +30,15 @@
 
     <?php //t('view')->load('tpl::product/_common/info_video') ?>
     <div>
-        <!-- Nav tabs -->
 
         <?php t('view')->load('tpl::product/_common/info_images') ?>
 
     </div>
     <div class="item-overview">
-        <?php echo macro()->more_word($info->brief,63); ?>
+        <?php echo macro()->more_word($info->description,63); ?>
 
     </div>
+    <?php t('view')->load('tpl::product/_common/info_files') ?>
 
 
     <?php //t('view')->load('tpl::product/_common/info') ?>

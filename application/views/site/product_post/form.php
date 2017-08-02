@@ -8,7 +8,7 @@
                     <?php if (!$info ): ?>
                         <a _submit="1" class="btn btn-default act-do-submit" data-draft='0'>Đăng ngay</a>
                         <a _submit="1" class="btn btn-outline act-do-submit " data-draft='1'>Lưu thành bản nháp</a>
-                    <?php elseif ($info['draft'] || $info['form']): // neu la ban nhap hoac tin mau thi cho phep chuyen sang ban tin?>
+                    <?php elseif ($info['is_draft'] || $info['is_form']): // neu la ban nhap hoac tin mau thi cho phep chuyen sang ban tin?>
                         <a _submit="1" class="btn btn-default act-do-submit" data-draft='0'>Chuyển thành tin đăng tuyển</a>
                         <a _submit="1" class="btn btn-outline act-do-submit " data-draft='1'>Lưu thành bản nháp</a>
                     <?php else: ?>

@@ -512,6 +512,12 @@ hr {
   width: 270px;
   border: 2px solid #e0e0e0;
   border-radius: 0; }
+  .dropdown-menu-right {
+    left: auto;
+    right: 0;
+    margin-top: 15px; }
+    .dropdown-menu-right::after, .dropdown-menu-right::before {
+      left: 91% !important; }
   .dropdown-menu li:hover > a {
     border-color: #eb8305;
     color: #eb8305;

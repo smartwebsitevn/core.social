@@ -45,14 +45,19 @@ $_data_message = function ($close = 1) use ($message) {
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Thông báo</h4>
+                        <?php   $modal_title =isset($message_options['title'])?$message_options['title']:"Thông báo"; ?>
+                        <h4 class="modal-title" id="myModalLabel"><?php echo $modal_title ?></h4>
                     </div>
                     <div class="modal-body">
                         <?php echo $_data_message(0) ?>
                     </div>
-                    <div class="modal-footer">
-                        <a  data-dismiss="modal"  class="btn btn-default">Ok<?php //echo $this->lang->line('Ok'); ?></a>
-                    </div>
+                    <?php
+                    $modal_footer =isset($message_options['show_footer'])?$message_options['show_footer']:1;
+                    if($modal_footer): ?>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal"  class="btn btn-default">Ok<?php //echo $this->lang->line('Ok'); ?></button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

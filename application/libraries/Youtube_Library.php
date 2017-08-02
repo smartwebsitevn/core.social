@@ -91,7 +91,7 @@ class Youtube_Library  {
 		$info->title	    = $snippet['title'];
 		$info->description	= $snippet['description'];
 
-		$info->url_thumb = $snippet['thumbnails']['medium']['url'] ;
+		$info->url_image = $snippet['thumbnails']['medium']['url'] ;
 
 		$dr =$contentDetails['duration'];
 		$dr = str_replace('M',':',$dr);
@@ -101,11 +101,11 @@ class Youtube_Library  {
 		$info->author_id  = '';
 		$info->author_name  ='';
 
-		$info->count_favorite=$statistics['favoriteCount'];
-		$info->count_view= $statistics['viewCount'];
-		$info->count_comment  = $statistics['commentCount'];
-		$info->count_like  =  $statistics['likeCount'];
-		$info->count_dislike  = $statistics['dislikeCount'];
+		$info->count_favorite=isset($statistics['favoriteCount'])?$statistics['favoriteCount']:0;
+		$info->count_view= isset($statistics['viewCount'])?$statistics['viewCount']:0;
+		$info->count_comment  = isset($statistics['commentCount'])?$statistics['commentCount']:0;
+		$info->count_like  =  isset($statistics['likeCount'])?$statistics['likeCount']:0;
+		$info->count_dislike  = isset($statistics['dislikeCount'])?$statistics['dislikeCount']:0;
 
 
 		//===
@@ -123,7 +123,7 @@ class Youtube_Library  {
 
 	function _api($key){
 		$CI =& get_instance();
-		$CI->load->library ( 'Curl_Library', NULL, 'Lcurl' );
+		$CI->load->library ( 'Curl_library', NULL, 'Lcurl' );
 		$url = "https://www.googleapis.com/youtube/v3/videos?id=".$key."&key=AIzaSyD7fIriHLZyCFoaWRk_S4qm26T09oaBLW8&part=id,snippet,contentDetails,statistics,player,status";// player,status
 		$rs = $CI->Lcurl->get ($url);
 		return $rs;

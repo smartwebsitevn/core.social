@@ -381,3 +381,20 @@ function productFilter(option) {
 
     });
 }
+
+    (function($)
+    {
+        $(document).ready(function()
+        {
+            $('body').on('click', '.item-video-icon', function () {
+                var $parent= $(this).closest('.item');
+                $(this).hide();
+                $parent.find('img').hide();
+                $('<iframe>', {
+                    src: '//www.youtube.com/embed/'+$(this).data('youtube')+'?rel=0&autoplay=1',
+                    frameborder: 0,
+                    scrolling: 'no'
+                }).appendTo( $parent.find('.item-video-player'));
+            });
+        });
+    })(jQuery);

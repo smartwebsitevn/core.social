@@ -93,7 +93,7 @@ class Product extends MY_Controller
 
         //== Them thong tin
         $info = $this->_mod()->add_info($info, true);
-
+        //pr($info);
         // Lựa chọn tin bài
         $info->_option = model('product_to_option')->get_list_rule(array('product_id' => $info->id));
         $ids = array_gets(

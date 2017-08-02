@@ -161,7 +161,7 @@ $this->register('more_list', function ($content, $num = 5, $item = ".item") {
 });
 
 /**
- * More_block
+ * More_word
  */
 $this->register('more_word', function ($str, $limit = 20) {
     if(!$str) return;
@@ -180,7 +180,7 @@ $this->register('more_word', function ($str, $limit = 20) {
     <?php if (!$shorted): ?>
         <?php echo $str; ?>
     <?php else: ?>
-        <div class="more_word" data-content-full="<?php echo $str?>" data-content-shorted="<?php echo $shorted?>"  >
+        <div class="more_word" >
             <div class="more_word_content">
                 <?php echo $shorted ?>
             </div>
@@ -188,6 +188,8 @@ $this->register('more_word', function ($str, $limit = 20) {
                 <a href="javascript:void(0)" class="act_show_all" > <?php echo lang("view_more").'>>' ?> </a>
                 <a href="javascript:void(0)" class="act_show_short"  style="display: none"> <?php echo lang("view_less").'<<' ?> </a>
             </div>
+            <div class="data-content-full" style="display: none"><?php echo $str?></div>
+            <div class="data-content-shorted" style="display: none"><?php echo $shorted?></div>
         </div>
     <?php endif; ?>
 

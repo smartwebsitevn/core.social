@@ -3,7 +3,6 @@
         ob_start() ?>
         <?php foreach ($list as $row):
             $row = mod('product')->add_info_images($row);
-
             $layout_full = (!$row->video && !$row->images && !$row->link);
             $author = $row->_author;// pr($row);
             ?>
@@ -28,7 +27,7 @@
                                 <?php echo $row->name; ?></a>
                         </div>
                         <div class="item-desc">
-                            <?php echo macro()->more_word($row->brief, 45); ?>
+                            <?php echo macro()->more_word($row->description, 45); ?>
                         </div>
                         <div class="item-meta">
                             <span>

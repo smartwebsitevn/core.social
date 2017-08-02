@@ -1510,7 +1510,7 @@
 
                 // Hien thi list rut gon
                 function show_word_short(scrollTo) {
-                    $this.find('.more_word_content').html( $this.data('content-shorted'));
+                    $this.find('.more_word_content').html( $this.find('.data-content-shorted').html());
                     // Dua man hinh len dau block
                     if (scrollTo) {
                         $.scrollTo($this, 800);
@@ -1522,7 +1522,7 @@
 
                 // Hien thi toan bo list
                 function show_word_all() {
-                    $this.find('.more_word_content').html( $this.data('content-full'));
+                    $this.find('.more_word_content').html( $this.find('.data-content-full').html());
                     // Xu ly act
                     act_all.hide();
                     act_short.show();

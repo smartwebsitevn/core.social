@@ -53,10 +53,13 @@ TRUNCATE sms_otp_log;
 TRUNCATE sms_gateway_log;
 
 #= xoa thanh vien
-#TRUNCATE user ;
-#TRUNCATE user_bank ;
-#TRUNCATE user_verify ;
-#TRUNCATE purse  ;
+TRUNCATE user ;
+TRUNCATE user_bank ;
+TRUNCATE user_verify ;
+TRUNCATE user_storage ;
+TRUNCATE user_referred;
+TRUNCATE user_notice;
+TRUNCATE purse  ;
 
 
 #= xoa noi dung
@@ -71,30 +74,26 @@ TRUNCATE table_row;
 
 TRUNCATE tag;
 TRUNCATE tag_value;
-TRUNCATE tool_chat;
-TRUNCATE tool_todo;
+
 
 TRUNCATE translate;
 
 
-#=xoa don bai hoc
+#=xoa san pham
 TRUNCATE voucher;
-TRUNCATE lesson;
-TRUNCATE lesson_author;
-TRUNCATE lesson_cat;
-TRUNCATE lesson_course;
-TRUNCATE lesson_feedback;
-TRUNCATE lesson_group;
-TRUNCATE lesson_order;
-TRUNCATE lesson_owner;
-TRUNCATE lesson_request;
-TRUNCATE lesson_result;
-TRUNCATE lesson_to_favorite;
-TRUNCATE lesson_to_report;
-TRUNCATE lesson_to_task;
-TRUNCATE lesson_to_task_to_answer;
-TRUNCATE lesson_to_task_to_feedback;
-TRUNCATE lesson_to_updated;
+TRUNCATE product;
+TRUNCATE product_owner;
+TRUNCATE product_request;
+TRUNCATE product_to_addon;
+TRUNCATE product_to_attribute;
+TRUNCATE product_to_discount;
+TRUNCATE product_to_favorite;
+TRUNCATE product_to_option;
+TRUNCATE product_to_option_value;
+TRUNCATE product_to_report;
+TRUNCATE product_to_special;
+TRUNCATE product_to_updated;
+TRUNCATE product_to_view;
 
 SET FOREIGN_KEY_CHECKS = 1;
 

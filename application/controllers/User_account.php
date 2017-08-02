@@ -60,6 +60,7 @@ class User_account extends MY_Controller
 
         $rules['username'] = array('username', 'required|trim|xss_clean|alpha_dash|min_length[5]|max_length[30]|filter_html|callback__check_username');
         $rules['name'] = array('full_name', 'required|trim|min_length[5]|max_length[30]|filter_html|xss_clean');
+        $rules['profession'] = array('profession', 'required|trim|min_length[5]|max_length[30]|filter_html|xss_clean');
         $rules['phone'] = array('phone', 'required|trim|xss_clean|callback__check_phone|max_length[15]|xss_clean');
         $rules['address'] = array('address', 'trim|max_length[255]|filter_html|xss_clean');
         $rules['security_code'] = array('security_code', 'required|captcha[four]');

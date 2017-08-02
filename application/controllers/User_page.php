@@ -523,7 +523,7 @@ class User_page extends MY_Controller
         //pr($filter);
         //pr($input);
         // Gan filter
-        $filter['show'] = 1;
+       // $filter['show'] = 1;
 
         //== Lay tong so
         if (!isset($input['limit'])) {

@@ -31,7 +31,7 @@
                     margin:0,
                     responsiveClass:true,
                     items: 1,
-                    autoplay:true,
+                    autoplay:false,
                     autoplayTimeout:5000,
                     autoplayHoverPause:true,
                     nav:true,
@@ -40,7 +40,18 @@
                     navText: ["",""],
                     smartSpeed:700,
                 })
+                /*// Hide it
+                $('.product-images').on('click', '.item-video-icon', function () {
+                    var $parent= $(this).closest('.item');
+                    $(this).hide();
+                    $parent.find('.file_image_item').hide();
 
+                    $('<iframe>', {
+                        src: '//www.youtube.com/embed/'+$(this).data('youtube')+'?rel=0&autoplay=1',
+                        frameborder: 0,
+                        scrolling: 'no'
+                    }).appendTo( $parent.find('.item-video-player'));
+                });*/
             });
         })(jQuery);
     </script>
@@ -75,10 +86,16 @@
     <div class="file_list_<?php echo $_rd; ?>">
             <div class="product-images">
                 <div class="owl-carousel">
-                    <?php foreach ($list as $row): ?>
-                        <div class="item" data-dot="<img src='<?php echo $row->_url_thumb; ?>'>">
-
-                            <div class="file_image_item" data-item="<?php echo $row->id; ?>">
+                    <?php foreach ($list as $row):
+                        $type ='image';
+                        $youtube_id='';
+                        if($row->type =='youtube'){
+                            $type = 'video';
+                            $youtube_id=$row->data;
+                        }
+                        ?>
+                        <div class="item "data-dot="<img src='<?php echo $row->_url_thumb; ?>'>">
+                            <div class="file_image_item" data-item="<?php echo $row->id; ?>" >
                                 <div class="file_image_img">
                                     <a href="<?php echo $row->_url; ?>?lightbox&rel=<?php echo $_rd; ?>"
                                        class="lightbox">
@@ -95,6 +112,13 @@
                                     </a>
                                 </div>
                             </div>
+                            <?php if($youtube_id): ?>
+                                <div class="item-video" >
+                                    <div class="item-video-icon"  <?php echo $youtube_id?' data-youtube="'.$youtube_id.'"':'' ?> ></div>
+                                    <div class="item-video-player"></div>
+
+                                </div>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>

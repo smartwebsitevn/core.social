@@ -720,6 +720,23 @@ select option {
       .block-info .block-content > .head .report {
         margin-left: 15px; }
 
+.product-images .item-video .item-video-icon {
+  cursor: pointer; }
+  .product-images .item-video .item-video-icon::after {
+    background-color: transparent;
+    background-image: url("../images/play.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all 0.3s ease 0s; }
+.product-images .item-video .item-video-player iframe {
+  width: 100%;
+  height: 442px; }
 .product-images .owl-stage-outer {
   background: #ccc;
   /* padding: 10px 0;
@@ -1199,6 +1216,14 @@ select option {
   margin-bottom: 10px;
   position: relative;
   display: block; }
+  .item-social.status-off {
+    background-color: #efefef; }
+  .item-social .label {
+    position: absolute;
+    top: 0;
+    left: 0; }
+    .item-social .label-status-off {
+      background-color: #777; }
   .item-social .item-photo {
     display: block;
     position: relative;
@@ -1236,27 +1261,64 @@ select option {
     float: right;
     width: 35%; }
     .item-social .item-media .images {
-      margin: 0 auto; }
+      display: inline-block;
+      height: auto;
+      margin: 0 auto;
+      position: relative;
+      width: 100%; }
+      .item-social .item-media .images .over {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        background: #fff;
+        opacity: .9;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bolder; }
       .item-social .item-media .images .item {
-        float: left; }
-        .item-social .item-media .images .item img {
+        float: left;
+        width: 100%; }
+        .item-social .item-media .images .item img, .item-social .item-media .images .item iframe {
           width: 100%;
           padding: 1px;
           max-height: 200px; }
+        .item-social .item-media .images .item .item-video .item-video-icon {
+          cursor: pointer; }
+          .item-social .item-media .images .item .item-video .item-video-icon::after {
+            background-color: transparent;
+            background-image: url("../images/play.png");
+            background-position: center center;
+            background-repeat: no-repeat;
+            bottom: 0;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: all 0.3s ease 0s; }
+        .item-social .item-media .images .item .item-video .item-video-player iframe {
+          width: 100%;
+          height: 442px; }
       .item-social .item-media .images-2 .item {
         width: 50%; }
       .item-social .item-media .images-3 .item-1 {
         width: 100%; }
       .item-social .item-media .images-3 .item-2, .item-social .item-media .images-3 .item-3 {
         width: 50%; }
+        .item-social .item-media .images-3 .item-2 img, .item-social .item-media .images-3 .item-3 img {
+          height: 80px; }
       .item-social .item-media .images-4 .item-1 {
         width: 100%; }
       .item-social .item-media .images-4 .item-2, .item-social .item-media .images-4 .item-3, .item-social .item-media .images-4 .item-4 {
         width: 33.3%; }
+        .item-social .item-media .images-4 .item-2 img, .item-social .item-media .images-4 .item-3 img, .item-social .item-media .images-4 .item-4 img {
+          height: 80px; }
       .item-social .item-media .images-5 .item-1, .item-social .item-media .images-5 .item-2 {
         width: 50%; }
       .item-social .item-media .images-5 .item-3, .item-social .item-media .images-5 .item-4, .item-social .item-media .images-5 .item-5 {
         width: 33.3%; }
+        .item-social .item-media .images-5 .item-3 img, .item-social .item-media .images-5 .item-4 img, .item-social .item-media .images-5 .item-5 img {
+          height: 80px; }
     .item-social .item-media .media {
       border: 1px solid #eee;
       padding: 10px; }
@@ -1323,6 +1385,12 @@ select option {
     position: absolute;
     right: 25px;
     bottom: 10px; }
+  .item-social .item-config {
+    position: absolute;
+    right: 5px;
+    top: 0px; }
+    .item-social .item-config i {
+      font-size: 22px; }
 
 /*====================*\
 //Detail product
@@ -1493,8 +1561,7 @@ select option {
   .page-product-post .upload-action div:first-child {
     border-right: 1px solid #ccc; }
 .page-product-post .upload-medias {
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 20px;
   text-align: center; }
   .page-product-post .upload-medias i {
     font-size: 64px;

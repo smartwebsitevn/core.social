@@ -14,7 +14,7 @@
             <label class=" control-label ">
                 Tiêu đề bài viết:</label>
             <div class="clearfix"></div>
-            <input class="form-control"  name="name" type="text">
+            <input class="form-control" value="<?php echo $info['name'] ?>"  name="name" type="text">
 
             <div class="clear"></div>
             <div name="name_error" class="error"></div>
@@ -32,7 +32,7 @@
                 'param' => 'type_cat_id',
                 'type' => 'select',
                 'input_attr' => array('id' => 'type_cat_id', 'event-hook' => 'eventChangeTypeCat'),
-                'value' => null,
+                'value' => $info['type_cat_id'],
                 'values_row' => array($product_cats, 'id', 'name'),
                 'show_error' => false
             );
@@ -43,7 +43,6 @@
             <div name="type_error" class="error"></div>
         </div>
         <div class="form-group">
-
             <div class="upload-action row p40" >
                 <div class="col-md-6">
                     <a id="upload-media" class="upload-type">
@@ -73,7 +72,7 @@
 
             <div class="clear"></div>
                 <textarea name="description" rows="5" id="_0139986ea3b9305d0cff9534db437d81"
-                          class="form-control "></textarea>
+                          class="form-control "><?php echo $info['description'] ?></textarea>
 
             <div class="clear"></div>
             <div name="description_error" class="error"></div>

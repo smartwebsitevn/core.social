@@ -9,7 +9,7 @@
 			margin:0,
 			responsiveClass:true,
 			items: 1,
-			autoplay:true,
+			autoplay:false,
 			autoplayTimeout:5000,
 			autoplayHoverPause:true,
 			nav:true,

@@ -27,11 +27,27 @@ class Product_mod extends MY_Mod
     {
         $row->_url_view = site_url("xem-ban-tin/" . $row->seo_url . '-i' . $row->id);
         $row->_url_demo = site_url("xem-ban-tin/demo/" . $row->seo_url . '-d' . $row->id);
+        $row->_url_reup = site_url("xem-ban-tin/demo/" . $row->seo_url . '-d' . $row->id);
+
+        $row->_url_status_show =  site_url("product_post/on/" . $row->id);
+        $row->_url_status_hide = site_url("product_post/off/" . $row->id);
+        $row->_url_user_edit = site_url("product_post/edit/" . $row->id);
+        $row->_url_user_del = site_url("product_post/del/" . $row->id);
+
         //$row->_url_buy = site_url("product_order") . '?id=' . $row->id;
 
         return $row;
     }
 
+    // Chu y: ham nay chi dc phep goi trong admin
+    function del($id)
+    {
+        // Thuc hien xoa
+        $this->_model()->del($id);
+        // Xoa file
+        file_del_table($this->_get_mod(),$id);
+
+    }
     /**
      * Them cac thong tin phu vao thong tin cua product
      */
@@ -39,20 +55,22 @@ class Product_mod extends MY_Mod
     {
         $row = parent::add_info($row);
         $row = $this->add_info_author($row);
-        $row = $this->add_info_manufacture($row);
+        //$row = $this->add_info_manufacture($row);
         $row = $this->add_info_category($row);
         $row = $this->add_info_country($row);
-        $row = $this->add_info_price($row);
+        //$row = $this->add_info_price($row);
         if ($full_data) {
-            $row = $this->add_info_vat($row);
-            $row = $this->add_info_attribute($row);
-            $row = $this->add_info_option($row);
-            $row = $this->add_info_addon($row);
-
+            //$row = $this->add_info_vat($row);
+            //$row = $this->add_info_attribute($row);
+            //$row = $this->add_info_option($row);
+            //$row = $this->add_info_addon($row);
             $row = $this->add_info_images($row);
             $row = $this->add_info_files($row);
         }
         $row->_can_order = $this->can_do($row, 'order');
+
+        if($row->description)
+            $row->description = str_replace("\n",'<br/>',$row->description);
         return $row;
     }
 
@@ -338,6 +356,7 @@ class Product_mod extends MY_Mod
     public function add_info_category($row)
     {
         $info = model('product_cat')->get_info($row->cat_id, 'id,name,image_id,image_name,seo_url');
+        $row->{"_cat_name"}  ='';
         if ($info) {
             $info = mod('product_cat')->add_info($info);
             $name = $info->name;
@@ -351,6 +370,7 @@ class Product_mod extends MY_Mod
     public function add_info_country($row)
     {
         $info = model('country')->get_info($row->cat_id, 'id,name');
+        $row->{"_country_name"} = '';
         if ($info) {
             $name = $info->name;
             $row->{"_country"} = $info;
@@ -1021,7 +1041,7 @@ class Product_mod extends MY_Mod
         if (is_numeric($row)) {
             $row = $this->_model()->get_info($row);
         }
-        if (in_array($action, 'order')) {
+        if (in_array($action, ['order'])) {
             if ($this->can_do($row, $action)) {
 
                 switch ($action) {

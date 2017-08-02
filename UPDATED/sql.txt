@@ -200,3 +200,13 @@ ALTER TABLE `product`
 
 
 ALTER TABLE `file` ADD COLUMN `data` TEXT NOT NULL AFTER `server`;
+
+ALTER TABLE `product`
+	CHANGE COLUMN `is_slide` `is_slide` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_soon`,
+	CHANGE COLUMN `is_form` `is_form` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_in_menu`,
+	CHANGE COLUMN `is_draft` `is_draft` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_form`,
+	CHANGE COLUMN `status` `status` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_draft`;
+
+
+// 1-8-2017 
+ALTER TABLE `product` ADD COLUMN `type` VARCHAR(10) NOT NULL AFTER `name`;

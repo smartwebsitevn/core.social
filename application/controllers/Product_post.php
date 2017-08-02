@@ -39,7 +39,7 @@ class Product_post extends MY_Controller
      */
     public function _remap($method, $params = array())
     {
-        return $this->_remap_action($method, $params, model('product')->actions_row);
+        return $this->_remap_action($method, $params, array('edit','off','on','active','unactive','del'), '_action');
     }
 
 
@@ -55,7 +55,7 @@ class Product_post extends MY_Controller
      *  Actions
      * ------------------------------------------------------
      */
-    function _load_types($id)
+    function _ajax_load_types($id)
     {
         $type_cat_id = $this->input->get('type_cat');
         $product_id = $this->input->get('product_id');
@@ -65,7 +65,7 @@ class Product_post extends MY_Controller
         $types = model('type')->filter_get_list(['cat_id' => $type_cat_id], ['select' => 'id,name,image_id,image_name,seo_url']);
         $types_values = [];
         if ($product_id) {
-            $types_values = model('type_table')->filter_get_list(['type_cat_id' => $type_cat_id, 'table_id' => $product_id, 'table_' => 'product']);
+            $types_values = model('type_table')->filter_get_list(['type_cat_id' => $type_cat_id, 'table_id' => $product_id, 'table_' => $this->_get_mod()]);
 
         }
         if ($types) {
@@ -79,7 +79,7 @@ class Product_post extends MY_Controller
         //pr($types_values);
         return view('tpl::product_post/form/_common/types', $this->data, 1);
     }
-    function _load_url($id)
+    function _ajax_load_url($id)
     {
         $url= $this->input->get('url');
         if (!$url) return;
@@ -87,25 +87,11 @@ class Product_post extends MY_Controller
         $this->data['tags']= $this->_get_url_data($url);
         return view('tpl::product_post/form/_common/metas', $this->data, 1);
     }
-    function _get_url_data($url)
-    {
-        if (!$url) return;
-        preg_match("/<title>(.+)<\/title>/siU", file_get_contents($url), $matches);
-        $meta = get_meta_tags($url);
-        $tags =[];
-        if(isset($matches[1]))
-            $tags['title'] = character_limiter($matches[1],150);
-        if(isset($meta['og:image']))
-            $tags['image'] =$meta['og:image'];
-        if(isset($meta['description']))
-            $tags['description'] = character_limiter($meta['description'],150);;
 
-        return $tags;
-    }
     /**
      * Lay danh sach file
      */
-    function _load_files($id)
+    function _ajax_load_files($id)
     {
         // Cap nhat sort_order
         if ($this->input->get('sort'))
@@ -122,11 +108,12 @@ class Product_post extends MY_Controller
 
         // Lay gia tri dau vao
         $table_id 		= $id;
-        $table_field 	= $this->input->get('fiels');
-        $table 			= 'product';
+        $table_field 	= $this->input->get('field');
+        $table 			= $this->_get_mod();
 
         // Lay danh sach file
         $list = model('file')->get_list_of_mod($table, $table_id, $table_field);
+       // pr_db($list);
         if(!$list ) return;
         foreach ($list as $row)
         {
@@ -158,13 +145,13 @@ class Product_post extends MY_Controller
     /**
      * Them moi
      */
-    function _post_youtube($fake_id)
+    function _ajax_post_youtube($id)
     {
         $form = array();
         $form['validation']['params'] =['youtube'];
-        $form['submit'] = function () use ($fake_id) {
+        $form['submit'] = function () use ($id) {
             $youtube=$this->data['youtube_info'];
-            $image_name = $this->_process_dowload_image($youtube);
+            $image_name = $this->_ajax_post_youtube_dowload_image($youtube);
             if(!$image_name) return;
             $user = $this->data['user'];
 
@@ -173,30 +160,19 @@ class Product_post extends MY_Controller
             $data['file_name'] 		= $image_name;
             $data['orig_name'] 		= $image_name;
             $data['table'] 			= $this->_get_mod();
-            $data['table_id'] 		= $fake_id;
+            $data['table_id'] 		= $id;
             $data['table_field'] 	= 'images';
             $data['type'] 	        = 'youtube';
+            $data['data'] 	        = $youtube->id;
             $data['user_id'] 	    = $user->id;
             $data['created'] 		= now();
             model('file')->create($data);
-
-
-
             return;
-            $user = mod('user')->add_info($user);
-            $id = 0;
-            $data = $this->_get_inputs($id, $fake_id);
-            $data['created'] = now();
-            model('product')->create($data, $id);
-            $this->_update_infos($id, $data);
-            // Cap nhat lai anh
-            //model('file')->update_table_id_of_mod('product', $fake_id, $id);
-            //fake_id_del('product');
         };
         $this->_form($form);
 
     }
-    public function _process_dowload_image($youtube) {
+    public function _ajax_post_youtube_dowload_image($youtube) {
         // Lay folder upload file
         $status = config('file_public', 'main');
         $folders 	= config('file', 'main');
@@ -204,15 +180,16 @@ class Product_post extends MY_Controller
         // Tao config upload
         $config 				= config('upload', 'main');
         $path= $config['path'].$config['folder'].'/'.$folder.'/';
-        $image_url = trim ($youtube->url_thumb );
+        $image_url = trim ($youtube->url_image );
         $path_img_new = $path . $youtube->id.'.jpg';
-        if (lib("curl")->download ( $image_url, $path_img_new )) {
+        if (lib("Curl")->download ( $image_url, $path_img_new )) {
             file_create_thumb($path_img_new);
             return $youtube->id.'.jpg';
         }
 
 
     }
+
     /*
      * ------------------------------------------------------
      *  Actions
@@ -224,13 +201,15 @@ class Product_post extends MY_Controller
      */
     function index()
     {
+        redirect($this->_url('add'));
+    }
+
+
+   function add()
+    {
+        file_del_temporary(); // xoa anh fa
         $fake_id = $this->_get_id_cur();
-        $act = $this->input->get('_act');
-        if ($act && $this->input->is_ajax_request()) {
-            if(!in_array($act,['post_youtube','load_types','load_url','load_files'])) return;
-            set_output('html',  $this->{'_' . $act}($fake_id));
-            return;
-        }
+        $this->_action_ajax($fake_id);
         $form = array();
         $form['validation']['params'] = $this->_get_params();
         $form['submit'] = function () use ($fake_id) {
@@ -239,11 +218,11 @@ class Product_post extends MY_Controller
             $id = 0;
             $data = $this->_get_inputs($id, $fake_id);
             $data['created'] = now();
-            model('product')->create($data, $id);
+            $this->_model()->create($data, $id);
             $this->_update_infos($id, $data);
             // Cap nhat lai anh
-            model('file')->update_table_id_of_mod('product', $fake_id, $id);
-            fake_id_del('product');
+            model('file')->update_table_id_of_mod($this->_get_mod(), $fake_id, $id);
+            fake_id_del($this->_get_mod());
             set_message(lang('notice_add_success'));
             return $user->_url_my_page;
         };
@@ -255,57 +234,6 @@ class Product_post extends MY_Controller
         $this->_form($form);
 
     }
-
-
-    /**
-     * Chinh sua
-     */
-    function _edit($info)
-    {
-        if ($this->input->get('act') == 'update_image') {
-            $this->_update_image($info->id);
-            return;
-        }
-        $form = array();
-        $form['validation']['params'] = $this->_get_params();
-        $form['submit'] = function () use ($info) {
-            $user = $this->data['user'];
-            $user = mod('user')->add_info($user);
-            $data = $this->_get_inputs($info->id, $info->id);
-            // pr($data);
-            model('product')->update($info->id, $data);
-            //pr_db($data);
-            $this->_update_infos($info->id, $data);
-            set_message(lang('notice_update_success'));
-            return $user->_url_my_page;
-
-        };
-
-        $form['form'] = function () use ($info) {
-            $this->_create_view_data($info->id, $info);
-            $this->_display('form');
-        };
-
-        $this->_form($form);
-
-    }
-
-
-    /**
-     * Xoa du lieu
-     */
-    function _del($info)
-    {
-        // Thuc hien xoa
-        model('product')->del($info->id);
-
-        // Xoa file
-        file_del_table('product', $info->id);
-
-        // Gui thong bao
-        set_message(lang('notice_del_success'));
-    }
-
 
     /**
      * Thuc hien tuy chinh
@@ -323,26 +251,66 @@ class Product_post extends MY_Controller
             $id = (!is_numeric($id)) ? 0 : $id;
 
             // Kiem tra id
-            $info = model('product')->get_info($id);
+            $info = $this->_model()->get_info($id);
             if (!$info) continue;
 
             // Kiem tra co the thuc hien hanh dong nay khong
-            if (!mod('product')->can_do($info, $action)) continue;
+            if (!$this->_mod()->can_do($info, $action)) continue;
 
 
             // Chuyen den ham duoc yeu cau
-            if (in_array($action, array('feature', 'feature_del'))) {
+            if (in_array($action, array('on', 'off' ,'del'))) {
                 // thuc hien yeu cau
                 set_message(lang('notice_update_success'));
-                mod('product')->action($info, $action);
-                $output = array('complete' => TRUE);
-                set_output('json', json_encode($output));
+                $this->_mod()->action($info, $action);
+                $this->_response(['reload'=>1]);
                 //$this->_action_option($info, $action);
             } else {
                 $this->{'_' . $action}($info);
             }
         }
     }
+
+
+    function _action_ajax($id)
+    {
+        $act = $this->input->get('_act');
+        if ($act && $this->input->is_ajax_request()) {
+            if (!in_array($act, ['post_youtube', 'load_types', 'load_url', 'load_files'])) return;
+            set_output('html', $this->{'_ajax_' . $act}($id));
+            return;
+        }
+    }
+    /**
+     * Chinh sua
+     */
+    function _edit($info)
+    {
+        $this->_action_ajax($info->id);
+        $form = array();
+        $form['validation']['params'] = $this->_get_params();
+        $form['submit'] = function () use ($info) {
+            $user = $this->data['user'];
+            $user = mod('user')->add_info($user);
+            $data = $this->_get_inputs($info->id, $info->id);
+            // pr($data);
+            $this->_model()->update($info->id, $data);
+            //pr_db($data);
+            $this->_update_infos($info->id, $data);
+            set_message(lang('notice_update_success'));
+            return $user->_url_my_page;
+
+        };
+
+        $form['form'] = function () use ($info) {
+            $this->_create_view_data($info->id, $info);
+            $this->_display('form');
+        };
+
+        $this->_form($form);
+
+    }
+
 
 
     /*
@@ -501,10 +469,26 @@ class Product_post extends MY_Controller
         // pr(1);
         return 1;
     }
+    function _get_url_data($url)
+    {
+        if (!$url) return;
+        preg_match("/<title>(.+)<\/title>/siU", file_get_contents($url), $matches);
+        $meta = get_meta_tags($url);
+        $tags =[];
+        if(isset($matches[1]))
+            $tags['title'] = character_limiter($matches[1],150);
+        if(isset($meta['og:image']))
+            $tags['image'] =$meta['og:image'];
+        if(isset($meta['description']))
+            $tags['description'] = character_limiter($meta['description'],150);;
 
+        return $tags;
+    }
+
+    //=================================
     protected function _get_params()
     {
-        $params = model('product')->fields;
+        $params = $this->_model()->fields;
         // array_push($params, 'image','avatar','icon', 'banner');
         return $params;
     }
@@ -513,7 +497,14 @@ class Product_post extends MY_Controller
     {
         $data = parent::_form_get_inputs($id, $fake_id);
         $data['user_id'] = $this->data['user']->id;
-        $data['link_data'] =  json_encode($this->_get_url_data($data['link']));
+        if($data['link']){
+            $data['type']='link';
+            $data['link_data'] =  json_encode($this->_get_url_data($data['link']));
+
+        }
+        else{
+            $data['type']='media';
+        }
 
         $draft = $this->input->post('draft');
         if ($draft)
@@ -527,12 +518,12 @@ class Product_post extends MY_Controller
     protected function _update_infos($id, $data)
     {
         return;
-        mod('product')->tags_set($id, $this->input->post('tags'));
-        mod('product')->to_option($id, $this->input->post('option'), $this->input->post('option_value'));
-        // mod('product')->to_attribute( $id, $this->input->post('attribute') );
-        mod('product')->to_discount($id, $this->input->post('discount'));
-        mod('product')->to_special($id, $this->input->post('special'));
-        mod('product')->to_addon($id, $this->input->post('addon'));
+        $this->_mod()->tags_set($id, $this->input->post('tags'));
+        $this->_mod()->to_option($id, $this->input->post('option'), $this->input->post('option_value'));
+        // $this->_mod()->to_attribute( $id, $this->input->post('attribute') );
+        $this->_mod()->to_discount($id, $this->input->post('discount'));
+        $this->_mod()->to_special($id, $this->input->post('special'));
+        $this->_mod()->to_addon($id, $this->input->post('addon'));
 
 
     }
@@ -541,17 +532,17 @@ class Product_post extends MY_Controller
     {
         parent::_form_create_view($id, $info);
        // $this->data['widget_upload_images']['url_get'] =$this->_url().'?_act=load_files&file_type=image';
-        $this->data['widget_upload_images']['url_get'] =$this->_url().'?_act=load_files&file_type=image&field=images';
-        $this->data['widget_upload_files']['url_get'] =$this->_url().'?_act=load_files&file_type=file&field=files';
+        $this->data['widget_upload_images']['url_get'] =$this->_url($this->_get_act().'/'.$id).'?_act=load_files&file_type=image&field=images';
+        $this->data['widget_upload_files']['url_get'] =$this->_url($this->_get_act().'/'.$id).'?_act=load_files&file_type=file&field=files';
 
         // Xu ly thong tin
         if (isset($info->user_id) && $info->user_id)
             $info->_user = model('user')->get_info($info->user_id, 'email,username,name');
         // echo 1;pr($info);
         if ($info) {
-            $info = mod('product')->add_info($info, true);
+            $info = $this->_mod()->add_info($info, true);
             //echo 1;pr($info);
-            $info = mod('product')->tags_get($info);
+            $info = $this->_mod()->tags_get($info);
         }
         $info = isset($info) ? (array)$info : null;
         $this->data['info'] = $info;
@@ -568,6 +559,6 @@ class Product_post extends MY_Controller
      */
     protected function _get_id_cur()
     {
-        return ($this->uri->rsegment(2) == 'index') ? fake_id_get($this->_get_mod())            : $this->uri->rsegment(3);
+        return ($this->uri->rsegment(2) == 'add') ? fake_id_get($this->_get_mod()): $this->uri->rsegment(3);
     }
 }

@@ -1,3 +1,4 @@
+<?php // pr($info); ?>
 <link href="<?php echo public_url('js'); ?>/jquery/plupload2/jquery.ui.plupload/css/jquery.ui.plupload.css" media="all"
       type="text/css" rel="stylesheet"/>
 <link href="<?php echo public_url('js'); ?>/jquery/plupload2/jquery.plupload.queue/css/jquery.plupload.queue.css"
@@ -16,6 +17,84 @@
      return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
      });
      };*/
+
+    (function ($) {
+        $(document).ready(function () {
+            var $main = $('#form');
+            var form = {
+                init: function () {
+                    $('.form_action_youtube').nstUI('formActionAdv', {
+                        event_complete: function (data) {
+                            $('#modal_share_video').modal('hide')
+                            $('#modal_share_video').find('[name=youtube]').val('');
+                            load_ajax($('.file_list_media'));
+                        },
+                    });
+                    $main.find('.act-do-submit').bind("click", function () {
+                        var $_form = $main.find('form');
+                        var draft = $(this).data('draft')
+                        if (draft != undefined) {
+                            $_form.find('input[name=draft]').val(draft)
+                        }
+
+                        // su ly cac truong an
+                        var hide_fields = [];
+                        $('.more-select-dropdown .search-results').each(function () {
+                            if (!($(this).css('display') == 'none')) {
+                                var id = $(this).data('id');
+                                id = id.replace("more_", "");
+                                hide_fields.push(id);
+                            }
+                        })
+                        $_form.find('input[name=hide_fields]').val(hide_fields.toString())
+                        $_form.nstUI('formActionAdv', {
+                            submit: true,
+                        });
+                    })
+                    <?php if($info):?>
+                        <?php if($info['type'] =='media'):?>
+                            upload_media_show()
+                        <?php else:?>
+                            upload_link_show()
+                        <?php endif?>
+                    <?php endif?>
+                    $("#upload-media").click(function () {
+                        upload_media_show()
+                        return false;
+                    });
+                    $("#upload-link").click(function () {
+                        upload_link_show()
+                        return false;
+                    });
+
+
+                    $('input[name="link"]').on('change', function () {
+                        var url = $(this).val()
+                        if (!validURL(url))
+                            return;
+                        $(this).nstUI('loadAjax', {
+                            url: "<?php echo current_url(); ?>?_act=load_url&url=" + url,
+                            field: {load: '_'},
+                            datatype: 'html',
+                            event_complete: function (data) {
+                                $('#form').find('#data_link').html(data);
+                            },
+
+                        });
+                    });
+                },
+            };
+            form.init();
+        });
+    })(jQuery);
+    function upload_media_show() {
+        $(".upload-action,.upload-action-data").hide();
+        $("#upload-media-content").show();
+    }
+    function upload_link_show() {
+        $(".upload-action,.upload-action-data").hide();
+        $("#upload-link-content").show();
+    }
     function eventChangeTypeCat($params) {
         var $this = $($params.ele)
         var type_cat = $this.data('value')
@@ -41,68 +120,8 @@
             return true;
         }
     }
-    (function ($) {
-        $(document).ready(function () {
-            var $main = $('#form');
-            var form = {
-                init: function () {
-                    $('.form_action_youtube').nstUI('formActionAdv', {
-                        event_complete: function (data) {
-                            $('#modal_share_video').modal('hide')
-                            load_ajax($('.file_list_media'));
-                        },
-                    });
-                    $main.find('.act-do-submit').bind("click", function () {
-                        var $_form = $main.find('form');
-                        var draft = $(this).data('draft')
-                        if (draft != undefined) {
-                            $_form.find('input[name=draft]').val(draft)
-                        }
 
-                        // su ly cac truong an
-                        var hide_fields = [];
-                        $('.more-select-dropdown .search-results').each(function () {
-                            if (!($(this).css('display') == 'none')) {
-                                var id = $(this).data('id');
-                                id = id.replace("more_", "");
-                                hide_fields.push(id);
-                            }
-                        })
-                        $_form.find('input[name=hide_fields]').val(hide_fields.toString())
-                        $_form.nstUI('formActionAdv', {
-                            submit: true,
-                        });
-                    })
 
-                    $("#upload-media").click(function () {
-                        $(".upload-action,.upload-action-data").hide();
-                        $("#upload-media-content").show();
-                        return false;
-                    });
-                    $("#upload-link").click(function () {
-                        $(".upload-action,.upload-action-data").hide();
-                        $("#upload-link-content").show();
-                        return false;
-                    });
-                    $('input[name="link"]').on('change', function () {
-                        var url = $(this).val()
-                        if (!validURL(url))
-                            return;
-                        $(this).nstUI('loadAjax', {
-                            url: "<?php echo current_url(); ?>?_act=load_url&url=" + url,
-                            field: {load: '_'},
-                            datatype: 'html',
-                            event_complete: function (data) {
-                                $('#form').find('#data_link').html(data);
-                            },
-
-                        });
-                    });
-                },
-            };
-            form.init();
-        });
-    })(jQuery);
     (function ($) {
         $.fn.pluploadScript = function (user_setting) {
             var g_setting_default = {
@@ -355,6 +374,7 @@
                     }
 
                 }
+
                 /**
                  * Multi
                  */
@@ -431,6 +451,7 @@
                         return uploader;
                     }
                 }
+
                 /**
                  * Media
                  */
