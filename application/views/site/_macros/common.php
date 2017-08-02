@@ -164,6 +164,7 @@ $this->register('more_list', function ($content, $num = 5, $item = ".item") {
  * More_word
  */
 $this->register('more_word', function ($str, $limit = 20) {
+    $str=strip_tags($str);
     if(!$str) return;
     ob_start();
     if (trim($str) === '') {

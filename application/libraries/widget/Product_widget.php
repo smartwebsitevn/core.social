@@ -552,7 +552,38 @@ class Product_widget extends MY_Widget
         $temp = 'tpl::_widget/product/action/' . $temp;
         $this->_display($this->_make_view($temp, __FUNCTION__));
     }
+    /**
+     * Vote
+     */
+    function action_vote($product, $temp = '')
+    {
+        $id = $product->id;
+        $can_do = true;
+        $voted = false;
+        $user = user_get_account_info();
+        if ($user) {
+            //kiem tra da luu hay chua
+            $data = array();
+            $data ['table_name'] = 'product';
+            $data ['table_id'] =$id;
+            $data ['user_id'] =$user->id;
+            $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $id, 'user_id' =>$user->id));
+        }
+       // pr($voted);
+        $url_vote= site_url('product/vote/' . $id );;
+        $this->data['can_do'] = $can_do;
+        $this->data['product'] = $product;
+        $this->data['voted'] = $voted;
+        $this->data['url_like'] = $url_vote. "?act=like";
+        $this->data['url_like_del'] =  $url_vote. "?act=like_del";
+        $this->data['url_dislike'] =  $url_vote. "?act=dislike";
+        $this->data['url_dislike_del'] = $url_vote. "?act=dislike_del";
 
+
+        $temp = (!$temp) ? 'vote' : $temp;
+        $temp = 'tpl::_widget/product/action/' . $temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
     /**
      * Yeu thich
      */

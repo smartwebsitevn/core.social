@@ -126,13 +126,13 @@
 	/**
 	 * Xoa cac file tam thoi
 	 */
-	function file_del_temporary()
+	function file_del_temporary($input =[])
 	{
 		// Tai file thanh phan
 		$CI =& get_instance();
 		$CI->load->model('file_model');
 		
-		$files = $CI->file_model->get_list_temporary();
+		$files = $CI->file_model->get_list_temporary($input);
 		foreach ($files as $file)
 		{
 			file_del($file, array('thumb'));

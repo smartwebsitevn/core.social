@@ -898,7 +898,10 @@
                         var class_off = 'off';
 
                         var toggle_handle = {
-                            class: function (status) {
+                            class: function (status ,ele) {
+                                if (ele != undefined)
+                                    $this = ele;
+
                                 if (status == undefined) {
                                     status = ($this.hasClass(class_on)) ? true : false;
                                 }
@@ -931,6 +934,19 @@
                                 var text = $this.data('text-' + act);
                                 $this.html(text);
                             },
+                            group: function () {
+                                // xoa trang thai cu neu co
+                                if ($this.data('group') != undefined){
+                                    var group_name =$this.data('group')
+                                    var $group= $this.closest('.'+group_name);
+                                    if ($group != undefined) {
+                                        $group.find('[data-group="' + group_name + '"]').each(function () {
+                                           // toggle_handle.class(false,$(this));
+                                           $(this).removeClass(class_on + ' ' + $(this).data('class-on'));
+                                        });
+                                    }
+                                };
+                            },
                             click: function () {
                                 $this.click(function () {
                                     // Neu dang xu ly
@@ -939,13 +955,18 @@
                                     }
                                     // Gan trang thai dang xu ly
                                     handle.set_loading();
+
                                     // Thuc hien hanh dong
                                     var act = (!$this.hasClass(class_on)) ? class_on : class_off;
                                     var url = $this.data('url-' + act);
                                     if (!url) return false;
 
                                     var status = (act == class_on) ? true : false;
+
+                                    toggle_handle.group();
                                     toggle_handle.class(status);
+
+
                                     //- set url su ly
                                     handle.url = url;
                                     //- set lai vi tri loader

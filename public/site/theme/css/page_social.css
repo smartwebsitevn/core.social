@@ -1,3 +1,13 @@
+/*
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+/*@include skel-layout((
+        reset: 'full',
+        boxModel: 'border',
+        grid: (gutters: 1em)
+));*/
 /*====================*\
 //Product
 \*====================*/
@@ -1233,7 +1243,8 @@ select option {
     margin-right: 20px; }
     .item-social .item-photo .item-img {
       text-align: center;
-      display: inline-block; }
+      display: inline-block;
+      text-transform: capitalize; }
       .item-social .item-photo .item-img img {
         display: inline-block;
         width: 100px;
@@ -1244,7 +1255,7 @@ select option {
         -o-transition: 1s;
         transition: 1s; }
       .item-social .item-photo .item-img .profession {
-        color: #ccc;
+        color: #90949c;
         font-size: 12px; }
   .item-social .item-info {
     float: left;
@@ -1277,11 +1288,12 @@ select option {
         font-weight: bolder; }
       .item-social .item-media .images .item {
         float: left;
-        width: 100%; }
+        width: 100%;
+        position: relative; }
         .item-social .item-media .images .item img, .item-social .item-media .images .item iframe {
           width: 100%;
-          padding: 1px;
-          max-height: 200px; }
+          height: 200px;
+          padding: 1px; }
         .item-social .item-media .images .item .item-video .item-video-icon {
           cursor: pointer; }
           .item-social .item-media .images .item .item-video .item-video-icon::after {
@@ -1296,9 +1308,6 @@ select option {
             right: 0;
             top: 0;
             transition: all 0.3s ease 0s; }
-        .item-social .item-media .images .item .item-video .item-video-player iframe {
-          width: 100%;
-          height: 442px; }
       .item-social .item-media .images-2 .item {
         width: 50%; }
       .item-social .item-media .images-3 .item-1 {
@@ -1307,21 +1316,30 @@ select option {
         width: 50%; }
         .item-social .item-media .images-3 .item-2 img, .item-social .item-media .images-3 .item-3 img {
           height: 80px; }
+        .item-social .item-media .images-3 .item-2 .item-video .item-video-icon::after, .item-social .item-media .images-3 .item-3 .item-video .item-video-icon::after {
+          background-size: 30px; }
       .item-social .item-media .images-4 .item-1 {
         width: 100%; }
       .item-social .item-media .images-4 .item-2, .item-social .item-media .images-4 .item-3, .item-social .item-media .images-4 .item-4 {
         width: 33.3%; }
         .item-social .item-media .images-4 .item-2 img, .item-social .item-media .images-4 .item-3 img, .item-social .item-media .images-4 .item-4 img {
           height: 80px; }
+        .item-social .item-media .images-4 .item-2 .item-video .item-video-icon::after, .item-social .item-media .images-4 .item-3 .item-video .item-video-icon::after, .item-social .item-media .images-4 .item-4 .item-video .item-video-icon::after {
+          background-size: 30px; }
       .item-social .item-media .images-5 .item-1, .item-social .item-media .images-5 .item-2 {
         width: 50%; }
       .item-social .item-media .images-5 .item-3, .item-social .item-media .images-5 .item-4, .item-social .item-media .images-5 .item-5 {
         width: 33.3%; }
         .item-social .item-media .images-5 .item-3 img, .item-social .item-media .images-5 .item-4 img, .item-social .item-media .images-5 .item-5 img {
           height: 80px; }
+        .item-social .item-media .images-5 .item-3 .item-video .item-video-icon::after, .item-social .item-media .images-5 .item-4 .item-video .item-video-icon::after, .item-social .item-media .images-5 .item-5 .item-video .item-video-icon::after {
+          background-size: 30px; }
     .item-social .item-media .media {
       border: 1px solid #eee;
-      padding: 10px; }
+      padding: 10px;
+      height: 150px; }
+      .item-social .item-media .media a {
+        color: #494949; }
   .item-social .item-name {
     display: block;
     color: #000;
@@ -1332,29 +1350,42 @@ select option {
     text-transform: capitalize; }
     .item-social .item-name a {
       /*  color: #000;*/ }
+  .item-social .item-time {
+    /*color: #90949c;*/
+    color: #90949c;
+    font-size: 12px; }
   .item-social .item-desc {
+    border-bottom: 1px solid #eee;
+    display: block;
+    margin-top: 10px;
     margin-bottom: 10px;
-    display: block; }
+    padding-bottom: 15px; }
   .item-social .item-meta {
     float: left;
     display: flex;
     color: #666;
-    font-weight: 300;
     margin-bottom: 5px;
-    line-height: 48px; }
+    line-height: 24px;
+    font-size: 12px; }
     .item-social .item-meta span {
       margin-right: 20px; }
     .item-social .item-meta .do_action {
-      font-size: 32px;
-      cursor: pointer; }
+      font-size: 24px;
+      cursor: pointer;
+      color: #999999; }
+      .item-social .item-meta .do_action:hover, .item-social .item-meta .do_action.active {
+        color: #ff9e2f; }
   .item-social .item-actions {
     float: right;
-    text-align: right;
-    margin-top: 10px; }
+    text-align: right; }
     .item-social .item-actions .btn {
       /* margin-right: 10px;*/ }
-    .item-social .item-actions a .fa {
-      margin-right: 5px; }
+    .item-social .item-actions a {
+      color: #999999; }
+      .item-social .item-actions a:hover, .item-social .item-actions a.active {
+        color: #ff9e2f; }
+      .item-social .item-actions a .fa {
+        margin-right: 5px; }
     .item-social .item-actions .dropdown-menu {
       margin-top: 20px; }
   .item-social .item-vote {

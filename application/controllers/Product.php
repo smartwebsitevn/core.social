@@ -459,39 +459,68 @@ class Product extends MY_Controller
     function _vote()
     {
         $act = $this->input->get('act');
-        if (!in_array($act, ['like', 'dislike']))
+        if (!in_array($act, ['like','like_del', 'dislike', 'dislike_del']))
             $this->_response();
+        $user =$this->data['user'];
+        $info =$this->data['info'];
 
-        $id = $this->data['info']->id;
-        if ($this->data['user']) {
+        if ($user) {
             //kiem tra da luu hay chua
             $data = array();
             $data ['table_name'] = 'product';
-            $data ['table_id'] = $this->data['info']->id;
-            $data ['user_id'] = $this->data['user']->id;
-            $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $id, 'user_id' => $this->data['user']->id));
+            $data ['table_id'] = $info->id;
+            $data ['user_id'] = $user->id;
+            if($act == 'like'){
+                $data ['like'] =1;
+                $data ['dislike'] =0;
+            }
+            elseif($act == 'like_del'){
+                $data ['like'] =0;
+                $data ['dislike'] =0;
+            }
+            elseif($act == 'dislike'){
+                $data ['like'] =0;
+                $data ['dislike'] =1;
+            }
+            elseif($act == 'dislike_del'){
+                $data ['like'] =0;
+                $data ['dislike'] =0;
+            }
+
+            $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $info->id, 'user_id' => $user->id));
             if ($voted) {
                 $data ['updated'] = now();
-                $data [$act] =$voted->{$act}?0:1;
-                if($act == 'like'){
-                    $data ['dislike'] =0;
-                }
-                else{
-                    $data ['like'] =0;
-                }
-
                 model('social_vote')->update($voted->id,$data);
             } else {
-                //them vao table product_favorite
                 $data ['created'] = now();
-                $data [$act] = 1;
                 model('social_vote')->create($data);
             }
-        } else {
-            mod('product')->guest_owner_add($id, "voted");;
+            // thong ke
+            $list= model('social_vote')->filter_get_list(array('table_name' => 'product', 'table_id' => $info->id));
+            if($list){
+                $d=0;
+                $stats=['vote_total'=>0,'vote_like'=>0,'vote_dislike'=>0];
+                foreach($list as $row){
+                    if($row->like){
+                        $stats['vote_like'] ++;
+                        $d++;
+                    }elseif($row->like){
+                        $stats['vote_dislike'] ++;
+                        $d++;
+                    }
+                }
+                $stats['vote_total'] =$d;
+            }
+            //pr($stats);
+            model('product')->update($info->id,$stats);
+       // pr_db();
         }
+       /*  else {
+            mod('product')->guest_owner_add($id, "voted");;
+        }*/
 
-        $this->_response(array('msg_toast' => lang('notice_product_favorited')));
+        //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
+        $this->_response();
     }
 
     /**

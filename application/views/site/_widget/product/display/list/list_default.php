@@ -26,25 +26,20 @@
                         <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
                                 <?php echo $row->name; ?></a>
                         </div>
+                        <div class="item-time"><?php echo $row->_created_full; ?>  </div>
                         <div class="item-desc">
                             <?php echo macro()->more_word($row->description, 45); ?>
                         </div>
                         <div class="item-meta">
-                            <span>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=like" ?>"><i
-                                    class="pe-7s-up-arrow"></i></a>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=dislike" ?>"><i
-                                    class="pe-7s-bottom-arrow"></i></a>
-                            </span>
-                                <span
+                            <?php echo widget('product')->action_vote($row) ?>
+
+                           <span
                                     class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
                             <!--<span  class="views"> <b><?php /*echo number_format($row->view_total) */
                             ?></b> <?php /*echo lang("count_view") */
                             ?></span>-->
                             <span
-                                class="comments"> <b><?php echo number_format($row->comment_count) ?></b> <?php echo lang("count_comment") ?></span>
+                                class="comments"> <b><?php echo number_format($row->comment_count) ?></b> Bình luận<?php //echo lang("count_comment") ?></span>
                             <!--<span class="date_created"> <b><?php /*echo $row->_created */
                             ?></b> </span>-->
 

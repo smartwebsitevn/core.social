@@ -107,14 +107,26 @@ class Product_post extends MY_Controller
         $file_type 		= $this->input->get('file_type');
 
         // Lay gia tri dau vao
+        $table 			= $this->_get_mod();
         $table_id 		= $id;
         $table_field 	= $this->input->get('field');
-        $table 			= $this->_get_mod();
 
-        // Lay danh sach file
-        $list = model('file')->get_list_of_mod($table, $table_id, $table_field);
+        //== Lay danh sach file
+        $input = array();
+        $where['user_id']		=  $this->data['user']->id;
+        $where['table']		= $table;
+        $where['table_id']	= $table_id;
+        $where['table_field']	= $table_field;
+        if ($table_field != '')
+        {
+            $where['table_field'] = $table_field;
+        }
+        $input['where'] =$where;
+        $list = model('file')->get_list($input);
        // pr_db($list);
-        if(!$list ) return;
+        if(!$list )
+            return;
+
         foreach ($list as $row)
         {
             $row = file_add_info($row);
@@ -207,13 +219,14 @@ class Product_post extends MY_Controller
 
    function add()
     {
-        file_del_temporary(); // xoa anh fa
+        $user = $this->data['user'];
+        //file_del_temporary(['where'=>['user_id'=>$user->id]]); // xoa anh fa
+        //pr_db();
         $fake_id = $this->_get_id_cur();
         $this->_action_ajax($fake_id);
         $form = array();
         $form['validation']['params'] = $this->_get_params();
-        $form['submit'] = function () use ($fake_id) {
-            $user = $this->data['user'];
+        $form['submit'] = function () use ($fake_id,$user) {
             $user = mod('user')->add_info($user);
             $id = 0;
             $data = $this->_get_inputs($id, $fake_id);
@@ -226,7 +239,7 @@ class Product_post extends MY_Controller
             set_message(lang('notice_add_success'));
             return $user->_url_my_page;
         };
-        $form['form'] = function () use ($fake_id) {
+        $form['form'] = function () use ($fake_id,$user) {
             $this->_create_view_data($fake_id);
             $this->_display('form');
         };

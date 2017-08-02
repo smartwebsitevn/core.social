@@ -33,7 +33,10 @@ $font: (
 // Palette.
 $palette: (
         bg: #ffffff,
+        bg-1: rgb(242, 242, 242),
+        bg-2: rgb(249, 249, 249),
         bg-alt: #f4f4f4,
+
         fg: #646464,
         fg-bold: #3c3b3b,
         fg-light: #aaaaaa,
@@ -43,8 +46,6 @@ $palette: (
         border-alt: rgba(160, 160, 160, 0.65),
         accent: #fff,
 
-        bg-1: rgb(242, 242, 242),
-        bg-2: rgb(249, 249, 249),
 
         text-1: rgb(224, 224, 224),
         text-2: rgb(153, 153, 153),

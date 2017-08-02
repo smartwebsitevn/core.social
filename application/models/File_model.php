@@ -92,17 +92,14 @@ class File_model extends MY_Model {
 	/**
 	 * Lay danh sach cac file tam thoi
 	 */
-	function get_list_temporary($field = '', $limit = 50)
+	function get_list_temporary($input=[])
 	{
-		$input = array();
-		$input['select'] = $field;
 		$input['where']['table_id <='] 	= '0';
 		$input['where']['created <='] 	= now()-(2*60*60);
-		if ($limit)
-		{
-			$input['limit'] = array(0, $limit);
-		}
-		
+
+		if(!isset($input['limit']))
+			$input['limit'] = array(0, 50);
+
 		return $this->get_list($input);
 	}
 	function totalSizeFile($table = '', $id = 0, $table_field = ''){
