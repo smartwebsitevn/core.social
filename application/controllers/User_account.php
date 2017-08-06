@@ -546,7 +546,8 @@ class User_account extends MY_Controller
             redirect(site_url('user/edit'));
         }*/
 
-        $user = UserFactory::auth()->user();
+         $user = UserFactory::auth()->user();
+        //pr($user);
         //neu dang ky tai khoan bang sms va chua cap nhat email lan nao
         $user->can_edit_email = false;
         if ($user->register_sms == 1 && $user->edit_email == 0) {
@@ -697,7 +698,7 @@ class User_account extends MY_Controller
         // Thiet lap setting mac dinh
         $fields = array();
         $fields['info'] = array(
-            'name',  /*'email', 'phone',*/ 'address','gender','birthday',
+            'type', 'name',  /*'email', 'phone',*/ 'address','gender','birthday',
             'job','country','city',   'working_country', 'working_city',
             "website",'profession','desc','facebook','twitter',
         );

@@ -40,7 +40,7 @@ $lang['mod_slider'] = 'Vị trí trình diễn ảnh';
 $lang['mod_slider_item'] = 'Trình diễn ảnh';
 
 $lang['mod_contact'] = 'Khách liên hệ';
-$lang['mod_sayus'] = 'Ý kiến khách hàng';
+$lang['mod_sayus'] = 'Ý kiến thành viên';
 $lang['mod_seo_url'] = 'Seo url';
 $lang['mod_seo_word'] = 'Seo từ khóa';
 $lang['mod_tag'] = 'Danh sách Tags';
@@ -115,10 +115,10 @@ $lang['mod_tran_banking'] = 'Thanh toán qua chuyển khoản ngân hàng';
 $lang['group_account'] = 'Quản lý tài khoản';
 $lang['mod_admin'] = 'Người quản trị';
 $lang['mod_admin_group'] = 'Nhóm quản trị';
-$lang['mod_user'] = 'Khách hàng';
-$lang['mod_user_group'] = 'Nhóm khách hàng';
+$lang['mod_user'] = 'Thành viên';
+$lang['mod_user_group'] = 'Nhóm thành viên';
 $lang['mod_user_bank'] = 'Ngân hàng của thành viên';
-$lang['mod_user_notice']	= 'Thông báo khách hàng';
+$lang['mod_user_notice']	= 'Thông báo thành viên';
 
 
 //== group_module

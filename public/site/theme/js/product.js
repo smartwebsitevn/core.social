@@ -8,125 +8,7 @@ var product_nfc = {
         },
         common: function () {
             $(document).ready(function () {
-                /*=========== CART ============*/
-                $('body').on('click', 'a.product-empty-cart', function (e) {
-                    if (confirm('Bản có muốn xóa toàn bộ tin bài trong giỏ hàng?')) {
-                        $.ajax({
-                            type: "POST", dataType: "JSON", async: false, url: $(this).attr('data_url'),
-                            success: function (data) {
-                                productUpdateCart(data);
-                            }
-                        });
-                        return false;
-                    }
-                    return false;
-                });
-                $('body').on('click', 'a.product-delete-cart', function (e) {
-                    //$("a.product-delete-cart").on("click",function(){
-                    if (confirm('Bản có muốn xóa tin bài này khỏi giỏ hàng?')) {
-                        var product_key = $(this).attr("data_product_key");
-                        $.ajax({
-                            type: "POST", async: false, url: $(this).attr('data_url'),
-                            data: {"rowid": product_key},dataType: "JSON",
-                            success: function (data) {
-                                productUpdateCart(data);
 
-                            }
-                        });
-                    }
-                });
-                $('body').on('click', 'a.product-update-cart', function (e) {
-                    //  $("a.product-update-cart").on("click",function(){
-
-                    var product_key = $(this).attr("data_product_key");
-                    var qty = $("#product-qty-key-" + product_key).val();
-                    // neu co so luong thi kiem tra xem so co hop le
-                    if (isNaN(qty)) {
-                        alert(qty + "Số lượng tin bài không hợp lệ");
-                        return false;
-                    }
-                    $.ajax({
-                        type: "POST",
-                        dataType: "JSON",
-                        async: false,
-                        url: $(this).attr('data_url'),
-                        data: {"rowid": product_key, "qty": qty},
-                        success: function (data) {
-                            productUpdateCart(data);
-
-                        }
-                    });
-                });
-                $('body').on('click', 'a.product-apply-coupon-cart', function (e) {
-                    //$("a.product-apply-coupon-cart").on("click",function(){
-                    var code = $("#product-coupon-cart").val();
-                    // neu co so luong thi kiem tra xem so co hop le
-                    if (isNaN(code)) {
-                        AC_messageShow("Mã không hợp lệ", 'notice')
-                        return false;
-                    }
-                    $.ajax({
-                        type: "POST", dataType: "JSON", async: false, url: $(this).attr('data_url'), data: {"code": code},
-                        success: function (rs) {
-                            if (rs.complete) {
-                                AC_messageClear();
-                                $('#cart-info.page-content').html(rs.data);
-                            }
-                            else
-                                AC_messageShow(rs.message, 'notice')
-                        }
-                    });
-                });
-                $('body').on('click', '.quantity-up-down-select .up', function () {
-                    if( $(this).hasClass("disable")) return;
-                    up_down_quantity(1)
-                    $('.quantity-up-down-select .down').removeClass("disable")
-                });
-                $('body').on('click', '.quantity-up-down-select .down', function () {
-                    if( $(this).hasClass("disable")) return;
-                    $('.quantity-up-down-select .up').removeClass("disable")
-                    up_down_quantity(0)
-                });
-                $('body').on('change', '.quantity-up-down-select .quantity-select', function () {
-                    up_down_quantity(2)
-                });
-
-                function up_down_quantity(type){
-                    var  $select = $(".quantity-up-down-select .quantity-select");
-                    var total = $select.find("option").length
-                    var current =  $select.prop('selectedIndex') +1;
-                    if(type == 0)
-                        current--
-                    else if(type == 1)
-                        current++
-                    if(current <= total && current>=1)
-                    {
-                        $select.val(current);
-                    }
-
-                    if(current == total)
-                    {
-                        $('.quantity-up-down-select .up').addClass("disable")
-                        $('.quantity-up-down-select .down').removeClass("disable")
-                    }
-                    if(current == 1)
-                    {
-                        $('.quantity-up-down-select .down').addClass("disable")
-                        $('.quantity-up-down-select .up').removeClass("disable")
-                    }
-
-                    if(current > 1 && current<total)
-                    {
-                        $('.quantity-up-down-select .down').removeClass("disable")
-                        $('.quantity-up-down-select .up').removeClass("disable")
-                    }
-                }
-                // thay doi
-                $('#product_form_action').nstUI('formActionAdv', {
-                    event_complete: function (data) {
-                        productUpdateCart(data);
-                    }
-                });
 
                 /*=========== CHANGE PRICE BY OPTION AND QUANTITY */
                 $("#product_form_action .product-options select").on('change', function () {
@@ -217,39 +99,13 @@ var product_nfc = {
                  }
                  });
                  */
-                /*=========== Compare ============*/
-                $("a.add-to-compare ").bind("click", function () {
-                    var compare = $(this).attr('data-compare');
-                    $.ajax({
-                        async: false,
-                        type: "POST",
-                        url: $(this).attr('data-url'),
-                        success: function (data) {
-                            if (data.count_compare > 1)
-                                $.colorbox({width: '90%', height: '90%', href: compare});
-                            else
-                                alert(data.msg);
 
-                        }
+                $('body').on('click', '.item-social  .load_ajax', function () {
+
+                    $(this).nstUI('loadAjax', {
+                        url: $(this).attr('_url'),
+                        field: {load:  $(this).attr('_field')+'_load', show: $(this).attr('_field')+'_show'},
                     });
-                });
-                $('#compare-info select[class="product-name"]').on('change', function () {
-                    var id_new = this.value;
-                    var id_old = $(this).attr('data-id');
-                    var id_col = $(this).attr('data-col');
-                    if (id_new) {
-                        $.ajax({
-                            async: false,
-                            type: "POST",
-                            url: $('#compare-info').attr('data-url'),
-                            data: {'id_new': id_new, 'id_old': id_old, 'id_col': id_col},
-                            success: function (data) {
-                                $("#_tmp").html(data);
-                                $('#product-compare #compare-info').html($("#_tmp").find('#product-compare #compare-info').html());
-                                $("#_tmp").html('');
-                            }
-                        });
-                    }
                 });
             });
         },
@@ -372,7 +228,7 @@ function productFilter(option) {
 
                 // kiem tra xem co nut next khong, neu co thi hien load more
                 if($('.page-pagination .pagination > li:last').hasClass('active')){
-                    $('#act-pagination-load-more').parent().hide();
+                    $('.act-pagination-load-more').parent().hide();
                     return false;
                 }
                 return true;
@@ -388,13 +244,15 @@ function productFilter(option) {
         {
             $('body').on('click', '.item-video-icon', function () {
                 var $parent= $(this).closest('.item');
+                var $player =$parent.find('.item-video-player')
+                if(!$player.length) return;
                 $(this).hide();
                 $parent.find('img').hide();
                 $('<iframe>', {
                     src: '//www.youtube.com/embed/'+$(this).data('youtube')+'?rel=0&autoplay=1',
                     frameborder: 0,
                     scrolling: 'no'
-                }).appendTo( $parent.find('.item-video-player'));
+                }).appendTo($player);
             });
         });
     })(jQuery);

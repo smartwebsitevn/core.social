@@ -778,6 +778,16 @@ class Product_widget extends MY_Widget
      * Action khac
      */
 
+    function action_comment($row,$temp = '')
+    {
+        $this->data['row'] = $row;
+
+        $this->data['url_comment'] = $row->_url_comment;
+        // Hien thi view
+        $temp = (!$temp) ? 'comment' : $temp;
+        $temp = 'tpl::_widget/product/action/'.$temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
     function action_share($row,$temp = '')
     {
         $this->data['url_share'] = $row->_url_view;
@@ -786,7 +796,6 @@ class Product_widget extends MY_Widget
         $temp = 'tpl::_widget/product/action/'.$temp;
         $this->_display($this->_make_view($temp, __FUNCTION__));
     }
-
     function action_close($temp = '')
     {
         // Hien thi view

@@ -3,40 +3,23 @@
 //####################################################
 (function ($) {
     $(document).ready(function () {
-
-        // Lightbox
-        $('.lightbox').nstUI('lightbox');
-
-        // Form handle
-        $('.form_action').each(function () {
-            var $this = $(this);
-            //$this.nstUI('formAction', {
-            $this.nstUI('formActionAdv', {
-                field_load: $this.attr('_field_load'),
-                event_error: function (data) {
-                    // Reset captcha
-                    //if (data['security_code']){
-                    var captcha = $this.find('img[_captcha]').attr('id');
-                    if (captcha) {
-                        change_captcha(captcha);
-                    }
-                    //}
+        // Change lang currency
+        $('.change_lang, .change_currency').click(function () {
+            $(this).nstUI('loadAjax', {
+                url: $(this).attr('_url'),
+                field: {load: '', show: ''},
+                event_complete: function () {
+                    window.location.reload();
                 },
             });
+            return false;
         });
-        // Verify action
-        $('.verify_action').nstUI('verifyAction');
-        $('.do_action').nstUI('doAction');
-        // toggle_content || select || status
-        $('.toggle_content').nstUI('toggleContent');
+
         // Auto check pages
         $('.auto_check_pages').each(function () {
             auto_check_pages($(this));
         });
-        // Drop Down
-        $('[_dropdownchild]').nstUI({
-            method: 'dropdownHasChild'
-        });
+
         // Date picker
         /*	$('.datepicker').each(function()
          {
@@ -47,24 +30,10 @@
          $(this).datepicker(config);
          });*/
 
-        // Number format
-        $('.format_number, .input_number').autoNumeric('init', {
-            vMin: '0.00000000',
-            vMax: '9999999999999999.99',
-            aPad: false
-        });
-
-        // Select2
-        $('.select2').select2();
-
-        // autosize
-        //$('.autosize').autosize();
-
         // Autocomplete
-        var cache = {}, lastXhr;
+       /* var cache = {}, lastXhr;
         $('.autocomplete').each(function () {
             var url_search = $(this).attr('_url');
-
             $(this).autocomplete(
                 {
                     minLength: 2,
@@ -84,30 +53,9 @@
                         });
                     }
                 });
-        });
-        // Change lang currency
-        $('.change_lang, .change_currency').click(function () {
-            $(this).nstUI('loadAjax', {
-                url: $(this).attr('_url'),
-                field: {load: '', show: ''},
-                event_complete: function () {
-                    window.location.reload();
-                },
-            });
+        });*/
 
-            return false;
-        });
 
-        // Processing Load
-        $('.need_processing').each(function () {
-
-            $(this).nstUI({
-                method: 'needProcessing',
-                needProcessing: {
-                    field_load: $(this).attr('_field_load')
-                }
-            });
-        });
        // call_editor($(document));
         nfc.boot();
 
@@ -143,7 +91,6 @@ function temp_set_value(html, params) {
     });
     return html;
 }
-
 /**
  * Copy gia tri giua 2 field
  */

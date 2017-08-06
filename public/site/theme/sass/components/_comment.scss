@@ -2,6 +2,7 @@
   margin: 20px 0;
 }
 .comment-list {
+  font-size: 12px;
   img {
     border-radius: 100%;
   }
@@ -18,26 +19,22 @@
     margin-bottom: 12px;
     margin-right: 12px;
     width: 48px;
+    height: 48px;
+    max-width: none;
 
   }
   .name {
     font-weight: bold;
-    margin-right: 40px;
   }
   .time, .date {
-    color: #d6d6d6;
+    color: _palette(text-2);
     display: inline-block;
-    font-size: 14px;
-    margin-top: 6px;
-    vertical-align: top;
   }
   .comment-content {
     /* clear: both;*/
     display: block;
-    font-size: 13px;
     line-height: 18px;
     margin-bottom: 5px;
-    margin-top: 10px;
   }
   .view {
     color: #76ac0b;
@@ -62,10 +59,20 @@
     display: flex;
     line-height: 32px;
     margin-bottom: 5px;
-    .do_action {
-      font-size: 32px;
-      cursor: pointer;
+    .action_vote_group {
+      margin-right: 10px;
+      a{
+        &.do_action{
+          font-size: 24px;
+          cursor: pointer;
+        }
+        color: _palette(text-2);
+        &:hover,&.active {
+          color: _palette(button-2);
+        }
+      }
     }
+
   }
 
 }

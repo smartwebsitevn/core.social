@@ -49,7 +49,7 @@ class User_model extends MY_Model
 		'is_feature', 'is_new', 'is_live',
 		'status','created', 'created_to',
 	);
-	//public $fields_type_relation_cat = array( 'job');
+	public $fields_type_relation_cat = array( 'type');
 	public $fields_type_relation_cat_multi = array( 'job');
 
 	// Cac table thong tin thanh phan

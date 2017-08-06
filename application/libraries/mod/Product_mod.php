@@ -28,12 +28,16 @@ class Product_mod extends MY_Mod
         $row->_url_view = site_url("xem-ban-tin/" . $row->seo_url . '-i' . $row->id);
         $row->_url_demo = site_url("xem-ban-tin/demo/" . $row->seo_url . '-d' . $row->id);
         $row->_url_reup = site_url("xem-ban-tin/demo/" . $row->seo_url . '-d' . $row->id);
+        $row->_url_comment =  site_url("product/comment/" . $row->id);
+        $row->_url_comment_add =  site_url("product/comment/" . $row->id).'?_act=add';
+        $row->_url_comment_reply =  site_url("product/comment/" . $row->id).'?_act=reply';
 
+        // edit
         $row->_url_status_show =  site_url("product_post/on/" . $row->id);
         $row->_url_status_hide = site_url("product_post/off/" . $row->id);
         $row->_url_user_edit = site_url("product_post/edit/" . $row->id);
         $row->_url_user_del = site_url("product_post/del/" . $row->id);
-
+        $row->_url_user_del = site_url("product_post/del/" . $row->id);
         //$row->_url_buy = site_url("product_order") . '?id=' . $row->id;
 
         return $row;

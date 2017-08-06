@@ -72,7 +72,6 @@ class Comment extends MY_Controller
      */
     function _check_user($value)
     {
-
         if (!user_is_login()) {
 
             $this->form_validation->set_message(__FUNCTION__, 'Bạn cần đăng nhập để sử dụng chức năng này');
@@ -262,7 +261,6 @@ class Comment extends MY_Controller
         //Form Submit
         $this->_form_submit_output($result);
     }
-
     function reply($comment_id)
     {
         // if(!mod("product")->setting('comment_allow'))

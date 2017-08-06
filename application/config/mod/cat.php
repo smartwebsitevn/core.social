@@ -30,6 +30,7 @@
 */
 $_tmp = array(
 	'user_job',
+	'user_type',
 	);
 
 

@@ -543,7 +543,7 @@
                         options.event_complete.call(this, data, options);
                     }
                     else
-                        nfc.server_response(data)
+                        nfc.server_response(data,$this)
                 }
 
                 // Neu khong thanh cong
@@ -783,7 +783,7 @@
                                 if (typeof options.event_complete == "function") {
                                     options.event_complete.call(this, data, options);
                                 }
-                                else{
+                                else {
                                     nfc.server_response(data)
                                 }
                                 // Reset value
@@ -898,7 +898,7 @@
                         var class_off = 'off';
 
                         var toggle_handle = {
-                            class: function (status ,ele) {
+                            class: function (status, ele) {
                                 if (ele != undefined)
                                     $this = ele;
 
@@ -936,16 +936,17 @@
                             },
                             group: function () {
                                 // xoa trang thai cu neu co
-                                if ($this.data('group') != undefined){
-                                    var group_name =$this.data('group')
-                                    var $group= $this.closest('.'+group_name);
+                                if ($this.data('group') != undefined) {
+                                    var group_name = $this.data('group')
+                                    var $group = $this.closest('.' + group_name);
                                     if ($group != undefined) {
                                         $group.find('[data-group="' + group_name + '"]').each(function () {
-                                           // toggle_handle.class(false,$(this));
-                                           $(this).removeClass(class_on + ' ' + $(this).data('class-on'));
+                                            // toggle_handle.class(false,$(this));
+                                            $(this).removeClass(class_on + ' ' + $(this).data('class-on'));
                                         });
                                     }
-                                };
+                                }
+                                ;
                             },
                             click: function () {
                                 $this.click(function () {
@@ -1456,7 +1457,7 @@
                     act_short.hide();
                     return;
                 }
-                else{
+                else {
                     act_all.show();
                     act_short.hide();
                 }
@@ -1487,7 +1488,7 @@
                     });
 
                     // Dua man hinh len dau block
-                   if (scrollTo) {
+                    if (scrollTo) {
                         $.scrollTo($this, 800);
                     }
 
@@ -1511,6 +1512,7 @@
 
                 return false;
             }
+
             /**
              * View more word
              */
@@ -1531,7 +1533,7 @@
 
                 // Hien thi list rut gon
                 function show_word_short(scrollTo) {
-                    $this.find('.more_word_content').html( $this.find('.data-content-shorted').html());
+                    $this.find('.more_word_content').html($this.find('.data-content-shorted').html());
                     // Dua man hinh len dau block
                     if (scrollTo) {
                         $.scrollTo($this, 800);
@@ -1543,7 +1545,7 @@
 
                 // Hien thi toan bo list
                 function show_word_all() {
-                    $this.find('.more_word_content').html( $this.find('.data-content-full').html());
+                    $this.find('.more_word_content').html($this.find('.data-content-full').html());
                     // Xu ly act
                     act_all.hide();
                     act_short.show();
@@ -1551,6 +1553,7 @@
 
                 return false;
             }
+
             /**
              * Load needProcessing
              */
@@ -1590,8 +1593,13 @@ var nfc = {
     boot: function () {
         this.display.boot();
         this.form.boot();
+        this.action.boot();
+    },
+    reboot: function () {
+        this.action.reboot();
     },
 
+    //===================
     display: {
         boot: function () {
             this.common();
@@ -1599,11 +1607,29 @@ var nfc = {
             this.mobile();
         },
         common: function () {
-            // Hide it
-            $('.hideit').click(function () {
-                $(this).fadeOut();
+
+            $(document).on('click', '.lightbox', function () {
+                $(this).nstUI('lightbox');
             });
 
+            $(document).on('click', '.verify_action', function () {
+                $(this).nstUI('verifyAction');
+            });
+            // toggle_content || select || status
+            $(document).on('click', '.toggle_content', function () {
+                $(this).nstUI('toggleContent');
+            });
+            $(document).on('click', '.need_processing', function () {
+                $(this).nstUI('needProcessing');
+            });
+            $(document).on('click', '[_dropdownchild]', function () {
+                $(this).nstUI({
+                    method: 'dropdownHasChild'
+                });
+            });
+            $(document).on('click', '.hideit', function () {
+                $(this).fadeOut();
+            });
             $(document).on('click', '.hide-me', function () {
                 $(this).fadeOut();
             });
@@ -1612,7 +1638,6 @@ var nfc = {
                 var parent = $(this).data('parent');
                 $(this).closest(parent).slideUp();
             });
-
             // chia se mang xa hoi
             $(document).on('click', '.act-share', function () {
                 url = $(this).data('url');
@@ -1733,6 +1758,31 @@ var nfc = {
                 }
             });
 
+            $(".auto_height").keyup(function (e) {
+                autoheight(this);
+            });
+            function autoheight(a) {
+                if (!$(a).prop('scrollTop')) {
+                    do {
+                        var b = $(a).prop('scrollHeight');
+                        var h = $(a).height();
+                        $(a).height(h - 5);
+                    }
+                    while (b && (b != $(a).prop('scrollHeight')));
+                }
+                ;
+                $(a).height($(a).prop('scrollHeight') + 20);
+            }
+
+
+            // Number format
+            $('.format_number, .input_number').autoNumeric('init', {
+                vMin: '0.00000000',
+                vMax: '9999999999999999.99',
+                aPad: false
+            });
+
+
             $('.slimscroll').each(function () {
                 var $this = $(this);
                 var height = "300px";
@@ -1788,8 +1838,8 @@ var nfc = {
 
             /*scrollTo */
             var uri_goto = window.location.href.split('#goto=');
-            if (uri_goto[1]  != undefined) {
-                var el=$(uri_goto[1]);
+            if (uri_goto[1] != undefined) {
+                var el = $(uri_goto[1]);
                 el.show() // neu el an thi khong go to den dc
                 $.scrollTo(el, 800);
             }
@@ -1848,7 +1898,7 @@ var nfc = {
         },
         pagination: function () {
             // su kien bam nut load more
-            $(document).on('click', '#act-pagination-load-more', function () {
+            $(document).on('click', '.act-pagination-load-more', function () {
                 var url = $('.page-pagination .pagination > li.active').next().find('a').attr('href');
                 if (url) {
                     url = url + "&load_more=true";
@@ -2006,18 +2056,16 @@ var nfc = {
         boot: function () {
             this.auto_filter();
             this.add_input_hidden();
-            //this.auto_complete();
+            this.auto_complete();
         },
-        auto_filter : function ()
-        {
-            $(document).on('submit', 'form.ajax_form_filter', function(){
+        auto_filter: function () {
+            $(document).on('submit', 'form.ajax_form_filter', function () {
 
                 nfc.catch_hook_event(this);
 
                 return false;
             })
         },
-
         add_input_hidden: function () {
             var form = {
                 init: function () {
@@ -2038,8 +2086,8 @@ var nfc = {
                         $(this).parent().find('li.active').removeClass('active');
 
                         $(this).toggleClass('active');
-                        if($(this).hasClass('active')){
-                            html = ' <input type="hidden" name="'+ $(this).data('name')+'" value="'+ $(this).data('value')+'"  />';
+                        if ($(this).hasClass('active')) {
+                            html = ' <input type="hidden" name="' + $(this).data('name') + '" value="' + $(this).data('value') + '"  />';
                             $(this).append(html);
                         }
                         nfc.catch_hook_event(this);
@@ -2080,8 +2128,8 @@ var nfc = {
                         $(this).parent().find('li.active').removeClass('active');
 
                         $(this).toggleClass('active');
-                        if($(this).hasClass('active')){
-                            html = ' <input type="hidden" name="'+ $(this).data('name')+'" value="'+ $(this).data('value')+'"  />';
+                        if ($(this).hasClass('active')) {
+                            html = ' <input type="hidden" name="' + $(this).data('name') + '" value="' + $(this).data('value') + '"  />';
                             $(this).append(html);
                         }
                         nfc.catch_hook_event(this);
@@ -2134,8 +2182,8 @@ var nfc = {
                         nfc.catch_hook_event(this);
                         return false;
                     });
-                    $( ".act-filter-slider" ).slider().on("slideStop", function(ev) {
-                           // console.log($(this).val());
+                    $(".act-filter-slider").slider().on("slideStop", function (ev) {
+                        // console.log($(this).val());
                         //alert($(this).val())
                         nfc.catch_hook_event(this);
                         return false;
@@ -2157,13 +2205,12 @@ var nfc = {
                                 $(this).closest('.search-results').removeClass('checked');
                             }
                             else {
-                               var num_checked =$(this).closest('.dropdown-menu').find('.checkbox.checked').length;
+                                var num_checked = $(this).closest('.dropdown-menu').find('.checkbox.checked').length;
 
-                                if(num_checked >= maxlength)
-                                 {
-                                     $.gritter.add({text: 'Bạn chí có thể chọn tối đa '+maxlength + ' dữ liệu',});
-                                     return false;
-                                 }
+                                if (num_checked >= maxlength) {
+                                    $.gritter.add({text: 'Bạn chí có thể chọn tối đa ' + maxlength + ' dữ liệu',});
+                                    return false;
+                                }
                                 $(this).closest('.search-results').addClass('checked');
                             }
                         }
@@ -2193,7 +2240,6 @@ var nfc = {
 
                         if (!e.clientX)
                             return true;
-
 
 
                         setTimeout(function () {
@@ -2307,7 +2353,6 @@ var nfc = {
                         parent.find('.act-filter-slider').val('');
 
 
-
                         setTimeout(function () {
                             // $('form.autoSubmitFrom').submit()
                             nfc.catch_hook_event($this);
@@ -2341,7 +2386,6 @@ var nfc = {
                     })
 
 
-
                     // $('.sortOrderAjax.active').closest('.search-dropdown').find('.search-rendered').text($.trim($('.sortOrderAjax.active').text()));
                 },
 
@@ -2350,7 +2394,6 @@ var nfc = {
 
             form.init();
         },
-
         auto_complete: function () {
             $('[data-autocomplete]').each(function (index) {
                 var redirect = $(this).data('redirect');
@@ -2398,10 +2441,35 @@ var nfc = {
             $('.reloadcaptcha').click();
         },
     },
+    action: {
+        boot: function () {
+            $('.do_action').nstUI('doAction');
+            // Form handle
+            $('.form_action').each(function () {
+                var $this = $(this);
+                //$this.nstUI('formAction', {
+                $this.nstUI('formActionAdv', {
+                    field_load: $this.attr('_field_load'),
+                    event_error: function (data) {
+                        // Reset captcha
+                        //if (data['security_code']){
+                        var captcha = $this.find('img[_captcha]').attr('id');
+                        if (captcha) {
+                            change_captcha(captcha);
+                        }
+                        //}
+                    },
+                });
+            });
+        },
+        reboot: function () {
+            this.boot();
+        },
+    },
     /* Handle_response
      * Khu vuc Su ky ket qua tra ve tu may chu
      * */
-    server_response: function (data) {
+    server_response: function (data,ele) {
         //nfc.pr(data);
         // Thong bao dang alert sau khi hoan thanh
         if (data.msg != undefined) {
@@ -2466,6 +2534,10 @@ var nfc = {
         if (data.reload != undefined && data.reload) {
             window.location.reload();
         }
+         if (ele !=undefined){
+             nfc.catch_hook_event(ele);
+
+         }
     },
     //== Khu vuc thong bao
     notice: function (content, title, sticky) {
@@ -2701,6 +2773,7 @@ var nfc = {
             var params = {};
         params.ele = ele;
         if ($(ele).attr('event-hook') != undefined) {
+
             nfc.call($(ele).attr('event-hook'), params);
         }
         else {
@@ -2711,9 +2784,9 @@ var nfc = {
             } else {
                 if (hook_default != undefined)
                     nfc.call(hook_default, params);
-               /* else {
-                    nfc.call('moduleCoreFilter', params);
-                }*/
+                /* else {
+                 nfc.call('moduleCoreFilter', params);
+                 }*/
             }
         }
     },
@@ -2765,11 +2838,11 @@ function moduleCoreFilter(option) {
     $('body').append('<div class="loader_mini">Loading...</div>');
 
     var matches = 0;
-    $("#form_filter_advance .block-filter input[type=hidden]").each(function(i, val) {
+    $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
         //if ($(this).val() == '1')
         matches++;
     });
-    if(matches>1)
+    if (matches > 1)
         $('.btn-clear-all').show();
     else
         $('.btn-clear-all').hide();
@@ -2817,7 +2890,7 @@ function moduleCoreFilter(option) {
 
                 // kiem tra xem co nut next khong, neu co thi hien load more
                 if ($target_data.find('.page-pagination .pagination > li:last').hasClass('active')) {
-                    $target_data.find('#act-pagination-load-more').parent().hide();
+                    $target_data.find('.act-pagination-load-more').parent().hide();
                 }
 
                 return false;

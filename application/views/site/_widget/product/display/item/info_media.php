@@ -52,7 +52,9 @@
                     <div class="item-video">
                         <div
                             class="item-video-icon" <?php echo $youtube_id ? ' data-youtube="' . $youtube_id . '"' : '' ?> ></div>
-                        <div class="item-video-player"></div>
+                            <?php if($i==1): ?>
+                            <div class="item-video-player"></div>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
             </div>

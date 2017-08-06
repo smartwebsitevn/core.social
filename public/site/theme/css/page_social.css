@@ -1339,7 +1339,7 @@ select option {
       padding: 10px;
       height: 150px; }
       .item-social .item-media .media a {
-        color: #494949; }
+        color: #999999; }
   .item-social .item-name {
     display: block;
     color: #000;
@@ -1369,11 +1369,12 @@ select option {
     font-size: 12px; }
     .item-social .item-meta span {
       margin-right: 20px; }
-    .item-social .item-meta .do_action {
-      font-size: 24px;
-      cursor: pointer;
-      color: #999999; }
-      .item-social .item-meta .do_action:hover, .item-social .item-meta .do_action.active {
+    .item-social .item-meta a {
+      color: #90949c; }
+      .item-social .item-meta a.do_action {
+        font-size: 24px;
+        cursor: pointer; }
+      .item-social .item-meta a:hover, .item-social .item-meta a.active {
         color: #ff9e2f; }
   .item-social .item-actions {
     float: right;
@@ -1381,13 +1382,17 @@ select option {
     .item-social .item-actions .btn {
       /* margin-right: 10px;*/ }
     .item-social .item-actions a {
-      color: #999999; }
+      color: #90949c; }
       .item-social .item-actions a:hover, .item-social .item-actions a.active {
         color: #ff9e2f; }
       .item-social .item-actions a .fa {
         margin-right: 5px; }
     .item-social .item-actions .dropdown-menu {
-      margin-top: 20px; }
+      margin-top: 20px;
+      font-size: 11px; }
+      .item-social .item-actions .dropdown-menu li > a {
+        line-height: 15px;
+        padding: 9px 10px; }
   .item-social .item-vote {
     margin-bottom: 9px; }
     .item-social .item-vote .vote-count {
@@ -1422,6 +1427,16 @@ select option {
     top: 0px; }
     .item-social .item-config i {
       font-size: 22px; }
+  .item-social .item-comments {
+    background: #f9f9f9;
+    padding: 10px 20px; }
+    .item-social .item-comments .avatar {
+      width: 30px;
+      height: 30px; }
+    .item-social .item-comments textarea {
+      float: left;
+      height: 50px;
+      width: 98%; }
 
 /*====================*\
 //Detail product

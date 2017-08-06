@@ -24,7 +24,9 @@ class Product extends MY_Controller
             'demo',
             'report', 'raty', 'vote',
             'favorite', 'favorite_del',
-            'subscribe_del', 'subscribe', 'subscribe_adv',));
+            'subscribe_del', 'subscribe', 'subscribe_adv',
+            'comment',
+        ));
     }
 
     /*
@@ -437,15 +439,14 @@ class Product extends MY_Controller
         $this->load->library('form_validation');
         $this->load->helper('form');
         // Chuyen den ham duoc yeu cau
-        $this->{'_' . $action}();
+        $this->{'_' . $action}($info);
     }
 
 
     /* Demo
      * */
-    function _demo()
+    function _demo($info)
     {
-        $info = $this->data['info'];
         if (!$info->link_demo) redirect();
 
         $this->data['info'] = $this->_mod()->add_info($info, true);
@@ -456,13 +457,12 @@ class Product extends MY_Controller
     /**
      * Yeu thich
      */
-    function _vote()
+    function _vote($info)
     {
         $act = $this->input->get('act');
-        if (!in_array($act, ['like','like_del', 'dislike', 'dislike_del']))
+        if (!in_array($act, ['like', 'like_del', 'dislike', 'dislike_del']))
             $this->_response();
-        $user =$this->data['user'];
-        $info =$this->data['info'];
+        $user = $this->data['user'];
 
         if ($user) {
             //kiem tra da luu hay chua
@@ -470,54 +470,51 @@ class Product extends MY_Controller
             $data ['table_name'] = 'product';
             $data ['table_id'] = $info->id;
             $data ['user_id'] = $user->id;
-            if($act == 'like'){
-                $data ['like'] =1;
-                $data ['dislike'] =0;
-            }
-            elseif($act == 'like_del'){
-                $data ['like'] =0;
-                $data ['dislike'] =0;
-            }
-            elseif($act == 'dislike'){
-                $data ['like'] =0;
-                $data ['dislike'] =1;
-            }
-            elseif($act == 'dislike_del'){
-                $data ['like'] =0;
-                $data ['dislike'] =0;
+            if ($act == 'like') {
+                $data ['like'] = 1;
+                $data ['dislike'] = 0;
+            } elseif ($act == 'like_del') {
+                $data ['like'] = 0;
+                $data ['dislike'] = 0;
+            } elseif ($act == 'dislike') {
+                $data ['like'] = 0;
+                $data ['dislike'] = 1;
+            } elseif ($act == 'dislike_del') {
+                $data ['like'] = 0;
+                $data ['dislike'] = 0;
             }
 
             $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $info->id, 'user_id' => $user->id));
             if ($voted) {
                 $data ['updated'] = now();
-                model('social_vote')->update($voted->id,$data);
+                model('social_vote')->update($voted->id, $data);
             } else {
                 $data ['created'] = now();
                 model('social_vote')->create($data);
             }
             // thong ke
-            $list= model('social_vote')->filter_get_list(array('table_name' => 'product', 'table_id' => $info->id));
-            if($list){
-                $d=0;
-                $stats=['vote_total'=>0,'vote_like'=>0,'vote_dislike'=>0];
-                foreach($list as $row){
-                    if($row->like){
-                        $stats['vote_like'] ++;
+            $list = model('social_vote')->filter_get_list(array('table_name' => 'product', 'table_id' => $info->id));
+            if ($list) {
+                $d = 0;
+                $stats = ['vote_total' => 0, 'vote_like' => 0, 'vote_dislike' => 0];
+                foreach ($list as $row) {
+                    if ($row->like) {
+                        $stats['vote_like']++;
                         $d++;
-                    }elseif($row->like){
-                        $stats['vote_dislike'] ++;
+                    } elseif ($row->like) {
+                        $stats['vote_dislike']++;
                         $d++;
                     }
                 }
-                $stats['vote_total'] =$d;
+                $stats['vote_total'] = $d;
             }
             //pr($stats);
-            model('product')->update($info->id,$stats);
-       // pr_db();
+            model('product')->update($info->id, $stats);
+            // pr_db();
         }
-       /*  else {
-            mod('product')->guest_owner_add($id, "voted");;
-        }*/
+        /*  else {
+             mod('product')->guest_owner_add($id, "voted");;
+         }*/
 
         //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
         $this->_response();
@@ -526,7 +523,7 @@ class Product extends MY_Controller
     /**
      * Yeu thich
      */
-    function _favorite()
+    function _favorite($info)
     {
         $id = $this->data['info']->id;
         if ($this->data['user']) {
@@ -548,9 +545,9 @@ class Product extends MY_Controller
         $this->_response(array('msg_toast' => lang('notice_product_favorited')));
     }
 
-    function _favorite_del()
+    function _favorite_del($info)
     {
-        $id = $this->data['info']->id;
+        $id = $info->id;
         if ($this->data['user']) {
 
             //kiem tra da luu hay chua
@@ -570,9 +567,8 @@ class Product extends MY_Controller
     }
 
 
-    function _report()
+    function _report($info)
     {
-        $info = $this->data['info'];
         // cho phep he thong tu dong bao cao
         $auto = $this->input->get('auto');
         if ($auto) {
@@ -647,7 +643,7 @@ class Product extends MY_Controller
 
     }
 
-    function _subscribe()
+    function _subscribe($info)
     {
         $msg = lang('notice_product_subscribe_success');
         //kiem tra da luu hay chua
@@ -668,7 +664,7 @@ class Product extends MY_Controller
         $this->_response(array('msg_toast' => $msg, 'reload' => 1));
     }
 
-    function _subscribe_del()
+    function _subscribe_del($info)
     {
         //kiem tra da luu hay chua
         $subscribed = model('product_subscribe')->check_exits(array('product_id' => $this->data['info']->id, 'user_id' => $this->data['user']->id));
@@ -687,7 +683,7 @@ class Product extends MY_Controller
     /**
      * theo doi phim (cho phep nhap thong tin email)
      */
-    function _subscribe_adv()
+    function _subscribe_adv($info)
     {
         // Tai cac file thanh phan
         $this->load->library('form_validation');
@@ -786,7 +782,7 @@ class Product extends MY_Controller
     /**
      * Danh gia tin bài
      */
-    function _raty()
+    function _raty($info)
     {
         $result = array();
 
@@ -820,6 +816,185 @@ class Product extends MY_Controller
         // Khai bao du lieu tra ve
         $this->_response(array('msg_toast' => lang('notice_raty_success')));
 
+    }
+
+    /**
+     * Danh gia tin bài
+     */
+    function _comment($info)
+    {
+        if (!$this->input->is_ajax_request())
+            return;
+        $info = $this->_mod()->add_info($info);
+
+        $act = $this->input->get('_act');
+        if ($act) {
+            if (!in_array($act, ['add', 'reply'])) return;
+            set_output('html', $this->{'_comment_' . $act}($info));
+            return;
+        }
+        $tmpl = 'tpl::_widget/product/comment/list';
+        echo widget('comment')->comment_list($info, 'product', $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+    }
+
+    function _comment_add($info)
+    {
+        // if(!mod("product")->setting('comment_allow'))
+        // redirect();
+        // Tai cac file thanh phan
+        // Tu dong kiem tra gia tri cua 1 bien
+        $param = $this->input->post('_autocheck');
+        if ($param) {
+            $this->_autocheck($param);
+        }
+        // Gan dieu kien cho cac bien
+        $params = array('user', 'content');
+        $this->_set_rules($params);
+        // Xu ly du lieu
+        $result = array();
+        if ($this->form_validation->run()) {
+            $user = $this->data['user'];
+
+            // Lay content
+            $content = $this->input->post('content');
+            $content = strip_tags($content);
+
+            // Them du lieu vao data
+            $data = array();
+            $data['table_id'] = $info->id;
+            $data['table_name'] = 'product';
+            $data['content'] = $content;
+            $data['user_id'] = $user->id;
+            $comment_active_status = 1;// mod("product")->setting('comment_auto_verify');
+
+            if ($comment_active_status == config('status_on', 'main')) {
+                $data['status'] = config('verify_yes', 'main');
+                $this->_model()->update_stats($info->id, ['comment_count' => 1]);
+
+            }
+            $data['created'] = now();
+            model("comment")->create($data);
+            // Khai bao du lieu tra ve
+
+
+            $tmpl = 'tpl::_widget/product/comment/list';
+            $data_comment = widget('comment')->comment_list($info, 'product', $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $result['complete'] = TRUE;
+            $result['elements'] = [
+                ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
+                ['pos' => '#' . $info->id . '_comment_total', 'data' =>  $info->comment_count + 1]
+            ];
+
+            if ($comment_active_status == config('status_on', 'main')) {
+                // $result['msg_toast'] = lang('notice_comment_success');
+                //set_message(lang('notice_comment_success'));
+            } else {
+                $result['msg_toast'] = lang('notice_send_comment_success');
+                //set_message(lang('notice_send_comment_success'));
+            }
+
+        } else {
+            foreach ($params as $param) {
+                $result[$param] = form_error($param);
+            }
+        }
+        //Form Submit
+        $this->_form_submit_output($result);
+    }
+
+    function _comment_reply($info)
+    {
+        // if(!mod("product")->setting('comment_allow'))
+        // redirect();
+        // Tai cac file thanh phan
+        $comment_id = $this->input->get('id');
+        // Tu dong kiem tra gia tri cua 1 bien
+        $comment = model('comment')->get_info($comment_id);
+        if (!$comment) {
+            return;
+        }
+        // Gan dieu kien cho cac bien
+        $params = array('user', 'content');
+        $this->_set_rules($params);
+
+        // Xu ly du lieu
+        $result = array();
+        if ($this->form_validation->run()) {
+            $user = $this->data['user'];
+            // Lay content
+            $content = $this->input->post('content');
+            $content = strip_tags($content);
+            // Them du lieu vao data
+            $data = array();
+            $data['table_id'] = $info->id;
+            $data['table_name'] = 'product';
+            $data['content'] = $content;
+            $data['user_id'] = $user->id;
+            $data['parent_id'] = $comment->id;
+            $data['level'] = $comment->level + 1;
+            $comment_active_status = 1;// mod("product")->setting('comment_auto_verify');
+
+            if ($comment_active_status == config('status_on', 'main')) {
+                $data['status'] = config('verify_yes', 'main');
+            }
+            $data['created'] = now();
+            $data['reuped'] = $data['created'];
+            //pr($data);
+            model("comment")->create($data);
+            // reup lai parent, va set la chua view
+            model('comment')->update($comment->id, ["readed" => 0, "reuped" => now()]);
+
+            //==them so lan nhan xet cho bang lien quan
+            $this->_model()->update_stats($info->id, ['comment_count' => 1]);
+
+            //==gui thong bao
+            // gui cho chu topic
+            if ($comment->user_id && $comment->user_id != $user->id)
+                mod('user_notice')->send($comment->user_id, $user->name . ' đã trả lởi bình luận của bạn', ['url' => $model->_url_view]);
+            // gui cho nhung nguoi dang binh luan topic nay
+            $comments = model('comment')->filter_get_list(['parent_id' => $comment->id]);
+            if ($comments) {
+                $users = array_gets($comments, 'user_id');
+                // khong gui thong bao cho nguoi gui binh luan
+                $users = array_diff($users, [$user->id]); // xoa nguoi binh luan khoi danh sach
+                if ($users) {
+                    $msg = $user->name . ' đã bình luận chủ đề bạn quan tâm';
+                    foreach ($users as $v) {
+                        mod('user_notice')->send($v, $msg, ['url' => $info->_url_view]);
+                    }
+                }
+
+            }
+            //== Khai bao du lieu tra ve
+            $result['complete'] = TRUE;
+
+
+            $tmpl = 'tpl::_widget/product/comment/list';
+            $data_comment = widget('comment')->comment_list($info, 'product', $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $result['complete'] = TRUE;
+            $result['elements'] = [
+                ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
+                ['pos' => '#' . $info->id . '_comment_total', 'data' =>  $info->comment_count + 1]
+            ];
+
+            if ($comment_active_status == config('status_on', 'main')) {
+                // $result['msg_toast'] = lang('notice_comment_success');
+                //set_message(lang('notice_comment_success'));
+            } else {
+                $result['msg_toast'] = lang('notice_send_comment_success');
+                //set_message(lang('notice_send_comment_success'));
+            }
+
+
+        } else {
+            foreach ($params as $param) {
+                $result[$param] = form_error($param);
+            }
+        }
+
+
+        //Form Submit
+        $this->_form_submit_output($result);
     }
 
     /**
@@ -857,6 +1032,18 @@ class Product extends MY_Controller
     /**
      * Kiem tra ma bao mat
      */
+    /**
+     * Kiem tra id comment cha
+     */
+    function _check_user($value)
+    {
+        if (!user_is_login()) {
+
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_please_login_to_use_function'));
+            return FALSE;
+        }
+        return TRUE;
+    }
 
     public
     function _check_security_code($value)

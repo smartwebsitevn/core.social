@@ -210,3 +210,5 @@ ALTER TABLE `product`
 
 // 1-8-2017 
 ALTER TABLE `product` ADD COLUMN `type` VARCHAR(10) NOT NULL AFTER `name`;
+
+ALTER TABLE `user` ADD COLUMN `type` INT(11) NULL DEFAULT '0' AFTER `username`;

@@ -1082,10 +1082,12 @@ $this->register('info_cat_single', function (array $input) {
     $req = array_get($input, 'req');
     //$_id = '_'.random_string('unique');
     ?>
-    <div class="form-group ">
-        <?php if ($name): ?>
-            <label><?php echo $name ?> <?php if ($req): ?><b class="red">*</b><?php endif; ?></label>
-        <?php endif; ?>
+   <?php if ($name): ?>
+        <div class="form-group ">
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><b
+                class="red">*</b><?php endif; ?></label>
+        <div class="col-sm-9">
+    <?php endif; ?>
 
         <div class="dropdown search-dropdown">
             <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
@@ -1101,11 +1103,11 @@ $this->register('info_cat_single', function (array $input) {
                 <span class="search-caret"></span>
             </div>
             <span class="search-remove"></span>
-            <ul class="dropdown-menu  slimscroll">
+            <ul class="dropdown-menu ">
                 <?php foreach ($values as $row): ?>
-                    <li class="search-results act-input <?php echo $linked ?> <?php echo ($value == $row->id) ? 'active' : '' ?>"
+                    <li class="search-results act-input-dropdown <?php echo $linked ?> <?php echo ($value == $row->id) ? 'active' : '' ?>"
                         data-name="<?php echo $param ?>" data-value="<?php echo $row->id ?>">
-                        <a class="search-results-option " href="#0"><?php echo $row->_content[$lang->id]->name ?></a>
+                        <a class="search-results-option " href="#0"><?php echo $row->name ?></a>
                         <?php if ($value == $row->id): ?>
                             <input type="hidden" name="<?php echo $param ?>" value="<?php echo $row->id ?>"/>
                         <?php endif; ?>
@@ -1115,7 +1117,11 @@ $this->register('info_cat_single', function (array $input) {
         </div>
         <div class="clearfix"></div>
         <div name="<?php echo $param; ?>_error" class="error"></div>
-    </div>
+    <?php if ($name): ?>
+        </div>
+        </div>
+
+    <?php endif; ?>
 
     <?php return ob_get_clean();
 });
@@ -1228,7 +1234,7 @@ $this->register('info_job', function (array $input) {
                     <?php if ($cat->jobs): ?>
 
                         <?php foreach ($cat->jobs as $job): ?>
-                            <li class="search-results act-input <?php echo $linked ?> <?php echo ($value == $job->id) ? 'active' : '' ?>"
+                            <li class="search-results act-input-dropdown <?php echo $linked ?> <?php echo ($value == $job->id) ? 'active' : '' ?>"
                                 data-name="<?php echo $param ?>" data-value="<?php echo $job->id ?>">
                                 <a href="#0" class="search-results-option "><?php echo $job->name ?></a>
                                 <?php if ($value == $job->id): ?>
@@ -1307,7 +1313,7 @@ $this->register('info_country', function (array $input) {
                                 $checked = $v->id == $value ? 1 : 0;
 
                             ?>
-                            <li class="search-results act-input  <?php echo $linked ?> <?php echo $checked ? '  active_filter' : ''; ?>"
+                            <li class="search-results act-input-dropdown  <?php echo $linked ?> <?php echo $checked ? '  active_filter' : ''; ?>"
                                 data-name="<?php echo $param ?>" data-value="<?php echo $v->id; ?>">
                                 <a class="search-results-option" href="#" data-value="<?php echo $v->id; ?>">
                                     <img
@@ -1565,7 +1571,7 @@ $this->register('info_city_country', function (array $input) {
                                 <a class="search-results-option" href="#"><?php echo $group->name; ?></a>
                             </li>
                             <?php foreach ($group->countries as $v): ?>
-                                <li class="search-results act-input  <?php echo $linked ?>"
+                                <li class="search-results act-input-dropdown  <?php echo $linked ?>"
                                     data-name="<?php echo $country_param ?>" data-value="<?php echo $v->id; ?>">
                                     <a class="search-results-option" href="#" data-value="<?php echo $v->id; ?>">
                                         <img
@@ -2105,8 +2111,15 @@ function rendered_value($value, $values,$name=null)
     if ($value) {
         $selected = [];
         foreach ($values as $row) {
-            if (in_array($row->id, $value)) {
-                $selected[] = $row->name;
+            if(is_array($value)){
+                if (in_array($row->id, $value)) {
+                    $selected[] = $row->name;
+                }
+            }
+            else{
+                if ($row->id == $value) {
+                    $selected[] = $row->name;
+                }
             }
         }
         if ($selected)

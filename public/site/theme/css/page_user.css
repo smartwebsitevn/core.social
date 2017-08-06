@@ -1,45 +1,15 @@
+/*
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+/*@include skel-layout((
+        reset: 'full',
+        boxModel: 'border',
+        grid: (gutters: 1em)
+));*/
 body.user-page #main {
   margin: 0px; }
-
-body.user-account .sidebar {
-  padding-top: 10px;
-  padding-bottom: 40px;
-  position: relative; }
-  body.user-account .sidebar h3 {
-    margin-top: 0; }
-  body.user-account .sidebar .nav li a:hover, body.user-account .sidebar .nav li a.active {
-    background: #eee;
-    border-color: #e0e0e0 transparent;
-    border-style: solid;
-    border-width: 1px 2px;
-    line-height: 22px;
-    position: relative;
-    border-left-width: 4px;
-    border-left-color: #f7941e; }
-body.user-account .main-content h1.panel-title {
-  font-size: 2em; }
-body.user-account .main-content .panel {
-  background: none;
-  margin-bottom: 40px; }
-  body.user-account .main-content .panel .panel-body {
-    background: #fff;
-    padding: 40px; }
-  body.user-account .main-content .panel form {
-    /* padding: 20px;*/ }
-    body.user-account .main-content .panel form .form-group {
-      margin: 0; }
-      body.user-account .main-content .panel form .form-group .control-label {
-        text-align: left; }
-      body.user-account .main-content .panel form .form-group select.form-control {
-        width: 200px;
-        float: left; }
-      body.user-account .main-content .panel form .form-group .form-control {
-        width: 100%;
-        float: left; }
-    body.user-account .main-content .panel form .actions {
-      position: absolute;
-      top: 10px;
-      right: 10px; }
 
 /*====================*\
 //Categori social
@@ -280,3 +250,64 @@ body.user-account .main-content .panel {
         color: #f67004; }
   .detail-user .item-action {
     text-align: center; }
+
+body.user-account .sidebar {
+  padding-top: 10px;
+  padding-bottom: 40px;
+  position: relative; }
+  body.user-account .sidebar h3 {
+    margin-top: 0; }
+  body.user-account .sidebar .nav li a:hover, body.user-account .sidebar .nav li a.active {
+    background: #eee;
+    border-color: #e0e0e0 transparent;
+    border-style: solid;
+    border-width: 1px 2px;
+    line-height: 22px;
+    position: relative;
+    border-left-width: 4px;
+    border-left-color: #f7941e; }
+body.user-account .main-content h1.panel-title {
+  font-size: 2em; }
+body.user-account .main-content .panel {
+  background: none;
+  margin-bottom: 40px; }
+  body.user-account .main-content .panel .panel-body {
+    background: #fff;
+    padding: 40px; }
+  body.user-account .main-content .panel .user_avatar {
+    height: 100px; }
+  body.user-account .main-content .panel form {
+    /* padding: 20px;*/ }
+    body.user-account .main-content .panel form .form-group {
+      margin: 0;
+      border-bottom: 1px solid rgba(160, 160, 160, 0.3);
+      padding: 20px 30px 15px;
+      /*&:hover{
+        border: 1px solid _palette(button-1);
+      }*/ }
+      body.user-account .main-content .panel form .form-group .control-label {
+        text-align: left; }
+      body.user-account .main-content .panel form .form-group select.form-control {
+        width: 200px;
+        float: left; }
+      body.user-account .main-content .panel form .form-group .form-control {
+        width: 100%;
+        float: left; }
+      body.user-account .main-content .panel form .form-group:last-child {
+        /* border-bottom: none;*/
+        margin-bottom: 50px; }
+    body.user-account .main-content .panel form .actions {
+      position: absolute;
+      top: 10px;
+      right: 10px; }
+  body.user-account .main-content .panel table {
+    /*  tr:hover td { border-top-color: red; border-bottom: 1px solid red; }
+      tr:hover td:first-child { border-left-color: red; }
+      tr:hover td:last-child  { border-right-color: red; }*/ }
+    body.user-account .main-content .panel table tr td {
+      padding: 20px 30px 15px;
+      /*border: 1px solid #ccc;
+      border-bottom: 0;
+      &:first-child{
+        border-right: none;
+      }*/ }

@@ -474,9 +474,12 @@
     span {
       margin-right: 20px;
     }
-    .do_action {
-      font-size: 24px;
-      cursor: pointer;
+
+    a{
+      &.do_action{
+        font-size: 24px;
+        cursor: pointer;
+      }
       color: _palette(text-2);
       &:hover,&.active {
         color: _palette(button-2);
@@ -500,9 +503,13 @@
     }
     .dropdown-menu{
       margin-top: 20px;
+      font-size: 11px;
+       li > a {
+        line-height: 15px;
+        padding: 9px 10px;
+      }
     }
   }
-
   .item-vote {
     margin-bottom: 9px;
     .vote-count {
@@ -525,7 +532,6 @@
       color: #17aa1c;
     }
   }
-
   .item-price {
     font-weight: 500;
     font-size: 16px;
@@ -549,4 +555,18 @@
       font-size: 22px;
     }
   }
+  .item-comments {
+    background: _palette(bg-2);
+    padding:10px 20px;
+    .avatar {
+      width: 30px;
+      height: 30px;
+    }
+    textarea{
+      float: left;
+      height: 50px;
+      width: 98%;
+    }
+  }
+
 }

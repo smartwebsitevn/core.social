@@ -65,10 +65,11 @@ class Comment_widget extends MY_Widget
         $this->load->view($temp, $this->data);
     }
 
-    function comment_list($info, $type, $temp = '')
+    function comment_list($info, $type, $temp = '', $temp_options = array())
     {
         $user = user_get_account_info();
-
+        if ($user)
+            $user = mod('user')->add_info($user);
         // Tai cac file thanh phan
         $filter = [
             'status' => config('verify_yes', 'main'),
@@ -77,7 +78,7 @@ class Comment_widget extends MY_Widget
         ];
         $total = model('comment')->filter_get_total($filter);
 
-        $page_size = 2;
+        $page_size = 5;
         $input = [
             'order' => array('created', 'DESC'),
         ];
@@ -89,10 +90,10 @@ class Comment_widget extends MY_Widget
             //== Lay danh sach
             $input['limit'] = array($limit, $page_size);
         }
-
         // chi hien cap 1
-        $filter['parent_id'] = 0;
-        $list = $this->builder_sub($filter);
+        $parent_id = $this->input->get('parent_id');
+        $filter['parent_id'] = $parent_id?$parent_id:0;
+        $list = $this->builder_sub($filter,$input);
 
         // Tao chia trang
         $pages_config = array();
@@ -115,23 +116,29 @@ class Comment_widget extends MY_Widget
         $this->data['list'] = $list;
         $this->data['total'] = $total;
         $this->data['page_size'] = $page_size;
-        $this->data['ajax_pagination_total'] = ceil($total / $page_size);
-
+        $this->data['load_more'] =  $this->input->get("load_more", false);
 
         // Hien thi view
         // $temp = (!$temp) ? 'site/_widget/'.$type.'/comment/list' : $temp;
-        $temp = (!$temp) ? 'list' : $temp;
-        $temp = 'site/_widget/comment/' . $temp;
-        $this->load->view($temp, $this->data);
+        $temp_full = array_get($temp_options, 'temp_full', false);
+
+        if (!$temp_full) {
+            $temp = (!$temp) ? 'list' : $temp;
+            $temp = 'site/_widget/comment/' . $temp;
+        }
+
+
+        $return = array_get($temp_options, 'return_data', false);
+        if ($return)
+            return $this->_display($this->_make_view($temp, __FUNCTION__), $return);
+        else
+            $this->_display($this->_make_view($temp, __FUNCTION__));
     }
 
-    function builder_sub($filter)
+    function builder_sub($filter,$input=[])
     {
-        $input = [
-            'order' => array('created', 'DESC'),
-        ];
         $list_sub = model('comment')->filter_get_list($filter, $input);
-        //pr_db($list_sub,0);
+       // pr_db($list_sub);
         foreach ($list_sub as &$sub) {
             $user = model('user')->get_info($sub->user_id, 'name,avatar,vote_total');
             $sub->user = null;
@@ -146,11 +153,13 @@ class Comment_widget extends MY_Widget
 
     }
 
-    function builder_html($row)
+    function builder_html($row,$options=[])
     {
         ob_start();
+        $field_load = array_get($options,'field_load',null);
         $name = $row->user ? $row->user_name : 'admin';
         $img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
+        $url_comment_reply =isset($options['url_reply'])?$options['url_reply'].'&id='.$row->id: site_url('comment/reply/' . $row->id);
         ?>
         <div class="row mt10">
             <div class="col-md-1">
@@ -160,30 +169,28 @@ class Comment_widget extends MY_Widget
                          class="avatar">
                 </a>
 
-
             </div>
             <div class="col-md-11">
-                <div  class="info">
-                    <span class="name"><?php echo $name ?></span>
+                <div class="info">
+                    <span class="name"><a href="#0<?php //echo $row->user->_url_view ?>"><?php echo $name ?></a></span> -
+                    <span class="date"><?php echo get_date($row->created) ?> </span>
 
-                        <?php if ($row->user): ?>
-                            <span
-                                class="points"> <b><?php echo number_format($row->user->vote_total) ?></b> <?php echo lang("count_point") ?>
+                    <?php /*if ($row->user): ?>
+                        <span
+                            class="points"> <b><?php echo number_format($row->user->vote_total) ?></b> <?php echo lang("count_point") ?>
                                 </span>
-                        <?php endif; ?>
-                        <span class="date_created"> <b><?php echo  get_date($row->created)   ?></b> </span>
-
+                    <?php endif; */?>
                 </div>
 
                 <p class="comment-content"><?php echo $row->content ?></p>
 
                 <?php if ($row->level < 2): ?>
                     <div class="comment-action">
-                           <span>
-                            <a class="do_action" data-type=""
+                           <span class="action_vote_group">
+                            <a class="do_action" data-group="action_vote_group"
                                data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=like" ?>"><i
                                     class="pe-7s-angle-up-circle"></i></a>
-                            <a class="do_action" data-type=""
+                            <a class="do_action" data-group="action_vote_group"
                                data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=dislike" ?>"><i
                                     class="pe-7s-angle-down-circle"></i></a>
                             </span>
@@ -192,29 +199,33 @@ class Comment_widget extends MY_Widget
                            class="reply-btn">Trả lời (<?php echo isset($row->subs) ? count($row->subs) : 0 ?>) </a>
                     </div>
                     <div class="collapse  mt20  " id="reply_<?php echo $row->id ?>">
-                        <form class="form_action" accept-charset="UTF-8"
-                              action="<?php echo site_url('comment/reply/' . $row->id) ?>" method="POST">
-
+                        <form class="form_action" accept-charset="UTF-8" _field_load="<?php echo $field_load; ?>"   action="<?php echo $url_comment_reply ?>" method="POST">
                             <!--<img src="<?php /*//echo !$user->avatar?$user->avatar->url_thumb:public_url('site/layout/img/default-avatar.png')*/ ?>" class="media-object user-avatar pull-left">-->
 
                             <div class="form-group text-right">
-                                  <textarea name="content"
-                                            placeholder="<?php echo lang("comment") ?>"
-                                            class="form-control"></textarea>
-                                <a  _submit="true" class="mt10 pull-right">Post</a>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                <textarea name="content"
+                                          placeholder="<?php echo lang("comment") ?>"
+                                          class="form-control auto_height " maxlength="255"></textarea>
+
+                                        <div name="content_error" class="error "></div>
+                                        <div name="user_error" class="error "></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a _submit="true" class="btn btn-default btn-xs pull-right">Post</a>
+                                    </div>
 
 
-                                <div class="clear"></div>
-                                <div name="content_error" class="error "></div>
-                                <div name="user_error" class="error "></div>
+                                </div>
                             </div>
 
                         </form>
                         <?php if (isset($row->subs) && $row->subs): ?>
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled list-comment-<?php echo $row->id ?>">
                                 <?php foreach ($row->subs as $sub): //pr($sub);?>
                                     <li>
-                                        <?php echo $this->builder_html($sub) ?>
+                                        <?php echo $this->builder_html($sub,$options) ?>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

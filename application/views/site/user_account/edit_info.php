@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="panel-body">
+    <div class="panel-body p0">
         <?php
         $public_url_js = public_url('js');
         ?>
@@ -112,6 +112,13 @@
             'value' => $user->distric,
             'values_row' => [ $districs, 'distric_id', 'distric_name'],
        ]);*/
+
+        echo macro('mr::form')->info_cat_single(array(
+            'name' => 'Loại thành viên',
+            'param' => 'type',
+            'value' => $user->type,
+            'values' => $cat_type_user_type,
+        ));
         $user->job = explode(',', $user->job);
         echo macro('mr::form')->info_cat_multi(array(
             'name' => 'Lĩnh vực hoạt động',
@@ -138,6 +145,7 @@
         ));*/
 
         echo macro('mr::form')->row([
+            'name' => 'Tự giới thiệu',
             'param' => 'desc',
             'value' => $user->desc,
             'type' => "textarea"

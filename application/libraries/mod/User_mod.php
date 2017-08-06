@@ -29,6 +29,7 @@ class User_mod extends MY_Mod
         $row = user_add_info($row);
         $row = $this->add_info_working_city($row);
         $row = $this->add_info_working_country($row);
+        $row = $this->add_info_relation_cat($row);
         $row = $this->add_info_relation_cat_multi($row);
         $row = $this->url($row);
         return $row;

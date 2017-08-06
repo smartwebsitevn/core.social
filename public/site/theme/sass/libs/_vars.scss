@@ -44,14 +44,16 @@ $palette: (
         border: rgba(160, 160, 160, 0.3),
         border-bg: rgba(160, 160, 160, 0.075),
         border-alt: rgba(160, 160, 160, 0.65),
-        accent: #fff,
 
 
         text-1: rgb(224, 224, 224),
-        text-2: rgb(153, 153, 153),
-        text-3: rgb(73, 73, 73),
-
+        text-2: #90949c,
+        text-3: rgb(153, 153, 153),
+        text-4: rgb(73, 73, 73),
         button-1: rgb(247, 148, 30),
         button-2: rgb(255, 158, 47),
-        button-3: rgb(235, 131, 5)
+        button-3: rgb(235, 131, 5),
+
+        accent: #fff
+
 );

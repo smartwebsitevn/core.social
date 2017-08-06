@@ -34,14 +34,13 @@
                             <?php echo widget('product')->action_vote($row) ?>
 
                            <span
-                                    class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
+                                    class="points"> <i class="pe-7s-star"></i> <?php echo lang("count_point") ?> <b><?php echo number_format($row->vote_total) ?></b> </span>
                             <!--<span  class="views"> <b><?php /*echo number_format($row->view_total) */
                             ?></b> <?php /*echo lang("count_view") */
                             ?></span>-->
-                            <span
-                                class="comments"> <b><?php echo number_format($row->comment_count) ?></b> Bình luận<?php //echo lang("count_comment") ?></span>
-                            <!--<span class="date_created"> <b><?php /*echo $row->_created */
+                                                  <!--<span class="date_created"> <b><?php /*echo $row->_created */
                             ?></b> </span>-->
+                            <?php echo widget('product')->action_comment($row) ?>
 
                         </div>
 
@@ -51,7 +50,9 @@
                             <?php //widget('product')->action_close()
                             ?>
                         </div>
-
+                        <div class="clear"></div>
+                        <div id="<?php echo $row->id; ?>_comment_load" class="tab_load"></div>
+                        <div id="<?php echo $row->id; ?>_comment_show"></div>
                         <?php //t('view')->load('tpl::_widget/product/display/item/infos')
                         ?>
                     </div>
