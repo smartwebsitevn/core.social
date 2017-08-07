@@ -47,44 +47,13 @@ $_data_single = function ($key,$value,$name) use ($filter) {
     <?php return ob_get_clean();
 };
 ?>
-<form id="form_filter_advance" name="form_filter_advance" action="<?php echo $action; ?>" method="get">
-    <div class="mobile text-right">
-        <a class="close-filter"><i class="fa fa-window-close" aria-hidden="true"></i></a>
-    </div>
-    <section>
-        <div class="k-listing-category">
-            <h3>Tìm theo danh mục</h3>
-            <ul class="k-category-list pd0">
-                <?php echo model('product_cat')->get_tree(); ?>
-            </ul>
-        </div>
-        <!--end k-category-->
-    </section>
-    <div class="widget widget-filter">
-        <h3>Tìm theo đặc điểm khóa học</h3>
-        <?php echo  $_data_array(["0"=>lang("price_free"),"1"=>lang("price_purchase"),"2"=>lang("price_vip")],"price_option") ?>
-        <?php echo  $_data_single("discount","1",lang("price_discount")) ?>
-        <?php echo  $_data_single("has_voucher","1",lang("has_voucher")) ?>
-        <?php echo  $_data_single("has_combo","1",lang("has_combo")) ?>
-    </div>
-    <div class="widget widget-filter">
-        <h3>Tìm theo thời lượng</h3>
-        <?php echo $_data_cat_type($cat_type_time_product, 'time_product_id'); ?>
-    </div>
-    <div class="widget widget-filter">
-        <h3>Tìm theo độ tuổi</h3>
-        <?php echo $_data_cat_type($cat_type_age, 'age_id'); ?>
 
+
+<div class="block">
+    <div class="block-title">
+        Đang theo dõi
     </div>
-    <div class="widget widget-filter">
-        <h3>Tìm theo trình độ yêu cầu</h3>
-        <?php echo $_data_cat_type($cat_type_level, 'level_id'); ?>
+    <div class="block-content slimscroll">
+        <?php widget('user')->feature(null,'sidebar_feature') ?>
     </div>
-    <div class="widget widget-tag">
-        <h3>Chủ đề đang hot</h3>
-        <?php foreach ($tags as $row): ?>
-            <?php if (!$row->seo_url) continue; ?>
-            <a href="<?php echo site_url('product_list/tag/' . $row->seo_url) ?>"><?php echo $row->name ?></a>
-        <?php endforeach; ?>
-    </div>
-</form>
+</div>

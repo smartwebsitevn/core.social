@@ -30,30 +30,30 @@ body {
   margin-right: -10px; }
 
 [class^="col-sm"], [class^="col-md"], [class^="col-lg"] {
-  padding: 0 10px; }
+  padding: 0 5px; }
 
 body, input, select, textarea {
   color: #646464;
   font-family: "Roboto", sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.3;
   margin: auto; }
   @media screen and (max-width: 1680px) {
     body, input, select, textarea {
-      font-size: 12pt; } }
+      font-size: 12px; } }
   @media screen and (max-width: 1280px) {
     body, input, select, textarea {
-      font-size: 12pt; } }
+      font-size: 12px; } }
   @media screen and (max-width: 980px) {
     body, input, select, textarea {
-      font-size: 12pt; } }
+      font-size: 12px; } }
   @media screen and (max-width: 736px) {
     body, input, select, textarea {
-      font-size: 12pt; } }
+      font-size: 12px; } }
   @media screen and (max-width: 480px) {
     body, input, select, textarea {
-      font-size: 12pt; } }
+      font-size: 12px; } }
 
 a {
   /*border-bottom: dotted 1px _palette(border-alt);*/
@@ -1225,6 +1225,32 @@ padding-right: 15px;*/ }
   border: 2px solid #e0e0e0;
   border-radius: 0; }
 
+/* Box */
+/**=====================
+ * block
+ =======================*/
+.panel {
+  position: relative;
+  margin: 0 0 10px;
+  padding: 0px;
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset; }
+  .panel .panel-heading {
+    margin: 0px;
+    padding: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eaeaea;
+    text-indent: 1em;
+    display: block;
+    font-size: 13px;
+    font-weight: bolder; }
+  .panel .panel-body {
+    clear: both;
+    margin: 0px;
+    padding: 15px 10px; }
+
 /*====================*\
 //form
 \*====================*/
@@ -2049,6 +2075,35 @@ table {
         .comment-list .comment-action .action_vote_group a:hover, .comment-list .comment-action .action_vote_group a.active {
           color: #ff9e2f; }
 
+/* Box */
+/**=====================
+ * block
+ =======================*/
+/*.block {
+  position: relative;
+  margin: 0 0 10px;
+  padding: 0px;
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+  .block-title {
+    margin: 0px;
+    padding: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eaeaea;
+    text-indent: 1em;
+    display: block;
+    font-size: 13px;
+    font-weight: bolder;
+
+  }
+  .block-content {
+    clear: both;
+    margin: 0px;
+    padding: 15px 10px;
+  }
+}*/
 /* Box */
 .box-main {
   border: solid 2px rgba(160, 160, 160, 0.3);

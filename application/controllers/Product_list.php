@@ -9,6 +9,15 @@ class Product_list extends MY_Controller
             redirect();
         // Tai cac file thanh phan
         $this->load->language('site/product');
+        $layout= $this->input->get('layout');
+        $layouts=['block'=>'site','grid'=>'site_social'];
+         if(array_key_exists($layout,$layouts)){
+            // t('tpl')->set_tpl($layouts[$layout]);
+             t('input')->set_user_layout($layouts[$layout]);
+         }
+       // t('tpl')->set_tpl('site_social');
+        t('tpl')->set_tpl(t('input')->get_user_layout('site_social'));
+
     }
       public function all()
     {
@@ -22,9 +31,9 @@ class Product_list extends MY_Controller
      */
     public function index()
     {
-        // redirect($this->_url("all"));
         $this->_create_list();
         $this->_display();
+
     }
 
 
@@ -66,7 +75,7 @@ class Product_list extends MY_Controller
             page_info('description', character_limiter($category->seo_description, 160));
         if ($category->seo_keywords)
             page_info('keywords', $category->seo_keywords);
-        $this->_display();
+        $this->_display('category','product_list_layout2');
     }
 
 

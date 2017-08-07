@@ -9,7 +9,7 @@
 /**=====================
  * block
  =======================*/
-/*.block {
+.panel {
   position: relative;
   margin: 0 0 10px;
   padding: 0px;
@@ -17,7 +17,7 @@
   border: 1px solid #e3e3e3;
   border-radius: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
-  .block-title {
+  .panel-heading {
     margin: 0px;
     padding: 10px 0;
     padding-bottom: 5px;
@@ -28,47 +28,9 @@
     font-weight: bolder;
 
   }
-  .block-content {
+  .panel-body {
     clear: both;
     margin: 0px;
     padding: 15px 10px;
-  }
-}*/
-
-/* Box */
-
-.box-main {
-  border: solid 2px _palette(border);
-  margin-bottom: _size(element-margin);
-  padding: 1.5em;
-
-  > :last-child,
-  > :last-child > :last-child,
-  > :last-child > :last-child > :last-child {
-    margin-bottom: 0;
-  }
-
-  &.alt {
-    border: 0;
-    border-radius: 0;
-    padding: 0;
-  }
-}
-
-.box-sub {
-  border: solid 1px _palette(border);
-  margin-bottom: _size(element-margin);
-  padding: 1.5em;
-
-  > :last-child,
-  > :last-child > :last-child,
-  > :last-child > :last-child > :last-child {
-    margin-bottom: 0;
-  }
-
-  &.alt {
-    border: 0;
-    border-radius: 0;
-    padding: 0;
   }
 }

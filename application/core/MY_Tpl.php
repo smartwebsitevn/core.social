@@ -70,11 +70,14 @@ class MY_Tpl
 
 		$tpl_custom = $tpl.'_custom';
 		$tpl_mobile = $tpl.'_mobile';
-		
 		if (t('input')->is_mobile() && $this->has_tpl($tpl_mobile))
 		{
 			$tpl = $tpl_mobile;
 		}
+		/*elseif ($user_layout= t('input')->get_user_layout())
+		{
+			$tpl = $user_layout;
+		}*/
 		elseif ($this->has_tpl($tpl_custom))
 		{
 			$tpl = $tpl_custom;
@@ -106,12 +109,14 @@ class MY_Tpl
 	{
 		return $this->path;
 	}
-	
+
+
 	/**
 	 * Gan template
 	 *
 	 * @param string $tpl
 	 */
+
 	public function set_tpl($tpl)
 	{
 		$this->tpl = $tpl;

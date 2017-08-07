@@ -129,6 +129,44 @@ body.user-page #main {
       .list-user .item-user:hover .item-name a {
         color: #f67004; }
 
+.list-user-feature {
+  /* margin-bottom: 40px;
+   background-color: #ffffff;
+   border: 1px solid #e0e0e0;
+   color: #666;*/ }
+  .list-user-feature .item-user {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    width: 100%; }
+    .list-user-feature .item-user .item-photo {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      width: 45px;
+      float: left;
+      margin-right: 5px; }
+      .list-user-feature .item-user .item-photo img {
+        display: block;
+        width: 45px;
+        height: 45px;
+        border-radius: 100%; }
+    .list-user-feature .item-user .item-info {
+      float: left;
+      width: calc(75% - 40px); }
+    .list-user-feature .item-user .item-name {
+      display: block;
+      margin-bottom: 5px;
+      text-transform: capitalize; }
+      .list-user-feature .item-user .item-name a {
+        color: #000; }
+    .list-user-feature .item-user:hover .item-name {
+      color: #f67004; }
+      .list-user-feature .item-user:hover .item-name a {
+        color: #f67004; }
+
 /*====================*\
 //Detail user
 \*====================*/

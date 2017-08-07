@@ -1,17 +1,23 @@
-<!-- Slide -->
-<div class="owl-carousel-top">
-	<?php foreach ($items as $i => $item): ?>
-		<div class="carousel-item">
-			<a href="<?php echo $item->url ?>"><img alt="images"  src="<?php echo $item->image->url; ?>"/></a>
-			<?php if(isset($item->desc)&& $item->desc): ?>
-			<div class="content-slide">
-				<div class="cus-slide1">
-					<?php echo handle_content($item->desc,"output") ?>
-				</div>
+<?php
+$_slide_data = function ($items) {
+	ob_start() ?>
+	<?php if ($items): ?>
+		<?php foreach ($items as $i => $item): ?>
+			<div  class="item" style="background-image: url(<?php echo $item->image->url; ?>)" data-dot="<?php echo ($i+1) ?>">
+				<?php  if(isset($item->desc)&& $item->desc): ?>
+					<div class="caption">
+						<strong class="title"><?php echo $item->target ?></strong>
+						<p class="des"><?php echo $item->desc ?></p>
+					</div>
+				<?php endif;  ?>
 			</div>
-			<?php endif; ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+	<?php return ob_get_clean();
+};
+?>
+<div class="slide-banner">
+		<div class="owl-carousel owl-nav-auto">
+			<?php echo $_slide_data($items); ?>
 		</div>
-	<?php endforeach; ?>
-
 </div>
-

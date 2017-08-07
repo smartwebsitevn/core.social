@@ -51,15 +51,15 @@ class MY_Input extends CI_Input {
 	 * @return boolean
 	 */
 
-	public function view2($view, $data = array(), $return = false)
+	public function view_($view, $data = array(), $return = false)
 	{
 		$host= $_host= $_SERVER['HTTP_HOST'];
 		$host =  explode('.',$host);
 		//  pr($host);
-		if (
-		(t('agent')->is_mobile() || isset(t('uri')->uri->mobile) || $host[0] =='m')     //&& 	is_dir(APPPATH.'views/site_mobile')
-		)
+		//if ((t('agent')->is_mobile() || isset(t('uri')->uri->mobile) || $host[0] =='m')  	)
+			if (1	)
 		{
+
 			// Xu ly controller
 			$controller = t('uri')->segment(1);
 			$controller = strtolower($controller);
@@ -67,7 +67,7 @@ class MY_Input extends CI_Input {
 			{
 				$view_tmp = preg_replace('#^site/#i', '', $view);
 				$file_view = APPPATH . 'views/site_mobile/' . $view_tmp  . '.php';
-				// echo  '<br> == check: '. $file_view;
+				 echo  '<br> == check: '. $file_view;
 				if (file_exists ($file_view )) {
 					$view = preg_replace('#^site/#i', 'site_mobile/', $view);
 				}
@@ -104,6 +104,18 @@ class MY_Input extends CI_Input {
 
 		return false;
 	}
-	
+	public function get_user_layout($default=null)
+	{
+		$layout = t('session')->userdata('user_layout');
+		if ($layout)
+		{
+			return $layout;
+		}
+		return $default;
+	}
+	public function set_user_layout($layout)
+	{
+		 t('session')->set_userdata('user_layout',$layout);
+	}
 }
 

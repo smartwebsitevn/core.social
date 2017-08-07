@@ -1,8 +1,6 @@
 <?php
 //pr($filter);
-$_data_sort = function ()
-use ($filter, $total_rows, $sort_orders, $sort_order)
-
+$_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order)
 {
 ob_start();
 $sort_orders_data = [];
@@ -28,11 +26,21 @@ foreach ($sort_orders as $v) {
             <?php
             echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
         </div>
+        <?php /* ?>
         <div class="block-layout act-filter-choice-group">
             <a class="act-filter-choice active" href="Javascript:;" data-name="layout" data-value="block">
                 <i class="pe-7s-menu icon "></i>
             </a>
             <a class="act-filter-choice" href="Javascript:;" data-name="layout" data-value="grid">
+                <i class="pe-7s-keypad icon "></i>
+            </a>
+        </div>
+ <?php */ ?>
+        <div class="  text-right">
+            <a class="active" href="<?php echo current_url().'?layout=block' ?>" data-name="layout" data-value="block">
+                <i class="pe-7s-menu icon "></i>
+            </a>
+            <a class="" href="<?php echo current_url().'?layout=grid' ?>" data-name="layout" data-value="grid">
                 <i class="pe-7s-keypad icon "></i>
             </a>
         </div>
@@ -79,7 +87,8 @@ foreach ($sort_orders as $v) {
 };*/
 
 ?>
-<form id="form_filter_advance" class="ajax_form_filter" name="form_filter_advance" event-hook="productFilter" action="<?php echo $action; ?>"
+<form id="form_filter_advance" class="ajax_form_filter" name="form_filter_advance" event-hook="productFilter"
+      action="<?php echo $action; ?>"
       method="get">
     <div class="block block-search">
         <div class="block-content clearfix">
@@ -137,14 +146,15 @@ foreach ($sort_orders as $v) {
                     // echo macro()->filter_dropdown_category(['value' => $filter['cat_id'], 'values' => $product_cats, 'param' => 'price', 'name' => lang('filter_category'), 'obj' => 'product_cat']);
                     $product_cats = model('type_cat')->get_list_hierarchy([], ['show' => 1]);
 
-                    echo macro()->filter_dropdown_category(['value' => $filter['type_cat_id'], 'values' => $product_cats, 'param' => 'type_cat_id', 'name' => lang('filter_category'), 'obj' => 'type_cat','attr'=>['data-ajax-filter'=>true]]); ?>
+                    echo macro()->filter_dropdown_category(['value' => $filter['type_cat_id'], 'values' => $product_cats, 'param' => 'type_cat_id', 'name' => lang('filter_category'), 'obj' => 'type_cat', 'attr' => ['data-ajax-filter' => true]]); ?>
                     <?php //echo macro()->filter_dropdown_obj(['value' => $filter['price'], 'values' => $range_type_price, 'param' => 'price', 'name' => lang('filter_price')]); ?>
                     <?php //echo macro()->filter_dropdown_obj(['value' => $filter['manufacture_id'], 'values' => $manufactures, 'param' => 'manufacture_id', 'name' => lang('filter_manufacture')]); ?>
                     <?php //echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <div class="ajax-filter"></div>
                     <div class="action-filter">
-                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close " style="font-size: 48px"></i></a>
-                    <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
+                        <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close "
+                                                                           style="font-size: 48px"></i></a>
+                        <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
                     </div>
                 </div>
                 <div class="block-content-right  col-md-4 col-sm-4 col-xs-12">
@@ -162,22 +172,23 @@ foreach ($sort_orders as $v) {
     $user_current = user_get_account_info();
     ?>
     <?php if ($user_current):
-       $user_current = mod('user')->add_info($user_current) ;
-       // pr($user_current);
-    ?>
+        $user_current = mod('user')->add_info($user_current);
+        // pr($user_current);
+        ?>
         <div class="block block-post ">
             <div class="block-content clearfix">
                 <div class="">
                     <div class="col-md-2 col-sm-2 col-xs-12">
-                            <a href="<?php echo $user_current->_url_view; ?>" class="item-img">
-                                <img src="<?php echo $user_current->avatar->url_thumb  ?>"     alt="<?php echo $user_current->name; ?>">
-                            </a>
+                        <a href="<?php echo $user_current->_url_view; ?>" class="item-img">
+                            <img src="<?php echo $user_current->avatar->url_thumb ?>"
+                                 alt="<?php echo $user_current->name; ?>">
+                        </a>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                         <p class="message">Hôm nay bạn muốn chia sẻ điều gì?</p>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-12">
-                        <a  href="<?php echo site_url('product_post') ?>" class="btn btn-default pull-right">Đăng tin</a>
+                        <a href="<?php echo site_url('product_post') ?>" class="btn btn-default pull-right">Đăng tin</a>
                     </div>
 
                 </div>

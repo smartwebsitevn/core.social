@@ -2,7 +2,7 @@
 <html>
 <head>
 	<?php //widget('site')->head(["css"=>"page_home"]); ?>
-	<?php widget('site')->head(); ?>
+	<?php widget('site')->head(["css"=>"page_social"]); ?>
 </head>
 <body class="page-product-list" >
 <div class="wrapper">

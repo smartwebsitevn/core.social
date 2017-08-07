@@ -11,7 +11,7 @@
 					</div>
 					<div class="title">
 						<a href="<?php echo $row->_url_view; ?>" title="<?php echo $row->title; ?>">
-						<?php echo $row->title; ?> </a>
+							[<?php echo $row->_created ?>] <?php echo $row->title; ?> </a>
 					</div>
 				</div>
 			<?php } ?>

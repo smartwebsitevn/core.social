@@ -1,128 +1,114 @@
 <?php
 $asset = public_url();
 $asset_theme = $asset . '/site/theme/';
-//pr($menu);
-?>
-    <div class="hover-click"></div>
-    <div class="before-nav">
-        <div class="container clearfix">
-            <div class="col-left">
-                <p class="nav-hotline">Hotline: <?php echo widget("site")->setting("hotline") ?></p>
-            </div>
-            <div class="col-right">
-                <?php widget("user")->account_panel() ?>
-            </div>
-        </div>
-    </div>
-    <!-- Fixed navbar -->
-    <nav class="main">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo site_url() ?>">
-                    <img src="<?php echo widget("site")->setting_image() ?>" alt="logo"/>
+$_menu_data = function ($menu, $menu_name = '', $a_class = '') {
+    ob_start() ?>
+
+
+    <?php if (isset($menu) && $menu): ?>
+        <?php foreach ($menu as $item):
+            $has_sub = (isset($item->_sub) && $item->_sub) ? 1 : 0;
+
+            $actice = $item->_is_active ? 'active' : '';
+            $item->url = handle_content($item->url, 'output');
+            $target = $item->target ? ' target="' . $item->target . '" ' : '';
+            $icon = $item->icon ? '<i class="fa fa-' . $item->icon . '"></i>' : '';
+            $nofollow = $item->nofollow ? ' rel="nofollow" ' : '';
+
+            if (!$has_sub && $item->holder) {
+                $tmp = explode(':', $item->holder);
+                if (count($tmp) >= 2 && $tmp[1]) {
+                    $ids = explode(',', $tmp[1]);
+                    $list_sub = model($tmp[0])->filter_get_list(['id' => $ids, 'show' => 1]);
+                    // pr_db();
+                    if ($list_sub) {
+
+                        $has_sub = true;
+                    }
+                }
+            }
+            ?>
+            <li class="<?php echo $actice; ?>  <?php if ($has_sub) echo "dropdown" ?>  ">
+                <a href="<?php echo $item->url; ?>"
+                   class="  <?php echo $a_class . ' ' . $actice ?> <?php if ($has_sub) echo "dropdown-toggle" ?> "
+                    <?php if ($has_sub) echo 'data-toggle="dropdown"' ?>
+                    <?php echo $target . ' ' . $nofollow ?>>
+                    <?php echo $icon ?><?php echo $item->title; ?>
                 </a>
-            </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="navbar-top">
-                    <?php foreach ($menu as $i => $item):
 
-                        $has_sub = $item->_sub ? 1 : 0;
-                        $target = $item->target?' target="'.$item->target.'" ' :'';
-                        ?>
-                            <li class="<?php if ($item->_is_active) echo 'active'; ?>  <?php if ($has_sub) echo "dropdown" ?>  ">
-                                <a  <?php echo $target ?>  href="<?php echo $item->url; ?>" <?php if ($has_sub){ ?>class="dropdown-toggle"
-                                    data-toggle="dropdown"<?php } ?>>
-                                    <span class="top-icon <?php echo $item->icon?$item->icon:"icon-gt" ?>"></span><?php echo $item->title ?>
-                                </a>
-                                <?php if ($has_sub):?>
-                                    <ul class="dropdown-menu ">
-                                        <?php foreach ($item->_sub as $row) { ?>
-                                            <li><a href="<?php echo $row->url ?>"><?php echo $row->title ?></a></li>
-                                        <?php } ?>
-                                    </ul>
-                                <?php endif; ?>
-                            </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
+                <?php if ($has_sub): ?>
+                    <ul class="dropdown-menu ">
+                        <?php if ($item->_sub): ?>
+                            <?php foreach ($item->_sub as $row) { ?>
+                                <li><a href="<?php echo $row->url ?>"><?php echo $row->title ?></a></li>
+                            <?php } ?>
+                        <?php else: ?>
+                            <?php foreach ($list_sub as $row) {
+                                $row = mod($tmp[0])->_url($row);
+                                ?>
+                                <li><a href="<?php echo $row->_url_view ?>"><?php echo $row->name ?></a></li>
+                            <?php } ?>
+                        <?php endif; ?>
 
+                    </ul>
+                <?php endif; ?>
+            </li>
 
-<?php
-$trainings = model('cat')->get_type("training");
-$schools = model('cat')->get_type("school");
-$subjects = model('cat')->get_type("subject");
-//pr($trainings);
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php /* ?>
+		</ul>
+	</div>
+ 	<?php */ ?>
+
+    <?php return ob_get_clean();
+
+};
 ?>
-    <!-- Search  -->
-    <div class="cus-search">
-        <div class="container">
-            <form method="get" action="<?php echo site_url("product_list") ?>">
-               <!-- <p class="cus-search-title">Nhập tìm kiếm</p>-->
-                <div class="row">
-                    <div class="col-md-4 col-sm-4">
-                        <div class="form-group">
-                            <label>Hệ đào tạo</label>
-                            <select name="training_id" class="form-control">
-                                <?php foreach($trainings as $row): ?>
-                                    <option value="<?php echo $row->id ?>"><?php echo $row->name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-4">
-                        <div class="form-group">
-                            <label>Trường</label>
-                            <select name="school_id" class="form-control">
-                                <?php foreach($schools as $row): ?>
-                                    <option value="<?php echo $row->id ?>"><?php echo $row->name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-4">
-                        <div class="form-group">
-                            <label>Môn học</label>
-                            <select name="subject_id" class="form-control">
-                                <?php foreach($subjects as $row): ?>
-                                    <option value="<?php echo $row->id ?>"><?php echo $row->name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <div class="form-group">
-                            <button type="submit" class="cus-btn cus-btn-info">Tìm kiếm</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+<div id="header">
+    <div class="container">
+        <div class="logo pull-left">
+            <a href="<?php echo site_url() ?>">
+                <img src="<?php echo widget("site")->setting_image() ?>" alt="logo"/>
+            </a>
+        </div>
+        <span data-action="toggle-navbar-left" class="nav-toggle-menu nav-toggle-navbar-left"><span>Menu</span></span>
 
+        <div class="nav-menu navbar-left">
+            <span data-action="close-nav" class="close-nav"><span>close</span></span>
+            <ul class="nav">
+                <?php echo $_menu_data($menu) ?>
+            </ul>
+        </div>
+        <span data-action="toggle-navbar-right" class="nav-toggle-menu nav-toggle-navbar-right"><span>Menu</span></span>
+
+        <div class="nav-menu navbar-right">
+            <span data-action="close-nav" class="close-nav"><span>close</span></span>
+            <ul class="nav login  pull-right">
+                <li class="dropdown">
+                    <a href="<?php echo site_url('product_post') ?>" title="Đăng tin" class="btn btn-default">
+                        Đăng tin
+                    </a>
+                </li>
+                <?php widget("message")->newest() ?>
+                <?php widget("user_notice")->newest() ?>
+                <?php /* if (!mod("product")->setting('turn_off_function_order')): ?>
+                    <li id="product-my-favorited" class="dropdown">
+                        <?php widget("product")->owner('favorited') ?>
+
+                    </li>
+                    <?php if (!mod("product")->setting('product_order_quick')): ?>
+
+                        <li id="product-cart-mini" class="dropdown">
+                            <?php widget("product")->cart(null, 'cart_mini') ?>
+                        </li>
+                    <?php endif; ?>
+
+                <?php endif; */ ?>
+                <?php widget("user")->account_panel() ?>
+                <?php //widget('site')->lang(); ?>
+            </ul>
         </div>
     </div>
-<?php /* ?>
-<?php $products = model("product")->get_list_show_in_menu();//pr_db($products); ?>
-<ul class="nav navbar-nav">
-    <?php foreach ($products as $row):
-        $row=mod("product")->add_info($row);?>
-        <li>
-            <a href="<?php echo $row->_url_view ?>"
-               title="<?php echo $row->name ?>">
-                <?php echo $row->name ?></a>
-        </li>
-    <?php endforeach; ?>
-</ul>
-<?php echo $mainmenu ?>
-<div class="logo pull-left">
-    <a href="<?php echo site_url() ?>" class="logo"><img src="<?php echo widget('site')->info_image() ?>"
-                                                         alt="logo"></a>
 </div>
-<?php widget("user")->account_panel() ?>
-<span>Holine: <?php echo widget('site')->info("hotline") ?></span>
- <?php */ ?>

@@ -235,7 +235,7 @@ class MY_View
 	 */
 	public function load($view, array $data = array(), $return = false)
 	{
-		//pr($view,false);
+	//	pr($view,false);
 		$file = $this->find($view);
 		
 		if ( ! $file)

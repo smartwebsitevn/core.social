@@ -3,21 +3,78 @@
 \*====================*/
 
 /*=======*/
-.sticky-wrapper.is-sticky {
-  .block-content {
-    padding: 5px 10px;
+.block-search {
+  margin: 0px;
+  padding: 0px;
+  .block-title {
+    line-height: 20px;
+    padding: 0;
+    margin-bottom: 7px;
   }
-  .block-sorter {
-    margin-top: 0;
-    .total_product {
-      display: none;
+  .block-content {
+    border-bottom: none;
+    padding: 10px;
+    background-color: #ffffff;
+    .input-group {
+      width: 100%;
+
+      float: left;
+      position: relative;
+      background-color: #ffffff;
+
+      input {
+        &.input-clear {
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: none;
+          background-color: transparent;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-image: url(../img/icon/da-xem-xong-1.png);
+          &:hover {
+            background-image: url(../img/icon/da-xem-xong-2.png);
+          }
+        }
+        &.input-text {
+          padding-right: 40px;
+          &:focus + input.input-clear, &[keepfocus] + input.input-clear, &[autofocus] + input.input-clear {
+            background-image: url(../img/icon/da-xem-xong-2.png);
+          }
+          &:focus + input.input-clear + .dropdown-menu, &[keepfocus] + input.input-clear + .dropdown-menu, &[autofocus] + input.input-clear + .dropdown-menu {
+            display: block;
+          }
+        }
+
+
+      }
+      .select-input {
+        width: 85%;
+      }
+      .dropdown-menu {
+        width: 100%;
+        &:before, &:after {
+          content: none;
+        }
+      }
+    }
+
+    .action {
+      width: 140px;
+      float: right;
+      background-color: #ffffff;
+      width: 200px;
+      button {
+        padding-left: 0;
+        padding-right: 0;
+        display: block;
+        width: 100%;
+      }
     }
   }
-  .block-filter .block-content .search-dropdown {
-    margin-bottom: 0px;
-  }
 }
-
 .block-filter {
   z-index: 30;
   .navbar-collapse {
@@ -25,10 +82,9 @@
   }
 
   .block-content {
-    border: 2px solid #e0e0e0;
-    padding: 40px;
-    background-color: #ffffff;
     margin-bottom: 10px;
+    padding:0 20px;
+
     .ajax-filter, .action-filter {
       display: inline-block;
     }
@@ -39,7 +95,12 @@
       display: inline-block;
       /* vertical-align: top;
        margin-bottom: 12px;*/
+      width: 100%;
       margin-right: 10px;
+      .dropdown-toggle {
+        max-width: 100%;
+
+      }
     }
     .block-total {
       text-align: right;
@@ -50,28 +111,28 @@
       }
     }
     .block-point {
-      float: right;
+     /* float: right;*/
       margin-right: 10px;
     }
     .block-layout {
-      float: right;
+     /* float: right;*/
       margin-right: 20px;
       margin-top: 2px;
     }
 
     .block-sorter {
-      float: right;
+      /*float: right;*/
       .total_product {
         margin-bottom: 10px;
       }
       .sort-dropdown {
 
         .search-rendered {
-          line-height: 26px;
+         /* line-height: 26px;*/
         }
         .dropdown-toggle {
           &:hover .search-rendered, &:focus .search-rendered {
-            line-height: 26px;
+            /*line-height: 26px;*/
           }
         }
 
@@ -79,10 +140,13 @@
     }
 
     .slider.slider-horizontal {
-      width: 100px !important;
-      margin-top: 5px;
+      width: 95% !important;
+      margin-left: 10px;
+      margin-top: 10px;
     }
-
+    #slider_point{
+      margin-bottom: 10px;
+    }
   }
   .filter-dropdow .search-dropdown .search-rendered {
     font-size: 13px;
@@ -114,126 +178,10 @@
   }
 }
 
-.block-search {
-  margin: 0px;
-  padding: 0px;
-  .block-title {
-    line-height: 20px;
-    padding: 0;
-    margin-bottom: 7px;
-    .modal-edit-search, .modal-save-search {
-      width: 15px;
-      height: 15px;
-      display: inline-block;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-    .modal-edit-search {
-      background-image: url(../img/icon/history-1.png);
-      &:hover {
-        background-image: url(../img/icon/history-2.png);
-      }
-      &:focus {
-        background-image: url(../img/icon/history-3.png);
-      }
-    }
-    .modal-save-search {
-      background-image: url(../img/icon/save-search.png);
-      &:hover {
-        background-image: url(../img/icon/save-search-2.png);
-      }
-      &:focus {
-        background-image: url(../img/icon/save-search-3.png);
-      }
-    }
-  }
-  .block-content {
-    border: 2px solid #e0e0e0;
-    border-bottom: none;
-    padding: 40px;
-    background-color: #ffffff;
-    .input-group {
-      width: calc(100% - 162px);
-      width: -moz-calc(100% - 162px);
-      width: -webkit-calc(100% - 162px);
-      width: -o-calc(100% - 162px);
-      float: left;
-      position: relative;
-      background-color: #ffffff;
-      width: calc(100% - 225px);
-      width: -moz-calc(100% - 225px);
-      width: -webkit-calc(100% - 225px);
-      width: -o-calc(100% - 225px);
-      input {
-        &.input-clear {
-          width: 40px;
-          height: 40px;
-          position: absolute;
-          top: 0;
-          right: 0;
-          border: none;
-          background-color: transparent;
-          background-repeat: no-repeat;
-          background-position: center;
-          background-image: url(../img/icon/da-xem-xong-1.png);
-          &:hover {
-            background-image: url(../img/icon/da-xem-xong-2.png);
-          }
-        }
-        &.input-text {
-          padding-right: 40px;
-          &:focus + input.input-clear, &[keepfocus] + input.input-clear, &[autofocus] + input.input-clear {
-            background-image: url(../img/icon/da-xem-xong-2.png);
-          }
-          &:focus + input.input-clear + .dropdown-menu, &[keepfocus] + input.input-clear + .dropdown-menu, &[autofocus] + input.input-clear + .dropdown-menu {
-            display: block;
-          }
-        }
-      }
-      .dropdown-menu {
-        width: 100%;
-        &:before, &:after {
-          content: none;
-        }
-      }
-    }
-    .action {
-      width: 140px;
-      float: right;
-      background-color: #ffffff;
-      width: 200px;
-      button {
-        padding-left: 0;
-        padding-right: 0;
-        display: block;
-        width: 100%;
-      }
-    }
-  }
-}
+
 
 .block-products-items {
-  /*background-color: #fff;
-  padding: 15px;*/
-  /*margin-top: 10px;*/
-  margin-bottom: 20px;
 
-  .block-title {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #e5e5e5;
-    &:before {
-      content: "";
-      display: table;
-    }
-    &:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .title {
-      float: left;
-    }
-  }
   .list-social {
     margin-bottom: 40px;
     /* background-color: #ffffff;
@@ -263,25 +211,28 @@
         display: block;
         position: relative;
         overflow: hidden;
-        width: 130px;
-        float: left;
+        width: 100%;
         margin-right: 20px;
         .item-img {
-          text-align: center;
-          display: inline-block;
-          text-transform: capitalize;
+          width: 60px;
+          float: left;
           img {
             display: inline-block;
-            width: 100px;
-            height: 100px;
+            width: 45px;
+            height: 45px;
             margin-bottom: 5px;
             border-radius: 100%;
-            -webkit-transition: 1s;
-            -o-transition: 1s;
-            transition: 1s;
+          }
+
+        }
+        div {
+          float: left;
+          width: 80%;
+          span {
+            display: block;
+            margin-bottom: 5px;
           }
           .name {
-
           }
           .profession {
             color: #90949c;
@@ -290,23 +241,15 @@
         }
       }
       .item-info {
-        float: left;
-        width: calc(60% - 130px);
-        &-full {
-          /* width: calc(98% - 130px);*/
-          .item-meta {
-            width: 50%;
-            float: left;
-          }
-          .item-action {
-            width: 50%;
-            float: right;
-          }
-        }
+        border-top: 1px solid #eee;
+        margin-top: 10px;
+        padding-top: 10px;
+        width: 100%;
+
       }
       .item-media {
-        float: right;
-        width: 35%;
+        width: 100%;
+        margin-top: 10px;
         .images {
           display: inline-block;
           height: auto;
@@ -447,7 +390,6 @@
       }
       //== detail
       .item-desc {
-        border-bottom: 1px solid #eee;
         display: block;
         margin-top: 10px;
         margin-bottom: 10px;

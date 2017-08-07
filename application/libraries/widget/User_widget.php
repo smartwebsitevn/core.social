@@ -332,7 +332,7 @@ class User_widget extends MY_Widget
 
 
 
-    function feature($options = [], $temp = '', $temp_options = array())
+    function feature($options = [], $temp = 'feature', $temp_options = array())
     {
         $filter = array_get($options, 'filter', []);
 
@@ -347,7 +347,6 @@ class User_widget extends MY_Widget
         $input = array();
         $input['order'] = $order;
         $input['limit'] = array(0, $limit);
-
         $list = $this->get_list($filter, $input);
 
 
