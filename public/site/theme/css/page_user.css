@@ -304,11 +304,12 @@ body.user-account .sidebar {
     position: relative;
     border-left-width: 4px;
     border-left-color: #f7941e; }
-body.user-account .main-content h1.panel-title {
-  font-size: 2em; }
 body.user-account .main-content .panel {
   background: none;
   margin-bottom: 40px; }
+  body.user-account .main-content .panel .panel-title {
+    font-size: 1.5em;
+    margin-top: 5px; }
   body.user-account .main-content .panel .panel-body {
     background: #fff;
     padding: 40px; }

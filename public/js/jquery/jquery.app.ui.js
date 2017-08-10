@@ -1466,13 +1466,13 @@
                 show_block_short(true);
 
                 // Xem tat ca
-                act_all.click(function () {
+                $(act_all).on('click', function () {
                     show_block_all();
                     return false;
                 });
 
                 // Xem rut gon
-                act_short.click(function () {
+                $(act_short).on('click', function () {
                     show_block_short(true);
                     return false;
                 });
@@ -1520,13 +1520,13 @@
                 var act_all = $this.find('.act_show_all');
                 var act_short = $this.find('.act_show_short');
                 // Xem tat ca
-                act_all.click(function () {
+                $(act_all).on('click', function () {
                     show_word_all();
                     return false;
                 });
 
                 // Xem rut gon
-                act_short.click(function () {
+                $(act_short).on('click', function () {
                     show_word_short(true);
                     return false;
                 });
@@ -1604,6 +1604,7 @@ var nfc = {
         boot: function () {
             this.common();
             this.pagination();
+           // this.scroll_down();
             this.mobile();
         },
         common: function () {
@@ -1819,9 +1820,9 @@ var nfc = {
                 $this.nstUI('moreWord', {});
             });
             // sticky
-            if ($('.sticky-element').length > 0) {
-                $('.sticky-element').sticky({topSpacing: 0});
-            }
+            $('.sticky-element').each(function () {
+                $(this).sticky({topSpacing: 5});
+            });
             // prevent default anchor click behavior
             $('.anchor-element a').on('click', function () {
                 var pos = $($(this).data("pos")).position().top + 100

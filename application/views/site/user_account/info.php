@@ -79,7 +79,7 @@
 		</tr>
 		<?php */ ?>
 		<tr>
-			<td><b>Nơi làm việc<?php// echo lang('country'); ?></b></td>
+			<td><b>Nơi làm việc<?php // echo lang('country'); ?></b></td>
 			<td><?php echo  $user->_working_city_name; ?></td>
 		</tr>
 		<tr>

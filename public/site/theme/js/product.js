@@ -251,7 +251,8 @@ function productFilter(option) {
                 $('<iframe>', {
                     src: '//www.youtube.com/embed/'+$(this).data('youtube')+'?rel=0&autoplay=1',
                     frameborder: 0,
-                    scrolling: 'no'
+                    scrolling: 'no',
+                    allowfullscreen:"allowfullscreen"
                 }).appendTo($player);
             });
         });

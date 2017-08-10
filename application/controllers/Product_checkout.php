@@ -23,7 +23,10 @@ class Product_checkout extends MY_Controller
         $this->load->language('site/product');
         $this->load->language('site/checkout');
     }
-
+    protected function _get_mod()
+    {
+        return 'product';
+    }
 
     /**
      * Checkout page render

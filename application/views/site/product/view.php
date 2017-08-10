@@ -26,10 +26,17 @@
 
         </div>
         <div class="col-md-4 col-sm-12 col-xs-12">
-            <?php //t('view')->load('tpl::product/_common/order') ?>
-            <?php t('view')->load('tpl::product/_common/info_author') ?>
-            <?php //t('view')->load('tpl::product/_common/info_video') ?>
-            <?php t('view')->load('tpl::product/_common/same_author') ?>
+            <div class="sticky-element" data-limiter="#footer">
+                <div class="slimscroll" data-height="500px">
+                    <?php //t('view')->load('tpl::product/_common/order') ?>
+                    <?php t('view')->load('tpl::product/_common/info_author') ?>
+                    <?php //t('view')->load('tpl::product/_common/info_video') ?>
+                    <?php t('view')->load('tpl::product/_common/same_author') ?>
+
+                </div>
+            </div>
+
+
         </div>
 
     </div>

@@ -20,7 +20,10 @@ class User_account extends MY_Controller
         $user = user_get_account_info();
         $this->data['user'] = $user;
     }
-
+    protected function _get_mod()
+    {
+        return 'user';
+    }
     /**
      * Remap method
      */
@@ -647,7 +650,7 @@ class User_account extends MY_Controller
         $widget_upload['table'] = $this->_get_mod();
         $widget_upload['table_id'] = $user->id;
         //- up anh avatar
-        $widget_upload['url_update'] = ($user->id > 0) ? current_url() . '?act=update_image&field=avatar' : null;
+        $widget_upload['url_update'] = ($user->id > 0) ? $this->_url('edit') . '?act=update_image&field=avatar' : null;
         $widget_upload['table_field'] = 'avatar';
         $this->data['upload_avatar'] = $widget_upload;
 
@@ -874,6 +877,7 @@ class User_account extends MY_Controller
         // $data[$field.'_name']	= $file->file_name;
         $data[$field] = $file->file_name;
         model('user')->update($id, $data);
+        pr_db();
     }
 
 

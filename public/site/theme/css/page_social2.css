@@ -75,7 +75,8 @@
     margin-bottom: 10px;
     padding: 0 20px; }
     .block-filter .block-content .ajax-filter, .block-filter .block-content .action-filter {
-      display: inline-block; }
+      display: inline-block;
+      width: 100%; }
     .block-filter .block-content .block-content-left {
       margin-top: 15px; }
     .block-filter .block-content .search-dropdown {
@@ -83,7 +84,8 @@
       /* vertical-align: top;
        margin-bottom: 12px;*/
       width: 100%;
-      margin-right: 10px; }
+      margin-right: 10px;
+      margin-bottom: 10px; }
       .block-filter .block-content .search-dropdown .dropdown-toggle {
         max-width: 100%; }
     .block-filter .block-content .block-total {
@@ -205,9 +207,13 @@
           float: left;
           width: 100%;
           position: relative; }
-          .block-products-items .list-social .item-social .item-media .images .item img, .block-products-items .list-social .item-social .item-media .images .item iframe {
+          .block-products-items .list-social .item-social .item-media .images .item img {
             width: 100%;
-            height: 200px;
+            padding: 1px;
+            height: 200px; }
+          .block-products-items .list-social .item-social .item-media .images .item iframe {
+            width: 100%;
+            height: 300px;
             padding: 1px; }
           .block-products-items .list-social .item-social .item-media .images .item .item-video .item-video-icon {
             cursor: pointer; }
@@ -223,6 +229,8 @@
               right: 0;
               top: 0;
               transition: all 0.3s ease 0s; }
+        .block-products-items .list-social .item-social .item-media .images-1 .item img {
+          height: auto; }
         .block-products-items .list-social .item-social .item-media .images-2 .item {
           width: 50%; }
         .block-products-items .list-social .item-social .item-media .images-3 .item-1 {
@@ -259,8 +267,8 @@
       display: block;
       color: #000;
       font-weight: 500;
-      line-height: 1;
-      font-size: 18px;
+      line-height: 20px;
+      font-size: 16px;
       margin-bottom: 5px;
       text-transform: capitalize; }
       .block-products-items .list-social .item-social .item-name a {

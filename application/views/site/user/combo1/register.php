@@ -14,7 +14,7 @@
                 <i class="fa fa-google-plus"></i> Đăng nhập bằng Google </a>
         <?php endif; ?>
         </p>
-        <?php /* ?>
+
 
         <p class="fieldset">
             <i class="image-replace fa fa-file-text-o"></i>
@@ -24,6 +24,7 @@
         <div class="clear"></div>
         <span name="name_error" class="error"></span>
         </p>
+        <?php /* ?>
         <p class="fieldset">
             <i class="image-replace fa fa-user"></i>
             <input class="full-width has-padding has-border" placeholder="Tên tài khoản của bạn" name="username"

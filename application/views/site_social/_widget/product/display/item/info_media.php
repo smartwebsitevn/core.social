@@ -5,9 +5,7 @@
     $link = $link->link;
     ?>
 
-    <iframe width="100%" height="300px"
-            src="https://www.youtube.com/embed/<?php echo $link ?>?rel=0"
-            frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/<?php echo $link ?>?rel=0"     frameborder="0" allowfullscreen></iframe>
 
 <?php elseif (isset($row->link) && $row->link):
     $tags = json_decode($row->link_data, 1);

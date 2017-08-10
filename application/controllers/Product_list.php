@@ -19,6 +19,10 @@ class Product_list extends MY_Controller
         t('tpl')->set_tpl(t('input')->get_user_layout('site_social'));
 
     }
+    protected function _get_mod()
+    {
+        return 'product';
+    }
       public function all()
     {
         $this->_display();

@@ -41,16 +41,16 @@ body, input, select, textarea {
   margin: auto; }
   @media screen and (max-width: 1680px) {
     body, input, select, textarea {
-      font-size: 12px; } }
+      font-size: 14px; } }
   @media screen and (max-width: 1280px) {
     body, input, select, textarea {
-      font-size: 12px; } }
+      font-size: 14px; } }
   @media screen and (max-width: 980px) {
     body, input, select, textarea {
-      font-size: 12px; } }
+      font-size: 13px; } }
   @media screen and (max-width: 736px) {
     body, input, select, textarea {
-      font-size: 12px; } }
+      font-size: 13px; } }
   @media screen and (max-width: 480px) {
     body, input, select, textarea {
       font-size: 12px; } }
@@ -1239,9 +1239,9 @@ padding-right: 15px;*/ }
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset; }
   .panel .panel-heading {
     margin: 0px;
-    padding: 10px 0;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #eaeaea;
+    /* padding: 10px 0;
+     padding-bottom: 5px;
+     border-bottom: 1px solid #eaeaea;*/
     text-indent: 1em;
     display: block;
     font-size: 13px;

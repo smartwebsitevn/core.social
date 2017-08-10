@@ -3,7 +3,6 @@
 class Product_cart extends MY_Controller
 {
     private  $product_order_quick=false;
-    private  $product_check_quick=false;
     public function __construct()
     {
         parent::__construct();
@@ -16,7 +15,10 @@ class Product_cart extends MY_Controller
         $this->product_order_quick =mod("product")->setting('product_order_quick');
         $this->product_checkout_quick =mod("product")->setting('product_checkout_quick');
     }
-
+    protected function _get_mod()
+    {
+        return 'product';
+    }
     public function index()
     {
 

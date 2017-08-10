@@ -518,7 +518,7 @@ class User extends MY_Controller
     {
         $params = array(
             'email', 'password', 'password_repeat', 'security_code', 'rule',
-            /* 'name', 'phone', 'address',*/
+            'name',  /*'phone', 'address',*/
         );
 
         if (t('input')->post('username') !== null) {

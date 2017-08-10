@@ -126,26 +126,26 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
                         $product_cats = model('type_cat')->get_list_hierarchy([], ['show' => 1]);
                         echo macro()->filter_dropdown_category(['value' => $filter['type_cat_id'], 'values' => $product_cats, 'param' => 'type_cat_id', 'name' => lang('filter_category'), 'obj' => 'type_cat', 'attr' => ['data-ajax-filter' => true]]); ?>
                         <div class="ajax-filter"></div>
-                        <?php /* ?>
-                        <div class="action-filter">
-                            <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close "
-                                                                               style="font-size: 48px"></i></a>
-                            <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
-                        </div>
-    `                       <?php */ ?>
+
 
                         <?php echo $_data_sort(); ?>
 
-                        <div >
-                            <input name="point" class="act-filter-slider" id="slider_point_hander" type="hidden" data-provide="slider"
+                        <div>
+                            <input name="point" class="act-filter-slider" id="slider_point_hander" type="hidden"
+                                   data-provide="slider"
                                    data-slider-min="0"
                                    data-slider-max="100"
                                    data-slider-step="10"
                                    data-slider-value="0" data-slider-tooltip="hide"/>
 
                             <div class="clearfix"></div>
-                            <span id="slider_point"><span id="slider_point_value">0</span> points</span>
+                            <span id="slider_point">Trên <span id="slider_point_value">0</span> point</span>
 
+                        </div>
+                        <div class="action-filter">
+                            <a href="#0" class="btn btn-default btn-xs mt20 btn-clear-all"><i class="pe-7s-close "
+                                                             ></i> Reset bộ lọc</a>
+                            <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
                         </div>
                         <?php /* ?>
                         <div class=" act-filter-choice-group text-right">
@@ -158,10 +158,12 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
                         </div>
                         <?php */ ?>
                         <div class="  text-right">
-                            <a  href="<?php echo current_url().'?layout=block' ?>" data-name="layout" data-value="block">
+                            <a href="<?php echo current_url() . '?layout=block' ?>" data-name="layout"
+                               data-value="block">
                                 <i class="pe-7s-menu icon "></i>
                             </a>
-                            <a class="active" href="<?php echo current_url().'?layout=grid' ?>" data-name="layout" data-value="grid">
+                            <a class="active" href="<?php echo current_url() . '?layout=grid' ?>" data-name="layout"
+                               data-value="grid">
                                 <i class="pe-7s-keypad icon "></i>
                             </a>
                         </div>
@@ -175,28 +177,30 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
     </div>
 </div>
 <?php
-$user= user_get_account_info();
-if($user):
+$user = user_get_account_info();
+if ($user):
     ?>
+    <?php
+    $input['where']['us.action'] = 'subscribe';
+    $input['where']['us.table'] = 'user';
+    $input['where']['us.user_id'] = $user->id;
+    $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+    $filter = array();
+    $users = mod('user')->get_list($filter, $input);
+    //pr_db($users);
+    ?>
+    <?php if ($users): ?>
+    <div>
+        <h5 style="border-bottom:1px solid #ccc; padding:10px 5px  ">
+            Đang theo dõi
+        </h5>
 
-<div >
-    <h5 style="border-bottom:1px solid #ccc; padding:10px 5px  ">
-        Đang theo dõi
-    </h5>
-    <div class="slimscroll">
-        <?php
-        $input['where']['us.action'] = 'subscribe';
-        $input['where']['us.table'] = 'user';
-        $input['where']['us.user_id'] = $user->id;
-        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
-        $filter = array();
-        $users = mod('user')->get_list($filter,$input);
-        //pr_db($users);
-        ?>
-        <?php widget('user')->display_list($users,'sidebar_follow') ?>
+        <div class="slimscroll">
+
+            <?php widget('user')->display_list($users, 'sidebar_follow') ?>
+        </div>
     </div>
-</div>
-
+<?php endif; ?>
 <?php endif; ?>
 <script type="text/javascript">
     $(document).ready(function () {

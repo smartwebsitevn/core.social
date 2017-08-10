@@ -13,7 +13,10 @@ class User_page extends MY_Controller
 
 
     }
-
+    protected function _get_mod()
+    {
+        return 'user';
+    }
     /**
      * Remap method
      */

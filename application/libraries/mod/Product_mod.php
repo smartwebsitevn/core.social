@@ -403,8 +403,8 @@ class Product_mod extends MY_Mod
     public function add_info_author($row)
     {
 
-        if (isset($row->author_id) && $row->author_id) {
-            $it = mod('user')->get_info($row->author_id);//,'id,name,phone,avatar,profession,desc,');
+        if (isset($row->user_id) && $row->user_id) {
+            $it = mod('user')->get_info($row->user_id);//,'id,name,phone,avatar,profession,desc,');
 
         } else {
             //if (mod("product")->setting('author_auto_default')) {

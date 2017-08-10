@@ -152,7 +152,7 @@ foreach ($sort_orders as $v) {
                     <?php //echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <div class="ajax-filter"></div>
                     <div class="action-filter">
-                        <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close "
+                        <a href="#0" class=" btn-clear-all"><i class="pe-7s-close "
                                                                            style="font-size: 48px"></i></a>
                         <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
                     </div>
