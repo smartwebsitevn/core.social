@@ -346,6 +346,7 @@ class User_page extends MY_Controller
         $data ['created'] = now();
         mod('user_storage')->set($user_current_id, $data);
 
+        model('user')->update_stats(['id'=>$user_id],['follow_total'=>1]);
         $this->_response(array('msg_toast' => lang('notice_user_subscribe_success')));
     }
 
@@ -363,6 +364,8 @@ class User_page extends MY_Controller
             $this->_response(array('msg_toast' => 'Error'));
         }
         mod('user_storage')->del($user_current_id, $data);
+        model('user')->update_stats(['id'=>$user_id],['follow_total'=>-1]);
+
         $this->_response(array('msg_toast' => lang('notice_user_subscribe_del_succcess')));
     }
 

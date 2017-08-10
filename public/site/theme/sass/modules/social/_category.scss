@@ -268,10 +268,10 @@
         margin-right: 20px;
         .item-img {
           text-align: center;
-          display: inline-block;
+          display: grid;
           text-transform: capitalize;
           img {
-            display: inline-block;
+            margin:  0 auto;
             width: 100px;
             height: 100px;
             margin-bottom: 5px;
@@ -293,7 +293,8 @@
         float: left;
         width: calc(60% - 130px);
         &-full {
-          /* width: calc(98% - 130px);*/
+          float: left;
+           width: calc(98% - 130px);
           .item-meta {
             width: 50%;
             float: left;
@@ -330,6 +331,8 @@
             img {
               width: 100%;
               padding: 1px;
+              height: 200px;
+
             }
             iframe {
               width: 100%;

@@ -212,3 +212,25 @@ ALTER TABLE `product`
 ALTER TABLE `product` ADD COLUMN `type` VARCHAR(10) NOT NULL AFTER `name`;
 
 ALTER TABLE `user` ADD COLUMN `type` INT(11) NULL DEFAULT '0' AFTER `username`;
+
+// 10-8-2017 
+ALTER TABLE `user`
+	ADD COLUMN `is_new` TINYINT(1) NOT NULL DEFAULT '0' AFTER `verify`,
+	ADD COLUMN `is_feature` TINYINT(1) NOT NULL DEFAULT '0' AFTER `is_new`,
+	ADD COLUMN `is_popular` TINYINT(1) NOT NULL DEFAULT '0' AFTER `is_feature`;
+
+ALTER TABLE `user`
+	CHANGE COLUMN `post_total` `post_total` INT(11) NULL DEFAULT NULL AFTER `instagram`,
+	CHANGE COLUMN `view_total` `view_total` INT(11) NULL DEFAULT NULL AFTER `post_total`,
+	CHANGE COLUMN `follow_total` `follow_total` INT(11) NULL DEFAULT NULL AFTER `view_total`,
+	CHANGE COLUMN `comment_total` `comment_total` INT(11) NULL DEFAULT NULL AFTER `follow_total`;
+
+
+ALTER TABLE `user`
+	CHANGE COLUMN `post_total` `post_total` INT(11) NULL DEFAULT '0' AFTER `instagram`,
+	CHANGE COLUMN `view_total` `view_total` INT(11) NULL DEFAULT '0' AFTER `post_total`,
+	CHANGE COLUMN `follow_total` `follow_total` INT(11) NULL DEFAULT '0' AFTER `view_total`,
+	CHANGE COLUMN `comment_total` `comment_total` INT(11) NULL DEFAULT '0' AFTER `follow_total`,
+	CHANGE COLUMN `vote_total` `vote_total` INT(11) NULL DEFAULT '0' AFTER `comment_total`,
+	CHANGE COLUMN `vote_like` `vote_like` INT(11) NULL DEFAULT '0' AFTER `vote_total`,
+	CHANGE COLUMN `vote_dislike` `vote_dislike` INT(11) NULL DEFAULT '0' AFTER `vote_like`;

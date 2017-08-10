@@ -271,13 +271,16 @@ class MY_Model extends CI_Model
             $info = $this->get_info($tblkeys);
         if (!$info)
             return false;
-
         // Tao thong ke moi
         $stats_new = array();
         foreach ($stats_update as $f => $v) {
-            if (isset($info->{$f}))
+           // if (isset($info->{$f})){
                 $stats_new[$f] = $info->{$f} + $v;
+            //}
         }
+       // pr($stats_update,0);
+       // pr($stats_new);
+
         $data = array_merge($data, $stats_new);
         $where = array();
         $where[$this->key] = $info->{$this->key};

@@ -47,71 +47,7 @@
       margin-top: 20px;
       text-align: justify;
     }
-    .product-images {
-      .item-video {
-        .item-video-icon {
-          cursor: pointer;
-          &::after {
-            background-color: transparent;
-            background-image: url("../images/play.png");
-            background-position: center center;
-            background-repeat: no-repeat;
-            bottom: 0;
-            content: "";
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            transition: all 0.3s ease 0s;
-          }
-        }
-        .item-video-player {
-          iframe {
-            width: 100%;
-            height: 442px;
-          }
-        }
-      }
-      .owl-stage-outer {
-        background: #ccc;
-        /* padding: 10px 0;
-         border: 2px solid #f2b600;*/
-      }
-      .owl-carousel {
-        .owl-item img.img-slide {
-          display: block;
-          margin: auto;
-          width: auto;
-          height: 442px;
-        }
-        .owl-prev, .owl-next {
-          margin-top: 0px;
-          top: 35%;
-        }
-      }
-      .owl-dots {
-        margin-top: 5px;
-        text-align: center;
-        position: relative;
-        bottom: 0px;
-        left: 0px;
-        .owl-dot {
-          width: 40px;
-          height: 30px;
-          display: inline-block;
-          border-radius: 0;
-          border: 2px solid #ccc;
-          overflow: hidden;
-          margin: 0 5px 5px 0;
-          img {
-            height: 30px;
-          }
-          &.active {
-            border-color: #f2b600;
-          }
-        }
-      }
-    }
+
 
   }
   .block-info {

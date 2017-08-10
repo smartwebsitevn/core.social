@@ -232,7 +232,7 @@ class Product_post extends MY_Controller
             $data = $this->_get_inputs($id, $fake_id);
             $data['created'] = now();
             $this->_model()->create($data, $id);
-            $this->_update_infos($id, $data);
+            $this->_update_infos($id, $data,$user);
             // Cap nhat lai anh
             model('file')->update_table_id_of_mod($this->_get_mod(), $fake_id, $id);
             fake_id_del($this->_get_mod());
@@ -258,6 +258,8 @@ class Product_post extends MY_Controller
         $ids = (!$ids) ? $this->input->post('id') : $ids;
         $ids = (!is_array($ids)) ? array($ids) : $ids;
 
+        $user = $this->data['user'];
+
         // Thuc hien action
         foreach ($ids as $id) {
             // Xu ly id
@@ -276,6 +278,9 @@ class Product_post extends MY_Controller
                 // thuc hien yeu cau
                 set_message(lang('notice_update_success'));
                 $this->_mod()->action($info, $action);
+                if($action == 'del'){
+                    model('user')->update_stats(['id'=>$user->id],['post_total'=>-1]);
+                }
                 $this->_response(['reload'=>1]);
                 //$this->_action_option($info, $action);
             } else {
@@ -528,15 +533,11 @@ class Product_post extends MY_Controller
         return $data;
     }
 
-    protected function _update_infos($id, $data)
+    protected function _update_infos($id, $data,$user)
     {
-        return;
-        $this->_mod()->tags_set($id, $this->input->post('tags'));
-        $this->_mod()->to_option($id, $this->input->post('option'), $this->input->post('option_value'));
-        // $this->_mod()->to_attribute( $id, $this->input->post('attribute') );
-        $this->_mod()->to_discount($id, $this->input->post('discount'));
-        $this->_mod()->to_special($id, $this->input->post('special'));
-        $this->_mod()->to_addon($id, $this->input->post('addon'));
+
+        //$this->_mod()->tags_set($id, $this->input->post('tags'));
+        model('user')->update_stats(['id'=>$user->id],['post_total'=>1]);
 
 
     }

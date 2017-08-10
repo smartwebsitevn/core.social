@@ -48,6 +48,8 @@ class Product_mod extends MY_Mod
     {
         // Thuc hien xoa
         $this->_model()->del($id);
+
+
         // Xoa file
         file_del_table($this->_get_mod(),$id);
 

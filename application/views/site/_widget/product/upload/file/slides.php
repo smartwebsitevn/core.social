@@ -58,11 +58,12 @@
     <style type="text/css">
 
         .file_image_item .file_image_actions {
+            z-index: 10;
             position: absolute;
             top: 4px;
             right: 4px;
             padding: 5px;
-            display: none;
+            /*display: none;*/
             background: #333;
             border-radius: 2px;
             -webkit-border-radius: 2px;
@@ -116,7 +117,6 @@
                                 <div class="item-video" >
                                     <div class="item-video-icon"  <?php echo $youtube_id?' data-youtube="'.$youtube_id.'"':'' ?> ></div>
                                     <div class="item-video-player"></div>
-
                                 </div>
                             <?php endif; ?>
                         </div>
