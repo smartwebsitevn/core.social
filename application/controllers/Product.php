@@ -470,18 +470,23 @@ class Product extends MY_Controller
             $data ['table_name'] = 'product';
             $data ['table_id'] = $info->id;
             $data ['user_id'] = $user->id;
+            $point=null;
             if ($act == 'like') {
                 $data ['like'] = 1;
                 $data ['dislike'] = 0;
+                $point =1;
             } elseif ($act == 'like_del') {
                 $data ['like'] = 0;
                 $data ['dislike'] = 0;
+                $point =-1;
             } elseif ($act == 'dislike') {
                 $data ['like'] = 0;
                 $data ['dislike'] = 1;
+                $point =-1;
             } elseif ($act == 'dislike_del') {
                 $data ['like'] = 0;
                 $data ['dislike'] = 0;
+                $point =1;
             }
 
             $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $info->id, 'user_id' => $user->id));
@@ -510,6 +515,8 @@ class Product extends MY_Controller
             }
             //pr($stats);
             model('product')->update($info->id, $stats);
+
+            model('user')->update_stats(['id'=>$user->id],['point_total'=>$point]);
             // pr_db();
         }
         /*  else {
@@ -829,7 +836,7 @@ class Product extends MY_Controller
 
         $act = $this->input->get('_act');
         if ($act) {
-            if (!in_array($act, ['add', 'reply'])) return;
+            if (!in_array($act, ['add', 'reply','vote'])) return;
             set_output('html', $this->{'_comment_' . $act}($info));
             return;
         }

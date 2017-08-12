@@ -234,3 +234,6 @@ ALTER TABLE `user`
 	CHANGE COLUMN `vote_total` `vote_total` INT(11) NULL DEFAULT '0' AFTER `comment_total`,
 	CHANGE COLUMN `vote_like` `vote_like` INT(11) NULL DEFAULT '0' AFTER `vote_total`,
 	CHANGE COLUMN `vote_dislike` `vote_dislike` INT(11) NULL DEFAULT '0' AFTER `vote_like`;
+
+ALTER TABLE `user`
+	ADD COLUMN `point_total` INT(11) NULL DEFAULT '0' AFTER `instagram`;

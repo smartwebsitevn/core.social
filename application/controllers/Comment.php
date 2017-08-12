@@ -356,7 +356,64 @@ class Comment extends MY_Controller
         $this->_form_submit_output($result);
     }
 
+    function vote($comment_id)
+    {
+        $comment = model('comment')->get_info($comment_id);
+        if (!$comment) {
+            $this->_response();
 
+        }
+
+
+        $act = $this->input->get('act');
+        if (!in_array($act, ['like', 'like_del', 'dislike', 'dislike_del']))
+            $this->_response();
+
+        $user = user_get_account_info();
+
+        if (!$user) {
+            $this->_response();
+
+        }
+            //kiem tra da luu hay chua
+            $data = array();
+            $data ['table_name'] = 'comment';
+            $data ['table_id'] = $comment->id;
+            $data ['user_id'] = $user->id;
+            $point=null;
+            if ($act == 'like') {
+                $data ['like'] = 1;
+                $data ['dislike'] = 0;
+                $point =1;
+            } elseif ($act == 'like_del') {
+                $data ['like'] = 0;
+                $data ['dislike'] = 0;
+                $point =-1;
+            } elseif ($act == 'dislike') {
+                $data ['like'] = 0;
+                $data ['dislike'] = 1;
+                $point =-1;
+            } elseif ($act == 'dislike_del') {
+                $data ['like'] = 0;
+                $data ['dislike'] = 0;
+                $point =1;
+            }
+
+            $voted = model('social_vote')->get_info_rule(array('table_name' => 'comment', 'table_id' => $comment->id, 'user_id' => $user->id));
+            if ($voted) {
+                $data ['updated'] = now();
+                model('social_vote')->update($voted->id, $data);
+            } else {
+                $data ['created'] = now();
+                model('social_vote')->create($data);
+            }
+
+            model('user')->update_stats(['id'=>$comment->user_id],['point_total'=>$point]);
+            // pr_db();
+
+        //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
+        $this->_response();
+    }
     function show()
     {
         // Tai cac file thanh phan

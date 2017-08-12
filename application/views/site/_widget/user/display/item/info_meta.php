@@ -6,7 +6,7 @@
     class="posts"> <b><?php echo number_format($row->post_total) ?></b> <?php echo lang("count_post") ?></span>
 
 <span
-    class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
+    class="points"> <b><?php echo number_format($row->point_total) ?></b> <?php echo lang("count_point") ?></span>
 <span
     class="follows"> <b><?php echo number_format($row->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
 

@@ -160,6 +160,7 @@ class Comment_widget extends MY_Widget
         $name = $row->user ? $row->user_name : 'admin';
         $img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
         $url_comment_reply =isset($options['url_reply'])?$options['url_reply'].'&id='.$row->id: site_url('comment/reply/' . $row->id);
+        $url_comment_vote =isset($options['url_vote'])?$options['url_vote'].'&id='.$row->id: site_url('comment/vote/' . $row->id);
         ?>
         <div class="row mt10">
             <div class="col-md-1">
@@ -186,14 +187,8 @@ class Comment_widget extends MY_Widget
 
                 <?php if ($row->level < 2): ?>
                     <div class="comment-action">
-                           <span class="action_vote_group">
-                            <a class="do_action" data-group="action_vote_group"
-                               data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=like" ?>"><i
-                                    class="pe-7s-angle-up-circle"></i></a>
-                            <a class="do_action" data-group="action_vote_group"
-                               data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=dislike" ?>"><i
-                                    class="pe-7s-angle-down-circle"></i></a>
-                            </span>
+                        <?php echo widget('comment')->action_vote($row) ?>
+
                         <a data-toggle="collapse" href="#reply_<?php echo $row->id ?>" aria-expanded="false"
                            aria-controls="reply_<?php echo $row->id ?>"
                            class="reply-btn">Trả lời (<?php echo isset($row->subs) ? count($row->subs) : 0 ?>) </a>
@@ -239,5 +234,38 @@ class Comment_widget extends MY_Widget
 
         <?php
         return ob_get_clean();
+    }
+
+    /**
+     * Vote
+     */
+    function action_vote($comment, $temp = '')
+    {
+        $id = $comment->id;
+        $can_do = true;
+        $voted = false;
+        $user = user_get_account_info();
+        if ($user) {
+            //kiem tra da luu hay chua
+            $data = array();
+            $data ['table_name'] = 'comment';
+            $data ['table_id'] =$id;
+            $data ['user_id'] =$user->id;
+            $voted = model('social_vote')->get_info_rule(array('table_name' => 'comment', 'table_id' => $id, 'user_id' =>$user->id));
+        }
+        // pr($voted);
+        $url_vote= site_url('comment/vote/' . $id );;
+        $this->data['can_do'] = $can_do;
+        $this->data['comment'] = $comment;
+        $this->data['voted'] = $voted;
+        $this->data['url_like'] = $url_vote. "?act=like";
+        $this->data['url_like_del'] =  $url_vote. "?act=like_del";
+        $this->data['url_dislike'] =  $url_vote. "?act=dislike";
+        $this->data['url_dislike_del'] = $url_vote. "?act=dislike_del";
+
+
+        $temp = (!$temp) ? 'vote' : $temp;
+        $temp = 'tpl::_widget/comment/action/' . $temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
     }
 }
