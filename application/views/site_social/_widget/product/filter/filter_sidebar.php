@@ -54,7 +54,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
     }
 
     ?>
-    <input type="hidden" name="limitstart"/>
+    <!--<input type="hidden" name="limitstart"/>-->
     <?php if (isset($filter['input_hidden']) && $filter['input_hidden']): ?>
         <?php foreach ($filter['input_hidden'] as $n => $v): ?>
             <input type="hidden" name="<?php echo $n; ?>" value="<?php echo $v ?>"/>
@@ -68,12 +68,12 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
 
     <?php return ob_get_clean();
 } ?>
-
+<form id="form_filter_advance" class="ajax_form_filter" name="form_filter_advance" event-hook="productFilter"
+      action="<?php echo $action; ?>"
+      method="get">
 <div class="panel">
     <div class="panel-body">
-        <form id="form_filter_advance" class="ajax_form_filter" name="form_filter_advance" event-hook="productFilter"
-              action="<?php echo $action; ?>"
-              method="get">
+
             <div class="block block-search">
                 <div class="block-content clearfix">
                     <div class="input-group">
@@ -143,7 +143,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
 
                         </div>
                         <div class="action-filter">
-                            <a href="#0" class="btn btn-default btn-xs mt20 btn-clear-all"><i class="pe-7s-close "
+                            <a href="#0" class="btn btn-default btn-xs mt20 btn-clear-all" style="display: none"><i class="pe-7s-close "
                                                              ></i> Reset bộ lọc</a>
                             <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
                         </div>
@@ -156,7 +156,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
                                 <i class="pe-7s-keypad icon "></i>
                             </a>
                         </div>
-                        <?php */ ?>
+
                         <div class="  text-right">
                             <a href="<?php echo current_url() . '?layout=block' ?>" data-name="layout"
                                data-value="block">
@@ -168,12 +168,12 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
                             </a>
                         </div>
                         <?php //echo $_data_layout(); ?>
-
+                        <?php */ ?>
                     </div>
 
                 </div>
             </div>
-        </form>
+
     </div>
 </div>
 <?php
@@ -184,7 +184,7 @@ if ($user):
     $input['where']['us.action'] = 'subscribe';
     $input['where']['us.table'] = 'user';
     $input['where']['us.user_id'] = $user->id;
-    $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+    $input['join'] = array(array('user_storage us', 'us.table_id = user.id'));
     $filter = array();
     $users = mod('user')->get_list($filter, $input);
     //pr_db($users);
@@ -210,3 +210,4 @@ if ($user):
         });
     })
 </script>
+</form>

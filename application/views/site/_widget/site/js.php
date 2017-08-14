@@ -97,6 +97,7 @@ $asset_theme =$asset. '/site/theme/';
 	</div>
 <?php */ ?>
 <?php //view('tpl::_widget/common/back_to_top') ;?>
+<?php view('tpl::_widget/common/modal_social_view') ;?>
 <?php view('tpl::_widget/common/modal_blank') ;?>
 <?php view('tpl::_widget/common/modal_balance_deposit') ;?>
 <?php view('tpl::_widget/common/modal_system_notify') ;?>

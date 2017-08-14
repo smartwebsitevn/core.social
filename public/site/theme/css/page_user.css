@@ -69,11 +69,11 @@ body.user-page #main {
       color: #000;
       font-weight: 500;
       line-height: 1;
-      font-size: 18px;
-      margin-bottom: 5px;
+      font-size: 16px;
+      /* margin-bottom: 5px;*/
       text-transform: capitalize; }
-      .list-user .item-user .item-name a {
-        /*  color: #000;*/ }
+    .list-user .item-user a.btn-xs {
+      font-size: 11px; }
     .list-user .item-user .item-desc {
       margin-bottom: 10px;
       display: block; }
@@ -135,36 +135,40 @@ body.user-page #main {
    border: 1px solid #e0e0e0;
    color: #666;*/ }
   .list-user-feature .item-user {
+    cursor: pointer;
     margin-bottom: 10px;
     border-bottom: 1px solid #e0e0e0;
-    padding: 10px;
+    padding: 10px 0;
     position: relative;
     display: inline-block;
+    font-size: 11px;
     width: 100%; }
     .list-user-feature .item-user .item-photo {
       display: block;
       position: relative;
       overflow: hidden;
-      width: 45px;
       float: left;
       margin-right: 5px; }
       .list-user-feature .item-user .item-photo img {
         display: block;
-        width: 45px;
-        height: 45px;
+        width: 35px;
+        height: 35px;
         border-radius: 100%; }
     .list-user-feature .item-user .item-info {
       float: left;
       width: calc(75% - 40px); }
     .list-user-feature .item-user .item-name {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 2px;
       text-transform: capitalize; }
       .list-user-feature .item-user .item-name a {
         color: #000; }
-    .list-user-feature .item-user:hover .item-name {
+    .list-user-feature .item-user a.btn-xs {
+      font-size: 9px;
+      padding: 1px 5px; }
+    .list-user-feature .item-user:hover .item-name, .list-user-feature .item-user.active .item-name {
       color: #f67004; }
-      .list-user-feature .item-user:hover .item-name a {
+      .list-user-feature .item-user:hover .item-name a, .list-user-feature .item-user.active .item-name a {
         color: #f67004; }
 
 /*====================*\

@@ -30,37 +30,31 @@
                                 <?php echo $row->name; ?></a>
                         </div>
                         <div class="item-desc">
-                            <?php echo macro()->more_word($row->description, 45); ?>
+                            <?php echo macro()->more_block($row->description, 110); ?>
                         </div>
                         <?php t('view')->load('tpl::_widget/product/display/item/info_media',['row'=>$row])?>
+
+                        <?php echo widget('product')->action_comment($row) ?>
+
+
                     </div>
-                    <div class="item-info">
-                        <div class="item-meta">
-                            <?php echo widget('product')->action_vote($row) ?>
-
-                           <span
-                                    class="points"> <i class="pe-7s-star"></i> <?php echo lang("count_point") ?> <b><?php echo number_format($row->vote_total) ?></b> </span>
-                            <!--<span  class="views"> <b><?php /*echo number_format($row->view_total) */
-                            ?></b> <?php /*echo lang("count_view") */
-                            ?></span>-->
-                                                  <!--<span class="date_created"> <b><?php /*echo $row->_created */
-                            ?></b> </span>-->
-                            <?php echo widget('product')->action_comment($row) ?>
-
-                        </div>
-
                         <div class="item-actions">
-                            <?php echo widget('product')->action_favorite($row) ?>
-                            <?php widget('product')->action_share($row) ?>
-                            <?php //widget('product')->action_close()
-                            ?>
+                            <div class="item-meta item-action">
+                                <?php echo widget('product')->action_vote($row) ?>
+                            </div>
+                            <div class="item-action">
+                                <?php echo widget('product')->action_favorite($row) ?>
+                            </div>
+                            <div class="item-action">
+                                <?php widget('product')->action_share($row) ?>
+                            </div>
+
+
+
+
                         </div>
-                        <div class="clear"></div>
-                        <div id="<?php echo $row->id; ?>_comment_load" class="tab_load"></div>
-                        <div id="<?php echo $row->id; ?>_comment_show"></div>
-                        <?php //t('view')->load('tpl::_widget/product/display/item/infos')
+                                    <?php //t('view')->load('tpl::_widget/product/display/item/infos')
                         ?>
-                    </div>
 
                 </div>
             </div>
@@ -84,7 +78,7 @@
     <?php endif; ?>
 
 <?php else: ?>
-    <div class="clearfix mt20"></div>
+    <div class="clearfix"></div>
     <div class="well">
         <?php echo lang('have_no_list') ?>
     </div>

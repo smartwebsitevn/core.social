@@ -1,9 +1,10 @@
 <?php if (isset($list) && $list): ?>
+    <?php $user_selected= t('input')->get('user_id') ?>
     <div class="list-user-feature">
         <?php foreach ($list as $row):    //pr($row);?>
-            <div class="item-user">
+            <div class="item-user  act-input <?php echo $user_selected == $row->id?'active':'' ?>" data-name="user_id" data-value="<?php echo $row->id ?>">
                 <div class="item-photo">
-                    <a href="<?php echo $row->_url_view; ?>" class="item-img">
+                    <a href="<?php //echo $row->_url_view; ?>" class="item-img">
                         <img src="<?php echo $row->avatar->url_thumb ?>"
                              alt="<?php echo $row->name; ?>">
                     </a>
@@ -16,15 +17,9 @@
 
                     </div>
                     <div class="item-meta">
-                        <span
-                            class="posts"> <b><?php echo number_format($row->post_total) ?></b> <?php echo lang("count_post") ?></span>
-
-<span
-    class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-<span
-    class="follows"> <b><?php echo number_format($row->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
-
-
+                        <span class="posts"> <b><?php echo number_format($row->post_total) ?></b> <?php echo lang("count_post") ?></span>
+                        <span class="points"> <b><?php echo number_format($row->point_total) ?></b> <?php echo lang("count_point") ?></span>
+                        <span class="follows"> <b><?php echo number_format($row->follow_total) ?></b> <?php echo lang("count_follow") ?></span>
                     </div>
 
                 </div>

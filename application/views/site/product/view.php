@@ -1,4 +1,5 @@
 <div class="product-info-main detail-social">
+    <?php /* ?>
     <div class="row">
         <div class="col-md-8 col-sm-12 col-xs-12">
             <div class="product-navigation">
@@ -19,6 +20,8 @@
 
         </div>
     </div>
+     <?php */ ?>
+
     <div class="row">
         <div class="col-md-8 col-sm-12 col-xs-12">
             <?php t('view')->load('tpl::product/_common/main') ?>
@@ -41,5 +44,6 @@
 
     </div>
 </div>
+
 
 

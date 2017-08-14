@@ -66,7 +66,7 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
 
 };
 ?>
-<div id="header">
+<div id="header" >
     <div class="container">
         <div class="logo pull-left">
             <a href="<?php echo site_url() ?>">

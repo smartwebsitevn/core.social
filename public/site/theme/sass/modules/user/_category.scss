@@ -74,12 +74,13 @@
       color: #000;
       font-weight: 500;
       line-height: 1;
-      font-size: 18px;
-      margin-bottom: 5px;
+      font-size: 16px;
+     /* margin-bottom: 5px;*/
       text-transform: capitalize;
-      a {
-        /*  color: #000;*/
-      }
+
+    }
+    a.btn-xs {
+  font-size: 11px;
     }
     //== detail
     .item-desc {
@@ -176,24 +177,25 @@
   border: 1px solid #e0e0e0;
   color: #666;*/
   .item-user {
+    cursor: pointer;
     margin-bottom: 10px;
     border-bottom: 1px solid #e0e0e0;
-    padding: 10px;
+    padding: 10px 0;
     position: relative;
     display: inline-block;
+    font-size: 11px;
     width: 100%;
     //== structure
     .item-photo {
       display: block;
       position: relative;
       overflow: hidden;
-      width: 45px;
       float: left;
       margin-right: 5px;
       img {
         display: block;
-        width: 45px;
-        height: 45px;
+        width: 35px;
+        height: 35px;
         border-radius: 100%;
       }
     }
@@ -203,13 +205,17 @@
     }
     .item-name {
       display: block;
-      margin-bottom: 5px;
+     margin-bottom: 2px;
       text-transform: capitalize;
       a {
           color: #000;
       }
     }
-    &:hover {
+    a.btn-xs {
+      font-size: 9px;
+      padding: 1px 5px;
+    }
+    &:hover,&.active {
       .item-name {
         color: #f67004;
         a {

@@ -82,7 +82,7 @@
     <?php endif; ?>
 
 <?php else: ?>
-    <div class="clearfix mt20"></div>
+    <div class="clearfix"></div>
     <div class="well">
         <?php echo lang('have_no_list') ?>
     </div>

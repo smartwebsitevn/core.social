@@ -204,7 +204,7 @@ class Product_list extends MY_Controller
             //'price|asc',
             //'price|desc',
             'point_total|desc',
-            'view_total|desc',
+           // 'view_total|desc',
             /*'count_buy|desc',
             'new|desc',
 
@@ -286,6 +286,7 @@ class Product_list extends MY_Controller
             }
 
             $temp = $temp ? $temp : $style_display;
+          //  $temp ='default';
             $load_more = $this->input->get("load_more", false);
 
              $response=   [

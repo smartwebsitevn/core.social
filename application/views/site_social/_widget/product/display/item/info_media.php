@@ -32,7 +32,12 @@
     $total_images = count($row->images);
     //pr($row->images)
     ?>
+    <?php if($total_images>1): ?>
+    <div data-url="<?php echo $row->_url_view ?>" class="act-view-quick images images-<?php echo $total_images > 5 ? 5 : $total_images; ?>">
+    <?php else: ?>
     <div class="images images-<?php echo $total_images > 5 ? 5 : $total_images; ?>">
+
+    <?php endif ?>
         <?php $i = 0;
         foreach ($row->images as $img): $i++;// pr($row)
             if ($i > 5) break;
@@ -50,7 +55,7 @@
                     <div class="item-video">
                         <div
                             class="item-video-icon" <?php echo $youtube_id ? ' data-youtube="' . $youtube_id . '"' : '' ?> ></div>
-                            <?php if($i==1): ?>
+                            <?php if($total_images==1): ?>
                             <div class="item-video-player"></div>
                         <?php endif; ?>
                     </div>

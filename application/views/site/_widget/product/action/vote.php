@@ -11,17 +11,18 @@
               >
               <i class="pe-7s-up-arrow"></i>
           </a>
-
-  <a href="#0" title='' class="do_action <?php if ($voted) echo $voted->dislike?'on':''; ?>"
-     data-action="toggle"
-     data-group="action_vote_group"
-     data-url-on="<?php echo $url_dislike ?>"
-     data-url-off="<?php echo $url_dislike_del ?>"
-     data-title-on='<?php echo lang("action_vote_del") ?>'
-     data-title-off='<?php echo lang("action_favorite") ?>'
-     data-class-on="active"
-      >
-      <i class="pe-7s-bottom-arrow"></i>
-  </a>
+          <a href="#0" title='' class="do_action <?php if ($voted) echo $voted->dislike?'on':''; ?>"
+             data-action="toggle"
+             data-group="action_vote_group"
+             data-url-on="<?php echo $url_dislike ?>"
+             data-url-off="<?php echo $url_dislike_del ?>"
+             data-title-on='<?php echo lang("action_vote_del") ?>'
+             data-title-off='<?php echo lang("action_favorite") ?>'
+             data-class-on="active"
+              >
+              <i class="pe-7s-bottom-arrow"></i>
+          </a>
     </span>
+    <span   class="points"><b><?php echo number_format($info->vote_total) ?></b> <?php echo lang("count_point") ?> </span>
+
 <?php endif; ?>

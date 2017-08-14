@@ -5,14 +5,23 @@ header('Content-Type: text/html; charset=utf-8');
 class _t extends MY_Controller
 {
 
-    function _update_db()
+    function update_db()
     {
-        $tbl = 'movie';
-        $info = model($tbl)->get_info(23);
 
+        $this->_update_user();
+    }
+    function _update_user()
+    {
+        $tbl = 'user';
         $list = model($tbl)->get_list();
-        foreach ($list as $i) {
-            model($tbl)->update_field($i->id, 'demo', $info->demo);
+        foreach ($list as $row) {
+            $total = model('product')->filter_get_total(['user_id'=>$row->id]);
+            model($tbl)->update($row->id,
+                [
+                    'post_total' => $total,
+                ]
+            );
+            echo  '<br>--';pr_db(0,0);
         }
     }
 
@@ -24,7 +33,8 @@ class _t extends MY_Controller
             $name = "Sản phẩm Demo " . $i->id;
             $desc = 'Nội dung đang được cập nhập...';
             model($tbl)->update($i->id,
-                ['name' => $name,
+                [
+                    'name' => $name,
                     'seo_url' => convert_vi_to_en($name),
                     'brief' => $desc,
                     'description' => $desc,

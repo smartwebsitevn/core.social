@@ -572,7 +572,7 @@ class Product_widget extends MY_Widget
        // pr($voted);
         $url_vote= site_url('product/vote/' . $id );;
         $this->data['can_do'] = $can_do;
-        $this->data['product'] = $product;
+        $this->data['info'] = $product;
         $this->data['voted'] = $voted;
         $this->data['url_like'] = $url_vote. "?act=like";
         $this->data['url_like_del'] =  $url_vote. "?act=like_del";

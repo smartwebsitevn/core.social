@@ -45,7 +45,11 @@ class Product extends MY_Controller
         $this->_common_process();
         //$this->_view_process();
         //$this->_other_process();
-        $this->_display();
+        if ($this->input->is_ajax_request()) {
+            $this->_display('view_quick',null);
+        }
+        else
+         $this->_display();
     }
 
     function _common_process()

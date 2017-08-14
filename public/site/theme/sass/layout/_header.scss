@@ -10,8 +10,29 @@
 #header {
   background-color: #fff;
   box-shadow: 0 3px 2px -2px #ccc;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
   .container {
 	position: relative;
+  }
+  .logo {
+	display: table;
+	text-align: center;
+	/* width: 151px;*/
+	height: 50px;
+	margin-right: 40px;
+	a {
+	  display: table-cell;
+	  vertical-align: middle;
+	  img {
+		display: inline-block;
+		max-width: 150px;
+		max-height: 50px;
+	  }
+	}
   }
   .nav-menu {
 	.close-nav {

@@ -8,17 +8,44 @@ var product_nfc = {
         },
         common: function () {
             $(document).ready(function () {
+                $('body').on('click', '.item-video-icon', function () {
+                    var $parent = $(this).closest('.item');
+                    var $player = $parent.find('.item-video-player')
+                    if (!$player.length) return;
+                    $(this).hide();
+                    $parent.find('img').hide();
+                    $('<iframe>', {
+                        src: '//www.youtube.com/embed/' + $(this).data('youtube') + '?rel=0&autoplay=1',
+                        frameborder: 0,
+                        scrolling: 'no',
+                        allowfullscreen: "allowfullscreen"
+                    }).appendTo($player);
+                });
+                $('body').on('click', '.item-social  .load_ajax', function () {
 
-
-                /*=========== CHANGE PRICE BY OPTION AND QUANTITY */
-                $("#product_form_action .product-options select").on('change', function () {
-                    //alert(2);
-                    productChangeOptionPrice();
+                    $(this).nstUI('loadAjax', {
+                        url: $(this).attr('_url'),
+                        field: {load: $(this).attr('_field') + '_load', show: $(this).attr('_field') + '_show'},
+                    });
+                });
+                $('body').on('click', '.item-social .act-view-quick', function () {
+                    var $modal = $('#modal-social-view');
+                    nfc.loader('show');
+                    var url = $(this).data('url');
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        dataType: 'html',
+                        success: function (data) {
+                            nfc.loader('hide');
+                            $modal.find('.modal-body').html(data);
+                            // hien thong bao
+                            $modal.modal('show')
+                        }
+                    });
 
                 });
-                $("#product_form_action .product-options :input[type=checkbox]").on('click', function () {
-                    productChangeOptionPrice();
-                });
+
                 /*=========== Filter ============*/
                 /*$("#form_filter_advance .filter-tick").on("click", function () {
                  $(this).toggleClass('active');
@@ -100,13 +127,7 @@ var product_nfc = {
                  });
                  */
 
-                $('body').on('click', '.item-social  .load_ajax', function () {
 
-                    $(this).nstUI('loadAjax', {
-                        url: $(this).attr('_url'),
-                        field: {load:  $(this).attr('_field')+'_load', show: $(this).attr('_field')+'_show'},
-                    });
-                });
             });
         },
 
@@ -116,55 +137,7 @@ var product_nfc = {
     },
 }
 product_nfc.boot();
-
 /* FUNTIONS SUPPORT HOOK EVENT*/
-function productUpdateCart(data) {
-    var $modal_cart = $('#modal-cart')
-    if (data.cart_mini != undefined) {
-        $('#product-cart-mini').html(data.cart_mini);
-    }
-    if (data.cart != undefined) {
-        $modal_cart.find('.modal-dialog').css("width",'90%');
-        $modal_cart.find('.modal-body').html(data.cart);
-        // hien thong bao
-        $modal_cart.modal('show')
-    }
-    else if (data.checkout != undefined) {
-        $modal_cart.find('.modal-dialog').css("width",'40%');
-        $modal_cart.find('.modal-title').html("Thông tin đặt hàng");
-        $modal_cart.find('.modal-body').html(data.checkout);
-        // hien thong bao
-        $modal_cart.modal('show')
-    }
-    else{
-        $modal_cart.find('.modal-dialog').css("width",'40%');
-        $modal_cart.modal('hide')
-    }
-    /* $('html, body').animate({ scrollTop: 0 }, 'slow');  */
-    //$.colorbox({width:'75%',height:'90%',href:$('#cart #shopping-cart-mini a').attr('href')});
-    //$.colorbox({width:'85%',height:'90%',href:$('#shopping-cart-mini').attr('href')});
-    //  window.parent.location = $('#shopping-cart-mini').attr('href');
-    //window.parent.location =base_url+'checkout';
-    nfc.server_response(data);
-
-}
-function productChangeOptionPrice() {
-    $('#product_form_action #price-total-wraper').append('<span class="loader_block"></span>');
-    $('#product_form_action').ajaxSubmit({
-       // url: $('#product_form_action').attr('_action_sub'),
-        data: {'_submit': true,'update_price':true},
-        dataType: 'json',
-        success: function (data, statusText, xhr, $form) {
-           // alert(data.total);
-            $('#product_form_action #price-total-wraper').find('span.loader_block').remove()
-            if (data.total) {
-                $('#product_form_action #price-total').html(data.total);
-            }
-
-        },
-
-    });
-}
 function productFilter(option) {
     var $target_data = $(".ajax-content-product-list");
     var $target_total = $(".ajax-content-product-total");
@@ -173,29 +146,29 @@ function productFilter(option) {
     $('body').append('<div class="loader_mini">Loading...</div>');
 
     var matches = 0;
-    $("#form_filter_advance .block-filter input[type=hidden]").each(function(i, val) {
+    $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
         //if ($(this).val() == '1')
         matches++;
     });
-    if(matches>1)
+    if (matches > 1)
         $('.btn-clear-all').show();
     else
         $('.btn-clear-all').hide();
 
 
     //== su ly du lieu submit
-    var url='';
-    var load_more =false;
+    var url = '';
+    var load_more = false;
     if (option != undefined) {
 
         if (option.url != undefined) {
-            url =option.url;
+            url = option.url;
         }
         if (option.load_more != undefined) {
-            load_more =option.load_more;
+            load_more = option.load_more;
         }
     }
-    if(url == '')
+    if (url == '')
         url = $('#form_filter_advance').attr('action') + '?' + $('#form_filter_advance').serialize() + "&" + $('#form_filter_base').serialize();
 
     $('#form_filter_advance').ajaxSubmit({
@@ -209,15 +182,15 @@ function productFilter(option) {
             if (rs.status) {
                 $(".ajax-filter").html();
                 if (rs.filter != undefined) {
-                   $(".ajax-filter").html(rs.filter);
+                    $(".ajax-filter").html(rs.filter);
                 }
 
-                if(load_more){
+                if (load_more) {
                     // xoa phan trang va nut load more
                     $('.page-pagination').remove();
                     $target_data.find('.product-list').append(rs.content);
                 }
-                else{
+                else {
                     //alert(2)
                     $target_data.html(rs.content);
 
@@ -227,7 +200,7 @@ function productFilter(option) {
                 $target_total.html(rs.total);
 
                 // kiem tra xem co nut next khong, neu co thi hien load more
-                if($('.page-pagination .pagination > li:last').hasClass('active')){
+                if ($('.page-pagination .pagination > li:last').hasClass('active')) {
                     $('.act-pagination-load-more').parent().hide();
                     return false;
                 }
@@ -237,23 +210,3 @@ function productFilter(option) {
 
     });
 }
-
-    (function($)
-    {
-        $(document).ready(function()
-        {
-            $('body').on('click', '.item-video-icon', function () {
-                var $parent= $(this).closest('.item');
-                var $player =$parent.find('.item-video-player')
-                if(!$player.length) return;
-                $(this).hide();
-                $parent.find('img').hide();
-                $('<iframe>', {
-                    src: '//www.youtube.com/embed/'+$(this).data('youtube')+'?rel=0&autoplay=1',
-                    frameborder: 0,
-                    scrolling: 'no',
-                    allowfullscreen:"allowfullscreen"
-                }).appendTo($player);
-            });
-        });
-    })(jQuery);

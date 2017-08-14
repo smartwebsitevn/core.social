@@ -11,8 +11,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 sidebar ">
-					<div class="sticky-element" data-limiter="#footer">
-						<div class="slimscroll" data-height="500px">
+					<div class="sticky-element" data-spacing="65" data-limiter="#footer">
+						<div class="slimscroll" data-height="90vh">
 
 						<?php echo widget('product')->filter([], "sidebar") ?>
 						</div>
@@ -22,13 +22,13 @@
 					<?php echo $content; ?>
 				</div>
 				<div class="col-md-3 sidebar">
-					<div class="sticky-element" data-limiter="#footer">
+					<div class="sticky-element"  data-spacing="65" data-limiter="#footer">
 						<div class="panel">
 							<div class="panel-heading">
 								Được đề xuất
 							</div>
 							<div class="panel-body" >
-								<div class="slimscroll" data-height="500px">
+								<div class="slimscroll" data-height="90vh">
 									<?php widget('user')->feature(null, 'sidebar_feature') ?>
 								</div>
 							</div>

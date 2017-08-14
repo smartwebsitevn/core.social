@@ -55,7 +55,9 @@
                 var s = sticked[i],
                     elementTop = s.stickyWrapper.offset().top,
                     elementHeight = s.stickyElement.outerHeight();
-                    limiterTop = s.stickyLimiter.offset().top;
+                    limiterTop = 0;
+                if(s.stickyLimiter)
+                    limiterTop= s.stickyLimiter.offset().top;
                 scrollTopLimit = scrollTop+ elementHeight;
 
                 etse = elementTop - s.topSpacing - extra;
@@ -103,10 +105,9 @@
                             newWidth = s.stickyElement.width();
                         }
 
-                        if (scrollTopLimit> limiterTop) {
+                        if (s.stickyLimiter && scrollTopLimit > limiterTop) {
                             newTop = limiterTop - scrollTopLimit;
                             //nfc.pr('--newTop reset:'+newTop);
-
                         }
 
                         s.stickyElement
@@ -135,7 +136,7 @@
                         s.currentTop = newTop;
                     }
                     else{
-                        if (scrollTopLimit> limiterTop) {
+                        if (s.stickyLimiter && scrollTopLimit> limiterTop) {
                             newTop = limiterTop - scrollTopLimit;
                            // nfc.pr('--newTop reset:'+newTop);
                             s.currentTop =newTop;

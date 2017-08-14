@@ -12,12 +12,8 @@
                     <?php //echo t('view')->load('tpl::_widget/user/display/item/info_label', array('row' => $row)); ?>
                     <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
                             <?php echo $row->name; ?></a>
-                        <div class="mt10">
-
-                            <?php //widget('user')->action_subscribe($row) ?>
-
-                        </div>
                     </div>
+                     <?php widget('user')->action_subscribe($row,'subscribe_min') ?>
                 </div>
             </div>
         <?php endforeach; ?>

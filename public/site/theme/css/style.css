@@ -1405,6 +1405,9 @@ select.form-control {
     outline: none; }
   .btn:active, .btn.active {
     box-shadow: none; }
+  .btn-round {
+    border-radius: 40px;
+    padding: 2px 10px; }
 
 /*a.btn, span.btn {
   height: auto;
@@ -2033,8 +2036,8 @@ table {
     float: left;
     margin-bottom: 12px;
     margin-right: 12px;
-    width: 48px;
-    height: 48px;
+    width: 35px;
+    height: 35px;
     max-width: none; }
   .comment-list .name {
     font-weight: bold; }
@@ -2267,20 +2270,6 @@ table {
     font-weight: 400; }
 
 /*=======logo=========*/
-.logo {
-  display: table;
-  text-align: center;
-  /* width: 151px;*/
-  height: 71px;
-  margin-right: 40px; }
-  .logo a {
-    display: table-cell;
-    vertical-align: middle; }
-    .logo a img {
-      display: inline-block;
-      max-width: 150px;
-      max-height: 70px; }
-
 .caret {
   width: 11px;
   height: 8px;
@@ -2503,9 +2492,27 @@ text-overflow: ellipsis;*/ }
 /* Header */
 #header {
   background-color: #fff;
-  box-shadow: 0 3px 2px -2px #ccc; }
+  box-shadow: 0 3px 2px -2px #ccc;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10; }
   #header .container {
     position: relative; }
+  #header .logo {
+    display: table;
+    text-align: center;
+    /* width: 151px;*/
+    height: 50px;
+    margin-right: 40px; }
+    #header .logo a {
+      display: table-cell;
+      vertical-align: middle; }
+      #header .logo a img {
+        display: inline-block;
+        max-width: 150px;
+        max-height: 50px; }
   #header .nav-menu .close-nav {
     display: none; }
   #header .nav-menu .nav:before {
@@ -2907,7 +2914,7 @@ text-overflow: ellipsis;*/ }
   .nav-menu > .nav > li:last-child {
     margin-right: 0; }
   .nav-menu > .nav > li > a {
-    line-height: 71px;
+    line-height: 50px;
     min-width: 10px;
     display: block;
     padding: 0;
@@ -2939,7 +2946,7 @@ text-overflow: ellipsis;*/ }
   font-weight: 600;
   text-transform: uppercase;
   color: #fff;
-  margin-top: 20px; }
+  margin-top: 10px; }
   .nav-menu > .nav > li > a.btn:hover {
     line-height: 30px;
     padding: 0 20px;
@@ -2980,6 +2987,7 @@ text-overflow: ellipsis;*/ }
 
 /* Main */
 #main {
+  margin-top: 65px;
   -moz-flex-grow: 1;
   -webkit-flex-grow: 1;
   -ms-flex-grow: 1;
