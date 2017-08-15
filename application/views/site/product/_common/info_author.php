@@ -29,7 +29,7 @@
                 <hr>
 
                 <div class="item-des">
-                    <?php echo macro()->more_word($author->desc,50); ?>
+                    <?php echo macro()->more_block($author->desc,110); ?>
                 </div>
 
             </div>

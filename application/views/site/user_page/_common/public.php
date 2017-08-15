@@ -14,7 +14,7 @@
                 </div>
                 <div class="clearfix item-desc">
                     <hr>
-                    <?php echo macro()->more_word($info->desc,52); ?>
+                    <?php echo macro()->more_block($info->desc,110); ?>
                 </div>
             </div>
         </div>

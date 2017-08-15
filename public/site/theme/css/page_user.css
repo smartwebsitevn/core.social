@@ -22,7 +22,7 @@ body.user-page #main {
   .list-user .item-user {
     margin-bottom: 30px;
     border-bottom: 1px solid #e0e0e0;
-    padding: 35px 5px 35px 35px;
+    padding: 15px 5px 15px 35px;
     position: relative;
     display: block; }
     .list-user .item-user .item-photo {
@@ -50,14 +50,16 @@ body.user-page #main {
       padding-bottom: 20px;
       position: relative;
       text-align: center; }
-      .list-user .item-user .item-profile .avatar img {
-        display: inline-block;
-        width: 70px; }
+      .list-user .item-user .item-profile .avatar i {
+        font-size: 48px;
+        color: #f7941e; }
       .list-user .item-user .item-profile .group {
         font-weight: bolder;
         text-transform: capitalize;
         display: block;
         margin: 5px 0; }
+        .list-user .item-user .item-profile .group span {
+          color: #999999; }
       .list-user .item-user .item-profile .links a {
         font-size: 25px;
         margin: 0 5px; }
@@ -79,10 +81,10 @@ body.user-page #main {
       display: block; }
     .list-user .item-user .item-meta {
       display: flex;
-      color: #666;
+      color: #999999;
       font-weight: 300;
       margin-bottom: 5px;
-      line-height: 48px; }
+      line-height: 25px; }
       .list-user .item-user .item-meta span {
         margin-right: 20px; }
       .list-user .item-user .item-meta .place {

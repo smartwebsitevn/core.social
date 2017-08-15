@@ -381,9 +381,10 @@
     .block-products-items .list-social .item-social .item-actions {
       border-top: 1px solid #eee;
       margin-top: 10px;
-      padding-top: 10px;
+      padding-top: 5px;
       width: 100%;
-      text-align: right; }
+      text-align: right;
+      display: flex; }
       .block-products-items .list-social .item-social .item-actions .btn {
         /* margin-right: 10px;*/ }
       .block-products-items .list-social .item-social .item-actions a {
@@ -399,13 +400,16 @@
           line-height: 15px;
           padding: 9px 10px; }
       .block-products-items .list-social .item-social .item-actions .item-action {
-        width: 30%;
-        float: left; }
+        width: 33.3%;
+        text-align: center;
+        padding-top: 5px;
+        border-right: 1px solid rgba(160, 160, 160, 0.3); }
+        .block-products-items .list-social .item-social .item-actions .item-action:last-child {
+          border-right: none; }
       .block-products-items .list-social .item-social .item-actions .item-meta {
         float: left;
         display: flex;
         color: #666;
-        margin-bottom: 5px;
         line-height: 24px;
         font-size: 12px; }
         .block-products-items .list-social .item-social .item-actions .item-meta span {
@@ -566,7 +570,9 @@
       /*padding-top: 23px;*/
       margin-bottom: 10px; }
       .block-author .block-content .logo-cty img {
-        display: inline-block; }
+        display: inline-block;
+        max-width: 150px;
+        border-radius: 100%; }
     .block-author .block-content .links {
       text-align: center;
       margin-bottom: 20px; }
@@ -628,16 +634,18 @@
   display: inline-block;
   float: left;
   margin-right: 20px; }
-.page-product-post .upload-action {
+.page-product-post .upload-action, .page-product-post .upload_action {
   margin-top: 40px;
   margin-bottom: 40px;
   text-align: center; }
-  .page-product-post .upload-action i {
+  .page-product-post .upload-action i, .page-product-post .upload_action i {
     font-size: 64px;
     display: block; }
-  .page-product-post .upload-action a span {
-    color: #111; }
-  .page-product-post .upload-action div:first-child {
+  .page-product-post .upload-action a, .page-product-post .upload_action a {
+    display: inline-block; }
+    .page-product-post .upload-action a span, .page-product-post .upload_action a span {
+      color: #111; }
+  .page-product-post .upload-action div:first-child, .page-product-post .upload_action div:first-child {
     border-right: 1px solid #ccc; }
 .page-product-post .upload-medias {
   margin-top: 20px;

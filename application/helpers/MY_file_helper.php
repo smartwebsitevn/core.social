@@ -574,31 +574,40 @@ function get_info_size($sizes = 0, $from = 'm')
 
 function file_parse($file)
 {
-	$type=$path = '';
+	$type=$icon =$image= '';
 	$can_view = 0;
 	$can_view_online = 0;
 	$ext = strtolower(substr(strrchr($file, '.'), 1));
 	if (in_array($ext, ['jpg', 'jpeg', 'gif', 'png', 'bmp'])) {
 		$type = "image";
 		$can_view = 1;
+		$icon ='file-image-o';
+
 	} else if (in_array($ext, ['zip', 'rar'])) {
 		$type = "compress";
 	} else if (in_array($ext, ['doc', 'docx'])) {
 		$type = "document";
 		$can_view = 1;
 		$can_view_online = 1;
+		$icon ='file-word-o';
 	} else if (in_array($ext, ['xls', 'xlsx'])) {
 		$type = "sheet";
 		$can_view = 1;
 		$can_view_online = 1;
+		$icon ='file-excel-o';
+
 	} else if (in_array($ext, ['pdf'])) {
 		$type = "pdf";
 		$can_view = 1;
 		$can_view_online = 1;
+		$icon ='file-pdf-o';
+
 	} else if (in_array($ext, ['txt'])) {
 		$type = "txt";
 		$can_view = 1;
 		$can_view_online = 1;
+		$icon ='file-text-o';
+
 	} else if (in_array($ext, ['mp3'])) {
 		$type = "audio";
 
@@ -608,10 +617,13 @@ function file_parse($file)
 		$type = "flash";
 	}
 
-	if($type)
-		$path= public_url("js/jquery/filemanager/images/media/" . $type.'.png');
+	if($type){
+		$image= public_url("js/jquery/filemanager/images/media/" . $type.'.png');
 
-	$fileinfo = ['type' => $type, 'icon' => $path, 'can_view' => $can_view, 'can_view_online' => $can_view_online];
+	}
+
+
+	$fileinfo = ['type' => $type, 'icon' => $icon, 'image' => $image, 'can_view' => $can_view, 'can_view_online' => $can_view_online];
 
 	return $fileinfo;
 }

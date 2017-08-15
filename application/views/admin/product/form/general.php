@@ -19,19 +19,21 @@ $_data_country =function($param,$code, $countries)
 	</select>
 	<?php return ob_get_clean();
 };
+/*
 echo macro('mr::advForm')->row(array(
     'param' => 'image',
     'type' => 'image',
     '_upload' => $widget_upload_image
-));
+));*/
 echo macro('mr::advForm')->row(array(
     'param' => 'name', 'value' => $info['name'], 'req' => true,
 ));
 
+/*
 echo macro('mr::advForm')->row(array(
     'param' => 'link_demo', 'value' => $info['link_demo'],
 ));
-/*echo '<hr/>';
+echo '<hr/>';
 
 echo '<div class="form-group param_number ">
         <label class="col-sm-3  control-label " for="price">'.lang('price'). '</label>
@@ -94,19 +96,19 @@ echo macro('mr::advForm')->row(array(
 
 ));
 echo '<div id="data_types"></div>';
-echo macro('mr::advForm')->row(array(
+/*echo macro('mr::advForm')->row(array(
     'name' => lang('cat'),
     'param' => 'cat_id',
     'type' => 'select2',
     'value' => $info['cat_id'],
     'values_row' => array($categories, 'id', '_name')
 ));
-/*echo macro('mr::form')->row(array(
+echo macro('mr::form')->row(array(
     'param' => 'country_id', 'name' => lang('country'),
     'type' => 'select2',
     'value' => $info['country_id'],
     'values_row' => array($countrys, 'id', 'name')
-));*/
+));
 
 echo macro('mr::form')->row(array(
     'name' => lang('country'),
@@ -114,37 +116,48 @@ echo macro('mr::form')->row(array(
     'type' => 'ob',
     'value' => $_data_country('country_id', $info['country_id'], $countrys),
 
-));
+));*/
 /*echo macro('mr::advForm')->row(array(
 	'param' => 'model',	'value'=>$info['model'],//	'req' 	=> true,
-));*/
-
+));
 echo macro('mr::advForm')->row(array(
     'param' => 'brief',
     'type' => 'textarea',
     'value' => $info['brief'],
 ));
-
+*/
+echo macro('mr::advForm')->row(array(
+    'param' => 'images',
+    'type' => 'image',
+    '_upload' => $widget_upload_images
+));
+echo macro('mr::advForm')->row(array(
+    'param' 	=> 'files',
+    'type' 		=> 'file',
+    '_upload' 	=> $widget_upload_files
+));
+echo '<hr>';
 echo macro('mr::advForm')->row(array(
     'param' => 'description',
     'type' => 'html',
     'value' => $info['description'],
 ));
-
+/*
 echo macro('mr::advForm')->row(array(
     'param' => 'note',
     'type' => 'html',
     'value' => $info['note'],
 ));
-/*echo macro('mr::advForm')->row(array(
+echo macro('mr::advForm')->row(array(
 	'param' => 'tags',
 	'value' => isset($info['tags']) ? implode(', ', $info['tags']) : ''
-));*/
+));
 //pr($info);
 echo macro('mr::advForm')->row(array(
     'param' => 'tags', 'attr' => array('class' => 'tags form-control', '_url' => $url_tag),
     'value' => isset($info['tags']) ? implode(', ', $info['tags']) : '',
 ));
+*/
 echo '<hr/>';
 
 echo macro('mr::advForm')->row(array(

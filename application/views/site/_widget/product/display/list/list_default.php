@@ -23,16 +23,23 @@
                     <div class="item-info<?php echo $layout_full ? '-full' : '' ?>">
                         <?php //echo t('view')->load('tpl::_widget/product/display/item/info_label', array('row' => $row));
                         ?>
-                        <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
-                                <?php echo $row->name; ?></a>
+                        <div class="item-name">
+                            <a href="<?php echo $row->_url_view; ?>">
+                                <?php echo $row->name; ?>
+                                <?php if(isset($row->files) && $row->files): ?>
+                                    <i class="pe-7s-paperclip"></i>
+                                <?php endif; ?>
+                            </a>
                         </div>
                         <div class="item-time"><?php echo $row->_created_full; ?>  </div>
                         <div class="item-desc">
                             <?php echo macro()->more_word($row->description, 45); ?>
                         </div>
+                        <div class="item-files">
+                            <?php t('view')->load('tpl::_widget/product/display/item/info_files',['row'=>$row])?>
+                        </div>
                         <div class="item-meta">
                             <?php echo widget('product')->action_vote($row) ?>
-
                            <span
                                     class="points"> <i class="pe-7s-star"></i> <?php echo lang("count_point") ?> <b><?php echo number_format($row->vote_total) ?></b> </span>
                             <!--<span  class="views"> <b><?php /*echo number_format($row->view_total) */

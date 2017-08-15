@@ -15,6 +15,7 @@
                             <span class="name">
                                  <a href="<?php echo $author->_url_view; ?>" >
                                      <?php echo $author->name ?>
+
                                  </a>
                                </span>
                             <?php /* ?>
@@ -26,11 +27,19 @@
 
                     </div>
                     <div class="item-media">
-                        <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
-                                <?php echo $row->name; ?></a>
+                        <div class="item-name">
+                            <a href="<?php echo $row->_url_view; ?>">
+                                <?php echo $row->name; ?>
+                                <?php if(isset($row->files) && $row->files): ?>
+                                    <i class="pe-7s-paperclip"></i>
+                                <?php endif; ?>
+                            </a>
                         </div>
                         <div class="item-desc">
                             <?php echo macro()->more_block($row->description, 110); ?>
+                        </div>
+                        <div class="item-files">
+                            <?php t('view')->load('tpl::_widget/product/display/item/info_files',['row'=>$row])?>
                         </div>
                         <?php t('view')->load('tpl::_widget/product/display/item/info_media',['row'=>$row])?>
 

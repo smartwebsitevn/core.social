@@ -35,13 +35,13 @@
 	
 	<div class="upload_action " style="margin-top:2px;">
 		<div class="upload-medias">
-			<div class="col-md-6  text-right">
-				<a id="action_upload" >
+			<div class="col-md-6 ">
+				<a id="action_upload" class="">
 					<i class="pe-7s-photo"></i>
 					<span>Upload hình</span><br>
 				</a>
 			</div>
-			<div class="col-md-6  text-left">
+			<div class="col-md-6">
 				<a id="share-video" data-target="#<?php echo    'modal_share_video' ?>" data-toggle="modal">
 					<i class="pe-7s-film"></i>
 					<span>Chia sẻ Video</span><br>

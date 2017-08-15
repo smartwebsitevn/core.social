@@ -2,7 +2,7 @@
     <?php //pr($pages_config) ?>
     <nav class="page-pagination text-center" event-hook="moduleCoreFilter">
         <div class="text-center mt20 mb20">
-            <a href="" id="act-pagination-load-more" class="btn btn-default">Xem thêm</a>
+            <a href="#0" class="act-pagination-load-more" class="btn btn-default">Xem thêm</a>
         </div>
         <?php $this->widget->site->pages($pages_config); ?>
     </nav>

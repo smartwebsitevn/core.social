@@ -413,9 +413,10 @@
       .item-actions {
         border-top: 1px solid #eee;
         margin-top: 10px;
-        padding-top: 10px;
+        padding-top: 5px;
         width: 100%;
         text-align: right;
+        display: flex;
         .btn {
           /* margin-right: 10px;*/
         }
@@ -439,14 +440,18 @@
 
 
         .item-action{
-          width: 30%;
-          float: left;
+          width: 33.3%;
+          text-align: center;
+          padding-top: 5px;
+          border-right: 1px solid _palette(border);
+          &:last-child{
+            border-right: none;
+          }
         }
         .item-meta {
           float: left;
           display: flex;
           color: #666;
-          margin-bottom: 5px;
           line-height: 24px;
           font-size: 12px;
           span {

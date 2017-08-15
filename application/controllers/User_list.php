@@ -126,11 +126,10 @@ class User_list extends MY_Controller
         }
         //== Sort Order
         $sort_orders = array(
-            'id|desc',
             'point_total|desc',
             'post_total|desc',
             'count_view|desc',
-
+            'id|desc',
             /*'count_buy|desc',
             'new|desc',
             'feature|desc',

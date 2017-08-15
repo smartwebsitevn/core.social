@@ -15,7 +15,7 @@
         <?php t('view')->load('tpl::_widget/user/display/item/info_tags', ['row' => $user]) ?>
         <hr>
         <div class="item-des">
-            <?php echo macro()->more_word($user->desc, 50); ?>
+            <?php echo macro()->more_block($user->desc, 110); ?>
         </div>
 
     </div>

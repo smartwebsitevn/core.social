@@ -12,7 +12,7 @@
                 </div>
                 <div class="clearfix item-desc">
                     <hr>
-                    <?php echo character_limiter($info->desc, 250); ?>
+                    <?php echo macro()->more_block($info->desc,110); ?>
                 </div>
             </div>
         </div>

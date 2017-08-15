@@ -5,11 +5,12 @@ echo macro('mr::advForm')->row(array(
     'param' => 'point',
     'value' => $info['point'],
     'type' => 'spinner'
-));*/
+));
 
 echo '<hr/>';
-
+*/
 /* Images */
+/*
 echo macro('mr::advForm')->row(array(
     'param' => 'video',
     //'type' => 'textarea',
@@ -22,7 +23,7 @@ echo macro('mr::advForm')->row(array(
     'type' => 'image',
     '_upload' => $widget_upload_banner
 ));
-/*
+
 echo macro('mr::advForm')->row(array(
     'param' => 'icon',
     'type' => 'image',
@@ -33,26 +34,12 @@ echo macro('mr::advForm')->row(array(
     'attr'=>['placeholder'=>"example: arrows"],
     'desc'=>t('html')->a('http://fontawesome.io/icons/' ,'ICONS HERE' ,array('target'=>'_blank')) ,
 ));*/
-echo macro('mr::advForm')->row(array(
-    'param' => 'images',
-    'type' => 'image',
-    '_upload' => $widget_upload_images
-));
-echo macro('mr::advForm')->row(array(
-    'param' 	=> 'files',
-    'type' 		=> 'file',
-    '_upload' 	=> $widget_upload_files
-));
-echo '<hr>';
+
 
 echo macro('mr::advForm')->row(array(
     'param' => 'count_view', 'value' => $info['count_view'],
 ));
 
-echo macro('mr::advForm')->row(array(
-    'type' => 'custom',
-    'html' => '<hr>'
-));
 /*
 
 echo macro('mr::advForm')->row(array(

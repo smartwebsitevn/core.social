@@ -30,7 +30,12 @@ function user_add_info($user)
     $CI =& get_instance();
 
     if (isset($user->created)) {
-        $user->_created = get_date($user->created, 'full');
+
+        $p = 'created';
+        $user->{'_' . $p} = ($user->$p) ? format_date($user->$p) : '';
+        $user->{'_' . $p . '_time'} = ($user->$p) ? format_date($user->$p, 'time') : '';
+        $user->{'_' . $p . '_full'} = ($user->$p) ? format_date($user->$p, 'full') : '';
+
     }
     if (isset($user->last_login)) {
         $user->_last_login = 'Never';
@@ -57,10 +62,13 @@ function user_add_info($user)
 
     //}
     if (isset($user->user_group_id)) {
-        $group = model('user_group')->get_info($user->user_group_id, 'name');
-        $user->user_group_name = '';
-        if ($group)
+        $group = model('user_group')->get_info($user->user_group_id, 'name,type');
+        $user->user_group_name =$user->user_group_type = '';
+        if ($group){
             $user->user_group_name = $group->name;
+            $user->user_group_type = $group->type;
+        }
+
     }
     if (isset($user->desc) && !empty($user->desc)) {
         $user->desc = handle_content($user->desc, 'output');

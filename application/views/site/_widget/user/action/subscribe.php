@@ -1,5 +1,5 @@
 <?php if ($can_do): ?>
-	<a  href="#0" title='' class="btn btn-default btn-sm  do_action <?php if ($subscribed) echo 'on'; ?>"
+	<a  href="#0" title='' class="btn btn-default btn-xs  do_action <?php if ($subscribed) echo 'on'; ?>"
 		data-action="toggle"
 		data-url-on="<?php echo $url_subscribe ?>"
 		data-url-off="<?php echo $url_subscribe_del ?>"
@@ -12,7 +12,7 @@
 	</a>
 
 <?php else: ?>
-	<a class="btn btn-default btn-sm act-notify-modal" title='<?php echo lang("action_subscribe") ?>' href="javascript:void(0)"
+	<a class="btn btn-default btn-xs act-notify-modal" title='<?php echo lang("action_subscribe") ?>' href="javascript:void(0)"
 	   data-content="<?php echo lang("notice_please_login_to_use_function") ?>"><i
 			class="fa fa-bookmark"></i> <?php echo lang("action_subscribe") ?></a>
 <?php endif; ?>

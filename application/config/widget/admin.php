@@ -5,27 +5,26 @@ $config = [
     'menu' => [
         'home' => ['home'],
         'product' => array(
-            'product',   'product_cat',
+            'product', 'product_cat',
             //   'manufacture',
             //'product_to_subscribe','product_to_report',  'product_request',
 
             'product_setting',
         ),
-       'attribute' => array(
+        'attribute' => array(
             'cat',
             'range',
             //'form_content',
-           //'-',
-           //'addon',
-           //'option',
-           //'attribute',//    'attribute_group',
-           '-',
-         'type_item',  'type','type_cat',
-           '-',
-           'country',
+            //'-',
+            //'addon',
+            //'option',
+            //'attribute',//    'attribute_group',
+            'type_item', //'type', 'type_cat',
+            '-',
+            'country',
             'city',
-           'geo_zone',
-           '-',
+            'geo_zone',
+            '-',
             /*
             'tax_class',
             'tax_rate',
@@ -34,7 +33,7 @@ $config = [
            'shipping_rate',
            'payment_method',*/
 
-       ),
+        ),
         'sales' => [
             /*'service_order',
             'plan',
@@ -43,28 +42,19 @@ $config = [
             //'tran',
             'voucher',
 
-             'deposit_admin',   'withdraw_admin',/* 'order_report'*/
+            'deposit_admin', 'withdraw_admin',/* 'order_report'*/
         ],
-
-
         'content' => [
             'page',
+            'aboutus',//'aboutus_cat',
+            'news',// 'news_cat',
+            'blog',//'blog_cat','blog_author',
+            'service',//'service_cat',
+            'project',//'project_cat',
+            'faq', //   'faq_cat',
             '-',
-            'aboutus','aboutus_cat',
-            '-',
-            'news', 'news_cat',
-            '-',
-            'blog','blog_cat','blog_author',
-            '-',
-            'service','service_cat',
-            '-',
-            'project','project_cat',
-            '-',
-            'faq',    'faq_cat',
-            '-',
-            'slider_item','slider',
-            '-',
-            'ads_banner', 'ads_location',
+            'slider_item',//'slider',
+            'ads_banner',// 'ads_location',
             '-',
             //'album',  'download',  'video',  'tracking',
             'message',
@@ -82,10 +72,10 @@ $config = [
         //'payment_card' => ['deposit_card', 'deposit_card_log', 'card_type', 'payment_card'],
         //'sms_otp'      => ['sms_otp', 'sms_otp_log'],
         //'sms_gateway'  => ['sms_gateway', 'sms_gateway_log'],
-        'account' => ['admin', 'admin_group', 'user', 'user_group','user_notice',/* 'user_bank'*/],
-       /* 'lang' => ['lang',
-            'lang_phrase',
-            'lang_file',],*/
+        'account' => ['admin', 'admin_group', 'user', 'user_group', 'user_notice',/* 'user_bank'*/],
+        /* 'lang' => ['lang',
+             'lang_phrase',
+             'lang_file',],*/
         'module' => [],
         'system' => [
             //'server',
@@ -102,7 +92,21 @@ $config = [
         'payment_card'	=> array('card_type', 'payment_card', 'deposit_card_log'),*/
         //'sms'			=> array('log_api_sms_receive'),
     ],
-
+    'menu_tab' => [
+        'attribute' => [
+            'type', 'type_cat',
+        ],
+        'content' => [
+            'aboutus_cat',
+            'news_cat',
+            'blog_cat', 'blog_author',
+            'service_cat',
+            'project_cat',
+            'faq_cat',
+            'slider',
+            'ads_location',
+        ],
+    ],
     'menu_url' => [
         'product' => [
             'product_setting' => admin_url('module/setting/product'),

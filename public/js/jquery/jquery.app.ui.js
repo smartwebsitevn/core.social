@@ -1389,7 +1389,7 @@
 
                 }
                 // Tu dong rut gon list
-                show_list_short(false);
+                show_list_short();
 
                 // Xem tat ca
                 // $(document).on('click',act_all,function (e){
@@ -1426,9 +1426,9 @@
                     act_short.hide();
 
                     // Dua man hinh den item dau tien
-                    /*if (scroll) {
+                    if (scroll) {
                      $.scrollTo($this.find(item), 800);
-                     }*/
+                     }
                 }
 
                 // Hien thi toan bo list
@@ -1463,7 +1463,7 @@
                 }
 
                 // Tu dong rut gon list
-                show_block_short(true);
+                show_block_short();
 
                 // Xem tat ca
                 $(act_all).on('click', function () {
@@ -1488,9 +1488,9 @@
                     });
 
                     // Dua man hinh len dau block
-                    /*if (scrollTo) {
+                    if (scrollTo) {
                         $.scrollTo($this, 800);
-                    }*/
+                    }
 
                     // Xu ly act
                     act_all.show();
@@ -1560,7 +1560,6 @@
             function needProcessing() {
                 var field = options.field_load;
                 nfc.loader('show', field.load);
-
             }
 
 
@@ -2820,6 +2819,77 @@ function moduleCoreFilter(option) {
                     // xoa phan trang va nut load more
                     $target_data.find('.page-pagination').remove();
                     $target_data.append(rs.content);
+                }
+                else {
+                    $target_data.html(rs.content);
+                }
+                if ($target_total.length > 0)
+                    $target_total.html(rs.total);
+
+                // kiem tra xem co nut next khong, neu co thi hien load more
+                if ($target_data.find('.page-pagination .pagination > li:last').hasClass('active')) {
+                    $target_data.find('.act-pagination-load-more').parent().hide();
+                }
+
+                return false;
+            }
+        }
+    });
+}
+function moduleUserFilter(option) {
+    var form = $(option.ele).closest("form")
+    //nfc.pr($(form).attr("id"));
+    var $target_data = $(".ajax-content-list");
+    var $target_total = $(".ajax-content-total");
+    // nfc.loader("show");
+    //$target_data.append('<span class="loader_block"></span>');
+    $('body').append('<div class="loader_mini">Loading...</div>');
+
+    var matches = 0;
+    $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
+        //if ($(this).val() == '1')
+        matches++;
+    });
+    if (matches > 1)
+        $('.btn-clear-all').show();
+    else
+        $('.btn-clear-all').hide();
+
+    //== su ly du lieu submit
+    var url = '';
+    var load_more = false;
+    if (option != undefined) {
+        if (option.url != undefined) {
+            url = option.url;
+        }
+        if (option.load_more != undefined) {
+            load_more = option.load_more;
+        }
+    }
+    if (url == '')
+        url = $(form).attr('action') + '?' + $(form).serialize();
+
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: url,
+        dataType: 'json',
+        // data: {'id_new': id_new},
+        success: function (rs) {
+            history.pushState('data', '', url);
+            //nfc.loader("hide");
+            //$target_data.find('span.loader_block').remove()
+            $('body > .loader_mini').remove();
+            if (rs.status) {
+                $(".ajax-filter").html();
+                if (rs.filter != undefined) {
+                    $(".ajax-filter").html(rs.filter);
+                }
+                if (load_more) {
+                    // xoa phan trang va nut load more
+                    $target_data.find('.page-pagination').remove();
+                    //$target_data.append(rs.content);
+                    $target_data.find('.list-user ').append(rs.content);
                 }
                 else {
                     $target_data.html(rs.content);

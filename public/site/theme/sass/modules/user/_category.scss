@@ -9,7 +9,7 @@
   .item-user {
     margin-bottom: 30px;
     border-bottom: 1px solid #e0e0e0;
-    padding:  35px 5px 35px 35px;
+    padding: 15px 5px 15px 35px;
     position: relative;
     display: block;
     //== structure
@@ -44,9 +44,9 @@
       position: relative;
       text-align: center;
       .avatar {
-        img {
-          display: inline-block;
-          width: 70px;
+        i {
+          font-size: 48px;
+          color: _palette(button-1);
         }
       }
       .group {
@@ -54,6 +54,10 @@
         text-transform: capitalize;
         display: block;
         margin: 5px 0;
+        span {
+          color: _palette(text-3);
+
+        }
 
       }
       .links {
@@ -75,12 +79,12 @@
       font-weight: 500;
       line-height: 1;
       font-size: 16px;
-     /* margin-bottom: 5px;*/
+      /* margin-bottom: 5px;*/
       text-transform: capitalize;
 
     }
     a.btn-xs {
-  font-size: 11px;
+      font-size: 11px;
     }
     //== detail
     .item-desc {
@@ -90,16 +94,15 @@
 
     .item-meta {
       display: flex;
-      color: #666;
+      color: _palette(text-3);
       font-weight: 300;
       margin-bottom: 5px;
-      line-height: 48px;
+      line-height: 25px;
       span {
         margin-right: 20px;
       }
 
-
-     .place{
+      .place {
         max-width: 350px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -148,14 +151,12 @@
     }
 
     .item-list-tag .item-tag-title {
-      max-width:  250px;
+      max-width: 250px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
 
     }
-
-
 
     &:hover {
       .item-name {
@@ -166,16 +167,14 @@
       }
     }
 
-
-
-
   }
 }
+
 .list-user-feature {
- /* margin-bottom: 40px;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  color: #666;*/
+  /* margin-bottom: 40px;
+   background-color: #ffffff;
+   border: 1px solid #e0e0e0;
+   color: #666;*/
   .item-user {
     cursor: pointer;
     margin-bottom: 10px;
@@ -205,17 +204,17 @@
     }
     .item-name {
       display: block;
-     margin-bottom: 2px;
+      margin-bottom: 2px;
       text-transform: capitalize;
       a {
-          color: #000;
+        color: #000;
       }
     }
     a.btn-xs {
       font-size: 9px;
       padding: 1px 5px;
     }
-    &:hover,&.active {
+    &:hover, &.active {
       .item-name {
         color: #f67004;
         a {
@@ -223,9 +222,6 @@
         }
       }
     }
-
-
-
 
   }
 }

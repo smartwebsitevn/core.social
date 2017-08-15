@@ -20,8 +20,9 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
     </div>
     <div >
         <div class="block-sorter">
-           <?php      echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
+           <?php      echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Tích cực nhất', 'class' => 'sort-dropdown']); ?>
         </div>
+        <?php /* ?>
         <div class="block-layout act-filter-choice-group">
             <a class="act-filter-choice active" href="Javascript:;" data-name="layout" data-value="block">
                 <i class="pe-7s-menu icon "></i>
@@ -30,6 +31,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
                 <i class="pe-7s-keypad icon "></i>
             </a>
         </div>
+ <?php */ ?>
         <div class="block-layout">
             <input name="point" class="act-filter-slider" id="slider_point_hander" type="hidden" data-provide="slider"
                    data-slider-min="0"
@@ -171,7 +173,7 @@ $_data_layout = function () use ($filter) {
 
                         </div>
                     </div>
-                    <a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-close " style="font-size: 48px"></i></a>
+                    <a href="#0" class="btn-clear-all"  style="display: none"><!--<i class="pe-7s-close " style="font-size: 32px"></i>-->Xóa bộ lọc</a>
                 </div>
                 <div class="block-content-right  col-md-4 col-sm-8 col-xs-12">
                 <div class="row">

@@ -89,7 +89,7 @@ $_macro['table']['filters'] = array(
 $_macro['table']['columns'] = array(
     'id' => lang('id'),
     'name' => lang('name'),
-    'price' => lang('price'),
+    //'price' => lang('price'),
     'cat_id' => lang('cat_id'),
     // 'is_new' => lang('inew'),
     'is_feature' => lang('feature'),
@@ -161,7 +161,7 @@ foreach ($list as $row) {
     $r = (array)$row;
     $r['name'] = $_data_name($row);
     $r['cat_id'] = $_data_cat($row);
-     $r['price'] = $_data_price($row);
+    // $r['price'] = $_data_price($row);
     $r['is_feature'] = $_row_feature($row);
     $r['status'] = macro()->status_color($row->_status);
     $_rows[] = $r;

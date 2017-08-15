@@ -224,8 +224,9 @@ class Product_list extends MY_Controller
         $list = model('product')->filter_get_list($filter, $input);
        // pr_db($list);
         foreach ($list as $row) {
-            $row = mod('product')->add_info($row);
+            $row = mod('product')->add_info($row,1);
         }
+       // pr($list);
         // Tao chia trang
         $pages_config = array();
         if (isset($total)) {

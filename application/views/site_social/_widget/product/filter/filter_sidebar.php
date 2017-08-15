@@ -144,7 +144,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
                         </div>
                         <div class="action-filter">
                             <a href="#0" class="btn btn-default btn-xs mt20 btn-clear-all" style="display: none"><i class="pe-7s-close "
-                                                             ></i> Reset bộ lọc</a>
+                                                             ></i> Xóa bộ lọc</a>
                             <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
                         </div>
                         <?php /* ?>

@@ -23,7 +23,8 @@
                         </div>
 
                         <div class="item-desc">
-                            <?php echo macro()->more_word($row->desc,40); ?>
+                            <?php echo macro()->more_block($row->desc, 55); ?>
+
                         </div>
 
 
@@ -39,12 +40,18 @@
                     </div>
                     <div class="item-profile">
                         <div class="avatar">
-                            <a href="<?php echo $row->_url_view ?>">
-                                <img
-                                    src="<?php echo $row->avatar->url_thumb ?>"    alt="<?php echo $row->name; ?>"> </a>
-
+                            <?php $is_user_special=isset($row->user_group_type) && in_array($row->user_group_type,['user_active','user_manager']); ?>
+                            <?php  if($is_user_special): ?>
+                                <i class="pe-7s-medal"></i>
+                              <?php endif; ?>
                         </div>
-                        <div class="group">  <?php echo $row->user_group_name; ?></div>
+                        <div class="group">
+                            <?php echo $row->user_group_name; ?>
+                            <?php  if(!$is_user_special): ?>
+                                <br>
+                               <span>Tham gia <?php echo $row->_created  ?></span>
+                            <?php endif; ?>
+                        </div>
                         <?php t('view')->load('tpl::_widget/user/display/item/info_contact',['row'=>$row]) ?>
                         <div class="mt10">
 
