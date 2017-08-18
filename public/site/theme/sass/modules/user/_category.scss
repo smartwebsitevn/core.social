@@ -200,19 +200,40 @@
     }
     .item-info {
       float: left;
-      width: calc(75% - 40px);
+      width: calc(100% - 40px);
     }
     .item-name {
       display: block;
       margin-bottom: 2px;
       text-transform: capitalize;
       a {
-        color: #000;
+        color: _palette(text-4);
+        font-weight: bolder;
       }
+    }
+    .item-meta {
+      text-transform: capitalize;
+      color: _palette(text-3);
+    }
+    .item-label {
+      bottom: 5px;
+      color: _palette(button-3);
+      font-size: 15px;
+      font-weight: bold;
+      left: 22px;
+      position: absolute;
     }
     a.btn-xs {
       font-size: 9px;
       padding: 1px 5px;
+      position: absolute;
+      top:12px;
+      right: 0;
+      &.on {
+        background-color: transparent;
+        border-color: _palette(border);
+        color: _palette(text-4);
+      }
     }
     &:hover, &.active {
       .item-name {
@@ -222,6 +243,7 @@
         }
       }
     }
+
 
   }
 }

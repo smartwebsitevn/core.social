@@ -70,13 +70,15 @@
         </script>
     <?php else: ?>
         <div class="item-comments media-list comment-list">
-            <?php if (!user_is_login()): ?>
+            <?php /*if (!user_is_login()): ?>
                 <h4>
                     <small><?php echo lang("notice_please_login_to_use_function") ?></small>
                 </h4>
-            <?php else: ?>
+            <?php else:*/ ?>
                 <div class="comment-list-wraper">
+                    <?php if (user_is_login()): ?>
                     <?php echo $_data_form(); ?>
+            <?php endif; ?>
                     <ul class="list-unstyled list-comment-0">
                         <?php echo $_data_list(); ?>
                     </ul>
@@ -84,57 +86,9 @@
 
                 </div>
 
-            <?php endif; ?>
+            <?php //endif; ?>
         </div>
-        <?php //echo t('view')->load('tpl::_widget/product/comment/js'); ?>
-        <script type="text/javascript">
-            nfc.reboot();
-
-            function commentPagination(option) {
-                var $wraper = $(option.ele).closest('.comment-list-wraper')
-
-                // load_ajax()
-                $('body').append('<div class="loader_mini">Loading...</div>');
-                //== su ly du lieu submit
-                var url = '';
-                var load_more = false;
-                if (option != undefined) {
-
-                    if (option.url != undefined) {
-                        url = option.url;
-                    }
-                    if (option.load_more != undefined) {
-                        load_more = option.load_more;
-                    }
-                }
-                $.ajax({
-                    async: false,
-                    type: "GET",
-                    url: url,
-                    success: function (data) {
-                        $('body > .loader_mini').remove();
-                        if (load_more) {
-                            // xoa phan trang va nut load more
-                            $wraper.find('.page-pagination').remove();
-                            $wraper.find('.list-unstyled').append(data);
-                        }
-                        else {
-                            //alert(2)
-                            $wraper.html(data);
-
-                        }
-
-                        // kiem tra xem co nut next khong, neu co thi hien load more
-                        if ($wraper.find('.page-pagination .pagination > li:last').hasClass('active')) {
-                            $wraper.find('.act-pagination-load-more').parent().hide();
-                            return false;
-                        }
-                        return true;
-                    }
-                });
-
-            }
-        </script>
+        <?php echo t('view')->load('tpl::_widget/product/comment/js'); ?>
     <?php endif; ?>
 
 <?php endif; ?>

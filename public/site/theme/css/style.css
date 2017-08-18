@@ -2239,6 +2239,19 @@ table {
   body.single #wrapper {
     display: block; }
 
+#header {
+  z-index: 11; }
+
+#main {
+  z-index: 10; }
+  #main .sidebar {
+    z-index: 2; }
+  #main .main-content {
+    z-index: 1; }
+
+#footer {
+  z-index: 9; }
+
 /*==========================================================
 
 	4. HEADER
@@ -2465,30 +2478,6 @@ text-overflow: ellipsis;*/ }
     text-decoration: underline;
     padding: 0 10px; }
 
-#to-top {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 100%;
-  background-color: rgba(45, 111, 158, 0.6);
-  text-align: center;
-  color: #fff;
-  cursor: pointer;
-  position: fixed;
-  right: 90px;
-  bottom: 100px;
-  z-index: 333; }
-  #to-top:hover {
-    background-color: #2d6f9e; }
-  #to-top span {
-    display: none; }
-  #to-top:before {
-    content: "\f077";
-    font-family: "FontAwesome"; }
-
-@media (max-width: 991px) {
-  #to-top {
-    right: 20px; } }
 /* Header */
 #header {
   background-color: #fff;

@@ -158,16 +158,34 @@ body.user-page #main {
         border-radius: 100%; }
     .list-user-feature .item-user .item-info {
       float: left;
-      width: calc(75% - 40px); }
+      width: calc(100% - 40px); }
     .list-user-feature .item-user .item-name {
       display: block;
       margin-bottom: 2px;
       text-transform: capitalize; }
       .list-user-feature .item-user .item-name a {
-        color: #000; }
+        color: #494949;
+        font-weight: bolder; }
+    .list-user-feature .item-user .item-meta {
+      text-transform: capitalize;
+      color: #999999; }
+    .list-user-feature .item-user .item-label {
+      bottom: 5px;
+      color: #eb8305;
+      font-size: 15px;
+      font-weight: bold;
+      left: 22px;
+      position: absolute; }
     .list-user-feature .item-user a.btn-xs {
       font-size: 9px;
-      padding: 1px 5px; }
+      padding: 1px 5px;
+      position: absolute;
+      top: 12px;
+      right: 0; }
+      .list-user-feature .item-user a.btn-xs.on {
+        background-color: transparent;
+        border-color: rgba(160, 160, 160, 0.3);
+        color: #494949; }
     .list-user-feature .item-user:hover .item-name, .list-user-feature .item-user.active .item-name {
       color: #f67004; }
       .list-user-feature .item-user:hover .item-name a, .list-user-feature .item-user.active .item-name a {

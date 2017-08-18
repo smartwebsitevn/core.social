@@ -21,13 +21,7 @@ var product_nfc = {
                         allowfullscreen: "allowfullscreen"
                     }).appendTo($player);
                 });
-                $('body').on('click', '.item-social  .load_ajax', function () {
 
-                    $(this).nstUI('loadAjax', {
-                        url: $(this).attr('_url'),
-                        field: {load: $(this).attr('_field') + '_load', show: $(this).attr('_field') + '_show'},
-                    });
-                });
                 $('body').on('click', '.item-social .act-view-quick', function () {
                     var $modal = $('#modal-social-view');
                     nfc.loader('show');

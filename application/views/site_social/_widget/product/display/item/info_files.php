@@ -1,12 +1,11 @@
 <?php if (isset($row->files) && $row->files): // pr($row->files); ?>
-    <div class="mt20">
-        <div class="row">
+    <div class="mt10 mb10">
             <?php foreach ($row->files as $row): ?>
                 <?php if (!empty($row->_url) && file_exists($row->_path)): ?>
                     <?php
                     $file_infos = file_parse($row->_path);
                     ?>
-                    <div class="col-md-6 mb10">
+                    <div class=" mb5">
 
                         <a href="<?php echo $row->_url ?>"
                            target="_blank">
@@ -17,5 +16,4 @@
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
-    </div>
 <?php endif; ?>

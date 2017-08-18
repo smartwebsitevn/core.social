@@ -410,7 +410,7 @@ class Product extends MY_Controller
 
     protected function _action($action)
     {
-        $dont_check_login = array('demo', 'report', 'favorite', 'favorite_del',/*'vote',*/);
+        $dont_check_login = array('comment', 'demo', 'report', 'favorite', 'favorite_del',/*'vote',*/);
         if (!in_array($action, $dont_check_login)) {
 
             if (!user_is_login()) {

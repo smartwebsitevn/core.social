@@ -1382,7 +1382,7 @@
                 var act_short = $this.find('.act_list_short');
                 //alert(item + '- ' + num)
 
-                if ($this.find(item).length <= num) {
+                if ($this.find(item).length < num) {
                     act_all.hide();
                     act_short.hide();
                     return;
@@ -1452,7 +1452,7 @@
                 var act_all = $this.find('.act_block_all');
                 var act_short = $this.find('.act_block_short');
                 //alert($this.find('.more_block_content').height())
-                if ($this.find('.more_block_content').height() <= options.height) {
+                if ($this.find('.more_block_content').height() < options.height) {
                     act_all.hide();
                     act_short.hide();
                     return;
@@ -1666,7 +1666,7 @@ var nfc = {
                 targetWin = window.open(url, '', " width=500, height=440")
             });
 
-            //= hien thong bao dang modal co ho tro load ajax
+            //= hien thong bao dang modal,toast,popover co ho tro load ajax
             $(document).on('click', '.act-notify-modal,.act-modal', function () {
                 var display_notify = false;
                 var modal_title = undefined;
@@ -1734,7 +1734,6 @@ var nfc = {
                 }
 
             });
-            //= hien thong bao dang toast
             $(document).on('click', '.act-notify-toast', function () {
                 var content = $(this).data('content');
                 if (content != undefined) {
@@ -1747,6 +1746,106 @@ var nfc = {
                     });
                 }
 
+            });
+            $(document).on('click', '.act-popover',function (e){
+                // dong cac popover khac
+                $('.popover').popover('hide');
+                //==
+                var $this =$(this);
+                if($this.hasClass('loaded'))
+                {
+                    if(!$this.hasClass('opened'))
+                    {
+                        $('.act-popover').removeClass('opened');
+                        $this.addClass('opened')
+                        setTimeout(function(){ $this.popover('show')},100 );
+                    }
+                    else{
+                        $this.removeClass('opened')
+                    }
+                    return;
+                }
+                $this.addClass('loaded');
+                $this.addClass('opened');
+                    var display_popover = false;
+                    var content = $(this).data('content');
+                    if (content != undefined) {
+                        display_popover = true;
+
+                    } else {
+                        // load tu 1 element
+                        var element = $(this).data('element');
+                        if (element != undefined) {
+                            content = $(element).html();
+                            display_popover = true;
+                        } else {
+                            $this.append('<span class="loader_item"><span>');
+
+                            var url = $(this).data('url');
+                            $.post(url, function (data) {
+                                if (data) {
+                                    $this.find('span.loader_item').remove();
+                                    $this.popover({
+                                        content: function () {
+                                            return data;
+                                        },
+                                        placement: 'bottom auto ',
+                                        trigger: 'click',
+                                        container: 'body',
+                                        html: true
+                                    });
+                                    $this.popover('show')
+                                }
+                            });
+                        }
+                    }
+                if (display_popover) {
+                    $this.popover({
+                        content: function () {
+                            return content;
+                        },
+                        placement: 'bottom auto ',
+                        trigger: 'click',
+                        container: 'body',
+                        html: true
+                    });
+                    $this.popover('show')
+                }
+
+            });
+            $(document).on('click', '.act-load-ajax', function () {
+                var $this =$(this);
+                var url =$this.attr('_url')
+                var field_load =$this.attr('_field') + '_load'
+                var field_show =$this.attr('_field') + '_show'
+                if (!url) return false;
+
+                if($this.hasClass('loaded'))
+                {
+                    if(!$this.hasClass('opened'))
+                    {
+                        $this.addClass('opened')
+                        $(field_show).fadeIn('fast');
+                    }
+                    else{
+                        $this.removeClass('opened')
+                        $(field_show).fadeOut('fast');
+
+                    }
+                    return;
+                }
+                $this.addClass('loaded');
+                $this.addClass('opened');
+
+                nfc.loader('show', field_load);
+
+                $.get(url,  function (data) {
+                    nfc.loader('hide', field_load);
+                    nfc.loader('result', field_show, data);
+
+                });
+
+                return false;
             });
             // fix modal khi load 2 lan lien tiep
             $(document).on('hide.bs.modal', '.modal', function () {
@@ -2541,7 +2640,7 @@ var nfc = {
          }*/
         if (field) {
             var key = field.substring(0, 1);
-            if (key != "." || key != "#")
+            if (key != "." && key != "#")
                 field = "#" + field;
         }
 

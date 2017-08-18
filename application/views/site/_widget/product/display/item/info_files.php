@@ -6,7 +6,7 @@
                     <?php
                     $file_infos = file_parse($row->_path);
                     ?>
-                    <div class="col-md-6 mb10">
+                    <div class="col-md-12 mb5">
 
                         <a href="<?php echo $row->_url ?>"
                            target="_blank">

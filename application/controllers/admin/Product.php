@@ -110,6 +110,7 @@ class Product extends MY_Controller
             $data = $this->_get_inputs($id,$fake_id);
             if(isset($data['sort_order']) && !$data['sort_order'])
                 $data['sort_order'] = $this->_model()->get_total() + 1;
+            $data['created'] = now();
             $this->_model()->create($data, $id);
             $this->_update_infos($id, $data);
             // Cap nhat lai anh

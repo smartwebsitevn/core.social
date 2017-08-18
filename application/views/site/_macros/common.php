@@ -130,7 +130,7 @@ $this->register('more_block', function ($content, $height = 200) {
             <?php echo $content ?>
         </div>
         <div class="mt5">
-            <a href="javascript:void(0)" class="act_block_all" style="display: none">+ <?php echo lang("view_more") ?>
+            <a href="javascript:void(0)" class="act_block_all" >+ <?php echo lang("view_more") ?>
                 >></a>
             <a href="javascript:void(0)" class="act_block_short" style="display: none"><?php echo lang("view_less") ?>
                 <<</a>
