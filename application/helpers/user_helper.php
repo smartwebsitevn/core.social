@@ -904,15 +904,28 @@ function user_get_id_root()
     return 1;//config("user_root_id");
 }
 
-//== User la teacher
-// kiem tra xem user hien thoi co phai la user root ko
-function user_is_teacher($user)
+//== User la manager
+function user_is_manager($user)
 {
-    return (isset($user->user_group_id) && $user->user_group_id == user_get_id_group_teacher());
+    return (isset($user->user_group_id) && $user->user_group_id == user_get_id_group_manager());
 }
 
 // kiem tra xem user hien thoi co phai la user giang vien ko
-function user_get_id_group_teacher()
+function user_get_id_group_manager()
+{
+    return 4;
+}
+
+
+
+//== User la active
+function user_is_active($user)
+{
+    return (isset($user->user_group_id) && $user->user_group_id == user_get_id_group_active());
+}
+
+// kiem tra xem user hien thoi co phai la user giang vien ko
+function user_get_id_group_active()
 {
     return 3;
 }

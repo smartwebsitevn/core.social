@@ -781,7 +781,9 @@ class Product_widget extends MY_Widget
     function action_comment($row,$temp = '')
     {
         $this->data['row'] = $row;
+        $list = widget('comment')->display_list($row, 'product',['featured'=>1],[],  'tpl::_widget/product/comment/list_manager', ['return_data' => 1, 'temp_full' => 1]);
 
+        $this->data['list'] =$list;
         $this->data['url_comment'] = $row->_url_comment;
         // Hien thi view
         $temp = (!$temp) ? 'comment' : $temp;

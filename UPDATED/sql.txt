@@ -237,3 +237,7 @@ ALTER TABLE `user`
 
 ALTER TABLE `user`
 	ADD COLUMN `point_total` INT(11) NULL DEFAULT '0' AFTER `instagram`;
+
+// 18-8-2017 
+ALTER TABLE `comment`
+	ADD COLUMN `featured` TINYINT(1) NOT NULL DEFAULT '0' AFTER `readed`;

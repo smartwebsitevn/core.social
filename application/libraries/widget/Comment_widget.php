@@ -65,23 +65,20 @@ class Comment_widget extends MY_Widget
         $this->load->view($temp, $this->data);
     }
 
-    function comment_list($info, $type, $temp = '', $temp_options = array())
+    function display_list($info, $type,$filter=[],$input=[], $temp = '', $temp_options = array())
     {
         $user = user_get_account_info();
         if ($user)
             $user = mod('user')->add_info($user);
+
         // Tai cac file thanh phan
-        $filter = [
-            'status' => config('verify_yes', 'main'),
-            'table_id' => $info->id,
-            'table_name' => $type
-        ];
+        $filter['status']= config('verify_yes', 'main');
+        $filter['table_id']= $info->id;
+        $filter['table_name']= $type;
         $total = model('comment')->filter_get_total($filter);
 
         $page_size = 5;
-        $input = [
-            'order' => array('created', 'DESC'),
-        ];
+        $input['order'] = array('created', 'DESC');
 
         if (!isset($input['limit'])) {
             $limit = $this->input->get('per_page');
@@ -91,9 +88,8 @@ class Comment_widget extends MY_Widget
             $input['limit'] = array($limit, $page_size);
         }
         // chi hien cap 1
-        $parent_id = $this->input->get('parent_id');
-        $filter['parent_id'] = $parent_id?$parent_id:0;
-        $list = $this->builder_sub($filter,$input);
+        $filter['parent_id'] = 0;
+        $list = $this->get_list($filter,$input);
 
         // Tao chia trang
         $pages_config = array();
@@ -135,21 +131,21 @@ class Comment_widget extends MY_Widget
             $this->_display($this->_make_view($temp, __FUNCTION__));
     }
 
-    function builder_sub($filter,$input=[])
+    function get_list($filter,$input=[])
     {
-        $list_sub = model('comment')->filter_get_list($filter, $input);
+        $list = model('comment')->filter_get_list($filter, $input);
        // pr_db($list_sub);
-        foreach ($list_sub as &$sub) {
-            $user = model('user')->get_info($sub->user_id, 'name,avatar,vote_total');
-            $sub->user = null;
+        foreach ($list as &$row) {
+            $user = model('user')->get_info($row->user_id, 'name,avatar,vote_total');
+            $row->user = null;
             if ($user) {
                 $user->avatar = file_get_image_from_name($user->avatar, public_url('img/no_user.png'));
-                $sub->user = $user;
+                $row->user = $user;
             }
-            $filter['parent_id'] = $sub->id;
-            $sub->subs = $this->builder_sub($filter);
+            $filter['parent_id'] = $row->id;
+            $row->subs = $this->get_list($filter);
         }
-        return $list_sub;
+        return $list;
 
     }
 
@@ -157,7 +153,7 @@ class Comment_widget extends MY_Widget
     {
         ob_start();
         $field_load = array_get($options,'field_load',null);
-        $name = $row->user ? $row->user_name : 'admin';
+        $name = $row->user ? $row->user->name : 'admin';
         $img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
         $url_comment_reply =isset($options['url_reply'])?$options['url_reply'].'&id='.$row->id: site_url('comment/reply/' . $row->id);
         $url_comment_vote =isset($options['url_vote'])?$options['url_vote'].'&id='.$row->id: site_url('comment/vote/' . $row->id);

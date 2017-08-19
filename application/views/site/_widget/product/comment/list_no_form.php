@@ -70,22 +70,12 @@
         </script>
     <?php else: ?>
         <div class="item-comments media-list comment-list">
-            <?php /*if (!user_is_login()): ?>
-                <h4>
-                    <small><?php echo lang("notice_please_login_to_use_function") ?></small>
-                </h4>
-            <?php else:*/ ?>
                 <div class="comment-list-wraper">
-                    <?php if (user_is_login()): ?>
-                    <?php echo $_data_form(); ?>
-            <?php endif; ?>
                     <ul class="list-unstyled list-comment-0">
                         <?php echo $_data_list(); ?>
                     </ul>
                     <?php echo $_data_pagination(); ?>
-
                 </div>
-
             <?php //endif; ?>
         </div>
         <?php echo t('view')->load('tpl::_widget/product/comment/_common/js'); ?>

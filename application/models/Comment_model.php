@@ -4,44 +4,6 @@ class Comment_model extends MY_Model
 {
     var $table = 'comment';
 
-    function get_product_list($input = array(), $lang_id = NULL)
-    {
-        if (!isset($input['select']) || !$input['select']) {
-            $input['select'] = 'comment.*,';
-            $input['select'] .= 'product.name as product_name,';
-            $input['select'] .= 'user.name as user_name,user.email as user_email';
-        }
-
-        $this->_get_list_set_input($input);
-
-        $this->db->from('comment');
-        $this->db->join('product', 'product.id = comment.table_id', 'left');
-        $this->db->join('user', 'user.id = comment.user_id', 'left');
-
-        $query = $this->db->get();
-
-        return $query->result();
-    }
-
-
-    function get_lesson_list($input = array(), $lang_id = NULL)
-    {
-        if (!isset($input['select']) || !$input['select']) {
-            $input['select'] = 'comment.*,';
-            $input['select'] .= 'lesson.name as lesson_name,';
-            $input['select'] .= 'user.name as user_name,user.email as user_email';
-        }
-
-        $this->_get_list_set_input($input);
-
-        $this->db->from('comment');
-        $this->db->join('lesson', 'lesson.id = comment.table_id', 'left');
-        $this->db->join('user', 'user.id = comment.user_id', 'left');
-
-        $query = $this->db->get();
-
-        return $query->result();
-    }
 
 
     /*
@@ -52,42 +14,17 @@ class Comment_model extends MY_Model
     function _filter_get_where($filter)
     {
         $where = parent::_filter_get_where($filter);
-        foreach (array('id',
-                 ) as $p) {
-            $f = (in_array($p, array())) ? $p . '_id' : $p;
-            $f = $this->table . '.' . $f;
-            //$m = (in_array($p, array('created'))) ? 'range' : '';
-            $this->_filter_set_where($filter, $p, $f, $where);
+        foreach (array('id','parent_id','rate','table_id','table_name','user_id','type','readed','featured'
+                 ) as $key) {
+            if (isset($filter[$key]) && $filter[$key] != -1) {
+                //echo '<br>key='.$key.', v='.$filter[$key];
+                $this->_filter_parse_where($key, $filter);
+            }
         }
 
-        if (isset($filter['parent_id'])) {
-            $where['comment.parent_id'] = $filter['parent_id'];
-        }
 
-        if (isset($filter['rate'])) {
-            $where['comment.rate'] = $filter['rate'];
-        }
-
-        if (isset($filter['table_id'])) {
-            $where['comment.table_id'] = $filter['table_id'];
-        }
-
-        if (isset($filter['table_name'])) {
-            $where['comment.table_name'] = $filter['table_name'];
-        }
         if (isset($filter['table_name_not_site'])) {
             $where['comment.table_name !='] = 'site';
-        }
-        if (isset($filter['user_id'])) {
-            $where['comment.user_id'] = $filter['user_id'];
-        }
-
-        if (isset($filter['type'])) {
-            $where['comment.type'] = $filter['type'];
-        }
-
-        if (isset($filter['parent'])) {
-            $where['comment.parent_id'] = $filter['parent'];
         }
         //== Thuoc tinh bool dang so - chuoi
         foreach (array('status','readed') as $f) {
@@ -125,19 +62,6 @@ class Comment_model extends MY_Model
             $where[$this->table . '.status'] = 1;
         }
         return $where;
-    }
-
-    function filter_get_list($filter, $input = array())
-    {
-        $input['where'] = $this->_filter_get_where($filter);
-      //  pr($input);
-        if (isset($filter['table_name'])) {
-            if ($filter['table_name'] == 'product')
-                return $this->get_product_list($input);
-            elseif ($filter['table_name'] == 'lesson')
-                return $this->get_lesson_list($input);
-        }
-        return $this->get_list($input);
     }
 
 

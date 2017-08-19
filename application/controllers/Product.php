@@ -528,7 +528,9 @@ class Product extends MY_Controller
          }*/
 
         //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
-        $this->_response();
+        $result['element'] =  ['pos' => '#' . $info->id . '_vote_points', 'data' => $stats['vote_total']];
+
+        $this->_response($result);
     }
 
     /**
@@ -844,8 +846,9 @@ class Product extends MY_Controller
             set_output('html', $this->{'_comment_' . $act}($info));
             return;
         }
-        $tmpl = 'tpl::_widget/product/comment/list';
-        echo widget('comment')->comment_list($info, 'product', $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+        $total_featured =model('comment')->filter_get_total(['table_id'=>$info->id,'table_type'=>'product','featured'=>1]);
+        $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
+        echo widget('comment')->display_list($info, 'product',[],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
     }
 
     function _comment_add($info)
@@ -889,7 +892,7 @@ class Product extends MY_Controller
 
 
             $tmpl = 'tpl::_widget/product/comment/list';
-            $data_comment = widget('comment')->comment_list($info, 'product', $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $data_comment = widget('comment')->display_list($info, 'product',['featured'=>0],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['elements'] = [
                 ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
@@ -981,7 +984,7 @@ class Product extends MY_Controller
 
 
             $tmpl = 'tpl::_widget/product/comment/list';
-            $data_comment = widget('comment')->comment_list($info, 'product', $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $data_comment = widget('comment')->display_list($info, 'product',[],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['elements'] = [
                 ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],

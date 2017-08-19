@@ -1,4 +1,4 @@
-<?php if (isset($info)): ?>
+<?php if (isset($info) && $list): ?>
     <?php $_data_form = function () use ($list, $info, $user) {
         ob_start() ?>
         <form id="commentForm" class="form_action" accept-charset="UTF-8"
@@ -46,50 +46,15 @@
         <?php return ob_get_clean();
     }
     ?>
-    <?php $_data_pagination = function () use ($pages_config) {
-        ob_start() ?>
-        <?php if (isset($pages_config['total_rows']) && isset($pages_config['per_page']) && $pages_config['total_rows'] > $pages_config['per_page']): ?>
-            <?php //pr($pages_config) ?>
-            <nav class="page-pagination text-center" event-hook="commentPagination">
-                <div class="text-center mt20 mb20">
-                    <a href="#0" class="act-pagination-load-more btn btn-default">Xem thêm</a>
-                </div>
-                <div  style="display: none">
-                <?php $this->widget->site->pages($pages_config); ?>
-                </div>
-            </nav>
-        <?php endif; ?>
-        <?php return ob_get_clean();
-    }
-    ?>
-    <?php if (isset($load_more) && $load_more): ?>
-        <?php echo $_data_list(); ?>
-        <?php echo $_data_pagination(); ?>
-        <script type="text/javascript">
-            nfc.reboot();
-        </script>
-    <?php else: ?>
         <div class="item-comments media-list comment-list">
-            <?php /*if (!user_is_login()): ?>
-                <h4>
-                    <small><?php echo lang("notice_please_login_to_use_function") ?></small>
-                </h4>
-            <?php else:*/ ?>
                 <div class="comment-list-wraper">
                     <?php if (user_is_login()): ?>
                     <?php echo $_data_form(); ?>
-            <?php endif; ?>
+                     <?php endif; ?>
                     <ul class="list-unstyled list-comment-0">
                         <?php echo $_data_list(); ?>
                     </ul>
-                    <?php echo $_data_pagination(); ?>
-
                 </div>
-
-            <?php //endif; ?>
         </div>
-        <?php echo t('view')->load('tpl::_widget/product/comment/_common/js'); ?>
-
-    <?php endif; ?>
 
 <?php endif; ?>

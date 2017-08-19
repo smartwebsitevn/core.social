@@ -450,7 +450,7 @@
           text-align: center;
           padding-top: 5px;
           border-right: 1px solid _palette(border);
-          line-height: 30px;
+          line-height: 40px;
           &:last-child {
             border-right: none;
           }
@@ -466,7 +466,7 @@
           color: #666;
           font-size: 12px;
           span {
-            margin-right: 20px;
+            margin-right: 10px;
           }
 
           a {
@@ -516,7 +516,7 @@
         cursor: pointer;
       }
       .item-comments {
-        background: _palette(bg-2);
+       /* background: _palette(bg-2);*/
         padding: 10px 20px;
         .avatar {
           width: 30px;
