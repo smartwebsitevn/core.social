@@ -168,33 +168,6 @@ foreach ($sort_orders as $v) {
             </div>
         </div>
     </div>
-    <?php
-    $user_current = user_get_account_info();
-    ?>
-    <?php if ($user_current):
-        $user_current = mod('user')->add_info($user_current);
-        // pr($user_current);
-        ?>
-        <div class="block block-post ">
-            <div class="block-content clearfix">
-                <div class="">
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <a href="<?php echo $user_current->_url_view; ?>" class="item-img">
-                            <img src="<?php echo $user_current->avatar->url_thumb ?>"
-                                 alt="<?php echo $user_current->name; ?>">
-                        </a>
-                    </div>
-                    <div class="col-md-8 col-sm-8 col-xs-12">
-                        <p class="message">Hôm nay bạn muốn chia sẻ điều gì?</p>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <a href="<?php echo site_url('product_post') ?>" class="btn btn-default pull-right">Đăng tin</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
 </form>
 <script type="text/javascript">
     $(document).ready(function () {

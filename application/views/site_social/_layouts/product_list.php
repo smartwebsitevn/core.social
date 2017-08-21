@@ -12,8 +12,7 @@
 			<div class="row">
 				<div class="col-md-3 sidebar ">
 					<div class="sticky-element" data-spacing="65" data-limiter="#footer">
-						<div class="slimscroll" data-height="90vh">
-
+						<div class="slimscroll_" data-height="90vh">
 						<?php echo widget('product')->filter([], "sidebar") ?>
 						</div>
 					</div>

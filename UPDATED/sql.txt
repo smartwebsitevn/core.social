@@ -241,3 +241,10 @@ ALTER TABLE `user`
 // 18-8-2017 
 ALTER TABLE `comment`
 	ADD COLUMN `featured` TINYINT(1) NOT NULL DEFAULT '0' AFTER `readed`;
+
+
+ALTER TABLE `comment`
+
+	 ADD COLUMN   `vote_total` INT(11) NULL DEFAULT '0' AFTER `count_like`,
+	 ADD COLUMN   `vote_like` INT(11) NULL DEFAULT '0' AFTER `vote_total`,
+	 ADD COLUMN  `vote_dislike` INT(11) NULL DEFAULT '0' AFTER `vote_like`;

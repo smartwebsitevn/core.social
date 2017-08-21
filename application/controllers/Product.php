@@ -468,7 +468,6 @@ class Product extends MY_Controller
             $this->_response();
         $user = $this->data['user'];
 
-        if ($user) {
             //kiem tra da luu hay chua
             $data = array();
             $data ['table_name'] = 'product';
@@ -510,19 +509,17 @@ class Product extends MY_Controller
                     if ($row->like) {
                         $stats['vote_like']++;
                         $d++;
-                    } elseif ($row->like) {
+                    } elseif ($row->dislike) {
                         $stats['vote_dislike']++;
-                        $d++;
+                        $d--;
                     }
                 }
                 $stats['vote_total'] = $d;
             }
             //pr($stats);
             model('product')->update($info->id, $stats);
-
             model('user')->update_stats(['id'=>$user->id],['point_total'=>$point]);
             // pr_db();
-        }
         /*  else {
              mod('product')->guest_owner_add($id, "voted");;
          }*/
@@ -848,7 +845,7 @@ class Product extends MY_Controller
         }
         $total_featured =model('comment')->filter_get_total(['table_id'=>$info->id,'table_type'=>'product','featured'=>1]);
         $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
-        echo widget('comment')->display_list($info, 'product',[],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+        echo widget('comment')->display_list($info, 'product',['featured'=>0],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
     }
 
     function _comment_add($info)
@@ -878,7 +875,11 @@ class Product extends MY_Controller
             $data['table_id'] = $info->id;
             $data['table_name'] = 'product';
             $data['content'] = $content;
+
+            if(user_is_manager($user) || user_is_active($user))
+                $data['featured'] = 1;
             $data['user_id'] = $user->id;
+
             $comment_active_status = 1;// mod("product")->setting('comment_auto_verify');
 
             if ($comment_active_status == config('status_on', 'main')) {
@@ -887,12 +888,14 @@ class Product extends MY_Controller
 
             }
             $data['created'] = now();
-            model("comment")->create($data);
+            $id =0;
+            model("comment")->create($data,$id);
             // Khai bao du lieu tra ve
 
-
-            $tmpl = 'tpl::_widget/product/comment/list';
-            $data_comment = widget('comment')->display_list($info, 'product',['featured'=>0],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $total_featured =model('comment')->filter_get_total(['id_lte'=>$id,'table_id'=>$info->id,'table_name'=>'product','featured'=>1]);
+            $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
+            //$tmpl = 'tpl::_widget/product/comment/list';
+            $data_comment = widget('comment')->display_list($info, 'product',['id_gte'=>$id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['elements'] = [
                 ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
@@ -946,6 +949,8 @@ class Product extends MY_Controller
             $data['user_id'] = $user->id;
             $data['parent_id'] = $comment->id;
             $data['level'] = $comment->level + 1;
+            if(user_is_manager($user) || user_is_active($user))
+                $data['featured'] = 1;
             $comment_active_status = 1;// mod("product")->setting('comment_auto_verify');
 
             if ($comment_active_status == config('status_on', 'main')) {
@@ -954,7 +959,8 @@ class Product extends MY_Controller
             $data['created'] = now();
             $data['reuped'] = $data['created'];
             //pr($data);
-            model("comment")->create($data);
+            $id =0;
+            model("comment")->create($data,$id);
             // reup lai parent, va set la chua view
             model('comment')->update($comment->id, ["readed" => 0, "reuped" => now()]);
 
@@ -982,9 +988,11 @@ class Product extends MY_Controller
             //== Khai bao du lieu tra ve
             $result['complete'] = TRUE;
 
+            $total_featured =model('comment')->filter_get_total(['id_lte'=>$id,'table_id'=>$info->id,'table_name'=>'product','featured'=>1]);
+            $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
 
-            $tmpl = 'tpl::_widget/product/comment/list';
-            $data_comment = widget('comment')->display_list($info, 'product',[],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+           // $tmpl = 'tpl::_widget/product/comment/list';
+            $data_comment = widget('comment')->display_list($info, 'product',['id_gte'=>$id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['elements'] = [
                 ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],

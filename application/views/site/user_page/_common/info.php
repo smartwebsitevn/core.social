@@ -1,11 +1,6 @@
 <div class="item-photo">
-    <a href="<?php echo $info->_url_view; ?>" class="item-img">
-        <img src="<?php echo $info->avatar->url_thumb ?>"
-             alt="<?php echo $info->name; ?>">
-    </a>
-
+    <?php t('view')->load('tpl::_widget/user/display/item/info_avatar',['row'=>$info]) ?>
     <?php t('view')->load('tpl::_widget/user/display/item/info_contact',['row'=>$info]) ?>
-
 
 </div>
 <div class="item-info">
@@ -26,9 +21,18 @@
 </div>
 <div class="item-profile">
     <div class="avatar">
-        <a href="<?php echo $info->_url_view ?>">
-            <img
-                src="<?php echo $info->avatar->url_thumb ?>" alt="<?php echo $info->name; ?>"> </a>
+        <?php $is_user_special=isset($info->user_group_type) && in_array($info->user_group_type,['user_active','user_manager']); ?>
+        <?php  if($is_user_special): ?>
+            <?php if($info->user_group_type == 'user_manager' ): ?>
+                <i class="pe-7s-helm"></i>
+            <?php else: ?>
+                <i class="pe-7s-medal"></i>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
-    <div class="group">  <?php echo $info->user_group_name; ?></div>
+    <div class="group">
+        <?php echo $info->user_group_name; ?>  <br>
+        <span>Tham gia <?php echo $info->_created  ?></span>  <br>
+        <span>ID - <?php echo $info->_id  ?></span>  <br>
+    </div>
 </div>

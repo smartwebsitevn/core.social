@@ -230,6 +230,10 @@ class Product_post extends MY_Controller
             $user = mod('user')->add_info($user);
             $id = 0;
             $data = $this->_get_inputs($id, $fake_id);
+            $draft = $this->input->post('is_draft');
+            if ($draft)
+                $data['is_draft'] = 1;
+
             $data['created'] = now();
             $this->_model()->create($data, $id);
             $this->_update_infos($id, $data,$user);
@@ -240,6 +244,8 @@ class Product_post extends MY_Controller
             return $user->_url_my_page;
         };
         $form['form'] = function () use ($fake_id,$user) {
+            $this->data['act'] = 'add';
+
             $this->_create_view_data($fake_id);
             $this->_display('form');
         };
@@ -311,16 +317,30 @@ class Product_post extends MY_Controller
             $user = $this->data['user'];
             $user = mod('user')->add_info($user);
             $data = $this->_get_inputs($info->id, $info->id);
+
+
+            if ($info->is_draft)// neu dang o che o tin nhap
+            {
+                $draft = $this->input->post('is_draft');
+                if ($draft) {
+                    $data['is_draft'] = 1;
+
+                } else {
+                    $data['is_draft'] = 0;
+                }
+            }
             // pr($data);
             $this->_model()->update($info->id, $data);
             //pr_db($data);
-            $this->_update_infos($info->id, $data);
+            $this->_update_infos($info->id, $data,$user);
             set_message(lang('notice_update_success'));
             return $user->_url_my_page;
 
         };
 
         $form['form'] = function () use ($info) {
+            $this->data['act'] = 'edit';
+
             $this->_create_view_data($info->id, $info);
             $this->_display('form');
         };
@@ -524,9 +544,7 @@ class Product_post extends MY_Controller
             $data['type']='media';
         }
 
-        $draft = $this->input->post('draft');
-        if ($draft)
-            $data['draft'] = 1;
+
         $data['verified'] = $this->_get_verify($data);
         $data['status'] = 1;// cong bo ngay khi dang
 

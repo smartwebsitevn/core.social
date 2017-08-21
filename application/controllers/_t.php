@@ -8,7 +8,7 @@ class _t extends MY_Controller
     function update_db()
     {
 
-        $this->_update_user();
+        $this->_update_comment();
     }
     function _update_user()
     {
@@ -21,6 +21,23 @@ class _t extends MY_Controller
                     'post_total' => $total,
                 ]
             );
+            echo  '<br>--';pr_db(0,0);
+        }
+    }
+    function _update_comment()
+    {
+        $tbl = 'comment';
+        $list = model($tbl)->get_list();
+        foreach ($list as $row) {
+            $user = model('user')->get_info($row->user_id);
+            if(user_is_manager($user) || user_is_active($user)){
+                $data['featured'] = 1;
+                model($tbl)->update($row->id,
+                    [
+                        'featured' => 1,
+                    ]);
+            }
+
             echo  '<br>--';pr_db(0,0);
         }
     }

@@ -261,6 +261,7 @@ class Comment extends MY_Controller
         //Form Submit
         $this->_form_submit_output($result);
     }
+
     function reply($comment_id)
     {
         // if(!mod("product")->setting('comment_allow'))
@@ -310,13 +311,13 @@ class Comment extends MY_Controller
             model("comment")->create($data);
 
             // reup lai parent, va set la chua view
-            model('comment')->update($comment->id,["readed"=>0, "reuped"=> now()]);
+            model('comment')->update($comment->id, ["readed" => 0, "reuped" => now()]);
 
             //==them so lan nhan xet cho bang lien quan
             $model = $this->_update_table_infos($data, $table_name, $table_id);
 
             //==gui thong bao
-            if ($model){
+            if ($model) {
                 // gui cho chu topic
                 if ($comment->user_id && $comment->user_id != $user->id)
                     mod('user_notice')->send($comment->user_id, $user->name . ' đã trả lởi bình luận của bạn', ['url' => $model->_url_view]);
@@ -375,45 +376,64 @@ class Comment extends MY_Controller
             $this->_response();
 
         }
-            //kiem tra da luu hay chua
-            $data = array();
-            $data ['table_name'] = 'comment';
-            $data ['table_id'] = $comment->id;
-            $data ['user_id'] = $user->id;
-            $point=null;
-            if ($act == 'like') {
-                $data ['like'] = 1;
-                $data ['dislike'] = 0;
-                $point =1;
-            } elseif ($act == 'like_del') {
-                $data ['like'] = 0;
-                $data ['dislike'] = 0;
-                $point =-1;
-            } elseif ($act == 'dislike') {
-                $data ['like'] = 0;
-                $data ['dislike'] = 1;
-                $point =-1;
-            } elseif ($act == 'dislike_del') {
-                $data ['like'] = 0;
-                $data ['dislike'] = 0;
-                $point =1;
-            }
+        //kiem tra da luu hay chua
+        $data = array();
+        $data ['table_name'] = 'comment';
+        $data ['table_id'] = $comment->id;
+        $data ['user_id'] = $user->id;
+        $point = null;
+        if ($act == 'like') {
+            $data ['like'] = 1;
+            $data ['dislike'] = 0;
+            $point = 1;
+        } elseif ($act == 'like_del') {
+            $data ['like'] = 0;
+            $data ['dislike'] = 0;
+            $point = -1;
+        } elseif ($act == 'dislike') {
+            $data ['like'] = 0;
+            $data ['dislike'] = 1;
+            $point = -1;
+        } elseif ($act == 'dislike_del') {
+            $data ['like'] = 0;
+            $data ['dislike'] = 0;
+            $point = 1;
+        }
 
-            $voted = model('social_vote')->get_info_rule(array('table_name' => 'comment', 'table_id' => $comment->id, 'user_id' => $user->id));
-            if ($voted) {
-                $data ['updated'] = now();
-                model('social_vote')->update($voted->id, $data);
-            } else {
-                $data ['created'] = now();
-                model('social_vote')->create($data);
-            }
+        $voted = model('social_vote')->get_info_rule(array('table_name' => 'comment', 'table_id' => $comment->id, 'user_id' => $user->id));
+        if ($voted) {
+            $data ['updated'] = now();
+            model('social_vote')->update($voted->id, $data);
+        } else {
+            $data ['created'] = now();
+            model('social_vote')->create($data);
+        }
 
-            model('user')->update_stats(['id'=>$comment->user_id],['point_total'=>$point]);
-            // pr_db();
+        $list = model('social_vote')->filter_get_list(array('table_name' => 'comment', 'table_id' => $comment->id));
+        if ($list) {
+            $d = 0;
+            $stats = ['vote_total' => 0, 'vote_like' => 0, 'vote_dislike' => 0];
+            foreach ($list as $row) {
+                if ($row->like) {
+                    $stats['vote_like']++;
+                    $d++;
+                } elseif ($row->dislike) {
+                    $stats['vote_dislike']++;
+                    $d--;
+                }
+            }
+            $stats['vote_total'] = $d;
+        }
+        //pr($stats);
+        model('comment')->update($comment->id, $stats);
+        model('user')->update_stats(['id' => $comment->user_id], ['point_total' => $point]);
+        // pr_db();
+        $result['element'] =  ['pos' => '#comment_' . $comment->id . '_vote_points', 'data' => $stats['vote_total']];
 
         //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
-        $this->_response();
+        $this->_response($result);
     }
+
     function show()
     {
         // Tai cac file thanh phan

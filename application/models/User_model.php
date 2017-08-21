@@ -39,8 +39,7 @@ class User_model extends MY_Model
 		'vote_total','!vote_total','vote_total_gt', 'vote_total_gte', 'vote_total_lt', 'vote_total_lte',
 
 		'vote_total',
-		'verify', 'user_group','user_group_id','gender',
-		'city','country','birthday_year','subject_id',
+		'verify', 'user_group','user_group_id','gender','birthday_year','subject_id',
 		'user_affiliate_id',
 		//== core
 		'name', '%name',  'BINARY name',
@@ -74,12 +73,21 @@ class User_model extends MY_Model
 	public function _filter_get_where(array $filter)
 	{
 		$where = parent::_filter_get_where($filter);
+		//pr($this->fields_filter );
 		foreach ($this->fields_filter as $key) {
 			if (isset($filter[$key]) && $filter[$key] != -1) {
 				//echo '<br>key='.$key.', v='.$filter[$key];
+				if($key =='working_city'){
+					$key2 ='FIND '.$key;
+					$filter[$key2]=$filter[$key];
+					unset($filter[$key]);
+					//echo $key;				pr($filter);
+					$key =$key2;
+				}
 				$this->_filter_parse_where($key, $filter);
 			}
 		}
+		//pr($filter);
 		// -=Modified=-
 		if (isset($filter['!id']))
 		{
@@ -151,6 +159,18 @@ class User_model extends MY_Model
 		} //3: den ngay
 		elseif (isset($filter['created_to'])) {
 			$where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']) + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
+		}
+
+		if (isset($filter['show']))
+		{
+			//$where[$this->table.'.blocked'] = 0;
+			//$where[$this->table.'.verify'] = 1;
+		}
+
+		// ko lay voi user hien thoi
+		if (isset($filter['me']))
+		{
+			$where['user_id !='] = $filter['me'];
 		}
 		return $where;
 	}

@@ -25,12 +25,10 @@
     <div class="row">
         <div class="col-md-8 col-sm-12 col-xs-12">
             <?php t('view')->load('tpl::product/_common/main') ?>
-
-
         </div>
         <div class="col-md-4 col-sm-12 col-xs-12">
-            <div class="sticky-element" data-limiter="#footer">
-                <div class="slimscroll" data-height="500px">
+            <div class="sticky-element_" data-spacing="65"  data-limiter="#footer">
+                <div class="slimscrol_"  data-height="90vh">
                     <?php //t('view')->load('tpl::product/_common/order') ?>
                     <?php t('view')->load('tpl::product/_common/info_author') ?>
                     <?php //t('view')->load('tpl::product/_common/info_video') ?>

@@ -31,23 +31,12 @@
                         },
                     });
                     $main.find('.act-do-submit').bind("click", function () {
-                        var $_form = $main.find('form');
                         var draft = $(this).data('draft')
                         if (draft != undefined) {
-                            $_form.find('input[name=draft]').val(draft)
+                            $main.find('input[name=is_draft]').val(draft)
                         }
 
-                        // su ly cac truong an
-                        var hide_fields = [];
-                        $('.more-select-dropdown .search-results').each(function () {
-                            if (!($(this).css('display') == 'none')) {
-                                var id = $(this).data('id');
-                                id = id.replace("more_", "");
-                                hide_fields.push(id);
-                            }
-                        })
-                        $_form.find('input[name=hide_fields]').val(hide_fields.toString())
-                        $_form.nstUI('formActionAdv', {
+                        $main.nstUI('formActionAdv', {
                             submit: true,
                         });
                     })

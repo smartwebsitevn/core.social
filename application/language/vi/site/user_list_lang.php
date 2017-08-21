@@ -65,8 +65,10 @@ $lang['ordering_new|desc'] = 'Mới';
 $lang['ordering_feature|desc'] = 'Nổi bật';
 $lang['ordering_rate|desc'] = 'Đánh giá';
 $lang['ordering_name|asc'] = 'Tên a->z';
-$lang['ordering_point_total|desc'] = 'Tích cực nhất';
+//$lang['ordering_point_total|desc'] = 'Tích cực nhất';
+$lang['ordering_point_total|desc'] = 'Nhiều điểm nhất';
 $lang['ordering_post_total|desc'] = 'Nhiều bài nhất';
+$lang['ordering_follow_total|desc'] = 'Nhiều người theo dõi nhất';
 
 $lang['have_no_list'] = 'Không có dữ liệu';
 

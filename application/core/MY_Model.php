@@ -1135,6 +1135,7 @@ class MY_Model extends CI_Model
 
     protected function _filter_parse_where( $key, $filter )
     {
+       // pr($key);
 
         if(! isset($filter[$key]) )
             return;
@@ -1196,9 +1197,9 @@ class MY_Model extends CI_Model
             $f=substr( $key, 8, strlen($key));
             $value = '';
 
-            if (is_array($filter[$f])) {
+            if (is_array($filter[$key])) {
 
-                $key = str_replace([',', '.'], '', $filter[$f]);
+                $key = str_replace([',', '.'], '', $filter[$key]);
                 $key = trim($key);
 
                 $query = ["`$f` LIKE '%".t('db')->escape_like_str($key)."%'"];
@@ -1219,7 +1220,6 @@ class MY_Model extends CI_Model
             }
             return;
         }
-
         //  FIND_IN_SET
         if( strpos( $key, "FIND" ) !== false )
         {
@@ -1227,8 +1227,8 @@ class MY_Model extends CI_Model
 
             $f=substr( $key, 5, strlen($key));
             $value = [];
-            if (is_array($filter[$f])) {
-                foreach ($filter[$f] as $v) {
+            if (is_array($filter[$key])) {
+                foreach ($filter[$key] as $v) {
                     $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
                 }
             } else

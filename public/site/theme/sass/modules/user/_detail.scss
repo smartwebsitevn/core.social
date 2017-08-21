@@ -55,17 +55,31 @@
           margin: 0 5px;
         }
       }
+      .item-label {
+        color: _palette(button-3);
+        font-size: 30px;
+        font-weight: bold;
+        bottom: 30px;
+        left: 120px;
+        position: absolute;
+        background: #fff;
+        border-radius: 100%;
+        width: 33px;
+        height: 33px;
+        text-align: center;
+        vertical-align: middle;
+      }
     }
     .item-info {
       float: left;
-      width: calc(85% - 190px);
+      width: calc(80% - 190px);
       &-full {
         width: calc(100% - 190px);
       }
     }
     .item-profile {
       float: right;
-      width: 15%;
+      width: 20%;
       padding-bottom: 20px;
       position: relative;
       text-align: center;
@@ -74,12 +88,18 @@
           display: inline-block;
           width: 70px;
         }
+        i {
+          font-size: 48px;
+          color: _palette(button-1);
+        }
       }
       .group {
-        font-weight: bolder;
         text-transform: capitalize;
         display: block;
         margin: 5px 0;
+        span {
+          color: _palette(text-3);
+        }
       }
 
       .btn-outline {

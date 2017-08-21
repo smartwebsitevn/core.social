@@ -24,9 +24,7 @@
             <?php endforeach; ?>
         </div>
     </div>
-
 <?php endif; ?>
-
 
 <script type="text/javascript">
     $(document).ready(function () {

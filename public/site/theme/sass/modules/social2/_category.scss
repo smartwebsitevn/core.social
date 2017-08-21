@@ -94,9 +94,11 @@
       width: 100%;
 
     }
-    .block-content-left {
-      margin-top: 15px;
+    .btn-clear-all{
+      font-weight: bolder;
+      text-transform: capitalize;
     }
+
     .search-dropdown {
       display: inline-block;
       /* vertical-align: top;
@@ -129,7 +131,6 @@
       margin-right: 20px;
       margin-top: 2px;
     }
-
     .block-sorter {
       float: right;
       .total_product {
@@ -148,7 +149,6 @@
 
       }
     }
-
     .slider.slider-horizontal {
       width: 95% !important;
       margin-left: 10px;
@@ -198,7 +198,7 @@
     .item-social {
       background-color: #ffffff;
       border: 1px solid #e0e0e0;
-      padding: 15px  15px  10px  15px;
+      padding: 30px;
       margin-bottom: 10px;
       position: relative;
       display: block;
@@ -232,6 +232,19 @@
             border-radius: 100%;
           }
 
+        }
+        .item-label {
+          color: _palette(button-3);
+          font-size: 15px;
+          font-weight: bold;
+          left: 30px;
+          bottom: 0px;
+          position: absolute;
+          background: #fff;
+          border-radius: 100%;
+          width: 16px;
+          height: 16px;
+          text-align: center;
         }
         div {
           float: left;
@@ -411,11 +424,11 @@
         margin-bottom: 10px;
         padding-bottom: 15px;
       }
-      .item-files {
+     /* .item-files {
         a {
           color: _palette(text-4);
         }
-      }
+      }*/
 
       .item-actions {
         border-top: 1px solid #eee;
@@ -466,10 +479,10 @@
           color: #666;
           font-size: 12px;
           span {
-            margin-right: 10px;
+            margin:0 10px;
           }
 
-          a {
+          a {  margin-right: 8px;
            i {
               font-size: 32px;
               cursor: pointer;
@@ -518,6 +531,21 @@
       .item-comments {
        /* background: _palette(bg-2);*/
         padding: 10px 20px;
+
+        .item-label {
+          color: _palette(button-3);
+          font-size: 15px;
+          font-weight: bold;
+          left: 30px;
+          bottom: 0px;
+          position: absolute;
+          background: #fff;
+          border-radius: 100%;
+          width: 16px;
+          height: 16px;
+          text-align: center;
+
+        }
         .avatar {
           width: 30px;
           height: 30px;

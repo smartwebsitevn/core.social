@@ -462,6 +462,7 @@ class User_page extends MY_Controller
         $user = $this->data['user'];
         // Filter set
         $filter = array();
+        $filter['show'] = 1;
         $filter['user_id'] = $user->id;
         $this->_post_create_list([], $filter);
 
@@ -529,7 +530,7 @@ class User_page extends MY_Controller
         //pr($filter);
         //pr($input);
         // Gan filter
-       // $filter['show'] = 1;
+        //$filter['show'] = 1;
 
         //== Lay tong so
         if (!isset($input['limit'])) {

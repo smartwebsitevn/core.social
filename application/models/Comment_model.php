@@ -14,7 +14,7 @@ class Comment_model extends MY_Model
     function _filter_get_where($filter)
     {
         $where = parent::_filter_get_where($filter);
-        foreach (array('id','parent_id','rate','table_id','table_name','user_id','type','readed','featured'
+        foreach (array('id','id_lte','id_gte','parent_id','rate','table_id','table_name','user_id','type','readed','featured'
                  ) as $key) {
             if (isset($filter[$key]) && $filter[$key] != -1) {
                 //echo '<br>key='.$key.', v='.$filter[$key];

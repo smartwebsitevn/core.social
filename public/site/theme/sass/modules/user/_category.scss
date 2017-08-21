@@ -7,9 +7,8 @@
   border: 1px solid #e0e0e0;
   color: #666;
   .item-user {
-    margin-bottom: 30px;
     border-bottom: 1px solid #e0e0e0;
-    padding: 15px 5px 15px 35px;
+    padding: 35px 5px 35px 35px;
     position: relative;
     display: block;
     //== structure
@@ -27,6 +26,20 @@
         -webkit-transition: 1s;
         -o-transition: 1s;
         transition: 1s;
+      }
+      .item-label {
+        color: _palette(button-3);
+        font-weight: bold;
+        bottom: 0px;
+        position: absolute;
+        background: #fff;
+        border-radius: 100%;
+        text-align: center;
+        font-size: 32px;
+        height: 36px;
+        left: 90px;
+        width: 36px;
+
       }
     }
     .item-info {
@@ -50,7 +63,6 @@
         }
       }
       .group {
-        font-weight: bolder;
         text-transform: capitalize;
         display: block;
         margin: 5px 0;
@@ -60,13 +72,7 @@
         }
 
       }
-      .links {
-        a {
-          font-size: 25px;
-          margin: 0 5px;
-        }
-      }
-      .links {
+       .links {
         a {
           font-size: 25px;
           margin: 0 5px;
@@ -82,6 +88,9 @@
       /* margin-bottom: 5px;*/
       text-transform: capitalize;
 
+    }
+    .item-profession{
+      margin-top: 4px;
     }
     a.btn-xs {
       font-size: 11px;
@@ -191,16 +200,30 @@
       overflow: hidden;
       float: left;
       margin-right: 5px;
+      padding-right: 5px;
       img {
         display: block;
         width: 35px;
         height: 35px;
         border-radius: 100%;
       }
+      .item-label {
+        color: _palette(button-3);
+        font-size: 15px;
+        font-weight: bold;
+        left: 25px;
+        bottom: 0px;
+        position: absolute;
+        background: #fff;
+        border-radius: 100%;
+        width: 16px;
+        height: 16px;
+        text-align: center;
+      }
     }
     .item-info {
       float: left;
-      width: calc(100% - 40px);
+      width: calc(100% - 50px);
     }
     .item-name {
       display: block;
@@ -215,14 +238,7 @@
       text-transform: capitalize;
       color: _palette(text-3);
     }
-    .item-label {
-      bottom: 5px;
-      color: _palette(button-3);
-      font-size: 15px;
-      font-weight: bold;
-      left: 22px;
-      position: absolute;
-    }
+
     a.btn-xs {
       font-size: 9px;
       padding: 1px 5px;

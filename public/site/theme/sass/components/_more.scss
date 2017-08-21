@@ -5,5 +5,25 @@
   .act_show_all,.act_show_short
   {
     font-size: 13px;
+    display: inline-flex;
+    line-height: 32px;
+    i{
+      font-size: 32px;
+    }
+  }
+}
+
+.more_block{
+  .more_block_content{
+    text-align: justify;
+  }
+  .act_block_all,.act_block_short
+  {
+    font-size: 13px;
+    display: inline-flex;
+    line-height: 32px;
+    i{
+      font-size: 32px;
+    }
   }
 }

@@ -20,7 +20,10 @@
                     <a href="<?php echo $author->_url_view ?>"><?php echo $author->name ?></a>
                 </div>
                 <div class="short-cty">  <?php echo $author->profession ?></div>
-                <?php t('view')->load('tpl::_widget/user/display/item/info_meta',['row'=>$author]) ?><br>
+                <div class="item-meta">
+                    <?php t('view')->load('tpl::_widget/user/display/item/info_meta',['row'=>$author]) ?><br>
+                </div>
+
                 <?php t('view')->load('tpl::_widget/user/display/item/info_tags',['row'=>$author]) ?>
 
                 <hr>

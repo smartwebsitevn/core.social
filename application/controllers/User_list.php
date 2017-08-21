@@ -128,9 +128,10 @@ class User_list extends MY_Controller
         $sort_orders = array(
             'point_total|desc',
             'post_total|desc',
-            'count_view|desc',
+            'follow_total|desc',
             'id|desc',
-            /*'count_buy|desc',
+            /*'count_view|desc',
+            'count_buy|desc',
             'new|desc',
             'feature|desc',
 
@@ -147,7 +148,7 @@ class User_list extends MY_Controller
         }*/
         $list = model('user')->filter_get_list($filter, $input);
        // pr($filter,0);
-       // pr_db($list);
+       // pr_db($filter);
         foreach ($list as $row) {
             $row = mod('user')->add_info($row);
         }

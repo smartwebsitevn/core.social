@@ -15,9 +15,7 @@
 /**
  * Form
  */
-textarea {
-	resize: none;
-}
+
 
 .form-horizontal .control-label {
 	/*padding-top: 0px;*/

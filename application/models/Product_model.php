@@ -210,7 +210,14 @@ class Product_model extends MY_Model
 
         // hien thi san pham phia ngoai
         if (isset($filter['show'])) {
-            $where[$this->table . '.status'] = '1';
+            $where[$this->table.'.is_draft'] = 0;// ko hien tin nhap cua cong ty
+            $where[$this->table.'.is_form'] = 0;// ko hien  tin mau cua he thong
+            $where[$this->table.'.status'] = 1; // chi hien tin la cong bo
+            $where[$this->table.'.deleted'] = 0; // ko hien  tin da xoa tam
+            //$where[$this->table.'.verified >'] = 0; // chi hien tin da xac thuc
+            //$where[$this->table.'.expired >='] = now();// chi hien tin con han dang
+
+
         }
         return $where;
     }

@@ -13,8 +13,7 @@
 
                         <a href="<?php echo $row->_url ?>"
                            target="_blank">
-                            <img width="30px"
-                                 src="<?php echo $file_infos['icon'] ?>">
+                            <i class="fa fa-<?php echo $file_infos['icon'] ?>"></i>
                             <?php echo $row->_orig_name ?>
                         </a>
                     </div>

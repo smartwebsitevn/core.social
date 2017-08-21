@@ -27,6 +27,7 @@ class User_mod extends MY_Mod
     public function add_info($row)
     {
         $row = user_add_info($row);
+        $row->_id = sprintf("%05d", $row->id);
         $row = $this->add_info_working_city($row);
         $row = $this->add_info_working_country($row);
         $row = $this->add_info_relation_cat($row);

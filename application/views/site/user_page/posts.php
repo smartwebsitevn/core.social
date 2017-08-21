@@ -1,7 +1,7 @@
 <?php t('view')->load('tpl::user_page/_common/public') ?>
 <div class="container">
     <div class="data-wraper">
-        <?php echo widget('product')->filter(['input_hidden'=>['page'=>$page]], "top") ?>
+        <?php echo widget('product')->filter(['input_hidden'=>['page'=>$page]], "top_no_post") ?>
 
         <div class="block-products-items">
             <?php /* ?>
@@ -14,10 +14,7 @@
                 <?php if ($pages_config['total_rows'] > 0): ?>
                     <?php
                     $style_display ='';
-                    if (isset($category->common_data->display) && $category->common_data->display )
-                        $style_display=$category->common_data->display;
-
-                    ?>
+                     ?>
                     <?php widget('product')->display_list($list,$style_display); ?>
                     <?php widget('product')->display_pagination($pages_config); ?>
                 <?php else: ?>

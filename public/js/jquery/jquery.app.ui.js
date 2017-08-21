@@ -2368,6 +2368,7 @@ var nfc = {
                     // su kien xoa toan bo du lieu loc hien tai
                     $('.btn-clear-all').click(function () {
                         var $this = this;
+                        $($this).hide();
                         var parent = $($this).closest('form');
                         // xoa du lieu doi voi check box
                         parent.find('.search-results.checkbox.checked span').click();
@@ -2876,9 +2877,16 @@ function moduleCoreFilter(option) {
 
     var matches = 0;
     $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
-        //if ($(this).val() == '1')
+       if ($(this).val())
         matches++;
     });
+    $("#form_filter_advance .block-filter input[type=checkbox]").each(function (i, val) {
+        if ($(this).is(":checked"))
+            matches++;
+    });
+
+
+    //alert(matches);
     if (matches > 1)
         $('.btn-clear-all').show();
     else
@@ -2946,9 +2954,10 @@ function moduleUserFilter(option) {
 
     var matches = 0;
     $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
-        //if ($(this).val() == '1')
+        if ($(this).val())
         matches++;
     });
+    //alert(matches);
     if (matches > 1)
         $('.btn-clear-all').show();
     else
@@ -3000,7 +3009,6 @@ function moduleUserFilter(option) {
                 if ($target_data.find('.page-pagination .pagination > li:last').hasClass('active')) {
                     $target_data.find('.act-pagination-load-more').parent().hide();
                 }
-
                 return false;
             }
         }

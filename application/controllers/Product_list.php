@@ -309,6 +309,9 @@ class Product_list extends MY_Controller
                     $type_cat_id, $this->data['filter'],'',[ 'return' => 1]
                 );
             }
+            else{
+                $response['filter']='';
+            }
 
              echo json_encode($response);
             exit;

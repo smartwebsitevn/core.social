@@ -66,13 +66,12 @@
     </div>
     <div class="block-info">
         <div class="form-group">
-            <label class="control-label " for="_0139986ea3b9305d0cff9534db437d81">
+            <label class="control-label " >
                 Nội dung bài viết:
             </label>
 
             <div class="clear"></div>
-                <textarea name="description" rows="5" id="_0139986ea3b9305d0cff9534db437d81"
-                          class="form-control "><?php echo $info['description'] ?></textarea>
+                <textarea name="description" rows="10"      class="form-control  "><?php echo $info['description'] ?></textarea>
 
             <div class="clear"></div>
             <div name="description_error" class="error"></div>

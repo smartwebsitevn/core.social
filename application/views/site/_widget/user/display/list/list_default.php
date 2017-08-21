@@ -5,10 +5,8 @@
             <div class="item-user <?php echo isset($row->_ads) ? 'item-user-ads' : '' ?> ">
                 <div class="clearfix">
                     <div class="item-photo">
-                        <a href="<?php echo $row->_url_view; ?>" class="item-img">
-                            <img src="<?php echo $row->avatar->url_thumb  ?>"
-                                 alt="<?php echo $row->name; ?>">
-                        </a>
+                        <?php t('view')->load('tpl::_widget/user/display/item/info_avatar',['row'=>$row]) ?>
+
                     </div>
                     <div class="item-info">
                         <?php //echo t('view')->load('tpl::_widget/user/display/item/info_label', array('row' => $row)); ?>
@@ -42,8 +40,12 @@
                         <div class="avatar">
                             <?php $is_user_special=isset($row->user_group_type) && in_array($row->user_group_type,['user_active','user_manager']); ?>
                             <?php  if($is_user_special): ?>
+                                <?php if($row->user_group_type == 'user_manager' ): ?>
+                                <i class="pe-7s-helm"></i>
+                                <?php else: ?>
                                 <i class="pe-7s-medal"></i>
-                              <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                         <div class="group">
                             <?php echo $row->user_group_name; ?>

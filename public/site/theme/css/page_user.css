@@ -9,7 +9,7 @@
         grid: (gutters: 1em)
 ));*/
 body.user-page #main {
-  margin: 0px; }
+  margin-top: 50px; }
 
 /*====================*\
 //Categori social
@@ -20,9 +20,8 @@ body.user-page #main {
   border: 1px solid #e0e0e0;
   color: #666; }
   .list-user .item-user {
-    margin-bottom: 30px;
     border-bottom: 1px solid #e0e0e0;
-    padding: 15px 5px 15px 35px;
+    padding: 35px 5px 35px 35px;
     position: relative;
     display: block; }
     .list-user .item-user .item-photo {
@@ -39,6 +38,18 @@ body.user-page #main {
         -webkit-transition: 1s;
         -o-transition: 1s;
         transition: 1s; }
+      .list-user .item-user .item-photo .item-label {
+        color: #eb8305;
+        font-weight: bold;
+        bottom: 0px;
+        position: absolute;
+        background: #fff;
+        border-radius: 100%;
+        text-align: center;
+        font-size: 32px;
+        height: 36px;
+        left: 90px;
+        width: 36px; }
     .list-user .item-user .item-info {
       float: left;
       width: calc(75% - 150px); }
@@ -54,15 +65,11 @@ body.user-page #main {
         font-size: 48px;
         color: #f7941e; }
       .list-user .item-user .item-profile .group {
-        font-weight: bolder;
         text-transform: capitalize;
         display: block;
         margin: 5px 0; }
         .list-user .item-user .item-profile .group span {
           color: #999999; }
-      .list-user .item-user .item-profile .links a {
-        font-size: 25px;
-        margin: 0 5px; }
       .list-user .item-user .item-profile .links a {
         font-size: 25px;
         margin: 0 5px; }
@@ -74,6 +81,8 @@ body.user-page #main {
       font-size: 16px;
       /* margin-bottom: 5px;*/
       text-transform: capitalize; }
+    .list-user .item-user .item-profession {
+      margin-top: 4px; }
     .list-user .item-user a.btn-xs {
       font-size: 11px; }
     .list-user .item-user .item-desc {
@@ -150,15 +159,28 @@ body.user-page #main {
       position: relative;
       overflow: hidden;
       float: left;
-      margin-right: 5px; }
+      margin-right: 5px;
+      padding-right: 5px; }
       .list-user-feature .item-user .item-photo img {
         display: block;
         width: 35px;
         height: 35px;
         border-radius: 100%; }
+      .list-user-feature .item-user .item-photo .item-label {
+        color: #eb8305;
+        font-size: 15px;
+        font-weight: bold;
+        left: 25px;
+        bottom: 0px;
+        position: absolute;
+        background: #fff;
+        border-radius: 100%;
+        width: 16px;
+        height: 16px;
+        text-align: center; }
     .list-user-feature .item-user .item-info {
       float: left;
-      width: calc(100% - 40px); }
+      width: calc(100% - 50px); }
     .list-user-feature .item-user .item-name {
       display: block;
       margin-bottom: 2px;
@@ -169,13 +191,6 @@ body.user-page #main {
     .list-user-feature .item-user .item-meta {
       text-transform: capitalize;
       color: #999999; }
-    .list-user-feature .item-user .item-label {
-      bottom: 5px;
-      color: #eb8305;
-      font-size: 15px;
-      font-weight: bold;
-      left: 22px;
-      position: absolute; }
     .list-user-feature .item-user a.btn-xs {
       font-size: 9px;
       padding: 1px 5px;
@@ -239,25 +254,42 @@ body.user-page #main {
       .detail-user .item-user .item-photo .links a {
         font-size: 25px;
         margin: 0 5px; }
+      .detail-user .item-user .item-photo .item-label {
+        color: #eb8305;
+        font-size: 30px;
+        font-weight: bold;
+        bottom: 30px;
+        left: 120px;
+        position: absolute;
+        background: #fff;
+        border-radius: 100%;
+        width: 33px;
+        height: 33px;
+        text-align: center;
+        vertical-align: middle; }
     .detail-user .item-user .item-info {
       float: left;
-      width: calc(85% - 190px); }
+      width: calc(80% - 190px); }
       .detail-user .item-user .item-info-full {
         width: calc(100% - 190px); }
     .detail-user .item-user .item-profile {
       float: right;
-      width: 15%;
+      width: 20%;
       padding-bottom: 20px;
       position: relative;
       text-align: center; }
       .detail-user .item-user .item-profile .avatar img {
         display: inline-block;
         width: 70px; }
+      .detail-user .item-user .item-profile .avatar i {
+        font-size: 48px;
+        color: #f7941e; }
       .detail-user .item-user .item-profile .group {
-        font-weight: bolder;
         text-transform: capitalize;
         display: block;
         margin: 5px 0; }
+        .detail-user .item-user .item-profile .group span {
+          color: #999999; }
       .detail-user .item-user .item-profile .btn-outline {
         margin-top: 5px; }
     .detail-user .item-user .item-name {

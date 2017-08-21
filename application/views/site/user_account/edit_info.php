@@ -60,7 +60,7 @@
             echo macro('mr::form')->row(array(
                 'param' => 'phone_edit',
                 'name' => lang('phone'),
-                'req' => true,
+               // 'req' => true,
                 'value' => $user->phone,
             ));
         }

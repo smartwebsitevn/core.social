@@ -2077,6 +2077,8 @@ table {
           cursor: pointer; }
         .comment-list .comment-action .action_vote_group a:hover, .comment-list .comment-action .action_vote_group a.active {
           color: #ff9e2f; }
+    .comment-list .comment-action .points {
+      margin-right: 10px; }
 
 /* Box */
 /**=====================
@@ -2137,7 +2139,20 @@ table {
 .more_word .more_word_content {
   text-align: justify; }
 .more_word .act_show_all, .more_word .act_show_short {
-  font-size: 13px; }
+  font-size: 13px;
+  display: inline-flex;
+  line-height: 32px; }
+  .more_word .act_show_all i, .more_word .act_show_short i {
+    font-size: 32px; }
+
+.more_block .more_block_content {
+  text-align: justify; }
+.more_block .act_block_all, .more_block .act_block_short {
+  font-size: 13px;
+  display: inline-flex;
+  line-height: 32px; }
+  .more_block .act_block_all i, .more_block .act_block_short i {
+    font-size: 32px; }
 
 .item-tag {
   display: inline-block; }
@@ -2247,7 +2262,7 @@ table {
   #main .sidebar {
     z-index: 2; }
   #main .main-content {
-    z-index: 1; }
+    /* z-index: 1;*/ }
 
 #footer {
   z-index: 9; }

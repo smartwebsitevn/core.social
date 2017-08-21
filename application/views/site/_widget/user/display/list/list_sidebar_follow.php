@@ -4,10 +4,7 @@
         <?php foreach ($list as $row):    //pr($row);?>
             <div class="item-user  act-input <?php echo $user_selected == $row->id?'active':'' ?>" data-name="user_id" data-value="<?php echo $row->id ?>">
                 <div class="item-photo">
-                    <a href="<?php //echo $row->_url_view; ?>" class="item-img">
-                        <img src="<?php echo $row->avatar->url_thumb ?>"
-                             alt="<?php echo $row->name; ?>">
-                    </a>
+                    <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $row)); ?>
                 </div>
                 <div class="item-info">
                     <?php //echo t('view')->load('tpl::_widget/user/display/item/info_label', array('row' => $row)); ?>

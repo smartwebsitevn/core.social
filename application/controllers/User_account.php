@@ -53,7 +53,7 @@ class User_account extends MY_Controller
         $rules['email_activation'] = array('email', 'required|trim|xss_clean|valid_email|max_length[30]|callback__check_email_activation');
         $rules['email_edit'] = array('email', 'required|trim|xss_clean|valid_email|callback__check_email_edit');
         $rules['username_edit'] = array('username', 'required|trim|xss_clean|callback__check_username_edit');
-        $rules['phone_edit'] = array('phone', 'required|trim|xss_clean|callback__check_phone_edit');
+        $rules['phone_edit'] = array('phone', 'trim|xss_clean|callback__check_phone_edit');
 
         $rules['password'] = array('password', 'required|trim|xss_clean|min_length[' . $length . ']');
         $rules['password_repeat'] = array('password_repeat', 'required|trim|xss_clean|matches[password]');
@@ -159,6 +159,7 @@ class User_account extends MY_Controller
      */
     public function _check_phone_edit($value)
     {
+        if(!$value)  return TRUE;
         $user = user_get_account_info();
 
         $phone = handle_phone($value);

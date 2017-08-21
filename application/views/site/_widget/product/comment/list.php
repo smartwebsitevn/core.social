@@ -88,7 +88,7 @@
 
             <?php //endif; ?>
         </div>
-        <?php echo t('view')->load('tpl::_widget/product/comment/_common/js'); ?>
+        <?php //echo t('view')->load('tpl::_widget/product/comment/_common/js'); ?>
 
     <?php endif; ?>
 

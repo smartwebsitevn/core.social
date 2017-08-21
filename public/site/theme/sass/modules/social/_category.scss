@@ -32,8 +32,15 @@
     .ajax-filter, .action-filter {
       display: inline-block;
     }
+
     .block-content-left {
       margin-top: 15px;
+      display: flex;
+      .btn-clear-all{
+        font-weight: bolder;
+        text-transform: capitalize;
+        line-height: 40px;
+      }
     }
     .search-dropdown {
       display: inline-block;
@@ -246,7 +253,7 @@
       margin-bottom: 10px;
       position: relative;
       display: block;
-      &.status-off {
+      &.status-off,&.status-draft {
         background-color: #efefef;
 
       }
@@ -254,7 +261,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        &-status-off {
+        &-status-off,&-status-draft  {
           background-color: #777;
         }
       }
@@ -488,10 +495,9 @@
       .item-actions {
         float: right;
         text-align: right;
-        .btn {
-          /* margin-right: 10px;*/
-        }
+
         a {
+          margin-right: 20px;
           color: _palette(text-2);
           &:hover, &.active {
             color: _palette(button-2);

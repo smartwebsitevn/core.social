@@ -2,9 +2,9 @@
     <div class="list-user-feature">
         <?php foreach ($list as $row):    //pr($row);?>
             <div class="item-user">
+        <div class="item-photo">
                 <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $row)); ?>
-                <?php echo view('tpl::_widget/user/display/item/info_label', array('row' => $row)); ?>
-
+            </div>
                 <div class="item-info">
                     <?php //echo t('view')->load('tpl::_widget/user/display/item/info_label', array('row' => $row)); ?>
                     <div class="item-name"><a href="<?php echo $row->_url_view; ?>">

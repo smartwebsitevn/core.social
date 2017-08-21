@@ -20,7 +20,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
     </div>
     <div >
         <div class="block-sorter">
-           <?php      echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Tích cực nhất', 'class' => 'sort-dropdown']); ?>
+           <?php      echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data,'values_opts'=>['value_required'=>true], 'param' => 'order', 'name' => 'Nhiều điểm nhất', 'class' => 'sort-dropdown']); ?>
         </div>
         <?php /* ?>
         <div class="block-layout act-filter-choice-group">
@@ -134,11 +134,11 @@ $_data_layout = function () use ($filter) {
                                 <div class="form-group">
                                     <input type="text"  class="searachSelect form-control lg">
                                 </div>
-                                <div class="slimscroll limit-height">
+                                <div class="slimscroll">
                                     <?php foreach($citys as $row){ ?>
-                                        <div class="search-results checkbox <?php echo (isset($filter['city'])&& is_array($filter['city']) && in_array($row->id, $filter['city'])) ? 'active_filter' : ''?>">
+                                        <div class="search-results checkbox <?php echo (isset($filter['working_city'])&& is_array($filter['working_city']) && in_array($row->id, $filter['working_city'])) ? 'active_filter' : ''?>">
                                             <label>
-                                                <input type="checkbox" name="city[]" value="<?php echo $row->id ?>"> <span><?php echo $row->name ?></span>
+                                                <input type="checkbox" name="working_city[]" value="<?php echo $row->id ?>"> <span><?php echo $row->name ?></span>
                                             </label>
                                         </div>
                                     <?php } ?>
@@ -173,7 +173,8 @@ $_data_layout = function () use ($filter) {
 
                         </div>
                     </div>
-                    <a href="#0" class="btn-clear-all"  style="display: none"><!--<i class="pe-7s-close " style="font-size: 32px"></i>-->Xóa bộ lọc</a>
+                    <a href="#0" class="btn-clear-all "  style="display: none"><!--<i class="pe-7s-close " style="font-size: 32px"></i>-->Xóa Bộ Lọc</a>
+
                 </div>
                 <div class="block-content-right  col-md-4 col-sm-8 col-xs-12">
                 <div class="row">

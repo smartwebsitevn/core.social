@@ -122,6 +122,7 @@ $this->register('status_color', function ($status, $label = null) {
  * More_block
  */
 $this->register('more_block', function ($content, $height = 200) {
+    $content= str_replace("\n",'<br/>',$content);
     if(!$content) return;
 
     ob_start(); ?>
@@ -130,10 +131,8 @@ $this->register('more_block', function ($content, $height = 200) {
             <?php echo $content ?>
         </div>
         <div class="mt5">
-            <a href="javascript:void(0)" class="act_block_all" >+ <?php echo lang("view_more") ?>
-                >></a>
-            <a href="javascript:void(0)" class="act_block_short" style="display: none"><?php echo lang("view_less") ?>
-                <<</a>
+            <a href="javascript:void(0)" class="act_block_all" ><?php echo lang("view_more") ?><i class="pe-7s-angle-down"></i></a>
+            <a href="javascript:void(0)" class="act_block_short" style="display: none"><?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
         </div>
     </div>
     <?php return ob_get_clean();
@@ -151,10 +150,8 @@ $this->register('more_list', function ($content, $num = 5, $item = ".item") {
             <?php echo $content ?>
         </div>
         <div class="mt5">
-            <a href="javascript:void(0)" class="act_list_all" style="display: none">+ <?php echo lang("view_more") ?>
-                >></a>
-            <a href="javascript:void(0)" class="act_list_short " style="display: none"><?php echo lang("view_less") ?>
-                <<</a>
+            <a href="javascript:void(0)" class="act_list_all" style="display: none"><?php echo lang("view_more") ?><i class="pe-7s-angle-down"></i></a>
+            <a href="javascript:void(0)" class="act_list_short " style="display: none"><?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
         </div>
     </div>
     <?php return ob_get_clean();
@@ -165,8 +162,10 @@ $this->register('more_list', function ($content, $num = 5, $item = ".item") {
  */
 $this->register('more_word', function ($str, $limit = 20) {
 
-     return $str;
+    // return $str;
     $str=strip_tags($str);
+    $str= str_replace("\n",'<br/>',$str);
+
     if(!$str) return;
     ob_start();
     if (trim($str) === '') {
@@ -185,11 +184,11 @@ $this->register('more_word', function ($str, $limit = 20) {
     <?php else: ?>
         <div class="more_word" >
             <div class="more_word_content">
-                <?php echo $shorted ?>
+                <?php echo  $shorted ?>
             </div>
             <div class="mt5">
-                <a href="javascript:void(0)" class="act_show_all" > <?php echo lang("view_more").'>>' ?> </a>
-                <a href="javascript:void(0)" class="act_show_short"  style="display: none"> <?php echo lang("view_less").'<<' ?> </a>
+                <a href="javascript:void(0)" class="act_show_all" > <?php echo lang("view_more") ?><i class="pe-7s-angle-down"></i></a>
+                <a href="javascript:void(0)" class="act_show_short"  style="display: none"> <?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
             </div>
             <div class="data-content-full" style="display: none"><?php echo $str?></div>
             <div class="data-content-shorted" style="display: none"><?php echo $shorted?></div>
@@ -266,6 +265,7 @@ $this->register('filter_dropdown_category', function ($input) {
     $param = array_get($input, 'param');
     $value = array_get($input, 'value', '');
     $values = array_get($input, 'values', []);
+    $values_opts = array_get($input, 'values_opts', array());
     $name = array_get($input, 'name', lang($param));
 
 
@@ -329,6 +329,7 @@ $this->register('filter_dropdown_country', function ($input) {
     $param = array_get($input, 'param');
     $value = array_get($input, 'value', '');
     $values = array_get($input, 'values', []);
+    $values_opts = array_get($input, 'values_opts', array());
     $name = array_get($input, 'name', lang($param));
 
     //== holder
@@ -381,6 +382,7 @@ $this->register('filter_dropdown_obj', function ($input) {
     $param = array_get($input, 'param');
     $value = array_get($input, 'value', '');
     $values = array_get($input, 'values', []);
+    $values_opts = array_get($input, 'values_opts', array());
     $name = array_get($input, 'name', lang($param));
 
 
@@ -430,6 +432,7 @@ $this->register('filter_dropdown_list', function ($input) {
     $param = array_get($input, 'param');
     $value = array_get($input, 'value', '');
     $values = array_get($input, 'values', []);
+    $values_opts = array_get($input, 'values_opts', array());
     $name = array_get($input, 'name', lang($param));
 
 
@@ -450,10 +453,13 @@ $this->register('filter_dropdown_list', function ($input) {
             </div>
             <span class="search-remove"></span>
             <ul class="dropdown-menu">
-                <li class="search-results  act-filter-dropdown " href="Javascript:;" data-name="<?php echo $param ?>"
-                    data-value="">
-                    <a class="search-results-option " href="#0">Tất cả</a>
-                </li>
+                <?php if (!array_get($values_opts, 'value_required', false)): ?>
+                    <li class="search-results  act-filter-dropdown " href="Javascript:;" data-name="<?php echo $param ?>"
+                        data-value="">
+                        <a class="search-results-option " href="#0">Tất cả</a>
+                    </li>
+                <?php endif; ?>
+
                 <?php foreach ($values as $v => $label):
                     if (is_array($value))
                         $active_status = (in_array($v, $value)) ? 1 : 0;
@@ -479,7 +485,7 @@ $this->register('filter_list', function ($input) {
     $param = array_get($input, 'param');
     $value = array_get($input, 'value', '');
     $values = array_get($input, 'value', []);
-
+    $values_opts = array_get($input, 'values_opts', array());
     //== holder
     $req = array_get($input, 'req');
     $desc = array_get($input, 'desc', '');

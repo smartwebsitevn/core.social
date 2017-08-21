@@ -93,7 +93,7 @@ class Comment_widget extends MY_Widget
 
         // Tao chia trang
         $pages_config = array();
-        if (isset($total)) {
+        if (isset($total) && isset($limit)) {
             $pages_config['page_query_string'] = TRUE;
             $pages_config['base_url'] = current_url() . '?' . url_build_query($filter);
             // pr( $pages_config['base_url'] );
@@ -136,10 +136,11 @@ class Comment_widget extends MY_Widget
         $list = model('comment')->filter_get_list($filter, $input);
        // pr_db($list_sub);
         foreach ($list as &$row) {
-            $user = model('user')->get_info($row->user_id, 'name,avatar,vote_total');
+            $user = model('user')->get_info($row->user_id, 'id,user_group_id,name,avatar,avatar_api,vote_total');
             $row->user = null;
             if ($user) {
-                $user->avatar = file_get_image_from_name($user->avatar, public_url('img/no_user.png'));
+                //$user->avatar = file_get_image_from_name($user->avatar, public_url('img/no_user.png'));
+                $user = mod('user')->add_info($user);
                 $row->user = $user;
             }
             $filter['parent_id'] = $row->id;
@@ -154,18 +155,13 @@ class Comment_widget extends MY_Widget
         ob_start();
         $field_load = array_get($options,'field_load',null);
         $name = $row->user ? $row->user->name : 'admin';
-        $img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
+        //$img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
         $url_comment_reply =isset($options['url_reply'])?$options['url_reply'].'&id='.$row->id: site_url('comment/reply/' . $row->id);
         $url_comment_vote =isset($options['url_vote'])?$options['url_vote'].'&id='.$row->id: site_url('comment/vote/' . $row->id);
         ?>
         <div class="row mt10">
             <div class="col-md-1">
-                <a class="pull-left" href="#">
-                    <img alt=""
-                         src="<?php echo $img ?>"
-                         class="avatar">
-                </a>
-
+                      <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $row->user)); ?>
             </div>
             <div class="col-md-11">
                 <div class="info">
@@ -252,7 +248,7 @@ class Comment_widget extends MY_Widget
         // pr($voted);
         $url_vote= site_url('comment/vote/' . $id );;
         $this->data['can_do'] = $can_do;
-        $this->data['comment'] = $comment;
+        $this->data['info'] = $comment;
         $this->data['voted'] = $voted;
         $this->data['url_like'] = $url_vote. "?act=like";
         $this->data['url_like_del'] =  $url_vote. "?act=like_del";

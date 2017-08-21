@@ -8,9 +8,7 @@
             <div class="item-social <?php echo isset($row->_ads) ? 'item-social-ads' : '' ?> ">
                 <div class="clearfix">
                     <div class="item-photo">
-                        <a href="<?php echo $author->_url_view; ?>" class="item-img">
-                            <img src="<?php echo thumb_img($author->avatar) ?>"                     alt="<?php echo $author->name; ?>">
-                        </a>
+                        <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $author)); ?>
                         <div>
                             <span class="name">
                                  <a href="<?php echo $author->_url_view; ?>" >

@@ -63,7 +63,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
 
     <div class="block-sorter">
         <?php
-        echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
+        echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data,'values_opts'=>['value_required'=>true], 'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
     </div>
 
     <?php return ob_get_clean();
@@ -85,7 +85,7 @@ $_data_sort = function () use ($filter, $total_rows, $sort_orders, $sort_order) 
                                     </li>
                                     <li class="select-input">
                                         <input type="text" class="select-input-field"
-                                               placeholder="Tìm tìm tiêu đề hoặc hashtag #"
+                                               placeholder="Tìm theo tiêu đề"
                                                id="select-input-field" name="name">
                                     </li>
                                     <?php /* ?>
@@ -185,6 +185,7 @@ if ($user):
     $input['where']['us.table'] = 'user';
     $input['where']['us.user_id'] = $user->id;
     $input['join'] = array(array('user_storage us', 'us.table_id = user.id'));
+    //$input['limit'] = array(0,2);
     $filter = array();
     $users = mod('user')->get_list($filter, $input);
     //pr_db($users);
