@@ -543,7 +543,7 @@
                         options.event_complete.call(this, data, options);
                     }
                     else
-                        nfc.server_response(data,$this)
+                        nfc.server_response(data, $this)
                 }
 
                 // Neu khong thanh cong
@@ -1427,8 +1427,8 @@
 
                     // Dua man hinh den item dau tien
                     if (scroll) {
-                     $.scrollTo($this.find(item), 800);
-                     }
+                        $.scrollTo($this.find(item), 800);
+                    }
                 }
 
                 // Hien thi toan bo list
@@ -1536,8 +1536,8 @@
                     $this.find('.more_word_content').html($this.find('.data-content-shorted').html());
                     // Dua man hinh len dau block
                     /*if (scrollTo) {
-                        $.scrollTo($this, 800);
-                    }*/
+                     $.scrollTo($this, 800);
+                     }*/
                     // Xu ly act
                     act_all.show();
                     act_short.hide();
@@ -1747,58 +1747,58 @@ var nfc = {
                 }
 
             });
-            $(document).on('click', '.act-popover',function (e){
+            $(document).on('click', '.act-popover', function (e) {
                 // dong cac popover khac
                 $('.popover').popover('hide');
                 //==
-                var $this =$(this);
-                if($this.hasClass('loaded'))
-                {
-                    if(!$this.hasClass('opened'))
-                    {
+                var $this = $(this);
+                if ($this.hasClass('loaded')) {
+                    if (!$this.hasClass('opened')) {
                         $('.act-popover').removeClass('opened');
                         $this.addClass('opened')
-                        setTimeout(function(){ $this.popover('show')},100 );
+                        setTimeout(function () {
+                            $this.popover('show')
+                        }, 100);
                     }
-                    else{
+                    else {
                         $this.removeClass('opened')
                     }
                     return;
                 }
                 $this.addClass('loaded');
                 $this.addClass('opened');
-                    var display_popover = false;
-                    var content = $(this).data('content');
-                    if (content != undefined) {
+                var display_popover = false;
+                var content = $(this).data('content');
+                if (content != undefined) {
+                    display_popover = true;
+
+                } else {
+                    // load tu 1 element
+                    var element = $(this).data('element');
+                    if (element != undefined) {
+                        content = $(element).html();
                         display_popover = true;
-
                     } else {
-                        // load tu 1 element
-                        var element = $(this).data('element');
-                        if (element != undefined) {
-                            content = $(element).html();
-                            display_popover = true;
-                        } else {
-                            $this.append('<span class="loader_item"><span>');
+                        $this.append('<span class="loader_item"><span>');
 
-                            var url = $(this).data('url');
-                            $.post(url, function (data) {
-                                if (data) {
-                                    $this.find('span.loader_item').remove();
-                                    $this.popover({
-                                        content: function () {
-                                            return data;
-                                        },
-                                        placement: 'bottom auto ',
-                                        trigger: 'click',
-                                        container: 'body',
-                                        html: true
-                                    });
-                                    $this.popover('show')
-                                }
-                            });
-                        }
+                        var url = $(this).data('url');
+                        $.post(url, function (data) {
+                            if (data) {
+                                $this.find('span.loader_item').remove();
+                                $this.popover({
+                                    content: function () {
+                                        return data;
+                                    },
+                                    placement: 'bottom auto ',
+                                    trigger: 'click',
+                                    container: 'body',
+                                    html: true
+                                });
+                                $this.popover('show')
+                            }
+                        });
                     }
+                }
                 if (display_popover) {
                     $this.popover({
                         content: function () {
@@ -1814,20 +1814,18 @@ var nfc = {
 
             });
             $(document).on('click', '.act-load-ajax', function () {
-                var $this =$(this);
-                var url =$this.attr('_url')
-                var field_load =$this.attr('_field') + '_load'
-                var field_show =$this.attr('_field') + '_show'
+                var $this = $(this);
+                var url = $this.attr('_url')
+                var field_load = $this.attr('_field') + '_load'
+                var field_show = $this.attr('_field') + '_show'
                 if (!url) return false;
 
-                if($this.hasClass('loaded'))
-                {
-                    if(!$this.hasClass('opened'))
-                    {
+                if ($this.hasClass('loaded')) {
+                    if (!$this.hasClass('opened')) {
                         $this.addClass('opened')
                         $(field_show).fadeIn('fast');
                     }
-                    else{
+                    else {
                         $this.removeClass('opened')
                         $(field_show).fadeOut('fast');
 
@@ -1839,7 +1837,7 @@ var nfc = {
 
                 nfc.loader('show', field_load);
 
-                $.get(url,  function (data) {
+                $.get(url, function (data) {
                     nfc.loader('hide', field_load);
                     nfc.loader('result', field_show, data);
 
@@ -1861,6 +1859,21 @@ var nfc = {
                 }
             });
 
+            $(document).on('keyup', '.auto_height', function (event) {
+                if (!$(this).prop('scrollTop')) {
+                    do {
+                        var b = $(this).prop('scrollHeight');
+                        var h = $(this).height();
+                        $(this).height(h - 5);
+                    }
+                    while (b && (b != $(this).prop('scrollHeight')));
+                }
+                ;
+                $(this).height($(this).prop('scrollHeight') + 20);
+            });
+
+
+            //=========================
 
             // prevent default anchor click behavior
             $('.anchor-element a').on('click', function () {
@@ -1937,22 +1950,6 @@ var nfc = {
             });
         },
         common_need_reboot: function () {
-            $(".auto_height").keyup(function (e) {
-                autoheight(this);
-            });
-            function autoheight(a) {
-                if (!$(a).prop('scrollTop')) {
-                    do {
-                        var b = $(a).prop('scrollHeight');
-                        var h = $(a).height();
-                        $(a).height(h - 5);
-                    }
-                    while (b && (b != $(a).prop('scrollHeight')));
-                }
-                ;
-                $(a).height($(a).prop('scrollHeight') + 20);
-            }
-
 
             // Number format
             $('.format_number, .input_number').autoNumeric('init', {
@@ -2000,10 +1997,10 @@ var nfc = {
             // sticky
             $('.sticky-element').each(function () {
                 var $this = $(this);
-                var topSpacing =5
+                var topSpacing = 5
                 if ($this.data('spacing') != undefined)
-                    topSpacing =$this.data('spacing')
-                $(this).sticky({topSpacing:topSpacing});
+                    topSpacing = $this.data('spacing')
+                $(this).sticky({topSpacing: topSpacing});
             });
         },
         pagination: function () {
@@ -2481,6 +2478,437 @@ var nfc = {
     },
     action: {
         boot: function () {
+            this.doAction.boot();
+            $(document).on('click', '.form_action input[type=submit],.form_action [_submit]', function (e) {
+                var $this = $(this).closest('.form_action');
+                var options = {
+                    field_load: $this.attr('_field_load'),
+                    event_error: function (data) {
+                        // Reset captcha
+                        //if (data['security_code']){
+                        var captcha = $this.find('img[_captcha]').attr('id');
+                        if (captcha) {
+                            change_captcha(captcha);
+                        }
+                        //}
+                    },
+                };
+
+                nfc.action.formAction($this, options);
+            });
+        },
+        reboot: function () {
+           this.doAction.init();
+        },
+        doAction: {
+            config: '',
+            boot: function () {
+                var action = this;
+                var options = {loading: false, event_complete: '', event_error: ''}
+                $(document).on('click', '.do_action', function (e) {
+                    action.process($(this), options);
+                });
+                //== init toggle
+                 this.init();
+            },
+            init: function () {
+                var action = this;
+                var options = {loading: false, event_complete: '', event_error: ''}
+                  $('.do_action').each(function (){
+                    action.process($(this), options);
+                });
+            },
+            process: function ($this, options) {
+                handle = this.handle($this, options);
+
+                switch (handle.action_type) {
+                    case 'do':
+                        this._do(handle);
+                        break;
+                    case 'confirm':
+                        this._confirm(handle);
+                        break;
+                    case 'toggle':
+                        this._toggle(handle);
+
+                        break;
+                    case 'auto_submit':
+                        this._auto_submit(handle);
+                        break;
+                }
+            },
+            handle: function ($this, options) {
+                // Tao bien xu ly chinh
+                var action_type = $this.data('action');
+                if (!action_type) {
+                    action_type = 'do';
+                }
+                var handle = {
+                    obj: $this,
+                    options: options,
+                    action_type: action_type,
+                    loader: '',  // khu vuc hien thi loader neu khong, he thong se hien loader o giua man hinh
+                    url: '',
+                    data: [],
+                    datatype: 'json',
+                    modaler: null,// modal cua confirm
+                    do_action: function () {
+                        $(this).nstUI('loadAjax', {
+                            url: handle.url,
+                            data: handle.data,
+                            datatype: handle.datatype,
+                            field: {load: handle.loader},
+                            event_complete: function (data, settings) {
+                                // Xu ly data
+                                if (typeof options.event_complete == "function") {
+                                    options.event_complete.call(this, data, options);
+                                }
+                                else {
+                                    nfc.server_response(data)
+                                }
+                                // Reset value
+                                handle.reset();
+                            },
+                            event_error: function (settings) {
+                                // Xu ly data
+                                if (typeof options.event_error == "function") {
+                                    options.event_error.call(this, data, options);
+                                }
+                                /* else
+                                 if(data != undefined)
+                                 nfc.server_response(data)*/
+                                // Reset value
+                                handle.reset();
+
+                            }
+                        });
+                    },
+
+                    is_loading: function () {
+                        return options.loading;
+                    },
+                    set_loading: function () {
+                        options.loading = true;
+                    },
+                    reset: function () {
+                        options.loading = false;
+                        if (action_type == 'confirm') {
+                            handle.modaler.modal('hide')
+                            // go bo su kien de tran bi load lai nhieu lan neu tai thoi diem do co nhieu nut co cung chuc nang
+                            handle.modaler.find('.accept-action').unbind("click");
+                        }
+                    },
+                }
+                return handle;
+            },
+            _do: function (handle) {
+                var url = handle.obj.data('url');
+                url = ( !url) ? handle.obj.attr('href') : url;
+                if (!url) {
+                    return false;
+                }
+                handle.url = url;
+                //- set lai vi tri loader
+                handle.loader = $this.data('loader');
+                // Neu dang xu ly
+                if (handle.is_loading()) {
+                    return false;
+                }
+                // Gan trang thai dang xu ly
+                handle.set_loading();
+                // Thuc hien hanh dong
+
+                handle.do_action();
+            },
+            _confirm: function (handle) {
+                var url = handle.obj.data('url');
+                url = ( !url) ? handle.obj.attr('href') : url;
+                if (!url) {
+                    return false;
+                }
+                var modal_name = 'modal-verify-action';
+                var $modal = $('#' + modal_name);
+                //- set url su ly
+                handle.url = url;
+                //- set lai vi tri loader
+                handle.loader = modal_name + '-load';
+                //=== Hien thi popup
+                handle.modaler = $modal;// luu lai de dung lai
+
+                //- set lai tieu de thong bao neu co
+                var model_title = handle.obj.data('title');
+                if (model_title)
+                    $modal.find('.modal-title').html(model_title);
+                //- set lai noi dung thong bao neu co
+                var model_body = handle.obj.data('notice');
+                if (model_body)
+                    $modal.find('.modal-body').html(model_body);
+                // hien thong bao
+                $modal.modal('show')
+                //= Su ly su kien xac nhan action
+                $modal.find('.accept-action').bind("click", function () {
+                    // Neu dang xu ly
+                    if (handle.is_loading()) {
+                        return false;
+                    }
+                    // Gan trang thai dang xu ly
+                    handle.set_loading();
+                    // Thuc hien hanh dong
+                    handle.do_action();
+                    return false;
+                });
+
+                //= Su ly su kien huy bo action
+                $modal.find('.cancel-action').click(function () {
+                    handle.reset();
+                    return false;
+                });
+            },
+            _toggle: function (handle) {
+
+                $this = handle.obj
+                options = handle.options
+                // trang thai class cua he thong
+                var class_on = 'on';
+                var class_off = 'off';
+
+                var toggle_handle = {
+                    class: function (status, ele) {
+                        if (ele != undefined)
+                            $this = ele;
+
+                        if (status == undefined) {
+                            status = ($this.hasClass(class_on)) ? true : false;
+                        }
+                        //- set tuy chinh class on  neu co
+                        var opt_class_on = $this.data('class-on');
+                        var opt_class_off = $this.data('class-off');
+                        if (opt_class_on == undefined)    opt_class_on = '';
+                        if (opt_class_off == undefined)    opt_class_off = '';
+                        if (status) {
+                            $this.addClass(class_on + ' ' + opt_class_on)
+                            $this.removeClass(class_off + ' ' + opt_class_off);
+
+                        }
+                        else {
+                            $this.addClass(class_off + ' ' + opt_class_off)
+                            $this.removeClass(class_on + ' ' + opt_class_on);
+                        }
+                        toggle_handle.title(status);
+                    },
+                    title: function (status) {
+
+                        if (status == undefined) {
+                            status = ($this.hasClass(class_on)) ? true : false;
+                        }
+
+                        var act = (status) ? class_on : class_off;
+
+                        var title = $this.data('title-' + act);
+                        $this.attr('title', title);
+
+                        var text = $this.data('text-' + act);
+                        $this.html(text);
+                    },
+                    group: function () {
+                        // xoa trang thai cu neu co
+                        if ($this.data('group') != undefined) {
+                            var group_name = $this.data('group')
+                            var $group = $this.closest('.' + group_name);
+                            if ($group != undefined) {
+                                $group.find('[data-group="' + group_name + '"]').each(function () {
+                                    // toggle_handle.class(false,$(this));
+                                    $(this).removeClass(class_on + ' ' + $(this).data('class-on'));
+                                });
+                            }
+                        }
+                        ;
+                    },
+                    click: function () {
+                        // Neu dang xu ly
+                        if (handle.is_loading()) {
+                            return false;
+                        }
+                        // Gan trang thai dang xu ly
+                        handle.set_loading();
+
+                        // Thuc hien hanh dong
+                        var act = (!$this.hasClass(class_on)) ? class_on : class_off;
+                        var url = $this.data('url-' + act);
+
+                        if (!url) return false;
+
+                        var status = (act == class_on) ? true : false;
+
+                        toggle_handle.group();
+                        toggle_handle.class(status);
+
+
+                        //- set url su ly
+                        handle.url = url;
+                        //- set lai vi tri loader
+                        handle.loader = '-';
+                        // alert( handle.url)
+                        // Thuc hien hanh dong
+                        handle.do_action();
+
+
+                        return false;
+                    }
+
+                }
+                toggle_handle.class();
+                toggle_handle.title();
+                toggle_handle.click();
+
+            },
+            _auto_submit: function (handle) {
+                $this = handle.obj
+                options = handle.options
+                var url = $this.data('url');
+                if (!url) {
+                    return false;
+                }
+                handle.url = url;
+                var name = $this.data('name');
+                if (name) {
+                    var obj = {};
+                    obj[name] = $this.val();
+                    handle.data = obj;
+                }
+
+                //- set lai vi tri loader
+                handle.loader = '_'
+                var loader = $this.data('loader');
+                if (loader) {
+                    handle.loader = loader
+                }
+
+
+                // Neu dang xu ly
+                if (handle.is_loading()) {
+                    return false;
+                }
+                // Gan trang thai dang xu ly
+                handle.set_loading();
+                // Thuc hien hanh dong
+
+                handle.do_action();
+            },
+
+
+        },
+        formAction: function ($this, options) {
+            formActionAdvHandle($this, options);
+            function formActionAdvHandle($this, options) {
+                // Neu form dang xu ly thi bo qua
+                if (options.loading) {
+                    return false;
+                }
+
+                // Tao event submit
+                if (typeof options.event_submit == "function") {
+                    var submit = options.event_submit.call(this, options);
+                    if (submit == false) {
+                        return false;
+                    }
+                }
+
+                // Set trang thai loading
+                options.loading = true;
+
+                // Hien thi loader
+                nfc.loader('show', options.field_load);
+
+                // Lay action
+                var action = options.action;
+                action = (!action) ? $this.attr('action') : action;
+                action = (!action) ? window.location.href : action;
+
+                // Lay method
+                var method = $this.attr('method');
+                method = (!method) ? 'POST' : method;
+
+                // tao token cho form
+                //$('<input>').attr({   type: 'hidden', name: 'token',  value: $this.serialize()	}).appendTo($this);
+
+                // Load du lieu va xu ly
+                $this.ajaxSubmit({
+                    url: action,
+                    type: method,
+                    data: {'_submit': 'true'},
+                    dataType: 'json',
+                    success: function (data, statusText, xhr, $form) {
+                        formActionAdvResultHandle(data);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // formActionAdvResultHandle();
+                        alert('Có lỗi xẩy ra trong qua trình xử lý');
+                    }
+                });
+
+                return false;
+            }
+
+            function formActionAdvResultHandle(data) {
+                // Reset trang thai loading
+                options.loading = false;
+                // An loader
+                nfc.loader('hide', options.field_load);
+                // Neu ajax bi loi
+                if (data == undefined) {
+                    if (_is_local) {
+                        alert('Có lỗi xẩy ra trong qua trình xử lý');
+                    }
+                    else {
+                        window.location.reload();
+                    }
+
+                    return;
+                }
+
+                // Reset cac thong bao loi cu
+                $this.find('[name$=_error]').html('').hide();
+
+                // Neu xu ly du lieu thanh cong
+                if (data.complete) {
+                    // Xu ly data
+                    if (typeof options.event_complete == "function") {
+                        options.event_complete.call(this, data, options);
+                    }
+                    else
+                        nfc.server_response(data, $this)
+                }
+
+                // Neu khong thanh cong
+                else {
+                    // Hien thi thong bao loi hien tai
+                    $.each(data, function (param, value) {
+                        if (value.length > 0)
+                            $this.find('[name="' + param + '_error"]').html(value).show('blind', 200);
+                    });
+
+                    // Reset captcha neu co
+                    if (data['security_code']) {
+                        var captcha = $this.find('img[_captcha]').attr('id');
+                        if (captcha) {
+                            var t = $('#' + captcha);
+                            var url = t.attr('_captcha') + '?id=' + Math.random();
+                            t.attr('src', url);
+                        }
+                    }
+                    // Tao event error
+                    if (typeof options.event_error == "function") {
+                        options.event_error.call(this, data, options);
+                    }
+                    else {
+                        nfc.server_response(data)
+                    }
+                }
+            }
+
+        },
+        common: function () {
             $('.do_action').nstUI('doAction');
             // Form handle
             $('.form_action').each(function () {
@@ -2500,14 +2928,12 @@ var nfc = {
                 });
             });
         },
-        reboot: function () {
-            this.boot();
-        },
+
     },
     /* Handle_response
      * Khu vuc Su ky ket qua tra ve tu may chu
      * */
-    server_response: function (data,ele) {
+    server_response: function (data, ele) {
         //nfc.pr(data);
         // Thong bao dang alert sau khi hoan thanh
         if (data.msg != undefined) {
@@ -2572,10 +2998,10 @@ var nfc = {
         if (data.reload != undefined && data.reload) {
             window.location.reload();
         }
-         if (ele !=undefined){
-             nfc.catch_hook_event(ele);
+        if (ele != undefined) {
+            nfc.catch_hook_event(ele);
 
-         }
+        }
     },
     //== Khu vuc thong bao
     notice: function (content, title, sticky) {
@@ -2877,8 +3303,8 @@ function moduleCoreFilter(option) {
 
     var matches = 0;
     $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
-       if ($(this).val())
-        matches++;
+        if ($(this).val())
+            matches++;
     });
     $("#form_filter_advance .block-filter input[type=checkbox]").each(function (i, val) {
         if ($(this).is(":checked"))
@@ -2955,7 +3381,7 @@ function moduleUserFilter(option) {
     var matches = 0;
     $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
         if ($(this).val())
-        matches++;
+            matches++;
     });
     //alert(matches);
     if (matches > 1)

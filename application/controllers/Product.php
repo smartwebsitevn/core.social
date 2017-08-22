@@ -845,7 +845,7 @@ class Product extends MY_Controller
         }
         $total_featured =model('comment')->filter_get_total(['table_id'=>$info->id,'table_type'=>'product','featured'=>1]);
         $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
-        echo widget('comment')->display_list($info, 'product',['featured'=>0],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+        echo widget('comment')->comment_list($info, 'product',['featured'=>0],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
     }
 
     function _comment_add($info)
@@ -892,10 +892,12 @@ class Product extends MY_Controller
             model("comment")->create($data,$id);
             // Khai bao du lieu tra ve
 
-            $total_featured =model('comment')->filter_get_total(['id_lte'=>$id,'table_id'=>$info->id,'table_name'=>'product','featured'=>1]);
+            $total_featured =model('comment')->filter_get_total(['id_lt'=>$id,'table_id'=>$info->id,'table_name'=>'product','featured'=>1]);
+           // pr_db($total_featured);
             $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
-            //$tmpl = 'tpl::_widget/product/comment/list';
-            $data_comment = widget('comment')->display_list($info, 'product',['id_gte'=>$id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+           // $tmpl = 'tpl::_widget/product/comment/list';
+            $data_comment = widget('comment')->comment_list($info, 'product',['id_gte'=>$id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            //$data_comment = widget('comment')->comment_list($info, 'product',[],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['elements'] = [
                 ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
@@ -970,7 +972,7 @@ class Product extends MY_Controller
             //==gui thong bao
             // gui cho chu topic
             if ($comment->user_id && $comment->user_id != $user->id)
-                mod('user_notice')->send($comment->user_id, $user->name . ' đã trả lởi bình luận của bạn', ['url' => $model->_url_view]);
+                mod('user_notice')->send($comment->user_id, $user->name . ' đã trả lởi bình luận của bạn', ['url' => $info->_url_view]);
             // gui cho nhung nguoi dang binh luan topic nay
             $comments = model('comment')->filter_get_list(['parent_id' => $comment->id]);
             if ($comments) {
@@ -988,14 +990,11 @@ class Product extends MY_Controller
             //== Khai bao du lieu tra ve
             $result['complete'] = TRUE;
 
-            $total_featured =model('comment')->filter_get_total(['id_lte'=>$id,'table_id'=>$info->id,'table_name'=>'product','featured'=>1]);
-            $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
-
-           // $tmpl = 'tpl::_widget/product/comment/list';
-            $data_comment = widget('comment')->display_list($info, 'product',['id_gte'=>$id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $tmpl = 'tpl::_widget/product/comment/list_no_form';
+            $data_comment = widget('comment')->comment_list($info, 'product',['parent_id'=>$comment->id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['elements'] = [
-                ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
+                ['pos' => '#reply_' . $comment->id . '_comment_show', 'data' => $data_comment],
                 ['pos' => '#' . $info->id . '_comment_total', 'data' =>  $info->comment_count + 1]
             ];
 

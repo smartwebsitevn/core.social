@@ -5,8 +5,8 @@
              data-group="action_vote_group"
              data-url-on="<?php echo $url_like ?>"
              data-url-off="<?php echo $url_like_del ?>"
-             data-title-on='<?php echo lang("action_vote_del") ?>'
-             data-title-off='<?php echo lang("action_favorite") ?>'
+             data-title-on='Hủy cộng điểm<?php //echo lang("action_vote_del") ?>'
+             data-title-off='Cộng điểm<?php //echo lang("action_favorite") ?>'
              data-class-on="active"
               >
               <i class="pe-7s-up-arrow"></i>
@@ -17,8 +17,8 @@
      data-group="action_vote_group"
      data-url-on="<?php echo $url_dislike ?>"
      data-url-off="<?php echo $url_dislike_del ?>"
-     data-title-on='<?php echo lang("action_vote_del") ?>'
-     data-title-off='<?php echo lang("action_favorite") ?>'
+     data-title-on='Hủy trừ điểm<?php //echo lang("action_vote_del") ?>'
+     data-title-off='Trừ điểm<?php //echo lang("action_favorite") ?>'
      data-class-on="active"
       >
       <i class="pe-7s-bottom-arrow"></i>

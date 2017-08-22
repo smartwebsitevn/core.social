@@ -21,11 +21,10 @@
                         </div>
 
                         <div class="item-desc">
+                            <?php // echo macro()->more_word($row->desc, 45); ?>
                             <?php echo macro()->more_block($row->desc, 55); ?>
 
                         </div>
-
-
                         <div class="item-action">
 
                             <?php // widget('user')->action_follow($row,$user) ?>

@@ -64,54 +64,49 @@ class Comment_widget extends MY_Widget
         $temp = (!$temp) ? 'tpl::_widget/comment/form' : $temp;
         $this->load->view($temp, $this->data);
     }
-
-    function display_list($info, $type,$filter=[],$input=[], $temp = '', $temp_options = array())
+    function comment_list($info, $type,$filter=[],$input=[], $temp = '', $temp_options = array())
     {
         $user = user_get_account_info();
         if ($user)
             $user = mod('user')->add_info($user);
 
-        // Tai cac file thanh phan
         $filter['status']= config('verify_yes', 'main');
-        $filter['table_id']= $info->id;
-        $filter['table_name']= $type;
-        $total = model('comment')->filter_get_total($filter);
-
-        $page_size = 5;
-        $input['order'] = array('created', 'DESC');
-
-        if (!isset($input['limit'])) {
-            $limit = $this->input->get('per_page');
-            $limit = min($limit, $total - fmod($total, $page_size));
-            $limit = max(0, $limit);
-            //== Lay danh sach
-            $input['limit'] = array($limit, $page_size);
-        }
-        // chi hien cap 1
-        $filter['parent_id'] = 0;
-        $list = $this->get_list($filter,$input);
-
-        // Tao chia trang
-        $pages_config = array();
-        if (isset($total) && isset($limit)) {
-            $pages_config['page_query_string'] = TRUE;
-            $pages_config['base_url'] = current_url() . '?' . url_build_query($filter);
-            // pr( $pages_config['base_url'] );
-            // $pages_config['base_url'] = current_url(1);
-            $pages_config['total_rows'] = $total;
-            $pages_config['per_page'] = $page_size;
-            $pages_config['cur_page'] = $limit;
-        }
-
-        $this->data['pages_config'] = $pages_config;
-
-        $this->data['type'] = $type;
+        $list = $this->get_list($info->id,$type,$filter,$input);
 
         $this->data['user'] = $user;
         $this->data['info'] = $info;
+        $this->data['type'] = $type;
+        $this->data['list'] = $list[0];
+        $this->data['pages_config'] = $list[1];
+        $this->data['load_more'] =  $this->input->get("load_more", false);
+
+        // Hien thi view
+        // $temp = (!$temp) ? 'site/_widget/'.$type.'/comment/list' : $temp;
+        $temp_full = array_get($temp_options, 'temp_full', false);
+
+        if (!$temp_full) {
+            $temp = (!$temp) ? 'list' : $temp;
+            $temp = 'site/_widget/comment/' . $temp;
+        }
+        $return = array_get($temp_options, 'return_data', false);
+        if ($return)
+            return $this->_display($this->_make_view($temp, __FUNCTION__), $return);
+        else
+            $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
+
+    function display_list($info, $type,$list,$pages_config, $temp = '', $temp_options = array())
+    {
+        $user = user_get_account_info();
+        if ($user)
+            $user = mod('user')->add_info($user);
+
+        $this->data['user'] = $user;
+        $this->data['info'] = $info;
+        $this->data['type'] = $type;
         $this->data['list'] = $list;
-        $this->data['total'] = $total;
-        $this->data['page_size'] = $page_size;
+        $this->data['pages_config'] = $pages_config;
+
         $this->data['load_more'] =  $this->input->get("load_more", false);
 
         // Hien thi view
@@ -130,11 +125,46 @@ class Comment_widget extends MY_Widget
         else
             $this->_display($this->_make_view($temp, __FUNCTION__));
     }
+    function get_list($table_id, $table_type,$filter=[],$input=[])
+    {
+        // Tai cac file thanh phan
+        $filter['status']= config('verify_yes', 'main');
+        $filter['table_id']= $table_id;
+        $filter['table_name']= $table_type;
+        $total = model('comment')->filter_get_total($filter);
 
-    function get_list($filter,$input=[])
+        $page_size = 5;
+        $input['order'] = array('created', 'DESC');
+
+        if (!isset($input['limit'])) {
+            $limit = $this->input->get('per_page');
+            $limit = min($limit, $total - fmod($total, $page_size));
+            $limit = max(0, $limit);
+            //== Lay danh sach
+            $input['limit'] = array($limit, $page_size);
+        }
+        // chi hien cap 1
+
+        $filter['parent_id'] =  array_get($filter, 'parent_id', 0);
+        $list = $this->builder_list($filter,$input);
+
+        // Tao chia trang
+        $pages_config = array();
+        if (isset($total) && isset($limit)) {
+            $pages_config['page_query_string'] = TRUE;
+            $pages_config['base_url'] = current_url() . '?' . url_build_query($filter);
+            // pr( $pages_config['base_url'] );
+            // $pages_config['base_url'] = current_url(1);
+            $pages_config['total_rows'] = $total;
+            $pages_config['per_page'] = $page_size;
+            $pages_config['cur_page'] = $limit;
+        }
+        return [$list,$pages_config];
+    }
+    function builder_list($filter,$input=[])
     {
         $list = model('comment')->filter_get_list($filter, $input);
-       // pr_db($list_sub);
+       // pr_db();
         foreach ($list as &$row) {
             $user = model('user')->get_info($row->user_id, 'id,user_group_id,name,avatar,avatar_api,vote_total');
             $row->user = null;
@@ -144,7 +174,7 @@ class Comment_widget extends MY_Widget
                 $row->user = $user;
             }
             $filter['parent_id'] = $row->id;
-            $row->subs = $this->get_list($filter);
+            $row->subs = $this->builder_list($filter);
         }
         return $list;
 
@@ -154,7 +184,7 @@ class Comment_widget extends MY_Widget
     {
         ob_start();
         $field_load = array_get($options,'field_load',null);
-        $name = $row->user ? $row->user->name : 'admin';
+        $name = isset($row->user) ? $row->user->name : 'admin';
         //$img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
         $url_comment_reply =isset($options['url_reply'])?$options['url_reply'].'&id='.$row->id: site_url('comment/reply/' . $row->id);
         $url_comment_vote =isset($options['url_vote'])?$options['url_vote'].'&id='.$row->id: site_url('comment/vote/' . $row->id);
@@ -177,7 +207,7 @@ class Comment_widget extends MY_Widget
 
                 <p class="comment-content"><?php echo $row->content ?></p>
 
-                <?php if ($row->level < 2): ?>
+                <?php if ($row->level < 5): ?>
                     <div class="comment-action">
                         <?php echo widget('comment')->action_vote($row) ?>
 
@@ -208,6 +238,7 @@ class Comment_widget extends MY_Widget
                             </div>
 
                         </form>
+                        <div id="reply_<?php echo $row->id; ?>_comment_show">
                         <?php if (isset($row->subs) && $row->subs): ?>
                             <ul class="list-unstyled list-comment-<?php echo $row->id ?>">
                                 <?php foreach ($row->subs as $sub): //pr($sub);?>
@@ -217,6 +248,7 @@ class Comment_widget extends MY_Widget
                                 <?php endforeach; ?>
                             </ul>
                         <?php endif; ?>
+                        </div>
                     </div>
                 <?php endif; ?>
             </div>

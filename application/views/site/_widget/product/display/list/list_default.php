@@ -33,7 +33,7 @@
                         </div>
                         <div class="item-time"><?php echo $row->_created_full; ?>  </div>
                         <div class="item-desc">
-                            <?php echo macro()->more_word($row->description, 45); ?>
+                            <?php echo macro()->more_block($row->description, 110); ?>
                         </div>
                         <div class="item-files">
                             <?php t('view')->load('tpl::_widget/product/display/item/info_files',['row'=>$row])?>
@@ -77,7 +77,7 @@
 
     <?php endif; ?>
     <?php if (t('input')->is_ajax_request() && isset($pages_config)) : ?>
-        <?php echo t('view')->load('tpl::_widget/product/display/list/_reload_js'); ?>
+        <?php //echo t('view')->load('tpl::_widget/product/display/list/_reload_js'); ?>
         <?php widget('product')->display_pagination($pages_config); ?>
     <?php endif; ?>
 

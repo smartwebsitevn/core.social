@@ -781,9 +781,12 @@ class Product_widget extends MY_Widget
     function action_comment($row,$temp = '')
     {
         $this->data['row'] = $row;
-        $list = widget('comment')->display_list($row, 'product',['featured'=>1],['limit'=>[0,1000]],  'tpl::_widget/product/comment/list_manager', ['return_data' => 1, 'temp_full' => 1]);
+        $list_builded=null;
+        $list = widget('comment')->get_list($row->id, 'product',['featured'=>1],['limit'=>[0,1000]]);
+        if($list[0])
+            $list_builded = widget('comment')->display_list($row, 'product',$list[0],$list[1], 'tpl::_widget/product/comment/list_manager', ['return_data' => 1, 'temp_full' => 1]);
         $total = model('comment')->get_total(['table_name'=>'product','table_id'=>$row->id,'featured'=>0]);
-        $this->data['list'] =$list;
+        $this->data['list'] =$list_builded;
         $this->data['total'] =$total;
         $this->data['url_comment'] = $row->_url_comment;
         // Hien thi view

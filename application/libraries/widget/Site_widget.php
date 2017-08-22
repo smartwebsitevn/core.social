@@ -587,6 +587,13 @@ class Site_widget extends MY_Widget {
 		}
 	}
 
+	/**
+	 * Hien thi phan trang
+	 */
+	function js_reboot()
+	{
+		$this->load->view('tpl::_widget/site/js_reboot');
+	}
 
 
 }
