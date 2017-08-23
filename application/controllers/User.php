@@ -695,7 +695,6 @@ class User extends MY_Controller
         // Tai cac file thanh phan
         $this->load->library('form_validation');
         $this->load->helper('form');
-
         // Xu ly form
         if ($this->input->post('_submit')) {
             // Gan dieu kien cho cac bien

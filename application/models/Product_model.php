@@ -67,6 +67,7 @@ class Product_model extends MY_Model
         'id','!id','id_gt', 'id_gte', 'id_lt', 'id_lte',
         'seo_url',  'BINARY seo_url',
         'is_feature', 'is_new', 'is_soon',   'is_sellbest', 'is_alway_in_stock', 'is_live',  'is_slide',  'is_in_menu', 'is_show',
+        'is_draft','is_form',
         'status','created', 'created_to',
     );
     public $fields_rule = array(

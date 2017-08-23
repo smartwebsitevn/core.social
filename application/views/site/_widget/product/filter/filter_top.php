@@ -24,7 +24,7 @@ foreach ($sort_orders as $v) {
     <div>
         <div class="block-sorter">
             <?php
-            echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'values_opts'=>['value_required'=>true],'param' => 'order', 'name' => 'Mới nhất', 'class' => 'sort-dropdown']); ?>
+            echo macro()->filter_dropdown_list(['value' => $sort_order, 'values' => $sort_orders_data, 'values_opts'=>['value_required'=>true],'param' => 'order', 'name' => lang('ordering_' . $sort_orders[0]), 'class' => 'sort-dropdown']); ?>
         </div>
         <?php /* ?>
         <div class="block-layout act-filter-choice-group">

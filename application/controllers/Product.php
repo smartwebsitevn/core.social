@@ -899,6 +899,8 @@ class Product extends MY_Controller
             $data_comment = widget('comment')->comment_list($info, 'product',['id_gte'=>$id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             //$data_comment = widget('comment')->comment_list($info, 'product',[],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
+            $result['reset_form'] = TRUE;
+
             $result['elements'] = [
                 ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
                 ['pos' => '#' . $info->id . '_comment_total', 'data' =>  $info->comment_count + 1]
@@ -989,6 +991,7 @@ class Product extends MY_Controller
             }
             //== Khai bao du lieu tra ve
             $result['complete'] = TRUE;
+            $result['reset_form'] = TRUE;
 
             $tmpl = 'tpl::_widget/product/comment/list_no_form';
             $data_comment = widget('comment')->comment_list($info, 'product',['parent_id'=>$comment->id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);

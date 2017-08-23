@@ -7,6 +7,7 @@
         {
             $(document).ready(function()
             {
+
                 var $main = $('.file_list_<?php echo $_rd; ?>');
                 var sort = <?php echo 1//(int) $sort; ?>;
                 $main.find('.do_action').nstUI('doAction',{

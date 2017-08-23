@@ -437,7 +437,7 @@
         .media {
           border: 1px solid #eee;
           padding: 10px;
-          height: 150px;
+          min-height: 50px;
           a {
             color: _palette(text-3);
           }

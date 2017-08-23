@@ -369,8 +369,35 @@ body.user-account .main-content .panel {
   body.user-account .main-content .panel .panel-body {
     background: #fff;
     padding: 40px; }
-  body.user-account .main-content .panel .user_avatar {
-    height: 100px; }
+  body.user-account .main-content .panel .item-photo {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 180px;
+    float: left;
+    text-align: center; }
+    body.user-account .main-content .panel .item-photo .item-img {
+      width: 120px;
+      float: left; }
+      body.user-account .main-content .panel .item-photo .item-img img {
+        display: inline-block;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 5px;
+        border-radius: 100%; }
+    body.user-account .main-content .panel .item-photo .item-label {
+      color: #eb8305;
+      font-size: 30px;
+      font-weight: bold;
+      bottom: 5px;
+      left: 90px;
+      position: absolute;
+      background: #fff;
+      border-radius: 100%;
+      width: 33px;
+      height: 33px;
+      text-align: center;
+      vertical-align: middle; }
   body.user-account .main-content .panel form {
     /* padding: 20px;*/ }
     body.user-account .main-content .panel form .form-group {

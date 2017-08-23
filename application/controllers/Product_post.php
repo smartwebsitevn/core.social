@@ -84,6 +84,7 @@ class Product_post extends MY_Controller
         $url= $this->input->get('url');
         if (!$url) return;
 
+        $this->data['link']= $url;
         $this->data['tags']= $this->_get_url_data($url);
         return view('tpl::product_post/form/_common/metas', $this->data, 1);
     }
@@ -157,6 +158,16 @@ class Product_post extends MY_Controller
     /**
      * Them moi
      */
+    function _ajax_post_link($id)
+    {
+        $form = array();
+        $form['validation']['params'] =['link'];
+        $form['submit'] = function () use ($id) {
+            return;
+        };
+        $this->_form($form);
+
+    }
     function _ajax_post_youtube($id)
     {
         $form = array();
@@ -300,7 +311,7 @@ class Product_post extends MY_Controller
     {
         $act = $this->input->get('_act');
         if ($act && $this->input->is_ajax_request()) {
-            if (!in_array($act, ['post_youtube', 'load_types', 'load_url', 'load_files'])) return;
+            if (!in_array($act, ['post_youtube', 'post_link','load_types', 'load_url', 'load_files'])) return;
             set_output('html', $this->{'_ajax_' . $act}($id));
             return;
         }
@@ -366,10 +377,21 @@ class Product_post extends MY_Controller
         $rules = parent::_form_set_rules($params);
 
         $rules['youtube'] = array('youtube', 'required|trim|xss_clean|callback__check_youtube');
+        $rules['link'] = array('link', 'trim|xss_clean|callback__check_link');
 
         $this->form_validation->set_rules_params($params, $rules);
     }
     // Su ly link thuoc loai chuyen biet
+    function _check_link($link)
+    {
+        if(!$link)  return true;
+    	// Check Url invalid
+        if (! filter_var ( $link, FILTER_VALIDATE_URL )) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_value_invalid'));
+            return FALSE;
+        }
+        return true;
+    }
     function _check_youtube($link)
     {
         $rs =lib('youtube')->getVideoInfo($link,false);

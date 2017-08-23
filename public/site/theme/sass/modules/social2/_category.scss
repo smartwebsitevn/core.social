@@ -393,7 +393,8 @@
         .media {
           border: 1px solid #eee;
           padding: 10px;
-          height: 150px;
+          min-height: 50px;
+          margin-bottom: 20px;
           a {
             color: _palette(text-3);
           }
@@ -422,7 +423,7 @@
         display: block;
         margin-top: 10px;
         margin-bottom: 10px;
-        padding-bottom: 15px;
+       /* padding-bottom: 15px;*/
       }
      /* .item-files {
         a {

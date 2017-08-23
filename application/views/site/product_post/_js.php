@@ -30,34 +30,49 @@
                             load_ajax($('.file_list_media'));
                         },
                     });
+                    $('.form_action_link').nstUI('formActionAdv', {
+                        event_complete: function (data) {
+                            $('#modal_share_link').modal('hide')
+                            var url= $('#modal_share_link').find('[name=link]').val();
+
+                            $(this).nstUI('loadAjax', {
+                                url: "<?php echo current_url(); ?>?_act=load_url&url=" + url,
+                                field: {load: '_'},
+                                datatype: 'html',
+                                event_complete: function (data) {
+                                    $('#form').find('#data_link').html(data);
+                                },
+
+                            })
+                        },
+                    });
                     $main.find('.act-do-submit').bind("click", function () {
                         var draft = $(this).data('draft')
                         if (draft != undefined) {
                             $main.find('input[name=is_draft]').val(draft)
                         }
-
                         $main.nstUI('formActionAdv', {
                             submit: true,
                         });
                     })
                     <?php if($info):?>
                         <?php if($info['type'] =='media'):?>
-                            upload_media_show()
+                           // upload_media_show()
                         <?php else:?>
-                            upload_link_show()
+                           // upload_link_show()
                         <?php endif?>
                     <?php endif?>
-                    $("#upload-media").click(function () {
+
+                   /* $("#upload-media").click(function () {
                         upload_media_show()
                         return false;
                     });
                     $("#upload-link").click(function () {
                         upload_link_show()
                         return false;
-                    });
+                    });*/
 
-
-                    $('input[name="link"]').on('change', function () {
+                    /*$('input[name="link"]').on('change', function () {
                         var url = $(this).val()
                         if (!validURL(url))
                             return;
@@ -70,7 +85,7 @@
                             },
 
                         });
-                    });
+                    });*/
                 },
             };
             form.init();

@@ -427,10 +427,12 @@ class User_page extends MY_Controller
     }
     public function _my_posts_draft()
     {
+
         $user = $this->data['user'];
         // Filter set
         $filter = array();
         $filter['user_id'] = $user->id;
+        $filter['is_draft'] = 1;
         $this->_post_create_list([], $filter);
     }
     public function _my_posts_save()
@@ -438,8 +440,10 @@ class User_page extends MY_Controller
         $user = $this->data['user'];
         // Filter set
         $filter = array();
-        $filter['user_id'] = $user->id;
-        $this->_post_create_list([], $filter);
+       // $filter['user_id'] = $user->id;
+        $input['where']['f.user_id'] = $user->id;
+        $input['join'] = array(array('product_to_favorite f', 'f.product_id = product.id'));
+        $this->_post_create_list($input, $filter);
     }
 
 
@@ -472,7 +476,7 @@ class User_page extends MY_Controller
     public function _view_follow()
     {
         $user = $this->data['user'];
-        $input['where']['us.action'] = 'follow';
+        $input['where']['us.action'] = 'subscribe';
         $input['where']['us.table'] = 'user';
         $input['where']['us.user_id'] = $user->id;
         $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
@@ -483,7 +487,7 @@ class User_page extends MY_Controller
     public function _view_follow_by()
     {
         $user = $this->data['user'];
-        $input['where']['us.action'] = 'follow';
+        $input['where']['us.action'] = 'subscribe';
         $input['where']['us.table'] = 'user';
         $input['where']['us.table_id'] = $user->id;
         $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
@@ -568,7 +572,7 @@ class User_page extends MY_Controller
         }*/
         // pr($filter);
         $list = model('product')->filter_get_list($filter, $input);
-      // pr_db($filter);
+       // pr_db($filter);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row);
         }
@@ -733,7 +737,7 @@ class User_page extends MY_Controller
         }*/
         $list = model('user')->filter_get_list($filter, $input);
         // pr($filter,0);
-        //pr_db($list);
+       // pr_db($filter);
         foreach ($list as $row) {
             $row = mod('user')->add_info($row);
         }

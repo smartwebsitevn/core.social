@@ -63,7 +63,7 @@ class User_account extends MY_Controller
 
         $rules['username'] = array('username', 'required|trim|xss_clean|alpha_dash|min_length[5]|max_length[30]|filter_html|callback__check_username');
         $rules['name'] = array('full_name', 'required|trim|min_length[5]|max_length[30]|filter_html|xss_clean');
-        $rules['profession'] = array('profession', 'trim|min_length[5]|max_length[30]|filter_html|xss_clean');
+        $rules['profession'] = array('profession', 'trim|min_length[5]|max_length[100]|filter_html|xss_clean');
         $rules['phone'] = array('phone', 'trim|xss_clean|callback__check_phone|max_length[15]|xss_clean');
         $rules['address'] = array('address', 'trim|max_length[255]|filter_html|xss_clean');
         $rules['security_code'] = array('security_code', 'required|captcha[four]');
@@ -558,10 +558,11 @@ class User_account extends MY_Controller
             $user->can_edit_email = true;
         }
 
-        $user->can_edit_phone = false;
+       /* $user->can_edit_phone = false;
         if ($user->register_sms != 1 && $user->edit_phone == 0) {
             $user->can_edit_phone = true;
-        }
+        }*/
+        $user->can_edit_phone = true;
 
         $user->can_edit_username = false;
         if (($user->register_sms == 1 || $user->register_api == 1) && $user->edit_username == 0) {
@@ -600,15 +601,20 @@ class User_account extends MY_Controller
             $user->can_edit_email = true;
         }
 
-        $user->can_edit_phone = false;
+        /*$user->can_edit_phone = false;
         if ($user->register_sms != 1 && $user->edit_phone == 0) {
             $user->can_edit_phone = true;
-        }
+        }*/
+        $user->can_edit_phone = true;
+
 
         $user->can_edit_username = false;
         if (($user->register_sms == 1 || $user->register_api == 1) && $user->edit_username == 0) {
             $user->can_edit_username = true;
         }
+
+
+
 
         $form['validation']['params'] = $this->_edit_params($user);
 
@@ -618,6 +624,7 @@ class User_account extends MY_Controller
         };
 
         $form['form'] = function () use ($user) {
+            redirect($this->_url());
             page_info('title', lang('title_user_edit'));
             $this->_edit_view($user);
             $this->_display();

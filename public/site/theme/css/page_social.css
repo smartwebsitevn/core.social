@@ -407,7 +407,7 @@
         .block-products-items .list-social .item-social .item-media .media {
           border: 1px solid #eee;
           padding: 10px;
-          height: 150px; }
+          min-height: 50px; }
           .block-products-items .list-social .item-social .item-media .media a {
             color: #999999; }
       .block-products-items .list-social .item-social .item-name {

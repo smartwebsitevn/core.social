@@ -163,9 +163,8 @@ $this->register('more_list', function ($content, $num = 5, $item = ".item") {
 $this->register('more_word', function ($str, $limit = 20) {
 
     // return $str;
-    $str=strip_tags($str);
+    //$str=strip_tags($str);
     $str= str_replace("\n",'<br/>',$str);
-
     if(!$str) return;
     ob_start();
     if (trim($str) === '') {

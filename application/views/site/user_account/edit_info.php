@@ -38,6 +38,7 @@
             'name' => lang('profession'),
             'value' => $user->profession,
             'req' => true,
+            'attr' => ['placehold'=>'CEO tại Smartwebsite.vn'],
         ]);
 
         if ($user->can_edit_email) {
@@ -148,7 +149,9 @@
             'name' => 'Tự giới thiệu',
             'param' => 'desc',
             'value' => $user->desc,
-            'type' => "textarea"
+            'type' => "textarea",
+            'attr' => ['size'=>'15'],
+
         ]);
 
         /*echo macro('mr::form')->row(    [

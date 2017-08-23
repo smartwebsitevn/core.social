@@ -8,8 +8,8 @@
     <iframe width="100%" height="300px"
             src="https://www.youtube.com/embed/<?php echo $link ?>?rel=0"
             frameborder="0" allowfullscreen></iframe>
-
-<?php elseif (isset($row->link) && $row->link):
+<?php endif; ?>
+<?php if (isset($row->link) && $row->link):
     $tags = json_decode($row->link_data, 1);
     //pr($tags);
     ?>
@@ -30,7 +30,8 @@
         </a>
 
     </div>
-<?php elseif (isset($row->images) && $row->images):
+<?php endif; ?>
+<?php if (isset($row->images) && $row->images):
     $total_images = count($row->images);
     //pr($row->images)
     ?>

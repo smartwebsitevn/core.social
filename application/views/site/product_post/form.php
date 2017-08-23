@@ -38,5 +38,6 @@
 </div>
 
 <?php t('view')->load('tpl::product_post/form/modal_youtube') ?>
+<?php t('view')->load('tpl::product_post/form/modal_link') ?>
 
 <?php t('view')->load('tpl::product_post/_js') ?>

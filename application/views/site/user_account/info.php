@@ -15,7 +15,9 @@
 		<tbody>
 		<tr>
 			<td width="25%">
-				<img src="<?php echo $user->avatar->url_thumb ?> "  class="user_avatar">
+				<div class="item-photo">
+				<?php t('view')->load('tpl::_widget/user/display/item/info_avatar',['row'=>$user]) ?>
+				</div>
 			</td>
 			<td><?php //echo $user->email; ?></td>
 		</tr>

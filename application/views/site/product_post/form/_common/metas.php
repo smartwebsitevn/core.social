@@ -1,4 +1,5 @@
-<div class="media">
+<div class="media  mt40 mb40">
+    <input type="hidden" name="link" value="<?php echo $link ?>">
     <?php if( isset($tags['image'])): ?>
     <div class="media-left">
         <a href="#">

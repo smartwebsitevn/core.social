@@ -199,12 +199,12 @@ class Product_list extends MY_Controller
         }
         //== Sort Order
         $sort_orders = array(
-            'id|desc',
             'feature|desc',
+            'id|desc',
+            'point_total|desc',
             //'price|asc',
             //'price|desc',
-            'point_total|desc',
-           // 'view_total|desc',
+            // 'view_total|desc',
             /*'count_buy|desc',
             'new|desc',
 

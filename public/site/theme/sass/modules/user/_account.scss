@@ -33,9 +33,41 @@ body.user-account {
         background: #fff;
         padding: 40px;
       }
-      .user_avatar{
-        height: 100px;
+      .item-photo {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 180px;
+        float: left;
+        text-align: center;
+        .item-img {
+          width: 120px;
+          float: left;
+          img {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 5px;
+            border-radius: 100%;
+          }
+
+        }
+        .item-label {
+          color: _palette(button-3);
+          font-size: 30px;
+          font-weight: bold;
+          bottom: 5px;
+          left: 90px;
+          position: absolute;
+          background: #fff;
+          border-radius: 100%;
+          width: 33px;
+          height: 33px;
+          text-align: center;
+          vertical-align: middle;
+        }
       }
+
       form {
         /* padding: 20px;*/
         .form-group {

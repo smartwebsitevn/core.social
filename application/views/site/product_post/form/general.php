@@ -43,15 +43,20 @@
             <div name="type_error" class="error"></div>
         </div>
         <div class="form-group">
-            <div class="upload-action row p40" >
-                <div class="col-md-6">
+            <!--<div class="upload-action row p40" >
+                <div class="col-md-4">
                     <a id="upload-media" class="upload-type">
                         <i class="pe-7s-photo"></i>
-                       <span>Up hình ảnh</span> <br>
+                       <span>Up hình ảnh</span>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a id="upload-media" class="upload-type">
+                        <i class="pe-7s-photo"></i>
                         <span>Chia sẻ video</span>
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <a id="upload-link" class="upload-type">
                         <i class="pe-7s-exapnd2"></i>
                         <span>Chia se</span><br>
@@ -59,9 +64,19 @@
 
                     </a>
                 </div>
+            </div>-->
+            <?php //t('view')->load('tpl::product_post/form/post_link') ?>
+            <?php //t('view')->load('tpl::product_post/form/post_media') ?>
+            <div id="upload-media-content" class="upload-action-data" >
+                <?php widget('site')->upload($widget_upload_images, array('temp' => 'tpl::_widget/product/upload/medias')) ?>
             </div>
-            <?php t('view')->load('tpl::product_post/form/post_link') ?>
-            <?php t('view')->load('tpl::product_post/form/post_media') ?>
+            <div id="data_link">
+                <?php if($info): ?>
+                    <?php t('view')->load('tpl::product_post/form/_common/metas',['link'=>$info['link'],'tags'=>json_decode($info['link_data'],true)]) ?>
+
+                <?php endif; ?>
+
+            </div>
         </div>
     </div>
     <div class="block-info">

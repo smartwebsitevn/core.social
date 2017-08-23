@@ -3,6 +3,12 @@
 }
 .comment-list {
   font-size: 12px;
+  .item-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    display: flex;
+  }
   img {
     border-radius: 100%;
   }
@@ -14,6 +20,7 @@
       border-bottom: none;
     }
   }
+
   .avatar {
     float: left;
     margin-bottom: 12px;
@@ -21,6 +28,7 @@
     width: 35px;
     height: 35px;
     max-width: none;
+    border-radius: 100%;
 
   }
   .name {
