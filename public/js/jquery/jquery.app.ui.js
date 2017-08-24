@@ -7,7 +7,7 @@
         lightbox: {opacity: 0.75},
         loadAjax: {
             url: '',
-            data: '',
+            data: {'token':csrf_token},
             field: {load: '', show: ''},
             datatype: 'html',
             event_complete: '',
@@ -304,12 +304,13 @@
                 // Lay method
                 var method = $this.attr('method');
                 method = (!method) ? 'POST' : method;
-
+                //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
                 // Load du lieu va xu ly
                 $this.ajaxSubmit({
                     url: action,
                     type: method,
-                    data: {'_autocheck': name},
+                    data: {'_autocheck': name,token:csrf_token},
+
                     dataType: 'json',
                     success: function (data, statusText, xhr, $form) {
                         var error = $this.find('[name="' + name + '_error"]');
@@ -366,12 +367,13 @@
 
                 // tao token cho form
                 //$('<input>').attr({   type: 'hidden', name: 'token',  value: $this.serialize()	}).appendTo($this);
+                //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
 
                 // Load du lieu va xu ly
                 $this.ajaxSubmit({
                     url: action,
                     type: method,
-                    data: {'_submit': 'true'},
+                    data: {'_submit': 'true',token:csrf_token},
                     dataType: 'json',
                     success: function (data, statusText, xhr, $form) {
                         formActionResultHandle(data);
@@ -497,13 +499,13 @@
                 method = (!method) ? 'POST' : method;
 
                 // tao token cho form
-                //$('<input>').attr({   type: 'hidden', name: 'token',  value: $this.serialize()	}).appendTo($this);
+                //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
 
                 // Load du lieu va xu ly
                 $this.ajaxSubmit({
                     url: action,
                     type: method,
-                    data: {'_submit': 'true'},
+                    data: {'_submit': 'true',token:csrf_token},
                     dataType: 'json',
                     success: function (data, statusText, xhr, $form) {
                         formActionAdvResultHandle(data);
@@ -768,7 +770,7 @@
                 var handle = {
                     loader: '',  // khu vuc hien thi loader neu khong, he thong se hien loader o giua man hinh
                     url: '',
-                    data: [],
+                    data: {token:csrf_token},
                     datatype: 'json',
                     modaler: null,// modal cua confirm
                     do_action: function () {
@@ -1185,7 +1187,7 @@
                     var status = (act == 'on') ? true : false;
                     toggle_action_handle_class(status);
 
-                    $.post(url, function (data) {
+                    $.post(url,{'token':csrf_token}, function (data) {
                         if (!data['complete']) {
                             toggle_action_handle_class((status) ? false : true);
                         }
@@ -1782,7 +1784,7 @@ var nfc = {
                         $this.append('<span class="loader_item"><span>');
 
                         var url = $(this).data('url');
-                        $.post(url, function (data) {
+                        $.post(url,{'token':csrf_token}, function (data) {
                             if (data) {
                                 $this.find('span.loader_item').remove();
                                 $this.popover({
@@ -2538,7 +2540,7 @@ var nfc = {
                     action_type: action_type,
                     loader: '',  // khu vuc hien thi loader neu khong, he thong se hien loader o giua man hinh
                     url: '',
-                    data: [],
+                    data: {'_submit': 'true',token:csrf_token},
                     datatype: 'json',
                     modaler: null,// modal cua confirm
                     do_action: function () {
@@ -2792,7 +2794,7 @@ var nfc = {
                 var formAction = this;
                 //== init prevent submit
                 formAction.init();
-                $(document).on('click', '.form_action input[type=submit],.form_action [_submit]', function (e) {
+                $(document).on('click', '.form_action [_submit]', function (e) {
                     var $this =$(this).closest('.form_action');
                     var options = {
                         field_load: $this.attr('_field_load'),
@@ -2808,19 +2810,31 @@ var nfc = {
                     };
 
                     formAction.process($this, options);
-                    return false;
+                    //return false;
                 });
 
             },
             init: function () {
-                var action = this;
+                var formAction = this;
                 $('.form_action').each(function (){
                     var $this =$(this);
                    $this.submit(function( event ) {
                         event.preventDefault();
+                       var $this =$(this);
+                       var options = {
+                           field_load: $this.attr('_field_load'),
+                           event_error: function (data) {
+                               // Reset captcha
+                               //if (data['security_code']){
+                               var captcha = $this.find('img[_captcha]').attr('id');
+                               if (captcha) {
+                                   change_captcha(captcha);
+                               }
+                               //}
+                           },
+                       };
+                       formAction.process($this, options);
                     });
-                   // $this.submit( action.process($this, options));
-
                 });
             },
             process: function ($this, options) {
@@ -2850,19 +2864,18 @@ var nfc = {
                     var action = options.action;
                     action = (!action) ? $this.attr('action') : action;
                     action = (!action) ? window.location.href : action;
-
                     // Lay method
                     var method = $this.attr('method');
                     method = (!method) ? 'POST' : method;
 
                     // tao token cho form
-                    //$('<input>').attr({   type: 'hidden', name: 'token',  value: $this.serialize()	}).appendTo($this);
+                    //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
 
                     // Load du lieu va xu ly
                     $this.ajaxSubmit({
                         url: action,
                         type: method,
-                        data: {'_submit': 'true'},
+                        data: {'_submit': 'true',token:csrf_token},
                         dataType: 'json',
                         success: function (data, statusText, xhr, $form) {
 
@@ -2955,12 +2968,13 @@ var nfc = {
                     // Lay method
                     var method = $this.attr('method');
                     method = (!method) ? 'POST' : method;
+                    //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
 
                     // Load du lieu va xu ly
                     $this.ajaxSubmit({
                         url: action,
                         type: method,
-                        data: {'_autocheck': name},
+                        data: {'_autocheck': name,token:csrf_token},
                         dataType: 'json',
                         success: function (data, statusText, xhr, $form) {
                             var error = $this.find('[name="' + name + '_error"]');
@@ -2986,6 +3000,7 @@ var nfc = {
             },
         },
         common: function () {
+            return;
            // $('.do_action').nstUI('doAction');
             // Form handle
             $('.form_action').each(function () {
@@ -3246,6 +3261,10 @@ var nfc = {
         },
     },
     //== Khu vuc mahoa - bao mat
+    // them token cho form
+    csrf_attack_form: function (form) {
+        $token= form.find('input[token]')
+    },
     encode_base64: function (input) {
         var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv" + "wxyz0123456789";
         var output = "";

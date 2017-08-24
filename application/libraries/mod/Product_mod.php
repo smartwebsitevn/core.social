@@ -73,10 +73,13 @@ class Product_mod extends MY_Mod
             $row = $this->add_info_images($row);
             $row = $this->add_info_files($row);
         }
-        $row->_can_order = $this->can_do($row, 'order');
+        //$row->_can_order = $this->can_do($row, 'order');
 
         if($row->description)
             $row->description = str_replace("\n",'<br/>',$row->description);
+
+        $point_total=  $row->point_total + $row->point_fake;
+        $row->_point_total = number_format($point_total) ;
         return $row;
     }
 

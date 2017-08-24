@@ -123,7 +123,9 @@ class MY_Controller extends CI_Controller
 		$form = set_default_value($form, 'autocheck', TRUE);
 		$form = set_default_value($form, 'error');
 		$form = set_default_value($form, 'form');
-		
+		$form = set_default_value($form, 'display', TRUE); // Bat tat hien thi view
+
+
 		// Tai file thanh phan
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -203,7 +205,12 @@ class MY_Controller extends CI_Controller
 			// Form output
 			$this->_form_submit_output($result);
 		}
-		
+
+		// Hien thi view
+		if (!$form['display'])
+		{
+			return;
+		}
 		// Form
 		$this->data['action'] = current_url(TRUE);
 		

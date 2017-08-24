@@ -248,3 +248,25 @@ ALTER TABLE `comment`
 	 ADD COLUMN   `vote_total` INT(11) NULL DEFAULT '0' AFTER `count_like`,
 	 ADD COLUMN   `vote_like` INT(11) NULL DEFAULT '0' AFTER `vote_total`,
 	 ADD COLUMN  `vote_dislike` INT(11) NULL DEFAULT '0' AFTER `vote_like`;
+
+// 24-8-2017 
+ALTER TABLE `product`
+	CHANGE COLUMN `point_count` `point_total` INT(11) NOT NULL DEFAULT '0' AFTER `comment_count`;
+
+ALTER TABLE `product`
+	CHANGE COLUMN `shipping` `shipping` TINYINT(4) NOT NULL DEFAULT '0' AFTER `quantity`,
+	CHANGE COLUMN `comment_allow` `comment_allow` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' AFTER `comment_fb_allow`,
+	CHANGE COLUMN `rate_allow` `rate_allow` TINYINT(4) UNSIGNED NOT NULL DEFAULT '0' AFTER `rate`;
+
+ALTER TABLE `product`
+	ADD COLUMN `point_fake` INT(11) NOT NULL DEFAULT '0' AFTER `point_total`;
+
+
+ALTER TABLE `comment`
+	ADD COLUMN `point_total` INT(11) NULL DEFAULT '0' AFTER `count_like`;
+ALTER TABLE `comment`
+	ADD COLUMN `point_fake` INT(11) NULL DEFAULT '0' AFTER `point_total`;
+
+
+ALTER TABLE `user`
+	ADD COLUMN `point_fake` INT(11) NULL DEFAULT '0' AFTER `post_total`;

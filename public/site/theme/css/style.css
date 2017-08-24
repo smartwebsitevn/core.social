@@ -1312,7 +1312,7 @@ select {
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    padding-left: 25px; }
+    padding-left: 20px; }
     .checkbox label > span:before {
       content: "";
       width: 18px;
@@ -1348,7 +1348,7 @@ select {
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    padding-left: 25px; }
+    padding-left: 20px; }
     .radio label > span:before {
       /*content: "";*/
       content: "\f10c";

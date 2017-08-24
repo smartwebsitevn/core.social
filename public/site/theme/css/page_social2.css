@@ -462,6 +462,20 @@
             color: #666; }
         .block-products-items .list-social .item-social .item-actions .item-vote .vote-result > span {
           color: #17aa1c; }
+    .block-products-items .list-social .item-social .item-manager {
+      border-top: 1px solid #eee;
+      margin-top: 5px;
+      padding-top: 10px;
+      display: inline-block;
+      width: 100%; }
+      .block-products-items .list-social .item-social .item-manager .form-control {
+        display: inline-block;
+        width: 70px;
+        height: 25px;
+        padding: 2px 2px;
+        text-align: center; }
+      .block-products-items .list-social .item-social .item-manager .checkbox {
+        margin-top: 0; }
     .block-products-items .list-social .item-social .item-config {
       position: absolute;
       right: 5px;

@@ -412,23 +412,28 @@ class Comment extends MY_Controller
         $list = model('social_vote')->filter_get_list(array('table_name' => 'comment', 'table_id' => $comment->id));
         if ($list) {
             $d = 0;
+            $p = 0;
             $stats = ['vote_total' => 0, 'vote_like' => 0, 'vote_dislike' => 0];
             foreach ($list as $row) {
                 if ($row->like) {
                     $stats['vote_like']++;
-                    $d++;
+                    $p++;
                 } elseif ($row->dislike) {
                     $stats['vote_dislike']++;
-                    $d--;
+                    $p--;
                 }
+                $d++;
             }
             $stats['vote_total'] = $d;
+            $stats['point_total'] = $p;
         }
+
+
         //pr($stats);
         model('comment')->update($comment->id, $stats);
         model('user')->update_stats(['id' => $comment->user_id], ['point_total' => $point]);
         // pr_db();
-        $result['element'] =  ['pos' => '#comment_' . $comment->id . '_vote_points', 'data' => $stats['vote_total']];
+        $result['element'] =  ['pos' => '#comment_' . $comment->id . '_vote_points', 'data' => $stats['point_total']];
 
         //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
         $this->_response($result);

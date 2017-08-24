@@ -215,6 +215,9 @@ class Product_model extends MY_Model
             $where[$this->table.'.is_form'] = 0;// ko hien  tin mau cua he thong
             $where[$this->table.'.status'] = 1; // chi hien tin la cong bo
             $where[$this->table.'.deleted'] = 0; // ko hien  tin da xoa tam
+            $where[$this->table.'.point_total >'] = -10; // ko hien  tin co diem -
+
+            $this->db->where('(point_total + point_fake) > -10');
             //$where[$this->table.'.verified >'] = 0; // chi hien tin da xac thuc
             //$where[$this->table.'.expired >='] = now();// chi hien tin con han dang
 

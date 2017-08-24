@@ -534,6 +534,23 @@ class Product_widget extends MY_Widget
      * HANDLE ACTION
      * =================================*/
     /**
+     * Tool for manager
+     */
+    function action_manager($info,$user,$temp = '')
+    {
+        $id = $info->id;
+        //$user = user_current_is_manager();
+        $this->data['user'] = $user;
+        $this->data['info'] = $info;
+
+        $this->data['url_set_point'] = site_url('product/set_point/' . $id);
+        $this->data['url_set_feature'] = site_url('product/set_feature/' . $id);
+
+        $temp = (!$temp) ? 'manager' : $temp;
+        $temp = 'tpl::_widget/product/action/' . $temp;
+        $this->_display($this->_make_view($temp, __FUNCTION__));
+    }
+    /**
      * Thêm vào gi? hàng
      */
     function action_add_cart($product, $temp = '')

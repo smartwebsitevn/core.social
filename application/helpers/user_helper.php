@@ -929,3 +929,18 @@ function user_get_id_group_active()
 {
     return 3;
 }
+
+
+// kiem tra xem user hien thoi co phai la user root ko
+function user_current_is_manager()
+{
+    static $user_current = null;
+    if($user_current === null)
+        $user_current =user_get_account_info();
+    if(user_is_manager($user_current)){
+        return $user_current;
+    }
+    return false;
+
+}
+

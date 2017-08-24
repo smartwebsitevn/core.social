@@ -54,3 +54,92 @@ $setting = array(
         //'desc' => 'Mỗi giá trị 1 dòng',
     ),
 );
+
+$setting = array(
+    //== Che do duyet tin
+    'mode_verify_recruit' => array(
+        'type' 	=> 'select',
+        'name' 	=> 'Chế độ duyệt tin bài',
+        'values'=>array('auto'=>'Tự động xác thực [Tin được duyệt ngay khi đăng]',
+            'special'=>'Chỉ dữ liệu dạng thẻ [Nếu tin có dữ liệu text thì phải chờ duyệt]',
+            'handle'=>'Thủ công [Tin phải chờ duyệt]')
+
+    ),
+
+    //== Che do xac thuc user
+    'mode_verify_user' => array(
+        'type' 	=> 'select',
+        'name' 	=> 'Chế độ xác thực thành viên',
+        'values'=>array('auto'=>'Tự động xác thực',
+                        'handle'=>'Thủ công')
+                         ),
+    
+    //== dang tin tuyen dung
+    'post_recruit_require_verify_account' => array(
+        'type' 	=> 'bool',
+        'name' 	=> 'Yêu cầu tài khoản phải được xác thực mơi cho đăng tin',
+    ),
+    'post_recruit_help' => array(
+        'type' 	=> 'html',
+        'name' 	=> 'Hướng dẫn đăng tuyển',
+    ),
+    'post_recruit_url_rule' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'Link điều khoản đăng tuyển',
+    ),
+    // id user duoc set cho tim mau phuc vu xem truoc
+    'user_of_preview_recruit' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'ID của user sẽ set cho tin mẫu, nếu không set thì không xem trước được ',
+    ),
+    // dang bai viet
+    'post_blog_url_help' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'Hướng dẫn đăng bài viết mới',
+    ),
+    
+    //== quang cao tin tuyen dung
+    'ads_recruit_help' => array(
+        'type' 	=> 'html',
+        'name' 	=> 'Hướng dẫn quảng cáo tin bài',
+    ),
+    'ads_recruit_url_rule' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'Link điều khoản quảng cáo tin bài',
+    ),
+    'ads_recruit_url_more' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'Link tìm hiển thêm về quảng cáo tin',
+    ),
+    // quang cao thành viên
+    'ads_company_help' => array(
+        'type' 	=> 'html',
+        'name' 	=> 'Hướng dẫn quảng cáo thành viên',
+    ),
+    'ads_company_url_rule' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'Link điều khoản quảng cáo thành viên',
+    ),
+
+    'ads_company_url_more' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'Link tìm hiển thêm về quảng cáo nhà tuyển dụng',
+    ),
+    'ads_company_max_number_job' => array(
+        'type' 	=> 'text',
+        'name' 	=> 'Số thẻ tin bài tối đa mà thành viên có thể thêm để quảng cáo',
+    ),
+
+    //==
+    'cronjob_compare_notice_recruit' => array(
+        'type'  => 'text',
+        'name'  => 'Lấy số thành viên đăng nhập trong số tháng để gửi email tin bài',
+    ),
+
+    // Blog
+    'blog_intro' => array(
+        'type' 	=> 'html',
+        'name' 	=> 'Nội dung giới thiệu Blog',
+    ),
+);
+

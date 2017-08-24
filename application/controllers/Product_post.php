@@ -570,6 +570,9 @@ class Product_post extends MY_Controller
         $data['verified'] = $this->_get_verify($data);
         $data['status'] = 1;// cong bo ngay khi dang
 
+
+        foreach($data as &$v)
+            $v = xss_clean($v);
         return $data;
     }
 

@@ -24,6 +24,6 @@
       <i class="pe-7s-bottom-arrow"></i>
   </a>
     </span>
-    <span   class="points"><b id="comment_<?php echo $info->id?>_vote_points" ><?php echo number_format($info->vote_total) ?></b> <?php echo lang("count_point") ?> </span>
+    <span   class="points"><b id="comment_<?php echo $info->id?>_vote_points" ><?php echo number_format($info->point_total) ?></b> <?php echo lang("count_point") ?> </span>
 
 <?php endif; ?>

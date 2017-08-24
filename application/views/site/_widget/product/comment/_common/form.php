@@ -28,6 +28,7 @@
     </div>
 </form>
 <?php else: ?>
+    <?php if(t('input')->is_ajax_request()): ?>
     <div class="alert alert-danger">Bạn phải đăng nhập mới bình luận được bài viết này</div>
-
+    <?php endif; ?>
 <?php endif; ?>

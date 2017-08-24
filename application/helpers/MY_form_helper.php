@@ -43,7 +43,10 @@ function form_set_checkbox($i, $v, $d = array())
     $d = (!is_array($d)) ? array($d) : $d;
 
     $v = (!count($v)) ? $d : $v;
-
     return (in_array($i, $v)) ? 'checked="checked"' : FALSE;
 }
-	
+
+function form_csrf()
+{
+  echo '<input type="hidden" name="'.csrf_token_name().'" value="'.csrf_token_hash().'"/>';
+}

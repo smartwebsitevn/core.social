@@ -1,7 +1,9 @@
 <?php if (isset($list) && $list): ?>
     <?php $_data_list = function () use ($list) {
         ob_start() ?>
-        <?php foreach ($list as $row):
+        <?php
+        $user_manager = user_current_is_manager();
+        foreach ($list as $row):
             $row = mod('product')->add_info_images($row);
             $author = $row->_author;// pr($row);
             ?>
@@ -11,7 +13,7 @@
                         <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $author)); ?>
                         <div>
                             <span class="name">
-                                 <a href="<?php echo $author->_url_view; ?>" >
+                                 <a href="<?php echo $author->_url_view; ?>">
                                      <?php echo $author->name ?>
 
                                  </a>
@@ -28,7 +30,7 @@
                         <div class="item-name">
                             <a href="<?php echo $row->_url_view; ?>">
                                 <?php echo $row->name; ?>
-                                <?php if(isset($row->files) && $row->files): ?>
+                                <?php if (isset($row->files) && $row->files): ?>
                                     <i class="pe-7s-paperclip"></i>
                                 <?php endif; ?>
                             </a>
@@ -37,31 +39,34 @@
                             <?php echo macro()->more_block($row->description, 110); ?>
                         </div>
                         <div class="item-files">
-                            <?php t('view')->load('tpl::_widget/product/display/item/info_files',['row'=>$row])?>
+                            <?php t('view')->load('tpl::_widget/product/display/item/info_files', ['row' => $row]) ?>
                         </div>
-                        <?php t('view')->load('tpl::_widget/product/display/item/info_media',['row'=>$row])?>
+                        <?php t('view')->load('tpl::_widget/product/display/item/info_media', ['row' => $row]) ?>
 
                         <?php echo widget('product')->action_comment($row) ?>
 
 
                     </div>
-                        <div class="item-actions">
-                            <div class="item-meta item-action">
-                                <?php echo widget('product')->action_vote($row) ?>
-                            </div>
-                            <div class="item-action">
-                                <?php echo widget('product')->action_favorite($row) ?>
-                            </div>
-                            <div class="item-action">
-                                <?php widget('product')->action_share($row) ?>
-                            </div>
-
-
-
-
+                    <div class="item-actions">
+                        <div class="item-meta item-action">
+                            <?php echo widget('product')->action_vote($row) ?>
                         </div>
-                                    <?php //t('view')->load('tpl::_widget/product/display/item/infos')
-                        ?>
+                        <div class="item-action">
+                            <?php echo widget('product')->action_favorite($row) ?>
+                        </div>
+                        <div class="item-action">
+                            <?php widget('product')->action_share($row) ?>
+                        </div>
+
+
+                    </div>
+                    <?php if($user_manager): ?>
+                    <div class="item-manager">
+                            <?php echo widget('product')->action_manager($row,$user_manager) ?>
+                    </div>
+                    <?php endif; ?>
+                    <?php //t('view')->load('tpl::_widget/product/display/item/infos')
+                    ?>
 
                 </div>
             </div>

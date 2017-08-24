@@ -253,7 +253,7 @@
       margin-bottom: 10px;
       position: relative;
       display: block;
-      &.status-off,&.status-draft {
+      &.status-off,&.status-draft ,&.status-locked {
         background-color: #efefef;
 
       }
@@ -263,6 +263,14 @@
         left: 0;
         &-status-off,&-status-draft  {
           background-color: #777;
+        }
+        &-status-locked  {
+          background-color: _palette(button-1);
+        }
+        &-text  {
+          left:80px;
+          top: 2px;
+
         }
       }
       //== structure

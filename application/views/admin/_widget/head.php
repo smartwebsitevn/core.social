@@ -45,6 +45,7 @@ $public_url_js=public_url('js');
 
     
 <script type="text/javascript">
+	var csrf_token 	= '<?php echo csrf_token_hash() ?>';
 	var admin_url 	= '<?php echo admin_url('', array('suffix' => FALSE)) ?>/';
 	var base_url 	= '<?php echo base_url() ?>';
 	var public_url 	= '<?php echo public_url() ?>/';

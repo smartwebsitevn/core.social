@@ -12,6 +12,7 @@
             // if($row->id == 35) pr($row);
             $row_status = 'status-on';
             $row_label = '';
+            $row_text = '';
             if ($row->verified == 0) {
                 $row_status = 'status-pendding';
                 $row_label = 'Đang chờ duyệt';
@@ -33,11 +34,21 @@
                 $row_status = 'status-off';
                 $row_label = 'Đang ẩn';
             }
+            if (($row->point_total + $row->point_fake) <=-10)  {
+                $row_status = 'status-locked';
+                $row_label = 'Tin đã bị khóa';
+                $row_text = '<a href="'.site_url('').'" target="_blank">Tại sao tin này bị khóa</a>' ;
+            }
             ?>
             <div class="item-social <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $row_status ?>  ">
                 <div class="clearfix">
                     <?php if ($row_label): ?>
                         <label class="label <?php echo 'label-'.$row_status ?> "><?php echo $row_label ?></label>
+
+                    <?php endif; ?>
+                    <?php if ($row_text): ?>
+                        <label class="label label-text "><?php echo $row_text ?></label>
+
                     <?php endif; ?>
                     <?php if ( isset($row->_adsed) && $row->_adsed): ?>
                         <label class="label-job"><?php echo $row->ads_title ?></label>

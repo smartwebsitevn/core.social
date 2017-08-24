@@ -5,6 +5,7 @@ $asset_theme =$asset. '/site/theme/';
 ?>
 <!-- Js -->
 <script type="text/javascript">
+	var csrf_token 	= '<?php echo csrf_token_hash() ?>';
 	var site_url 	= '<?php echo site_url() ?>';
 	var base_url 	= '<?php echo base_url() ?>';
 	var public_url 	= '<?php echo public_url() ?>/';

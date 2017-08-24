@@ -26,6 +26,8 @@ class Product extends MY_Controller
             'favorite', 'favorite_del',
             'subscribe_del', 'subscribe', 'subscribe_adv',
             'comment',
+            // manager
+            'set_point', 'set_feature',
         ));
     }
 
@@ -410,14 +412,22 @@ class Product extends MY_Controller
 
     protected function _action($action)
     {
+        $user =user_get_account_info();
         $dont_check_login = array('comment', 'demo', 'report', 'favorite', 'favorite_del',/*'vote',*/);
         if (!in_array($action, $dont_check_login)) {
 
-            if (!user_is_login()) {
+            if (!$user) {
                 // $this->_response(array('msg_modal' => lang('notice_please_login_to_use_function')));
                 // return;
                 $result["modal_box"] = "modal-user-login";
                 $this->_response($result);
+            }
+        }
+
+        $need_manager= array('set_point', 'set_feature');
+        if (in_array($action, $need_manager)) {
+            if (!user_is_manager($user)) {
+                $this->_response();
             }
         }
         // Lay input
@@ -438,7 +448,7 @@ class Product extends MY_Controller
         //if ( !  $this->_mod()->can_do($info, $action)) return;
 
         $this->data['info'] = $info;
-        $this->data['user'] = user_get_account_info();
+        $this->data['user'] =$user;
         // Tai cac file thanh phan
         $this->load->library('form_validation');
         $this->load->helper('form');
@@ -446,7 +456,31 @@ class Product extends MY_Controller
         $this->{'_' . $action}($info);
     }
 
+    /**
+     * Yeu thich
+     */
+    function _set_point($info)
+    {
+        $form = array();
+        $form['validation']['params'] = ['set_point'];
+        $form['submit'] = function () use($info) {
+            $point = $this->input->post('set_point');
+            $this->_model()->update_field( $info->id,'point_fake',$point);
+            $point_total = $info->point_total + $point;
+            $result['element'] =  ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
+            $result['msg_toast'] =lang('notice_update_success');
 
+            return $result;
+        };
+        $form['display'] =false;
+        $this->_form($form);
+    }
+
+    function _set_feature($info)
+    {
+        $this->_model()->update_field( $info->id,'is_feature',!$info->is_feature);
+        $this->_response(array('msg_toast' => lang('notice_update_success')));
+    }
     /* Demo
      * */
     function _demo($info)
@@ -504,28 +538,33 @@ class Product extends MY_Controller
             $list = model('social_vote')->filter_get_list(array('table_name' => 'product', 'table_id' => $info->id));
             if ($list) {
                 $d = 0;
+                $p = 0;
                 $stats = ['vote_total' => 0, 'vote_like' => 0, 'vote_dislike' => 0];
                 foreach ($list as $row) {
                     if ($row->like) {
                         $stats['vote_like']++;
-                        $d++;
+                        $p++;
                     } elseif ($row->dislike) {
                         $stats['vote_dislike']++;
-                        $d--;
+                        $p--;
                     }
+                    $d++;
                 }
                 $stats['vote_total'] = $d;
+                $stats['point_total'] = $p;
             }
-            //pr($stats);
+
+
+        //pr($stats);
             model('product')->update($info->id, $stats);
             model('user')->update_stats(['id'=>$user->id],['point_total'=>$point]);
             // pr_db();
         /*  else {
              mod('product')->guest_owner_add($id, "voted");;
          }*/
-
+        $point_total = $stats['point_total'] + $info->point_fake;
         //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
-        $result['element'] =  ['pos' => '#' . $info->id . '_vote_points', 'data' => $stats['vote_total']];
+        $result['element'] =  ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
 
         $this->_response($result);
     }
@@ -869,7 +908,7 @@ class Product extends MY_Controller
             // Lay content
             $content = $this->input->post('content');
             $content = strip_tags($content);
-
+            $content = xss_clean($content);
             // Them du lieu vao data
             $data = array();
             $data['table_id'] = $info->id;
@@ -1050,6 +1089,11 @@ class Product extends MY_Controller
 
         $rules['question'] = array('question', 'required|trim|xss_clean|min_length[6]|max_length[255]');
 
+        // manager
+
+        $rules['set_point'] = array('set_point', 'trim|xss_clean');
+        $rules['set_feature'] = array('set_feature', 'trim|in_list[0,1]|xss_clean');
+
         $this->form_validation->set_rules_params($params, $rules);
     }
 
@@ -1069,8 +1113,7 @@ class Product extends MY_Controller
         return TRUE;
     }
 
-    public
-    function _check_security_code($value)
+    public  function _check_security_code($value)
     {
         if (!lib('captcha')->check($value, 'four')) {
             $this->form_validation->set_message(__FUNCTION__, lang('notice_value_incorrect'));

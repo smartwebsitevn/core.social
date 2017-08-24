@@ -64,6 +64,7 @@ if ( ! function_exists('xss_clean'))
 	}
 }
 
+
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('sanitize_filename'))
