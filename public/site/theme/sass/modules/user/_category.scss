@@ -13,34 +13,11 @@
     display: block;
     //== structure
     .item-photo {
-      display: block;
-      position: relative;
-      overflow: hidden;
       width: 145px;
       float: left;
-      img {
-        display: block;
-        width: 120px;
-        height: 120px;
-        border-radius: 100%;
-        -webkit-transition: 1s;
-        -o-transition: 1s;
-        transition: 1s;
-      }
-      .item-label {
-        color: _palette(button-3);
-        font-weight: bold;
-        bottom: 0px;
-        position: absolute;
-        background: #fff;
-        border-radius: 100%;
-        text-align: center;
-        font-size: 32px;
-        height: 36px;
-        left: 90px;
-        width: 36px;
+      @include user-avatar(120px,120px);
+      @include user-label(32px,36px,36px,90px,0px);
 
-      }
     }
     .item-info {
       float: left;
@@ -195,31 +172,12 @@
     width: 100%;
     //== structure
     .item-photo {
-      display: block;
-      position: relative;
-      overflow: hidden;
       float: left;
       margin-right: 5px;
       padding-right: 5px;
-      img {
-        display: block;
-        width: 35px;
-        height: 35px;
-        border-radius: 100%;
-      }
-      .item-label {
-        color: _palette(button-3);
-        font-size: 15px;
-        font-weight: bold;
-        left: 25px;
-        bottom: 0px;
-        position: absolute;
-        background: #fff;
-        border-radius: 100%;
-        width: 16px;
-        height: 16px;
-        text-align: center;
-      }
+      @include user-avatar(35px,35px);
+      @include user-label(15px,16px,16px,25px,0px);
+
     }
     .item-info {
       float: left;

@@ -77,6 +77,7 @@ class Comment_widget extends MY_Widget
         $this->data['info'] = $info;
         $this->data['type'] = $type;
         $this->data['list'] = $list[0];
+        $this->data['filter'] = $filter;
         $this->data['pages_config'] = $list[1];
         $this->data['load_more'] =  $this->input->get("load_more", false);
 
@@ -174,7 +175,7 @@ class Comment_widget extends MY_Widget
                 $row->user = $user;
             }
             $filter['parent_id'] = $row->id;
-            $row->subs = $this->builder_list($filter);
+            //$row->subs = $this->builder_list($filter);
         }
         return $list;
 
@@ -185,13 +186,81 @@ class Comment_widget extends MY_Widget
         ob_start();
         $field_load = array_get($options,'field_load',null);
         $name = isset($row->user) ? $row->user->name : 'admin';
+        $info =$options['info'];
+        //$img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
+        $url_comment_show =isset($info->_url_comment_show)?$info->_url_comment_show.'&id='.$row->id: site_url('comment/show')."?id=".$row->id;
+        //$url_comment_reply =isset($info->_url_comment_reply)?$info->_url_comment_reply.'&id='.$row->id: site_url('comment/reply'. $row->id);
+        //$url_comment_reply =isset($options['url_reply'])?$options['url_reply'].'&id='.$row->id: site_url('comment/reply/' . $row->id);
+        //$url_comment_vote =isset($options['url_vote'])?$options['url_vote'].'&id='.$row->id: site_url('comment/vote/' . $row->id);
+        ?>
+        <div class="row mt10">
+            <div class="col-md-1">
+                      <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $row->user)); ?>
+            </div>
+            <div class="col-md-11">
+                <div class="info">
+                    <span class="name"><a href="#0<?php //echo $row->user->_url_view ?>"><?php echo $name ?></a></span> -
+                    <span class="date"><?php echo get_date($row->created) ?> </span>
+
+                    <?php /*if ($row->user): ?>
+                        <span
+                            class="points"> <b><?php echo number_format($row->user->vote_total) ?></b> <?php echo lang("count_point") ?>
+                                </span>
+                    <?php endif; */?>
+                </div>
+
+                <p class="comment-content"><?php echo $row->content ?></p>
+
+                    <div class="comment-action">
+                        <?php echo widget('comment')->action_vote($row) ?>
+
+                        <a  class="act-load-ajax" _field="#reply_<?php echo $row->id; ?>_comment" _url="<?php echo $url_comment_show ?>"
+                           class="reply-btn">Trả lời (<?php echo isset($row->subs) ? count($row->subs) : 0 ?>) </a>
+                    </div>
+                    <div  id="reply_<?php echo $row->id ?>">
+                         <div id="reply_<?php echo $row->id; ?>_comment_load" class="tab_load"></div>
+                         <div id="reply_<?php echo $row->id; ?>_comment_show"></div>
+
+                    </div>
+            </div>
+
+
+        </div>
+
+        <?php
+        return ob_get_clean();
+    }
+
+    function builder_list2($filter,$input=[])
+    {
+        $list = model('comment')->filter_get_list($filter, $input);
+        // pr_db();
+        foreach ($list as &$row) {
+            $user = model('user')->get_info($row->user_id, 'id,user_group_id,name,avatar,avatar_api,vote_total');
+            $row->user = null;
+            if ($user) {
+                //$user->avatar = file_get_image_from_name($user->avatar, public_url('img/no_user.png'));
+                $user = mod('user')->add_info($user);
+                $row->user = $user;
+            }
+            $filter['parent_id'] = $row->id;
+            $row->subs = $this->builder_list($filter);
+        }
+        return $list;
+
+    }
+    function builder_html2($row,$options=[])
+    {
+        ob_start();
+        $field_load = array_get($options,'field_load',null);
+        $name = isset($row->user) ? $row->user->name : 'admin';
         //$img = (isset($row->user->avatar) && $row->user->avatar) ? $row->user->avatar->url_thumb : public_url('img/user_no_image.png');
         $url_comment_reply =isset($options['url_reply'])?$options['url_reply'].'&id='.$row->id: site_url('comment/reply/' . $row->id);
         $url_comment_vote =isset($options['url_vote'])?$options['url_vote'].'&id='.$row->id: site_url('comment/vote/' . $row->id);
         ?>
         <div class="row mt10">
             <div class="col-md-1">
-                      <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $row->user)); ?>
+                <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $row->user)); ?>
             </div>
             <div class="col-md-11">
                 <div class="info">
@@ -239,15 +308,15 @@ class Comment_widget extends MY_Widget
 
                         </form>
                         <div id="reply_<?php echo $row->id; ?>_comment_show">
-                        <?php if (isset($row->subs) && $row->subs): ?>
-                            <ul class="list-unstyled list-comment-<?php echo $row->id ?>">
-                                <?php foreach ($row->subs as $sub): //pr($sub);?>
-                                    <li>
-                                        <?php echo $this->builder_html($sub,$options) ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php endif; ?>
+                            <?php if (isset($row->subs) && $row->subs): ?>
+                                <ul class="list-unstyled list-comment-<?php echo $row->id ?>">
+                                    <?php foreach ($row->subs as $sub): //pr($sub);?>
+                                        <li>
+                                            <?php echo $this->builder_html($sub,$options) ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -259,7 +328,6 @@ class Comment_widget extends MY_Widget
         <?php
         return ob_get_clean();
     }
-
     /**
      * Vote
      */

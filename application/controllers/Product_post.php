@@ -86,7 +86,7 @@ class Product_post extends MY_Controller
 
         $this->data['link']= $url;
         $this->data['tags']= $this->_get_url_data($url);
-        return view('tpl::product_post/form/_common/metas', $this->data, 1);
+        return view('tpl::product_post/form/_common/link', $this->data, 1);
     }
 
     /**
@@ -532,16 +532,45 @@ class Product_post extends MY_Controller
     function _get_url_data($url)
     {
         if (!$url) return;
-        preg_match("/<title>(.+)<\/title>/siU", file_get_contents($url), $matches);
+        $html = file_get_contents($url);
+        //== title
+        preg_match("/<title>(.+)<\/title>/siU",$html, $title);
+       // preg_match('/<meta property="og:image" content="(.*?)" \/>/', $html, $image);
+
+        //= image
+        $image=[];
+        libxml_use_internal_errors(true);
+        $doc = new DomDocument();
+        $doc->loadHTML($html);
+        $xpath = new DOMXPath($doc);
+        $query = '//*/meta[starts-with(@property, \'og:\')]';
+        $metas = $xpath->query($query);
+        foreach ($metas as $meta) {
+            $property = $meta->getAttribute('property');
+            $content = $meta->getAttribute('content');
+            $image[$property] = $content;
+        }
+
+
+
         $meta = get_meta_tags($url);
         $tags =[];
-        if(isset($matches[1]))
-            $tags['title'] = character_limiter($matches[1],150);
-        if(isset($meta['og:image']))
-            $tags['image'] =$meta['og:image'];
+        if(isset($title[1]))
+            $tags['title'] = character_limiter($title[1],150);
+        if(isset($image['og:image']))
+            $tags['image'] =$image['og:image'];
+        else{
+            preg_match_all('/<img src="(.*?)"/', $html, $image2);
+            if(isset($image2[1]) )
+            {
+                if(!is_array($image2[1]))
+                    $tags['image'] =$image2[1];
+                else
+                    $tags['image'] =$image2[1][0];
+            }
+        }
         if(isset($meta['description']))
             $tags['description'] = character_limiter($meta['description'],150);;
-
         return $tags;
     }
 

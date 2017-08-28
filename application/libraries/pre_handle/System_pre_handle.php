@@ -152,6 +152,9 @@ class System_pre_handle extends MY_Pre_handle
 		{
 			$this->lang();
 		}
+		else{
+			\Carbon\Carbon::setLocale('vi');
+		}
 
 		// Load file ngon ngu chinh
 		$this->lang->load('common');
@@ -256,6 +259,7 @@ class System_pre_handle extends MY_Pre_handle
 			$lang = $lang[0];
 		}
 		$this->config->set_item('language', $lang->directory);
+		\Carbon\Carbon::setLocale($lang->directory);
 
 	}
 	

@@ -1143,30 +1143,30 @@ class MY_Model extends CI_Model
         // Compare
         if( preg_match("#_gt$#", $key) )
         {
-            $this->db->where( substr( $key, 0, strlen($key) - 3 ) . ' >', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' >', $filter[$key] );
             return;
         }
         if( preg_match("#_gte$#", $key) )
         {
 
-            $this->db->where( substr( $key, 0, strlen($key) - 4 ) . ' >=', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' >=', $filter[$key] );
             return;
         }
         if( preg_match("#_lt$#", $key) )
         {
-            $this->db->where( substr( $key, 0, strlen($key) - 3 ) . ' <', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' <', $filter[$key] );
             return;
         }
         if( preg_match("#_lte$#", $key) )
         {
-            $this->db->where( substr( $key, 0, strlen($key) - 4 ) . ' <=', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' <=', $filter[$key] );
             return;
         }
         // Like
         if( strpos( $key, "%" ) !== false )
         {
             //pr($filter[$key] );
-            $this->db->like( substr( $key, 1, strlen($key) ), $filter[$key] );
+            $this->db->like( $this->table.'.'.substr( $key, 1, strlen($key) ), $filter[$key] );
             return;
         }
 
@@ -1175,11 +1175,11 @@ class MY_Model extends CI_Model
         {
             if( is_array($filter[$key]) )
             {
-                $this->db->where_not_in( substr( $key, 1, strlen($key) ), $filter[$key] );
+                $this->db->where_not_in( $this->table.'.'.substr( $key, 1, strlen($key) ), $filter[$key] );
                 return;
             }
 
-            $this->db->where( substr( $key, 1, strlen($key) ) . " !=", $filter[$key] );
+            $this->db->where( substr( $this->table.'.'.$key, 1, strlen($key) ) . " !=", $filter[$key] );
             return;
         }
 
@@ -1187,7 +1187,7 @@ class MY_Model extends CI_Model
         if( strpos( $key, "BINARY" ) !== false )
         {
             //7 la bao gom ca khoang trang , vd BINARY NAME
-            $this->db->where( substr( $key, 7, strlen($key) ) . " like BINARY '".$filter[$key]."'" );
+            $this->db->where( $this->table.'.'.substr( $key, 7, strlen($key) ) . " like BINARY '".$filter[$key]."'" );
             return;
         }
         //  FIND BY KEYWORD
@@ -1229,10 +1229,10 @@ class MY_Model extends CI_Model
             $value = [];
             if (is_array($filter[$key])) {
                 foreach ($filter[$key] as $v) {
-                    $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
+                    $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $this->table.'.'.$f . "`)";
                 }
             } else
-                $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $f . "`)";
+                $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $this->table.'.'.$f . "`)";
 
 
             if ($value) {
@@ -1241,9 +1241,9 @@ class MY_Model extends CI_Model
             return;
         }
         if( is_array($filter[$key]) )
-            $this->db->where_in( $key, $filter[$key] );
+            $this->db->where_in( $this->table.'.'.$key, $filter[$key] );
         else
-            $this->db->where( $key, $filter[$key] );
+            $this->db->where( $this->table.'.'.$key, $filter[$key] );
     }
     /*
      * ------------------------------------------------------

@@ -16,7 +16,7 @@ $modal['name'] = 'Chia sẻ link';
     </div>
     <div class="form-actions">
         <div class="form-group">
-            <a _submit="true"class="btn btn-default" >Upload</a>
+            <a _submit="true"class="btn btn-default" >Chia sẻ</a>
             <a data-dismiss="modal"  class="btn"/><?php echo lang('button_cancel'); ?></a>
         </div>
     </div>

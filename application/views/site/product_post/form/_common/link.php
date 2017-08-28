@@ -1,9 +1,10 @@
 <div class="media  mt40 mb40">
+    <a class="del-parent" data-parent=".media"><i class="pe-7s-close"></i></a>
     <input type="hidden" name="link" value="<?php echo $link ?>">
     <?php if( isset($tags['image'])): ?>
     <div class="media-left">
-        <a href="#">
-            <img class="media-object" src="<?php echo $tags['image'] ?>" >
+        <a href="<?php echo $link ?>">
+            <img class="media-object" src="<?php echo $tags['image'] ?>" alt="..." >
         </a>
     </div>
     <?php endif; ?>
@@ -15,3 +16,4 @@
 
     </div>
 </div>
+

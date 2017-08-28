@@ -19,6 +19,11 @@ class Type_widget extends MY_Widget
         $types = model('type')->filter_get_list(['cat_id' => $type_cat_id], ['select' => 'id,name,image_id,image_name,seo_url']);
         if (!$types) return;
 
+       /* $types_values=[];
+        if($product_id){
+            $types_values = model('type_table')->filter_get_list(['type_cat_id'=>$type_cat_id,'table_id'=>$product_id,'table_'=>'product']);
+        }*/
+
         foreach ($types as $type) {
             $type_items = model('type_item')->filter_get_list(['type_id' => $type->id], ['select' => 'id,name,image_id,image_name,seo_url']);
             $type->items = $type_items;

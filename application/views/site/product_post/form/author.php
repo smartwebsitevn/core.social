@@ -1,10 +1,9 @@
 <div class="block block-author">
     <div class="block-content">
-        <div class="logo-cty">
-            <a href="<?php echo $user->_url_view ?>">
-                <img
-                    src="<?php echo $user->avatar->url_thumb ?>"> </a>
+        <div class="item-photo">
+            <?php t('view')->load('tpl::_widget/user/display/item/info_avatar', ['row' => $user]) ?>
         </div>
+
         <?php t('view')->load('tpl::_widget/user/display/item/info_contact', ['row' => $user]) ?>
 
         <div class="name-cty">

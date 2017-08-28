@@ -54,3 +54,43 @@
 	@return url("data:image/svg+xml;charset=utf8,#{$svg}");
 
 }
+
+
+// User variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+/// Applies padding to an element, taking the current element-margin value into account.
+/// @param {mixed} $w Top/bottom padding.
+/// @param {mixed} $h Left/right padding.
+@mixin user-avatar($w, $h) {
+  display: block;
+  position: relative;
+  overflow: hidden;
+	img {
+	  display: inline-block;
+	  width: $w;
+	  height: $h;
+	  border-radius: 100%;
+    }
+}
+@mixin user-label($size,$w, $h,$left, $bottom:0,$name :'.item-label') {
+  #{$name} {
+	font-size: $size;
+	width: $w;
+	height: $h;
+	left: $left;
+	bottom: $bottom;
+	color: _palette(button-3);
+	font-weight: bold;
+	position: absolute;
+	background: #fff;
+	border-radius: 100%;
+	text-align: center;
+	vertical-align: middle;
+  }
+
+
+}
+
+

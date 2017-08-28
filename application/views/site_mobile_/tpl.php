@@ -18,7 +18,7 @@ $_regions = [
     'content' => 'Nội dung chính',
     'content_bottom' => 'Dưới nội dung chính',
     //'left' => 'Cột Trái',
-    //'right' => 'Cột Phải',
+    'right' => 'Cột Phải',
     //'tab' => 'Tab khóa học',
     //'product' => 'Khóa học',
     'footer' => 'Chân trang',
@@ -31,19 +31,31 @@ $_layouts = [
     'main' => 'Main',
     'page' => 'Page',
     'user' => 'User',
-    'product_all' => 'product All',
-    'product_list' => 'product List',
-    'product_info' => 'product Info',
-    'product_user' => 'product User',
+    'user_account' => 'User account',
+    'user_list' => 'User list',
+    'user_page' => 'User Page',
+    'user_login' => 'User Login',
+
     'author' => 'Author',
-    'question_answer' => 'Question answer',
     'checkout' => 'Checkout',
-    'lesson_question_answer' => 'Lesson question answer',
-    'project' => 'project',
-    'service' => 'service',
-    'blog' => 'blog',
-    'blog_list' => 'blog_list',
+
+    // Content
+    'news' => 'News',
+    'project' => 'Project',
+    'service' => 'Service',
+    'blog' => 'Blog',
+    'blog_list' => 'Blog list',
     'contact' => 'Contact',
+    'question_answer' => 'Question answer',
+
+    // Product
+    'product_all' => 'Product All',
+    'product_list' => 'Product List',
+    'product_list_layout2' => 'Product List Layout 2',
+    'product_info' => 'Product Info',
+    'product_user' => 'Product User',
+    'product_demo' => 'Product demo',
+    'product_post' => 'Product post',
 
 ];
 $tpl['regions'] = $_regions;
@@ -70,32 +82,34 @@ $tpl['layout_mod'] = [
     'invoice' => 'user',
     'invoice_order' => 'user',
     'log_balance' => 'user',
+    'news' => 'news',
 
 ];
 
 // User
 $tpl['layout_mod']['user']["*"] = 'user';
-$tpl['layout_mod']['user']["login"] = 'main';
-$tpl['layout_mod']['user']["register"] = 'main';
-$tpl['layout_mod']['user']["forgot"] = 'main';
+$tpl['layout_mod']['user']["login"] = 'user_login';
+$tpl['layout_mod']['user']["register"] = 'user_login';
+$tpl['layout_mod']['user']["forgot"] = 'user_login';
 $tpl['layout_mod']['user_security']= 'user';
 $tpl['layout_mod']['user_bank']= 'user';
+$tpl['layout_mod']['user_account']= 'user_account';
+$tpl['layout_mod']['user_page']= 'user_page';
+$tpl['layout_mod']['user_list']['*'] = 'user_list';
 
 
 //affiliate
 $tpl['layout_mod']['affiliate']["index"]= 'user';
 
-
-
-
 $tpl['layout_mod']['product']["*"] = 'product_info';
-$tpl['layout_mod']['product']['learn_lesson'] = 'product_learn';
+$tpl['layout_mod']['product']['demo'] = 'product_demo';
 
 $tpl['layout_mod']['product_list']['*'] = 'product_list';
 /*$tpl['layout_mod']['product_list']['index'] = 'product_list';
 $tpl['layout_mod']['product_list']['category'] = 'product_list';
 $tpl['layout_mod']['product_list']['tag'] = 'product_list';*/
 $tpl['layout_mod']['product_list']['favorited'] = 'product_user';
+$tpl['layout_mod']['product_post']['*'] = 'product_post';
 
 
 

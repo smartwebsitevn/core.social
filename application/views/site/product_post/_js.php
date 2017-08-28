@@ -32,15 +32,16 @@
                     });
                     $('.form_action_link').nstUI('formActionAdv', {
                         event_complete: function (data) {
+                            var data_link=  $('#form').find('#data_link');
                             $('#modal_share_link').modal('hide')
                             var url= $('#modal_share_link').find('[name=link]').val();
-
+                            data_link.append('<span class="loader_item"><span>');
                             $(this).nstUI('loadAjax', {
                                 url: "<?php echo current_url(); ?>?_act=load_url&url=" + url,
                                 field: {load: '_'},
                                 datatype: 'html',
                                 event_complete: function (data) {
-                                    $('#form').find('#data_link').html(data);
+                                    data_link.html(data);
                                 },
 
                             })
@@ -405,6 +406,10 @@
                                 flash_swf_url: g_setting.plugin_path + '/Moxie.swf',
                                 silverlight_xap_url: g_setting.plugin_path + '/Moxie.xap',
                                 filters: [{title: "Files", extensions: g_setting.config_extensions}],
+                                multipart : true,
+                                multipart_params : {
+                                    token :csrf_token
+                                },
                                 // browse_button : 'pickfiles', // you can pass in id...
                                 //container: document.getElementById('container'), // ... or DOM Element itself
 
@@ -479,7 +484,11 @@
                         browse_button: action_upload_id,
                         max_file_size: g_setting.config_max_size + 'mb',
                         url: g_setting.url_upload,
-                        multi_selection: false,
+                        multi_selection: true,
+                        multipart : true,
+                        multipart_params : {
+                            token :csrf_token
+                        },
                         flash_swf_url: g_setting.plugin_path + '/Moxie.swf',
                         silverlight_xap_url: g_setting.plugin_path + '/Moxie.xap',
                         filters: [{title: "Files", extensions: g_setting.config_extensions}]
@@ -509,8 +518,9 @@
 
                     // Upload progress
                     uploader.bind('UploadProgress', function (up, file) {
+                        //nfc.pr(file);
                         // Cap nhat progress
-                        upload_info.find('.progress').css('width', file.percent + '%');
+                        upload_info.find('.progress-bar').css('width', file.percent + '%');
                     });
 
                     // Upload hoan thanh
@@ -525,6 +535,8 @@
 
                         // An thong tin file upload
                         upload_info.hide();
+                        upload_info.find('.progress-bar').css('width','0%');
+
 
                         // An thong tin loi
                         upload_error.hide();

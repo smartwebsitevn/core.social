@@ -394,6 +394,11 @@ $this->register('filter_dropdown_obj', function ($input) {
     $attr = array_get($input, 'attr', array());
     ob_start(); ?>
     <?php if ($values): ?>
+        <?php
+       // echo 'name:'.$name;
+       // echo 'value:'.$value;
+        ?>
+
         <div class="dropdown search-dropdown <?php echo $class ?>" <?php echo t('html')->attr($attr) ?>>
             <div class="dropdown-toggle" type="button" data-toggle="dropdown">
                 <span class="search-rendered" data-label="<?php echo $name ?>"><?php echo $name ?></span>
@@ -418,7 +423,7 @@ $this->register('filter_dropdown_obj', function ($input) {
                         data-name="<?php echo $param ?>" data-value="<?php echo $row->id ?>">
                         <a class="search-results-option " href="#0"><?php echo $row->name ?></a>
                         <?php if ($active_status): ?>
-                            <input name="<?php echo $name ?>[]" value="<?php echo $row->id ?>" type="hidden">
+                            <input name="<?php echo $param ?>" value="<?php echo $row->id ?>" type="hidden">
                         <?php endif; ?>
                     </li>
                 <?php endforeach; ?>

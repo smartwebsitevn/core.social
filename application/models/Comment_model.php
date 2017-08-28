@@ -4,6 +4,7 @@ class Comment_model extends MY_Model
 {
     var $table = 'comment';
 
+    public $order = array(array('featured', 'desc'), array('id', 'desc'));
 
 
     /*

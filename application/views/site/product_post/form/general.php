@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
             <label class="control-label " >
-                Danh mục:
+                Gắn thẻ chủ đề:
             </label>
 
             <div class="clearfix"></div>
@@ -34,6 +34,8 @@
                 'input_attr' => array('id' => 'type_cat_id', 'event-hook' => 'eventChangeTypeCat'),
                 'value' => $info['type_cat_id'],
                 'values_row' => array($product_cats, 'id', 'name'),
+                'value_default' => 'Chọn một chủ đề',
+
                 'show_error' => false
             );
             echo macro('mr::form')->info($_data_info);
@@ -67,12 +69,14 @@
             </div>-->
             <?php //t('view')->load('tpl::product_post/form/post_link') ?>
             <?php //t('view')->load('tpl::product_post/form/post_media') ?>
+
+
             <div id="upload-media-content" class="upload-action-data" >
                 <?php widget('site')->upload($widget_upload_images, array('temp' => 'tpl::_widget/product/upload/medias')) ?>
             </div>
             <div id="data_link">
                 <?php if($info): ?>
-                    <?php t('view')->load('tpl::product_post/form/_common/metas',['link'=>$info['link'],'tags'=>json_decode($info['link_data'],true)]) ?>
+                    <?php t('view')->load('tpl::product_post/form/_common/link',['link'=>$info['link'],'tags'=>json_decode($info['link_data'],true)]) ?>
 
                 <?php endif; ?>
 
@@ -82,7 +86,7 @@
     <div class="block-info">
         <div class="form-group">
             <label class="control-label " >
-                Nội dung bài viết:
+              <i class="pe-7s-pen" style="font-size: 16px"></i>  Nội dung bài viết:
             </label>
 
             <div class="clear"></div>
@@ -95,7 +99,7 @@
     <div class="block-info">
         <div class="form-group">
             <label class="col-sm-12  control-label " for="_0139986ea3b9305d0cff9534db437d81">
-                Tệp đính kèm:
+                <i class="pe-7s-paperclip" style="font-size: 16px"></i>  Tệp đính kèm:
             </label>
 
             <div class="col-sm-12">

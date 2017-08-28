@@ -127,6 +127,21 @@ class Product_model extends MY_Model
             $where[$this->table . '.discount >'] = '0';
         }
 
+        if (isset($filter['types'])) {
+            $this->db->join('type_table type', 'type.table_id = product.id', 'iner');
+            $this->db->group_by($this->table . '.id');
+            ///$this->db->having('COUNT(*) = '.count($filter['types']));
+            $where['type.table'] = 'product';
+
+           /* foreach($filter['types'] as $k=>$v) {
+               // $this->db->where( 'type.type_id',$k );
+                $this->db->or_where( 'type.type_item_id',$v );
+                //$this->db->or_where( 'type.type_item_id',$v );
+            }*/
+            $this->db->where_in(  'type.type_item_id', $filter['types'] );
+
+        }
+
 
         // loc cac cot salary
         foreach(array('price_range') as $p) {
@@ -161,36 +176,7 @@ class Product_model extends MY_Model
                     $this->db->where('(('.implode(') or (', $value).'))');
             }
         }
-        // tim tag
-        /*if ( isset($filter['tag']) )
-        {
-            $input = array();
-            $input['type'] = "product";
-            $input['field'] = "tags";
-            $input['tag_id'] = $filter['tag'];
-
-            $list = model('tag_value')->filter_get_list( $input, array( 'order' => array( 'table_id', 'desc' ) ) ) ;
-            $ids = array_gets( $list, 'table_id' );
-            $this->db->where_in( 'product_product.id', $ids );
-        }*/
-
-        // Loc dang FIND_IN_SET
-        foreach (array('tags') as $f) {
-            if (isset($filter[$f]) && $filter[$f]) {
-                $value = [];
-                if (is_array($filter[$f])) {
-                    foreach ($filter[$f] as $v) {
-                        $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
-                    }
-                } else
-                    $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $f . "`)";
-
-
-                if ($value) {
-                    $this->db->where('((' . implode(') or (', $value) . '))');
-                }
-            }
-        }
+       // pr($filter);
         // tim by owner
         /*if (isset($filter['user_id'])) {
             $this->search($this->table, 'user_id', $filter['user_id']);

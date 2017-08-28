@@ -8,14 +8,10 @@
         ob_start() ?>
         <div class="block block-author">
             <div class="block-content">
-                <div class="logo-cty">
-                    <a href="<?php echo $author->_url_view ?>">
-                        <img
-                            src="<?php echo $author->avatar->url_thumb ?>"> </a>
-
+                <div class="item-photo">
+                    <?php t('view')->load('tpl::_widget/user/display/item/info_avatar', ['row' => $author]) ?>
                 </div>
                 <?php t('view')->load('tpl::_widget/user/display/item/info_contact',['row'=>$author]) ?>
-
                 <div class="name-cty">
                     <a href="<?php echo $author->_url_view ?>"><?php echo $author->name ?></a>
                 </div>

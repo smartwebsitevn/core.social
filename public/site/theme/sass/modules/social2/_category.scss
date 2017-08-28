@@ -94,7 +94,7 @@
       width: 100%;
 
     }
-    .btn-clear-all{
+    .btn-clear-all {
       font-weight: bolder;
       text-transform: capitalize;
     }
@@ -215,53 +215,79 @@
         }
       }
       //== structure
-      .item-photo {
-        display: block;
+      .item-author {
         position: relative;
-        overflow: hidden;
-        width: 100%;
-        margin-right: 20px;
-        .item-img {
-          width: 60px;
-          float: left;
-          img {
-            display: inline-block;
-            width: 45px;
-            height: 45px;
-            margin-bottom: 5px;
+        color: _palette(text-3);
+        .item-photo {
+          display: block;
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          .item-img {
+            width: 60px;
+            float: left;
+            img {
+              display: inline-block;
+              width: 45px;
+              height: 45px;
+              margin-bottom: 5px;
+              border-radius: 100%;
+            }
+
+          }
+          .item-label {
+            color: _palette(button-3);
+            font-size: 15px;
+            font-weight: bold;
+            left: 30px;
+            bottom: 0px;
+            position: absolute;
+            background: #fff;
             border-radius: 100%;
+            width: 16px;
+            height: 16px;
+            text-align: center;
+          }
+          div {
+            float: left;
+            width: 80%;
+            span {
+              display: block;
+              margin-bottom: 5px;
+            }
+            .name {
+              text-transform: capitalize;
+            }
+            .profession {
+              color: #90949c;
+              font-size: 12px;
+            }
+          }
+        }
+        .item-meta {
+          display: flex;
+
+          font-weight: 300;
+          span {
+            margin-right: 20px;
+            display: inline-block;
+
           }
 
+          .place {
+            max-width: 350px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
-        .item-label {
-          color: _palette(button-3);
-          font-size: 15px;
-          font-weight: bold;
-          left: 30px;
-          bottom: 0px;
+        .item-time {
           position: absolute;
-          background: #fff;
-          border-radius: 100%;
-          width: 16px;
-          height: 16px;
-          text-align: center;
-        }
-        div {
-          float: left;
-          width: 80%;
-          span {
-            display: block;
-            margin-bottom: 5px;
-          }
-          .name {
-            text-transform: capitalize;
-          }
-          .profession {
-            color: #90949c;
-            font-size: 12px;
-          }
+          top:0;
+          right: 0;
         }
       }
+
       .item-media {
         width: 100%;
         margin-top: 10px;
@@ -285,12 +311,15 @@
           .item {
             float: left;
             width: 100%;
+            height: auto;
             position: relative;
             text-align: center;
+            overflow: hidden;
             img {
               width: 100%;
+              height: auto;
               padding: 1px;
-              height: 200px;
+
             }
             iframe {
               width: 100%;
@@ -319,7 +348,6 @@
           &-1 {
             .item {
               img {
-                height: auto;
                 width: auto;
               }
             }
@@ -327,18 +355,19 @@
           &-2 {
             .item {
               width: 50%;
+              height: 145px;
             }
           }
           &-3 {
             .item {
               &-1 {
                 width: 100%;
+                height: 145px;
+
               }
               &-2, &-3 {
                 width: 50%;
-                img {
-                  height: 80px;
-                }
+                height: 80px;
                 .item-video {
                   .item-video-icon {
                     &::after {
@@ -353,12 +382,12 @@
             .item {
               &-1 {
                 width: 100%;
+                height: 145px;
+
               }
               &-2, &-3, &-4 {
                 width: 33.3%;
-                img {
-                  height: 80px;
-                }
+                height: 80px;
                 .item-video {
                   .item-video-icon {
                     &::after {
@@ -373,12 +402,11 @@
             .item {
               &-1, &-2 {
                 width: 50%;
+                height: 145px;
               }
               &-3, &-4, &-5 {
                 width: 33.3%;
-                img {
-                  height: 80px;
-                }
+                height: 80px;
                 .item-video {
                   .item-video-icon {
                     &::after {
@@ -423,13 +451,13 @@
         display: block;
         margin-top: 10px;
         margin-bottom: 10px;
-       /* padding-bottom: 15px;*/
+        /* padding-bottom: 15px;*/
       }
-     /* .item-files {
-        a {
-          color: _palette(text-4);
-        }
-      }*/
+      /* .item-files {
+         a {
+           color: _palette(text-4);
+         }
+       }*/
 
       .item-actions {
         border-top: 1px solid #eee;
@@ -470,8 +498,8 @@
           }
 
           i {
-              font-size: 24px;
-              cursor: pointer;
+            font-size: 24px;
+            cursor: pointer;
           }
         }
         .item-meta {
@@ -480,11 +508,12 @@
           color: #666;
           font-size: 12px;
           span {
-            margin:0 10px;
+            margin: 0 10px;
           }
 
-          a {  margin-right: 8px;
-           i {
+          a {
+            margin-right: 8px;
+            i {
               font-size: 32px;
               cursor: pointer;
             }
@@ -517,20 +546,20 @@
           }
         }
       }
-      .item-manager{
+      .item-manager {
         border-top: 1px solid #eee;
         margin-top: 5px;
         padding-top: 10px;
         display: inline-block;
         width: 100%;
-        .form-control{
+        .form-control {
           display: inline-block;
           width: 70px;
           height: 25px;
           padding: 2px 2px;
           text-align: center;
         }
-        .checkbox{
+        .checkbox {
           margin-top: 0;
         }
       }
@@ -546,8 +575,8 @@
         cursor: pointer;
       }
       .item-comments {
-       /* background: _palette(bg-2);*/
-        padding: 10px 20px;
+        /* background: _palette(bg-2);*/
+        /* padding: 10px 20px;*/
 
         .item-label {
           color: _palette(button-3);

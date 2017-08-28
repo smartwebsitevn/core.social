@@ -1,9 +1,10 @@
 <?php if (user_is_login()): ?>
 <form class="form_action" accept-charset="UTF-8"
       _field_load="<?php echo $info->id; ?>_comment_load"
-      action="<?php echo $info->_url_comment_add ?>"
+      action="<?php echo $info->_url_comment_reply.'&id='.$id ?>"
+
       method="POST">
-    <div class="row mt10 mb10">
+    <div class="row  mt10 mb10">
         <div class="col-md-1">
             <?php $img = (isset($user->avatar) && $user->avatar) ? $user->avatar->url_thumb : public_url('img/user_no_image.png');
             ?>

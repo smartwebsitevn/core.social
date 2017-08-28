@@ -241,6 +241,8 @@ class MY_Mod
                 $row->{'_' . $p} = ($row->$p) ? format_date($row->$p) : '';
                 $row->{'_' . $p . '_time'} = ($row->$p) ? format_date($row->$p, 'time') : '';
                 $row->{'_' . $p . '_full'} = ($row->$p) ? format_date($row->$p, 'full') : '';
+                $row->{'_' . $p . '_carbon'} = ($row->$p) ? \Carbon\Carbon::createFromTimestamp($row->$p) : '';
+
             }
         }
         return $row;

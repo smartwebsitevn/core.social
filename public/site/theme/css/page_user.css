@@ -25,31 +25,29 @@ body.user-page #main {
     position: relative;
     display: block; }
     .list-user .item-user .item-photo {
+      width: 145px;
+      float: left;
       display: block;
       position: relative;
-      overflow: hidden;
-      width: 145px;
-      float: left; }
+      overflow: hidden; }
       .list-user .item-user .item-photo img {
-        display: block;
+        display: inline-block;
         width: 120px;
         height: 120px;
-        border-radius: 100%;
-        -webkit-transition: 1s;
-        -o-transition: 1s;
-        transition: 1s; }
+        border-radius: 100%; }
       .list-user .item-user .item-photo .item-label {
+        font-size: 32px;
+        width: 36px;
+        height: 36px;
+        left: 90px;
+        bottom: 0px;
         color: #eb8305;
         font-weight: bold;
-        bottom: 0px;
         position: absolute;
         background: #fff;
         border-radius: 100%;
         text-align: center;
-        font-size: 32px;
-        height: 36px;
-        left: 90px;
-        width: 36px; }
+        vertical-align: middle; }
     .list-user .item-user .item-info {
       float: left;
       width: calc(75% - 150px); }
@@ -155,29 +153,30 @@ body.user-page #main {
     font-size: 11px;
     width: 100%; }
     .list-user-feature .item-user .item-photo {
-      display: block;
-      position: relative;
-      overflow: hidden;
       float: left;
       margin-right: 5px;
-      padding-right: 5px; }
+      padding-right: 5px;
+      display: block;
+      position: relative;
+      overflow: hidden; }
       .list-user-feature .item-user .item-photo img {
-        display: block;
+        display: inline-block;
         width: 35px;
         height: 35px;
         border-radius: 100%; }
       .list-user-feature .item-user .item-photo .item-label {
-        color: #eb8305;
         font-size: 15px;
-        font-weight: bold;
+        width: 16px;
+        height: 16px;
         left: 25px;
         bottom: 0px;
+        color: #eb8305;
+        font-weight: bold;
         position: absolute;
         background: #fff;
         border-radius: 100%;
-        width: 16px;
-        height: 16px;
-        text-align: center; }
+        text-align: center;
+        vertical-align: middle; }
     .list-user-feature .item-user .item-info {
       float: left;
       width: calc(100% - 50px); }
@@ -239,34 +238,33 @@ body.user-page #main {
     position: relative;
     display: block; }
     .detail-user .item-user .item-photo {
-      display: block;
-      position: relative;
-      overflow: hidden;
       width: 180px;
       float: left;
-      text-align: center; }
+      text-align: center;
+      display: block;
+      position: relative;
+      overflow: hidden; }
       .detail-user .item-user .item-photo img {
-        display: block;
+        display: inline-block;
         width: 120px;
         height: 120px;
-        border-radius: 100%;
-        margin: 0 auto; }
-      .detail-user .item-user .item-photo .links a {
-        font-size: 25px;
-        margin: 0 5px; }
+        border-radius: 100%; }
       .detail-user .item-user .item-photo .item-label {
-        color: #eb8305;
         font-size: 30px;
-        font-weight: bold;
-        bottom: 30px;
+        width: 33px;
+        height: 33px;
         left: 120px;
+        bottom: 30px;
+        color: #eb8305;
+        font-weight: bold;
         position: absolute;
         background: #fff;
         border-radius: 100%;
-        width: 33px;
-        height: 33px;
         text-align: center;
         vertical-align: middle; }
+      .detail-user .item-user .item-photo .links a {
+        font-size: 25px;
+        margin: 0 5px; }
     .detail-user .item-user .item-info {
       float: left;
       width: calc(80% - 190px); }

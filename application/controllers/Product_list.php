@@ -150,12 +150,14 @@ class Product_list extends MY_Controller
     //====================== Tao danh sach hien thi ===========================
     private function _create_list($input = array(), $filter = array(), $filter_fields = array())
     {
+       // pr($this->input->post_get(null));
         $filter_input = array();
         $filter_fields = array_merge($filter_fields, model('product')->fields_filter);
         $mod_filter = mod('product')->create_filter($filter_fields, $filter_input);
         $filter = array_merge( $filter,$mod_filter);
         // pr($filter_input);
-
+        $filter['types']= $this->input->get('types');
+        $filter_input['types'] =$filter['types'];
         $key = $this->input->get('name');
         $key = str_replace(array('-', '+'), ' ', $key);
         if (isset($filter['name']) && $filter['name']) {
@@ -220,9 +222,9 @@ class Product_list extends MY_Controller
         /*if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
         }*/
-       // pr($filter);
         $list = model('product')->filter_get_list($filter, $input);
-       // pr_db($list);
+       // pr($filter,0);
+        //pr_db($list);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row,1);
         }
@@ -287,7 +289,7 @@ class Product_list extends MY_Controller
             }
 
             $temp = $temp ? $temp : $style_display;
-          //  $temp ='default';
+            //$temp ='default';
             $load_more = $this->input->get("load_more", false);
 
              $response=   [

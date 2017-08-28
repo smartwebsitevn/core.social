@@ -59,6 +59,10 @@
 						flash_swf_url: 		g_setting.plugin_path+'/plupload.flash.swf',
 						silverlight_xap_url:g_setting.plugin_path+'/plupload.silverlight.xap',
 						filters: 			[{title : "Files", extensions: g_setting.config_extensions}],
+						multipart : true,
+						multipart_params : {
+							token :csrf_token
+						},
 
 						// Post init events, bound after the internal events
 						init : {
@@ -124,7 +128,11 @@
 					multi_selection: 	false,
 					flash_swf_url: 		g_setting.plugin_path+'/plupload.flash.swf',
 					silverlight_xap_url:g_setting.plugin_path+'/plupload.silverlight.xap',
-					filters: 			[{title : "Files", extensions: g_setting.config_extensions}]
+					filters: 			[{title : "Files", extensions: g_setting.config_extensions}],
+					multipart : true,
+					multipart_params : {
+						token :csrf_token
+					},
 				});
 				
 				

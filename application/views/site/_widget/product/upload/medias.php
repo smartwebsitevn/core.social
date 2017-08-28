@@ -66,7 +66,11 @@
 	<!-- Temp html -->
 	<div id="temp" style="display:none">
 		<div id="upload_info">
-			<div class="contentProgress" style="width:108px; margin-top:3px;"><div class="progress barO" style="width:{file_progress}%;"></div></div>
+			{file_name}-{file_size}
+			<div class="progress ">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {file_progress}%;"></div>
+			</div>
+
 		</div>
 		
 		<div id="upload_error">

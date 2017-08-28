@@ -125,16 +125,16 @@
   }
   .block-content {
     padding: 0;
-    .logo-cty {
-      text-align: center;
-      /*padding-top: 23px;*/
-      margin-bottom: 10px;
-      img {
-        display: inline-block;
-        max-width:150px ;
-        border-radius: 100%;
-      }
+    .item-photo {
+      width: 180px;
+      margin:0px auto;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      @include user-avatar(120px,120px);
+      @include user-label(30px,33px,33px,120px,0px);
+
     }
+
     .links {
       text-align: center;
       margin-bottom: 20px;

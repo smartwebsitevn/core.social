@@ -22,7 +22,7 @@
 				$.ajax({
 					type: "post",
 					url: "<?php echo admin_url( t('uri')->rsegment(1) . '/get_types' ) ?>",
-					data: {type_cat_id: value,product_id:<?php echo $info?$info['id']:0?>},
+					data: {token:csrf_token,type_cat_id: value,product_id:<?php echo $info?$info['id']:0?>},
 					success: function (output) {
 						$('#data_types').html(output);
 					}

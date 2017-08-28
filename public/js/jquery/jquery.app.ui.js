@@ -1639,10 +1639,17 @@ var nfc = {
             $(document).on('click', '.hide-me', function () {
                 $(this).fadeOut();
             });
+            $(document).on('click', '.del-me', function () {
+                $(this).del();
+            });
             // an muc cha
             $(document).on('click', '.hide-parent', function () {
                 var parent = $(this).data('parent');
                 $(this).closest(parent).slideUp();
+            });
+            $(document).on('click', '.del-parent', function () {
+                var parent = $(this).data('parent');
+                $(this).closest(parent).remove();
             });
             // chia se mang xa hoi
             $(document).on('click', '.act-share', function () {
@@ -2789,14 +2796,23 @@ var nfc = {
 
         },
         formAction: {
-            config: '',
+            obj:null,
+            config: {
+                action: '',
+                field_load: '',
+                submit: false,
+                event_submit: '',
+                event_complete: '',
+                event_error: '',
+                loading: false
+            },
             boot: function () {
                 var formAction = this;
                 //== init prevent submit
                 formAction.init();
                 $(document).on('click', '.form_action [_submit]', function (e) {
                     var $this =$(this).closest('.form_action');
-                    var options = {
+                    formAction.config = {
                         field_load: $this.attr('_field_load'),
                         event_error: function (data) {
                             // Reset captcha
@@ -2808,9 +2824,9 @@ var nfc = {
                             //}
                         },
                     };
-
-                    formAction.process($this, options);
-                    //return false;
+                    formAction.obj = $this;
+                    formAction.process();
+                    return false;
                 });
 
             },
@@ -2821,7 +2837,7 @@ var nfc = {
                    $this.submit(function( event ) {
                         event.preventDefault();
                        var $this =$(this);
-                       var options = {
+                       formAction.config = {
                            field_load: $this.attr('_field_load'),
                            event_error: function (data) {
                                // Reset captcha
@@ -2833,53 +2849,51 @@ var nfc = {
                                //}
                            },
                        };
-                       formAction.process($this, options);
+                       //alert('init')
+                       formAction.obj = $this;
+                       formAction.process();
                     });
                 });
             },
-            process: function ($this, options) {
-
-                formActionAdvHandle($this, options);
-                function formActionAdvHandle($this, options) {
+            process: function () {
                     // Neu form dang xu ly thi bo qua
-                    if (options.loading) {
+                    if (this.config.loading) {
                         return false;
                     }
-
                     // Tao event submit
-                    if (typeof options.event_submit == "function") {
-                        var submit = options.event_submit.call(this, options);
+                    if (typeof this.config.event_submit == "function") {
+                        var submit = this.config.event_submit.call(this, this.config);
                         if (submit == false) {
                             return false;
                         }
                     }
 
                     // Set trang thai loading
-                    options.loading = true;
+                    this.config.loading = true;
 
                     // Hien thi loader
-                    nfc.loader('show', options.field_load);
+                    nfc.loader('show', this.config.field_load);
 
                     // Lay action
-                    var action = options.action;
-                    action = (!action) ? $this.attr('action') : action;
+                    var action = this.config.action;
+                    action = (!action) ? this.obj.attr('action') : action;
                     action = (!action) ? window.location.href : action;
                     // Lay method
-                    var method = $this.attr('method');
+                    var method = this.obj.attr('method');
                     method = (!method) ? 'POST' : method;
 
                     // tao token cho form
-                    //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
+                    //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo(this.obj);
 
                     // Load du lieu va xu ly
-                    $this.ajaxSubmit({
+                    this.obj.ajaxSubmit({
                         url: action,
                         type: method,
                         data: {'_submit': 'true',token:csrf_token},
                         dataType: 'json',
                         success: function (data, statusText, xhr, $form) {
 
-                            formActionAdvResultHandle(data);
+                            nfc.action.formAction.process_result(data);
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             // formActionAdvResultHandle();
@@ -2888,116 +2902,118 @@ var nfc = {
                     });
 
                     return false;
-                }
 
-                function formActionAdvResultHandle(data) {
-                    // Reset trang thai loading
-                    options.loading = false;
-                    // An loader
-                    nfc.loader('hide', options.field_load);
-                    // Neu ajax bi loi
-                    if (data == undefined) {
-                        if (_is_local) {
-                            alert('Có lỗi xẩy ra trong qua trình xử lý');
-                        }
-                        else {
-                            window.location.reload();
-                        }
 
-                        return;
-                    }
-
-                    // Reset cac thong bao loi cu
-                    $this.find('[name$=_error]').html('').hide();
-
-                    // Neu xu ly du lieu thanh cong
-                    if (data.complete) {
-                        // Xu ly data
-                        if (typeof options.event_complete == "function") {
-                            options.event_complete.call(this, data, options);
-                        }
-                        else
-                            nfc.server_response(data, $this)
-                    }
-
-                    // Neu khong thanh cong
-                    else {
-                        // Hien thi thong bao loi hien tai
-                        $.each(data, function (param, value) {
-                            if (value.length > 0)
-                                $this.find('[name="' + param + '_error"]').html(value).show('blind', 200);
-                        });
-
-                        // Reset captcha neu co
-                        if (data['security_code']) {
-                            var captcha = $this.find('img[_captcha]').attr('id');
-                            if (captcha) {
-                                var t = $('#' + captcha);
-                                var url = t.attr('_captcha') + '?id=' + Math.random();
-                                t.attr('src', url);
-                            }
-                        }
-                        // Tao event error
-                        if (typeof options.event_error == "function") {
-                            options.event_error.call(this, data, options);
-                        }
-                        else {
-                            nfc.server_response(data)
-                        }
-                    }
-                }
-                /**
-                 * Ajax Form Auto Check
-                 */
-                function ajaxFormAutoCheckHandle() {
-                    var name = $(this).attr('name');
-                    if (!name) return;
-
-                    var value = $(this).attr('value');
-                    value = (!value) ? '' : value;
-
-                    // Hien thi loader
-                    var autocheck = $this.find('[name="' + name + '_autocheck"]')
-                    autocheck.html('<div id="loader"></div>').show();
-
-                    // Lay action
-                    var action = options.action;
-                    action = (!action) ? $this.attr('action') : action;
-                    action = (!action) ? window.location.href : action;
-
-                    // Lay method
-                    var method = $this.attr('method');
-                    method = (!method) ? 'POST' : method;
-                    //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
-
-                    // Load du lieu va xu ly
-                    $this.ajaxSubmit({
-                        url: action,
-                        type: method,
-                        data: {'_autocheck': name,token:csrf_token},
-                        dataType: 'json',
-                        success: function (data, statusText, xhr, $form) {
-                            var error = $this.find('[name="' + name + '_error"]');
-
-                            if (data.accept) {
-                                autocheck.html('<div id="accept"></div>').show();
-                                error.html(data.error).hide('blind');
-                            }
-                            else {
-                                autocheck.html('<div id="error"></div>').show();
-                                error.html(data.error).show('blind', 200);
-                            }
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            var error = $this.find('[name="' + name + '_error"]');
-
-                            autocheck.hide();
-                            error.hide();
-                        }
-                    });
-                }
 
             },
+            process_result: function (data) {
+                // Reset trang thai loading
+                this.config.loading = false;
+                $this =this.obj;
+                // An loader
+                nfc.loader('hide', this.config.field_load);
+                // Neu ajax bi loi
+                if (data == undefined) {
+                    if (_is_local) {
+                        alert('Có lỗi xẩy ra trong qua trình xử lý');
+                    }
+                    else {
+                        window.location.reload();
+                    }
+
+                    return;
+                }
+
+                // Reset cac thong bao loi cu
+                $this.find('[name$=_error]').html('').hide();
+
+                // Neu xu ly du lieu thanh cong
+                if (data.complete) {
+                    // Xu ly data
+                    if (typeof this.config.event_complete == "function") {
+                        this.config.event_complete.call(this, data, this.config);
+                    }
+                    else
+                        nfc.server_response(data, $this)
+                }
+
+                // Neu khong thanh cong
+                else {
+                    // Hien thi thong bao loi hien tai
+                    $.each(data, function (param, value) {
+                        if (value.length > 0)
+                            $this.find('[name="' + param + '_error"]').html(value).show('blind', 200);
+                    });
+
+                    // Reset captcha neu co
+                    if (data['security_code']) {
+                        var captcha = $this.find('img[_captcha]').attr('id');
+                        if (captcha) {
+                            var t = $('#' + captcha);
+                            var url = t.attr('_captcha') + '?id=' + Math.random();
+                            t.attr('src', url);
+                        }
+                    }
+                    // Tao event error
+                    if (typeof this.config.event_error == "function") {
+                        this.config.event_error.call(this, data, this.config);
+                    }
+                    else {
+                        nfc.server_response(data)
+                    }
+                }
+            },
+            /**
+             * Ajax Form Auto Check
+             */
+
+            process_autocheck: function () {
+                var name = $(this).attr('name');
+                if (!name) return;
+
+                var value = $(this).attr('value');
+                value = (!value) ? '' : value;
+
+                // Hien thi loader
+                var autocheck = $this.find('[name="' + name + '_autocheck"]')
+                autocheck.html('<div id="loader"></div>').show();
+
+                // Lay action
+                var action = options.action;
+                action = (!action) ? $this.attr('action') : action;
+                action = (!action) ? window.location.href : action;
+
+                // Lay method
+                var method = $this.attr('method');
+                method = (!method) ? 'POST' : method;
+                //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo($this);
+
+                // Load du lieu va xu ly
+                $this.ajaxSubmit({
+                    url: action,
+                    type: method,
+                    data: {'_autocheck': name,token:csrf_token},
+                    dataType: 'json',
+                    success: function (data, statusText, xhr, $form) {
+                        var error = $this.find('[name="' + name + '_error"]');
+
+                        if (data.accept) {
+                            autocheck.html('<div id="accept"></div>').show();
+                            error.html(data.error).hide('blind');
+                        }
+                        else {
+                            autocheck.html('<div id="error"></div>').show();
+                            error.html(data.error).show('blind', 200);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        var error = $this.find('[name="' + name + '_error"]');
+
+                        autocheck.hide();
+                        error.hide();
+                    }
+                });
+            }
         },
         common: function () {
             return;
