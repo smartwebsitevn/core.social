@@ -55,10 +55,9 @@ class Product_post extends MY_Controller
      *  Actions
      * ------------------------------------------------------
      */
-    function _ajax_load_types($id)
+    function _ajax_load_types($product_id)
     {
         $type_cat_id = $this->input->get('type_cat');
-        $product_id = $this->input->get('product_id');
 
         if (!$type_cat_id) return;
 
@@ -66,8 +65,8 @@ class Product_post extends MY_Controller
         $types_values = [];
         if ($product_id) {
             $types_values = model('type_table')->filter_get_list(['type_cat_id' => $type_cat_id, 'table_id' => $product_id, 'table_' => $this->_get_mod()]);
-
         }
+        //pr_db($types_values);
         if ($types) {
             foreach ($types as $type) {
                 $type_items = model('type_item')->filter_get_list(['type_id' => $type->id], ['select' => 'id,name,image_id,image_name,seo_url']);
@@ -607,8 +606,8 @@ class Product_post extends MY_Controller
 
     protected function _update_infos($id, $data,$user)
     {
-
         //$this->_mod()->tags_set($id, $this->input->post('tags'));
+        $this->_mod()->to_types( $id, $this->input->post('types'), $this->input->post('type_cat_id') );
         model('user')->update_stats(['id'=>$user->id],['post_total'=>1]);
 
 
@@ -626,8 +625,9 @@ class Product_post extends MY_Controller
             $info->_user = model('user')->get_info($info->user_id, 'email,username,name');
         // echo 1;pr($info);
         if ($info) {
+            $description = $info->description ;
             $info = $this->_mod()->add_info($info, true);
-            //echo 1;pr($info);
+            $info->description =$description;
             $info = $this->_mod()->tags_get($info);
         }
         $info = isset($info) ? (array)$info : null;

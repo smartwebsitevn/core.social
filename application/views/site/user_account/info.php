@@ -56,10 +56,7 @@
 			<td><b><?php echo lang('birthday'); ?></b></td>
 			<td><?php echo $user->birthday; ?></td>
 		</tr>
- 		<tr>
-			<td><b><?php echo lang('address'); ?></b></td>
-			<td><?php echo $user->address; ?></td>
-		</tr>
+
  		<?php */ ?>
 
 
@@ -83,6 +80,10 @@
 		<tr>
 			<td><b>Nơi làm việc<?php // echo lang('country'); ?></b></td>
 			<td><?php echo  $user->_working_city_name; ?></td>
+		</tr>
+		<tr>
+			<td><b><?php echo lang('address'); ?></b></td>
+			<td><?php echo $user->address; ?></td>
 		</tr>
 		<tr>
 			<td><b>Tự giới thiệu<?php //echo lang('birthday'); ?></b></td>

@@ -201,7 +201,7 @@ class Product_list extends MY_Controller
         }
         //== Sort Order
         $sort_orders = array(
-            'feature|desc',
+            'is_feature|desc',
             'id|desc',
             'point_total|desc',
             //'price|asc',
@@ -219,12 +219,12 @@ class Product_list extends MY_Controller
         } else {
             $orderex = explode('|', $sort_orders[0]);
         }
-        /*if (!isset($input['order'])) {
+       if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
-        }*/
+        }
         $list = model('product')->filter_get_list($filter, $input);
        // pr($filter,0);
-        //pr_db($list);
+       // pr_db($list);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row,1);
         }

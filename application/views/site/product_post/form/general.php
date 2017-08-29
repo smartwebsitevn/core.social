@@ -28,6 +28,7 @@
             <div class="clearfix"></div>
             <?php
             $product_cats = model('type_cat')->get_list_hierarchy([], ['show' => 1]);
+
             $_data_info = array(
                 'param' => 'type_cat_id',
                 'type' => 'select',

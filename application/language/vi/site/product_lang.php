@@ -66,6 +66,7 @@ $lang['ordering_point_total|desc'] = 'Nhiều điểm nhất';
 $lang['ordering_buy_total|desc'] = 'Mua nhiều';
 $lang['ordering_new|desc'] = 'Mới';
 $lang['ordering_feature|desc'] = 'Mới nổi';
+$lang['ordering_is_feature|desc'] = 'Mới nổi';
 $lang['ordering_rate|desc'] = 'Đánh giá';
 $lang['ordering_name|asc'] = 'Tên a->z';
 $lang['have_no_list'] = 'Không có dữ liệu';

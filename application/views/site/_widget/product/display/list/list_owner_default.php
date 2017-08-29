@@ -37,7 +37,7 @@
             if (($row->point_total + $row->point_fake) <=-10)  {
                 $row_status = 'status-locked';
                 $row_label = 'Tin đã bị khóa';
-                $row_text = '<a href="'.site_url('').'" target="_blank">Tại sao tin này bị khóa</a>' ;
+                $row_text = '<a href="'.site_url('tro-giup').'" target="_blank">Tại sao tin này bị khóa?</a>' ;
             }
             ?>
             <div class="item-social <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $row_status ?>  ">
@@ -109,8 +109,9 @@
                     <div class="item-media">
                         <?php t('view')->load('tpl::_widget/product/display/item/info_media',['row'=>$row])?>
                      </div>
+                    <?php if($row_status != 'status-locked'): ?>
                      <?php t('view')->load('tpl::_widget/product/display/item/info_config',['row'=>$row,'row_status'=>$row_status])?>
-
+                    <?php endif; ?>
                 </div>
             </div>
 

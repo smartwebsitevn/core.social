@@ -258,7 +258,8 @@
                 var url = options.url;
                 var field = options.field;
                 if (!url) return false;
-
+                if(options.data.token == undefined)
+                    options.data.token = csrf_token;
                 nfc.loader('show', field.load);
 
                 $.post(url, options.data, function (data) {

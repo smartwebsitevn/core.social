@@ -4,7 +4,7 @@
         <li class="dropdown-login login">
             <a class="cd-signin link-login" href="javascript:void(0)">
                 <span class="text ">
-                    <i class="fa fa-sign-in f18" ></i>
+                    <i class="fa fa-sign-in f18"></i>
                     <?php echo lang('button_login'); ?></span>
             </a>
         </li>
@@ -14,7 +14,7 @@
         <li class="dropdown-singup register">
             <a class="cd-signup link-register" href="javascript:void(0)">
                 <span class="text ">
-                    <i class="fa fa-pencil f16" ></i>
+                    <i class="fa fa-pencil f16"></i>
                     <?php echo lang('button_register'); ?> </span>
             </a>
         </li>
@@ -22,10 +22,15 @@
 
 <?php else:// pr($user);?>
     <li class="dropdown-user dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+        <a href="#" class="user-panel dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
            aria-expanded="false">
-            <span class="caret-user user"></span><span class="name"><?php echo $user->name ?></span><span
-                class="caret"></a>
+            <?php if ($user->avatar): ?>
+                <img src="<?php echo $user->avatar->url_thumb ?> " class="avatar"/>
+            <?php else: ?>
+                <i class="pe-7s-user avatar"></i>
+            <?php endif; ?>
+            <span class="name"><?php echo $user->name ?></span>
+        </a>
         <ul class="dropdown-menu">
             <?php /* ?>
 
@@ -37,30 +42,30 @@
                     </b>
                 </a>
             </li>
-      <?php */ ?>
+             <?php */ ?>
             <li>
                 <a href="<?php echo site_url('my-page') ?>">
-                    <i class="pe-7s-home " ></i> <?php echo lang('user_panel_my_page') ?></a>
+                    <i class="pe-7s-home "></i> <?php echo lang('user_panel_my_page') ?></a>
             </li>
-    <?php /* ?>
+            <?php /* ?>
 
             <li >
                 <a href="<?php echo site_url('my-posts') ?>">
                     <i class="pe-7s-note2 " ></i> <?php echo lang('user_panel_my_posts') ?></a>
             </li>
      <?php */ ?>
-            <li >
+            <li>
                 <a href="<?php echo site_url('my-account') ?>">
-                    <i class="pe-7s-config " ></i> <?php echo lang('user_panel_my_account') ?></a>
+                    <i class="pe-7s-config "></i> <?php echo lang('user_panel_my_account') ?></a>
             </li>
 
             <li>
                 <a href="<?php echo site_url('my-balance') ?>">
-                    <i class="pe-7s-credit " ></i>  <?php echo lang('user_panel_my_balance') ?></a>
+                    <i class="pe-7s-credit "></i> <?php echo lang('user_panel_my_balance') ?></a>
             </li>
             <li>
                 <a href="<?php echo $user->_url_logout; ?>">
-                    <i class="pe-7s-power " ></i> <?php echo lang('button_logout'); ?></a>
+                    <i class="pe-7s-power "></i> <?php echo lang('button_logout'); ?></a>
             </li>
 
         </ul>

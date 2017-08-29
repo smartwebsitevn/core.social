@@ -68,6 +68,7 @@
     }
     .item-profession{
       margin-top: 4px;
+      color: _palette(text-2);
     }
     a.btn-xs {
       font-size: 11px;
@@ -84,7 +85,7 @@
       font-weight: 300;
       margin-bottom: 5px;
       line-height: 25px;
-      span {
+      .places,.posts,.points,.follows {
         margin-right: 20px;
       }
 
@@ -164,7 +165,7 @@
   .item-user {
     cursor: pointer;
     margin-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid _palette(border);
     padding: 10px 0;
     position: relative;
     display: inline-block;

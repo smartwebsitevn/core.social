@@ -144,7 +144,12 @@
             'value' => $user->working_country,
             'values' => $countrys,
         ));*/
+        echo macro('mr::form')->row([
+            'name' => 'Địa chỉ',
+            'param' => 'address',
+            'value' => $user->address,
 
+        ]);
         echo macro('mr::form')->row([
             'name' => 'Tự giới thiệu',
             'param' => 'desc',

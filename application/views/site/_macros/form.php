@@ -834,7 +834,7 @@ $this->register('info', function (array $input) {
     $input_class = array_get($input, 'input_class', '');
     $input_attr = array_get($input, 'input_attr', array());
 
-    $linked = array_get($input, 'linked','');// value lien ket
+    $linked = array_get($input, 'linked', '');// value lien ket
     $can_hide = array_get($input, 'can_hide', 0);
     //neu khong truyen
     /*if (!$linked) {
@@ -863,138 +863,142 @@ $this->register('info', function (array $input) {
 
     ?>
     <?php if ($name): ?>
-    <div class="form-group  <?php echo $class ?>" <?php echo t('html')->attr($attr) ?> >
+        <div class="form-group  <?php echo $class ?>" <?php echo t('html')->attr($attr) ?> >
 
-            <label>
-                <?php echo $name ?><?php echo (!empty($unit) && $type != 'range') ? ' (' . $unit . ')' : ''; ?>
-                <?php if ($req): ?><b class="red">*</b><?php endif; ?>
-            </label>
-            <div class="clearfix"></div>
-        <?php endif; ?>
+        <label>
+            <?php echo $name ?><?php echo (!empty($unit) && $type != 'range') ? ' (' . $unit . ')' : ''; ?>
+            <?php if ($req): ?><b class="red">*</b><?php endif; ?>
+        </label>
+        <div class="clearfix"></div>
+    <?php endif; ?>
 
 
-        <?php if ($type == 'text'): ?>
-            <input type="text" <?php $_show_param_name() ?> value="<?php echo $value ?>"
-                   data-name="<?php echo $data_name ?>"
-                   class="form-control <?php echo ($lang) ? $linked : '' ?> <?php echo $input_class ?>"
-                   placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
+    <?php if ($type == 'text'): ?>
+        <input type="text" <?php $_show_param_name() ?> value="<?php echo $value ?>"
+               data-name="<?php echo $data_name ?>"
+               class="form-control <?php echo ($lang) ? $linked : '' ?> <?php echo $input_class ?>"
+               placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
 
-        <?php elseif ($type == 'textarea'): ?>
-            <textarea <?php $_show_param_name() ?> data-name="<?php echo $data_name ?>"
-                                                   class="form-control <?php echo ($lang) ? $linked : '' ?>  <?php echo $input_class ?>"
-                                                   rows="10"
-                                                   placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>><?php echo $value ?></textarea>
+    <?php elseif ($type == 'textarea'): ?>
+        <textarea <?php $_show_param_name() ?> data-name="<?php echo $data_name ?>"
+                                               class="form-control <?php echo ($lang) ? $linked : '' ?>  <?php echo $input_class ?>"
+                                               rows="10"
+                                               placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>><?php echo $value ?></textarea>
 
-        <?php elseif ($type == 'number'): ?>
-            <input type="text" <?php $_show_param_name() ?> data-name="<?php echo $data_name ?>"
-                   value="<?php echo $value ?>" class="form-control <?php echo $linked ?> <?php echo $input_class ?>"
-                   placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
-        <?php elseif ($type == 'range'):
-            $f = $param . "_from";
-            $t = $param . "_to"; ?>
+    <?php elseif ($type == 'number'): ?>
+        <input type="text" <?php $_show_param_name() ?> data-name="<?php echo $data_name ?>"
+               value="<?php echo $value ?>" class="form-control <?php echo $linked ?> <?php echo $input_class ?>"
+               placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
+    <?php elseif ($type == 'range'):
+        $f = $param . "_from";
+        $t = $param . "_to"; ?>
 
-            <input type="text" <?php $_show_param_name($f) ?> value="<?php echo $info[$f] ?>"
-                   data-name="<?php echo $f ?>"
-                   class="form-control  <?php echo $linked ?> <?php echo $input_class ?>"
-                   placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
-            -
-            <input type="text" <?php $_show_param_name($t) ?> value="<?php echo $info[$t] ?>"
-                   data-name="<?php echo $t ?>"
-                   class="form-control  <?php echo $linked ?> <?php echo $input_class ?>"
-                   placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
-            <?php echo !$unit ?: ' (' . $unit . ')'; ?>
-        <?php elseif ($type == 'select' || $type == 'select_multi'):
-            // values la 1 doi tuong| mang gom key va name
-            $values = array_get($input, 'values', array());
-            // values la 1 doi tuong| mang gom 1 key
-            $values_single = array_get($input, 'values_single', array());
-            // values la 1 doi tuong| mang gom nhieu thuoc tinh
-            $values_row = array_get($input, 'values_row', array());
-            // cac option cua value
-            $values_opts = array_get($input, 'values_opts', array());
-            if ($values_single)
-                $values_single = object_to_array($values_single);
-            if ($values_row) {
-                $values_row = object_to_array($values_row);
-            }
+        <input type="text" <?php $_show_param_name($f) ?> value="<?php echo $info[$f] ?>"
+               data-name="<?php echo $f ?>"
+               class="form-control  <?php echo $linked ?> <?php echo $input_class ?>"
+               placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
+        -
+        <input type="text" <?php $_show_param_name($t) ?> value="<?php echo $info[$t] ?>"
+               data-name="<?php echo $t ?>"
+               class="form-control  <?php echo $linked ?> <?php echo $input_class ?>"
+               placeholder="<?php echo $placeholder ?>" <?php echo t('html')->attr($input_attr) ?>>
+        <?php echo !$unit ?: ' (' . $unit . ')'; ?>
+    <?php elseif ($type == 'select' || $type == 'select_multi'):
+        // values la 1 doi tuong| mang gom key va name
+        $values = array_get($input, 'values', array());
+        // values la 1 doi tuong| mang gom 1 key
+        $values_single = array_get($input, 'values_single', array());
+        // values la 1 doi tuong| mang gom nhieu thuoc tinh
+        $values_row = array_get($input, 'values_row', array());
+        // cac option cua value
+        $values_opts = array_get($input, 'values_opts', array());
+        if ($values_single)
+            //$values_single = object_to_array($values_single);
+        if ($values_row) {
+            //$values_row = object_to_array($values_row);
+        }
 
-            $not_show_in_value = isset($values_opts['not_show_in_value']) ? $values_opts['not_show_in_value'] : 0;// khong hien thi cac gia tri da chon trong danh s�h
+        $not_show_in_value = isset($values_opts['not_show_in_value']) ? $values_opts['not_show_in_value'] : 0;// khong hien thi cac gia tri da chon trong danh s�h
 
-            ?>
-            <div class="dropdown search-dropdown <?php echo $input_class ?>" <?php echo t('html')->attr($input_attr) ?>>
-                <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown"
-                     type="button">
+        ?>
+        <div class="dropdown search-dropdown <?php echo $input_class ?>" <?php echo t('html')->attr($input_attr) ?>>
+            <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown"
+                 type="button">
 					<span class="search-rendered">
-                                                 <?php rendered_value($value, $values,$value_default); ?>
+                                     <?php //rendered_value($value, $values, $value_default);                                      ?>
+                                     <?php if ($values == ''): ?>
+                                         <?php rendered_value($value, $values, $value_default) ?>
+                                     <?php else: ?>
+                                         <?php if ($values): ?>
+                                             <?php rendered_value($value, $values, $value_default) ?>
+                                         <?php elseif ($values_single): ?>
 
-                                                 <?php /* if ($value == ''): ?><?php //echo 'All' //lang("all_u_education")?>
-                        <?php else: ?>
-                            <?php if ($values): ?><?php echo $values[$value] ?>
-                            <?php elseif ($values_single): ?><?php echo $value ?>
-                            <?php elseif ($values_row): ?><?php echo $values_row[$value] ?>
-                            <?php endif; ?>
-                        <?php endif; */
-                                                 ?>
+                                             <?php rendered_value($value, $values_single, $value_default) ?>
+                                         <?php elseif ($values_row): ?>
+                                             <?php rendered_value($value, $values_row[0], $value_default) ?>
+                                         <?php endif; ?>
+                                     <?php endif;
+                                     ?>
 					</span>
-                    <span class="search-caret"></span>
-                </div>
-                <span class="search-remove"></span>
+                <span class="search-caret"></span>
+            </div>
+            <span class="search-remove"></span>
 
-                <?php if ($type == 'select'): ?>
-                    <ul class="dropdown-menu  ">
+            <?php if ($type == 'select'): ?>
+                <ul class="dropdown-menu  ">
+                    <?php if ($values): ?>
+                        <?php foreach ($values as $v => $n): ?>
+                            <?php if ($not_show_in_value && $value == $v) continue; ?>
+                            <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $v) ? 'active active_filter' : '' ?>"
+                                data-name="<?php echo $data_name ?>" data-value="<?php echo $v ?>">
+                                <a class="search-results-option " href="#0">
+                                    <?php echo lang(array_get($values_opts, 'name_prefix', '') . $n . array_get($values_opts, 'name_suffix', '')) ?>
+                                </a>
+                                <?php if ($value == $v): ?>
+                                    <input type="hidden" name="<?php echo $param ?>" value="<?php echo $v ?>"/>
+                                <?php endif; ?>
+                            </li>
+
+                        <?php endforeach; ?>
+                    <?php elseif ($values_single): ?>
+                        <?php foreach ($values_single as $v): ?>
+                            <?php if ($not_show_in_value && $value == $v) continue; ?>
+                            <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $v) ? 'active active_filter' : '' ?>"
+                                data-name="<?php echo $data_name ?>" data-value="<?php echo $v ?>">
+                                <a class="search-results-option " href="#0">
+                                    <?php echo array_get($values_opts, 'text_prefix', '') . lang(array_get($values_opts, 'name_prefix', '') . $v . array_get($values_opts, 'name_suffix', '')) . array_get($values_opts, 'text_suffix', ''); ?>
+                                </a>
+                                <?php if ($value == $v): ?>
+                                    <input type="hidden" name="<?php echo $param ?>" value="<?php echo $v ?>"/>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php elseif ($values_row && count($values_row[0]) > 0): ?>
+                        <?php foreach ($values_row[0] as $row):
+                            $row = isset($row) ? (array)$row : array(); ?>
+                            <?php if ($not_show_in_value && in_array($row[$values_row[1]], (array)$value)) continue; ?>
+
+                            <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $row[$values_row[1]]) ? 'active active_filter' : '' ?>"
+                                data-name="<?php echo $data_name ?>"
+                                data-value="<?php echo $row[$values_row[1]] ?>">
+                                <a class="search-results-option " href="#0"><?php echo $row[$values_row[2]] ?></a>
+                                <?php if ($value == $row[$values_row[1]]): ?>
+                                    <input type="hidden" name="<?php echo $param ?>"
+                                           value="<?php echo $row[$values_row[1]] ?>"/>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
+            <?php else: ?>
+                <div class="dropdown-menu dropdown-2colums clearfix">
+                    <div class="dropdown-menu dropdown-menu-left  slimscroll">
+                        <div class="form-group">
+                            <input type="text" placeholder="" class="form-control lg searachSelect">
+                        </div>
+
                         <?php if ($values): ?>
-                            <?php foreach ($values as $v => $n): ?>
-                                <?php if ($not_show_in_value && $value == $v) continue; ?>
-                                <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $v) ? 'active active_filter' : '' ?>"
-                                    data-name="<?php echo $data_name ?>" data-value="<?php echo $v ?>">
-                                    <a class="search-results-option " href="#0">
-                                        <?php echo lang(array_get($values_opts, 'name_prefix', '') . $n . array_get($values_opts, 'name_suffix', '')) ?>
-                                    </a>
-                                    <?php if ($value == $v): ?>
-                                        <input type="hidden" name="<?php echo $param ?>" value="<?php echo $v ?>"/>
-                                    <?php endif; ?>
-                                </li>
-
-                            <?php endforeach; ?>
-                        <?php elseif ($values_single): ?>
-                            <?php foreach ($values_single as $v): ?>
-                                <?php if ($not_show_in_value && $value == $v) continue; ?>
-                                <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $v) ? 'active active_filter' : '' ?>"
-                                    data-name="<?php echo $data_name ?>" data-value="<?php echo $v ?>">
-                                    <a class="search-results-option " href="#0">
-                                        <?php echo array_get($values_opts, 'text_prefix', '') . lang(array_get($values_opts, 'name_prefix', '') . $v . array_get($values_opts, 'name_suffix', '')) . array_get($values_opts, 'text_suffix', ''); ?>
-                                    </a>
-                                    <?php if ($value == $v): ?>
-                                        <input type="hidden" name="<?php echo $param ?>" value="<?php echo $v ?>"/>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php elseif ($values_row && count($values_row[0]) > 0): ?>
-                            <?php foreach ($values_row[0] as $row):
-                                $row = isset($row) ? (array)$row : array(); ?>
-                                <?php if ($not_show_in_value && in_array($row[$values_row[1]], (array)$value)) continue; ?>
-
-                                <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $row[$values_row[1]]) ? 'active active_filter' : '' ?>"
-                                    data-name="<?php echo $data_name ?>"
-                                    data-value="<?php echo $row[$values_row[1]] ?>">
-                                    <a class="search-results-option " href="#0"><?php echo $row[$values_row[2]] ?></a>
-                                    <?php if ($value == $row[$values_row[1]]): ?>
-                                        <input type="hidden" name="<?php echo $param ?>"
-                                               value="<?php echo $row[$values_row[1]] ?>"/>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </ul>
-                <?php else: ?>
-                    <div class="dropdown-menu dropdown-2colums clearfix">
-                        <div class="dropdown-menu dropdown-menu-left  slimscroll">
-                            <div class="form-group">
-                                <input type="text" placeholder="" class="form-control lg searachSelect">
-                            </div>
-
-                            <?php if ($values): ?>
-                                <?php /*foreach ($values as $v => $n): ?>
+                            <?php /*foreach ($values as $v => $n): ?>
                                 <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $v) ? 'active' : '' ?>"
                                     data-name="<?php echo $data_name ?>" data-value="<?php echo $v ?>">
                                     <a class="search-results-option " href="#0">
@@ -1006,7 +1010,7 @@ $this->register('info', function (array $input) {
                                 </li>
 
                             <?php endforeach; */ ?>
-                            <?php elseif ($values_single): /*?>
+                        <?php elseif ($values_single): /*?>
                             <?php foreach ($values_single as $v): ?>
                                 <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $v) ? 'active' : '' ?>"
                                     data-name="<?php echo $data_name ?>" data-value="<?php echo $v ?>">
@@ -1018,43 +1022,43 @@ $this->register('info', function (array $input) {
                                     <?php endif; ?>
                                 </li>
                             <?php endforeach; */ ?>
-                            <?php elseif ($values_row && count($values_row[0]) > 0):
-                                $_value = $values_row[1];
-                                $_name = $values_row[2];
-                                //echo $_value.$_name;
+                        <?php elseif ($values_row && count($values_row[0]) > 0):
+                            $_value = $values_row[1];
+                            $_name = $values_row[2];
+                            //echo $_value.$_name;
 
-                                ?>
-                                <?php foreach ($values_row[0] as $row): // pr($row);
-                                $row = isset($row) ? (array)$row : array() ?>
-                                <?php $checked = (is_array($value) && in_array($row[$_value], $value)) ? 1 : 0; ?>
-                                <?php if ($not_show_in_value && $checked) continue; ?>
-                                <div class="search-results checkbox <?php echo $checked ? ' active_filter' : ''; ?> ">
-                                    <label>
-                                        <input type="checkbox"
-                                               name="<?php echo $param ?>[]"
-                                               value="<?php echo $row[$_value] ?>" <?php //echo $checked ? 'checked="checked"':'';
-                                        ?> >
+                            ?>
+                            <?php foreach ($values_row[0] as $row): // pr($row);
+                            $row = isset($row) ? (array)$row : array() ?>
+                            <?php $checked = (is_array($value) && in_array($row[$_value], $value)) ? 1 : 0; ?>
+                            <?php if ($not_show_in_value && $checked) continue; ?>
+                            <div class="search-results checkbox <?php echo $checked ? ' active_filter' : ''; ?> ">
+                                <label>
+                                    <input type="checkbox"
+                                           name="<?php echo $param ?>[]"
+                                           value="<?php echo $row[$_value] ?>" <?php //echo $checked ? 'checked="checked"':'';
+                                    ?> >
                                 <span class="<?php echo $linked ?>"
                                       data-type="checkbox"><?php echo $row[$_name] ?></span>
-                                    </label>
-                                </div>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
 
-                        </div>
                     </div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-        <?php if ($can_hide):
-            $hide_target = array_get($input, 'hide_target', $param); ?>
-            <a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"
-               class="removes hide_target " title="Xóa">
-                <span class="icon"></span> Xóa
-            </a>
-        <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($can_hide):
+        $hide_target = array_get($input, 'hide_target', $param); ?>
+        <a style="width: 50px;margin-left:10px " data-param="<?php echo $hide_target ?>"
+           class="removes hide_target " title="Xóa">
+            <span class="icon"></span> Xóa
+        </a>
+    <?php endif; ?>
 
-    <?php if($param && $show_error): ?>
+    <?php if ($param && $show_error): ?>
         <div class="clearfix"></div>
         <div name="<?php echo $param; ?>_error" class="error"></div>
     <?php endif; ?>
@@ -1062,7 +1066,7 @@ $this->register('info', function (array $input) {
         <small><?php echo $desc; ?></small>
     <?php endif; ?>
     <?php if ($name): ?>
-    </div>
+        </div>
     <?php endif; ?>
 
     <?php return ob_get_clean();
@@ -1082,15 +1086,15 @@ $this->register('info_cat_single', function (array $input) {
     $req = array_get($input, 'req');
     //$_id = '_'.random_string('unique');
     ?>
-   <?php if ($name): ?>
+    <?php if ($name): ?>
         <div class="form-group ">
         <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><b
                 class="red">*</b><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
-        <div class="dropdown search-dropdown">
-            <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
+    <div class="dropdown search-dropdown">
+        <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button">
 										<span class="search-rendered">
                                                                      <?php rendered_value($value, $values); ?>
 
@@ -1100,23 +1104,23 @@ $this->register('info_cat_single', function (array $input) {
                                                 <?php echo $info['_' . $param]->name ?>
                                             <?php endif; */ ?>
 										</span>
-                <span class="search-caret"></span>
-            </div>
-            <span class="search-remove"></span>
-            <ul class="dropdown-menu ">
-                <?php foreach ($values as $row): ?>
-                    <li class="search-results act-input-dropdown <?php echo $linked ?> <?php echo ($value == $row->id) ? 'active' : '' ?>"
-                        data-name="<?php echo $param ?>" data-value="<?php echo $row->id ?>">
-                        <a class="search-results-option " href="#0"><?php echo $row->name ?></a>
-                        <?php if ($value == $row->id): ?>
-                            <input type="hidden" name="<?php echo $param ?>" value="<?php echo $row->id ?>"/>
-                        <?php endif; ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <span class="search-caret"></span>
         </div>
-        <div class="clearfix"></div>
-        <div name="<?php echo $param; ?>_error" class="error"></div>
+        <span class="search-remove"></span>
+        <ul class="dropdown-menu ">
+            <?php foreach ($values as $row): ?>
+                <li class="search-results act-input-dropdown <?php echo $linked ?> <?php echo ($value == $row->id) ? 'active' : '' ?>"
+                    data-name="<?php echo $param ?>" data-value="<?php echo $row->id ?>">
+                    <a class="search-results-option " href="#0"><?php echo $row->name ?></a>
+                    <?php if ($value == $row->id): ?>
+                        <input type="hidden" name="<?php echo $param ?>" value="<?php echo $row->id ?>"/>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div name="<?php echo $param; ?>_error" class="error"></div>
     <?php if ($name): ?>
         </div>
         </div>
@@ -2106,17 +2110,18 @@ $this->register('job_datasource', function (array $input) {
     <?php return ob_get_clean();
 });
 
-function rendered_value($value, $values,$name=null)
+function rendered_value($value, $values, $name = null)
 {
+    // echo $value;
+    // pr($values);
     if ($value) {
         $selected = [];
         foreach ($values as $row) {
-            if(is_array($value)){
+            if (is_array($value)) {
                 if (in_array($row->id, $value)) {
                     $selected[] = $row->name;
                 }
-            }
-            else{
+            } else {
                 if ($row->id == $value) {
                     $selected[] = $row->name;
                 }
@@ -2125,8 +2130,8 @@ function rendered_value($value, $values,$name=null)
         if ($selected)
             echo implode(',', $selected);
     } else
-        if($name)
-             echo $name;
+        if ($name)
+            echo $name;
         else
             echo 'All';
 }

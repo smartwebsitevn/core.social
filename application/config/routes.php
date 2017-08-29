@@ -48,23 +48,27 @@ $route['tran-(:num)/(:any)'] 			= 'tran/view/$1/$2';
 //Deposit_card_api
 $route['nap/(:any)'] 			        = 'deposit_card_api/index/$1';
 
+// Page
+$route['page/(:any)-i(:num)'] 			= 'page/index/$2';
+$route['(:any)-page(:num)'] 			= 'page/index/$2';
+$route['tro-giup'] 			= 'page/index/5';
+$route['lien-he'] 			= 'page/index/6';
 
 // News
 $route['tin-tuc'] 						= 'news';
 $route['tin-tuc/(:any)/i(:num)'] 		= 'news/view/$2';
 $route['tin-tuc/tim-kiem'] 				= 'news/search';
 $route['tin-tuc/(:any)'] 				= 'news/$1';
-$route['(:any)/tag-(:any)-(:num)'] 		= '$1/tag/$3';
-// Other
-$route['faq/(:any)-i(:num)'] 			= 'faq/cat/$2';
-$route['page/(:any)-i(:num)'] 			= 'page/index/$2';
-$route['(:any)-page(:num)'] 			= 'page/index/$2';
 $route['(:any)-news(:num)'] 			= 'news/view/$2';
 
+// Faq
+$route['faq/(:any)-i(:num)'] 			= 'faq/cat/$2';
 
+// Other
 foreach(array('album','download','video') as $key => $row) {
 	$route[$row.'/(:any)'] = $row.'/view/$1';
 }
+$route['(:any)/tag-(:any)-(:num)'] 		= '$1/tag/$3';
 
 
 // services

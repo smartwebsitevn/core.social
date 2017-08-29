@@ -75,63 +75,6 @@
   background-image: url(../img/icon/down.png);
 }
 
-.dropdown-user .name {
-  direction: rtl;
-  padding: 0 6px;
-  max-width: 120px;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  text-align: right;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  white-space: nowrap;
-}
-
-.caret-user {
-  display: block;
-  width: 32px;
-  height: 42px;
-  background-image: url(../img/icon/ung-vien-tai-khoan-1.png);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-a:hover .caret-user {
-  background-image: url(../img/icon/ung-vien-tai-khoan-2.png);
-}
-
-.open .caret-user {
-  background-image: url(../img/icon/ung-vien-tai-khoan-3.png);
-}
-
-.caret-user.user-td {
-  background-image: url(../img/icon/nha-TD-tai-khoan-1.png);
-}
-
-a:hover .caret-user.user-td {
-  background-image: url(../img/icon/nha-TD-tai-khoan-2.png);
-}
-
-.open .caret-user.user-td {
-  background-image: url(../img/icon/nha-TD-tai-khoan-3.png);
-}
-
-.caret-user.user-uv {
-  background-image: url(../img/icon/ung-vien-tai-khoan-1.png);
-}
-
-a:hover .caret-user.user-uv {
-  background-image: url(../img/icon/ung-vien-tai-khoan-2.png);
-}
-
-.open .caret-user.user-uv {
-  background-image: url(../img/icon/ung-vien-tai-khoan-3.png);
-}
-
-
-
-
 
 .select-search {
   position: relative;

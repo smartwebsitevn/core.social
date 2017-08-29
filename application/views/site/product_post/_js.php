@@ -100,7 +100,8 @@
         $(".upload-action,.upload-action-data").hide();
         $("#upload-link-content").show();
     }
-    function eventChangeTypeCat($params) {
+    function eventChangeTypeCat($params,$ele) {
+        if($ele != undefined)
         var $this = $($params.ele)
         var type_cat = $this.data('value')
         if (!type_cat) {

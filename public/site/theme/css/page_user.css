@@ -11,6 +11,67 @@
 body.user-page #main {
   margin-top: 50px; }
 
+.dropdown-user a.user-panel {
+  display: flex !important;
+  line-height: 45px; }
+  .dropdown-user a.user-panel i.avatar {
+    font-size: 32px;
+    line-height: 50px; }
+  .dropdown-user a.user-panel img.avatar {
+    height: 40px;
+    padding-top: 7px; }
+  .dropdown-user a.user-panel .name {
+    direction: rtl;
+    padding: 0 6px;
+    max-width: 120px;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    white-space: nowrap; }
+.dropdown-user .dropdown-menu {
+  width: 376px; }
+  .dropdown-user .dropdown-menu .slideThree-uv {
+    font-size: 13px;
+    height: 70px; }
+  .dropdown-user .dropdown-menu li > a, .dropdown-user .dropdown-menu li > a:hover {
+    padding: 18px 20px;
+    line-height: 26px;
+    display: flex; }
+    .dropdown-user .dropdown-menu li > a i, .dropdown-user .dropdown-menu li > a:hover i {
+      font-size: 26px;
+      margin-right: 15px; }
+
+/*=======dropdown link tai khoan==========*/
+.dropdown-notice, .dropdown-message {
+  margin-top: 5px; }
+  .dropdown-notice li a, .dropdown-message li a {
+    text-transform: none !important;
+    text-decoration: none; }
+  .dropdown-notice li .title, .dropdown-message li .title {
+    font-size: 13px; }
+  .dropdown-notice li .created, .dropdown-message li .created {
+    font-size: 11px;
+    color: #90949c; }
+  .dropdown-notice li .avatar, .dropdown-message li .avatar {
+    float: left; }
+  .dropdown-notice li .infos, .dropdown-message li .infos {
+    display: block;
+    overflow: hidden;
+    padding-left: 7px; }
+    .dropdown-notice li .infos .created, .dropdown-message li .infos .created {
+      color: #90949c;
+      display: block;
+      font-size: 12px;
+      padding-top: 2px;
+      position: absolute;
+      right: 14px;
+      top: 20%; }
+  .dropdown-notice .dropdown-menu, .dropdown-message .dropdown-menu {
+    width: 376px; }
+
 /*====================*\
 //Categori social
 \*====================*/
@@ -28,13 +89,19 @@ body.user-page #main {
       width: 145px;
       float: left;
       display: block;
-      position: relative;
-      overflow: hidden; }
-      .list-user .item-user .item-photo img {
-        display: inline-block;
+      position: relative; }
+      .list-user .item-user .item-photo .item-img {
         width: 120px;
         height: 120px;
-        border-radius: 100%; }
+        border-radius: 100%;
+        border: 1px solid rgba(160, 160, 160, 0.3);
+        display: block;
+        text-align: center;
+        vertical-align: middle;
+        overflow: hidden; }
+        .list-user .item-user .item-photo .item-img img {
+          width: 100%;
+          height: auto; }
       .list-user .item-user .item-photo .item-label {
         font-size: 32px;
         width: 36px;
@@ -80,7 +147,8 @@ body.user-page #main {
       /* margin-bottom: 5px;*/
       text-transform: capitalize; }
     .list-user .item-user .item-profession {
-      margin-top: 4px; }
+      margin-top: 4px;
+      color: #90949c; }
     .list-user .item-user a.btn-xs {
       font-size: 11px; }
     .list-user .item-user .item-desc {
@@ -92,7 +160,7 @@ body.user-page #main {
       font-weight: 300;
       margin-bottom: 5px;
       line-height: 25px; }
-      .list-user .item-user .item-meta span {
+      .list-user .item-user .item-meta .places, .list-user .item-user .item-meta .posts, .list-user .item-user .item-meta .points, .list-user .item-user .item-meta .follows {
         margin-right: 20px; }
       .list-user .item-user .item-meta .place {
         max-width: 350px;
@@ -146,7 +214,7 @@ body.user-page #main {
   .list-user-feature .item-user {
     cursor: pointer;
     margin-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(160, 160, 160, 0.3);
     padding: 10px 0;
     position: relative;
     display: inline-block;
@@ -157,13 +225,19 @@ body.user-page #main {
       margin-right: 5px;
       padding-right: 5px;
       display: block;
-      position: relative;
-      overflow: hidden; }
-      .list-user-feature .item-user .item-photo img {
-        display: inline-block;
+      position: relative; }
+      .list-user-feature .item-user .item-photo .item-img {
         width: 35px;
         height: 35px;
-        border-radius: 100%; }
+        border-radius: 100%;
+        border: 1px solid rgba(160, 160, 160, 0.3);
+        display: block;
+        text-align: center;
+        vertical-align: middle;
+        overflow: hidden; }
+        .list-user-feature .item-user .item-photo .item-img img {
+          width: 100%;
+          height: auto; }
       .list-user-feature .item-user .item-photo .item-label {
         font-size: 15px;
         width: 16px;
@@ -233,7 +307,7 @@ body.user-page #main {
   color: #666; }
   .detail-user .item-user {
     margin-bottom: 30px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: rgba(160, 160, 160, 0.3);
     padding: 35px 5px 35px 5px;
     position: relative;
     display: block; }
@@ -242,13 +316,19 @@ body.user-page #main {
       float: left;
       text-align: center;
       display: block;
-      position: relative;
-      overflow: hidden; }
-      .detail-user .item-user .item-photo img {
-        display: inline-block;
-        width: 120px;
-        height: 120px;
-        border-radius: 100%; }
+      position: relative; }
+      .detail-user .item-user .item-photo .item-img {
+        width: 160px;
+        height: 160px;
+        border-radius: 100%;
+        border: 1px solid rgba(160, 160, 160, 0.3);
+        display: block;
+        text-align: center;
+        vertical-align: middle;
+        overflow: hidden; }
+        .detail-user .item-user .item-photo .item-img img {
+          width: 100%;
+          height: auto; }
       .detail-user .item-user .item-photo .item-label {
         font-size: 30px;
         width: 33px;

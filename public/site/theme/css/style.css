@@ -1004,47 +1004,6 @@ hr {
   background-color: #ffab4b;
   color: #fff; }
 
-/*=======dropdown link tai khoan==========*/
-.dropdown-notice, .dropdown-message {
-  margin-top: 5px; }
-  .dropdown-notice li a, .dropdown-message li a {
-    text-transform: none !important;
-    text-decoration: none; }
-  .dropdown-notice li .title, .dropdown-message li .title {
-    font-size: 13px; }
-  .dropdown-notice li .created, .dropdown-message li .created {
-    font-size: 11px;
-    color: #90949c; }
-  .dropdown-notice li .avatar, .dropdown-message li .avatar {
-    float: left; }
-  .dropdown-notice li .infos, .dropdown-message li .infos {
-    display: block;
-    overflow: hidden;
-    padding-left: 7px; }
-    .dropdown-notice li .infos .created, .dropdown-message li .infos .created {
-      color: #90949c;
-      display: block;
-      font-size: 12px;
-      padding-top: 2px;
-      position: absolute;
-      right: 14px;
-      top: 20%; }
-  .dropdown-notice .dropdown-menu, .dropdown-message .dropdown-menu {
-    width: 376px; }
-
-.dropdown-user .dropdown-menu {
-  width: 376px; }
-  .dropdown-user .dropdown-menu .slideThree-uv {
-    font-size: 13px;
-    height: 70px; }
-  .dropdown-user .dropdown-menu li > a {
-    padding: 18px 20px;
-    line-height: 26px;
-    display: flex; }
-    .dropdown-user .dropdown-menu li > a i {
-      font-size: 26px;
-      margin-right: 15px; }
-
 .dropdown-search .dropdown-menu > li > a {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -2359,50 +2318,6 @@ table {
 
 .open .caret {
   background-image: url(../img/icon/down.png); }
-
-.dropdown-user .name {
-  direction: rtl;
-  padding: 0 6px;
-  max-width: 120px;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  text-align: right;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  white-space: nowrap; }
-
-.caret-user {
-  display: block;
-  width: 32px;
-  height: 42px;
-  background-image: url(../img/icon/ung-vien-tai-khoan-1.png);
-  background-repeat: no-repeat;
-  background-position: center; }
-
-a:hover .caret-user {
-  background-image: url(../img/icon/ung-vien-tai-khoan-2.png); }
-
-.open .caret-user {
-  background-image: url(../img/icon/ung-vien-tai-khoan-3.png); }
-
-.caret-user.user-td {
-  background-image: url(../img/icon/nha-TD-tai-khoan-1.png); }
-
-a:hover .caret-user.user-td {
-  background-image: url(../img/icon/nha-TD-tai-khoan-2.png); }
-
-.open .caret-user.user-td {
-  background-image: url(../img/icon/nha-TD-tai-khoan-3.png); }
-
-.caret-user.user-uv {
-  background-image: url(../img/icon/ung-vien-tai-khoan-1.png); }
-
-a:hover .caret-user.user-uv {
-  background-image: url(../img/icon/ung-vien-tai-khoan-2.png); }
-
-.open .caret-user.user-uv {
-  background-image: url(../img/icon/ung-vien-tai-khoan-3.png); }
 
 .select-search {
   position: relative; }

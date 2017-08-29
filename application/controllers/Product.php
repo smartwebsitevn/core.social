@@ -468,6 +468,8 @@ class Product extends MY_Controller
             $this->_model()->update_field( $info->id,'point_fake',$point);
             $point_total = $info->point_total + $point;
             $result['element'] =  ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
+            if($info->user_id)
+             model('user')->update_stats(['id'=>$info->user_id],['point_total'=>$point]);
             $result['msg_toast'] =lang('notice_update_success');
 
             return $result;

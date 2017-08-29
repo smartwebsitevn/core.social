@@ -30,7 +30,7 @@
   color: #666;
   .item-user {
     margin-bottom: 30px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: _palette(border);;
     padding:  35px 5px 35px 5px;
     position: relative;
     display: block;
@@ -39,7 +39,7 @@
       width: 180px;
       float: left;
       text-align: center;
-      @include user-avatar(120px,120px);
+      @include user-avatar(160px,160px);
       @include user-label(30px,33px,33px,120px,30px);
       .links {
         a {
