@@ -92,9 +92,7 @@
 
 		<?php return ob_get_clean();
 	};
-
 	$info= isset($info) ? (array) $info : null;
-
 	$_macro = $this->data;
 	$_macro['form']['data'] =$info;
 
@@ -141,22 +139,73 @@
 		'type' 	=> 'password',
 	));
 
+	echo '<hr class="separator">';
+
+
+	echo macro('mr::form')->row(array(
+		'param' => 'adsed',
+		'values' => array('0' => lang('no'), '1' => lang('yes')),
+		'value' => $info['adsed'],
+		'type' => 'bool',
+		'attr' => ["class" => "toggle_content tc"],
+
+	));
+	echo '<div id="adsed_content_1" class="adsed_content" style="display: none">';
+
+	echo macro('mr::form')->row(array(
+		'param' => 'adsed_begin', 'name' => lang('adsed_begin'), 'type' => 'date',
+		'value' => $info['adsed_begin']?get_date($info['adsed_begin']):'',
+
+	));
+	echo macro('mr::form')->row(array(
+		'param' => 'adsed_end', 'name' => lang('adsed_end'), 'type' => 'date',
+		'value' => $info['adsed_end']?get_date($info['adsed_end']):'',
+
+	));
+	echo macro('mr::form')->row(array(
+		'param' => 'adsed_order',
+		'value' => $info['adsed_order']
+
+	));
+	echo '</div>';
+	echo '<hr class="separator">';
+
+
+	echo macro('mr::form')->row(array(
+		'param' => 'is_feature',
+		'type' 	=> 'bool',
+		'value'=> (int)$info[ 'is_feature'],
+	));
+
+	echo macro('mr::form')->row(array(
+		'param' => 'is_new',
+		'type' 	=> 'bool',
+		'value'=> (int)$info[ 'is_feature'],
+	));
+	echo macro('mr::form')->row(array(
+		'param' => 'is_special',
+		'type' 	=> 'bool',
+		'value'=> (int)$info[ 'is_special'],
+	));
+	echo '<hr class="separator">';
+
 	echo macro('mr::form')->row(array(
 		'param' => 'activation',
 		'type' 	=> 'bool',
 		'value'=> (int)$info[ 'activation'],
 	));
 
-	/*echo macro('mr::form')->row(array(
+	echo macro('mr::form')->row(array(
 		'param' => 'verify',
 		'type' 	=> 'bool',
 		'value'=> (int)$info[ 'verify'],
-	));*/
+	));
 	echo macro('mr::form')->row(array(
 		'param' => 'blocked',
 		'type' 	=> 'bool',
 		'value'=> (int)$info[ 'blocked'],
 	));
+
 	echo '<hr class="separator">';
 	echo macro('mr::form')->row(array(
 		'param' =>  lang('user_group'),

@@ -126,12 +126,12 @@
   .block-content {
     padding: 0;
     .item-photo {
-      width: 180px;
+      width: 120px;
       margin:0px auto;
       margin-top: 20px;
       margin-bottom: 20px;
       @include user-avatar(120px,120px);
-      @include user-label(30px,33px,33px,120px,0px);
+      @include user-label(30px,33px,33px,90px,0px);
 
     }
 

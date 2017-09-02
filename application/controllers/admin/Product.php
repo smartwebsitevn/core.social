@@ -360,10 +360,6 @@ class Product extends MY_Controller
         $this->data['attributes'] = model('attribute')->get_list( array( 'sort' => 'asc', 'id' => 'desc' ) );
         $this->data['addons'] = model('addon')->get_list( array( 'sort' => 'asc', 'id' => 'desc' ) );
 
-
-
-
-
     }
 
 }

@@ -54,61 +54,54 @@
                         <label class="label-job"><?php echo $row->ads_title ?></label>
                     <?php endif; ?>
 
-                    <div class="item-photo">
-                        <a href="<?php echo $author->_url_view; ?>" class="item-img">
-                            <img src="<?php echo thumb_img($author->avatar)//$row->image->url_thumb;
-                            ?>"
-                                 alt="<?php echo $author->name; ?>">
-                            <span class="name"><?php echo $author->name ?></span><br>
-                            <span class="profession"><?php echo $author->profession ?></span>
-
-
-                        </a>
-
-                    </div>
-                    <div class="item-info<?php echo $layout_full ? '-full' : '' ?>">
-                        <?php //echo t('view')->load('tpl::_widget/product/display/item/info_label', array('row' => $row));
-                        ?>
-                        <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
-                                <?php echo $row->name; ?></a>
-                        </div>
-                        <div class="item-desc">
-                            <?php echo macro()->more_word($row->brief, 45); ?>
-                        </div>
-                        <div class="item-meta">
-                            <span>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=like" ?>"><i
-                                    class="pe-7s-up-arrow"></i></a>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('product/vote/' . $row->id) . "?act=dislike" ?>"><i
-                                    class="pe-7s-bottom-arrow"></i></a>
-                            </span>
-                                <span
-                                    class="points"> <b><?php echo number_format($row->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-                            <!--<span  class="views"> <b><?php /*echo number_format($row->view_total) */
-                            ?></b> <?php /*echo lang("count_view") */
-                            ?></span>-->
-                            <span
-                                class="comments"> <b><?php echo number_format($row->comment_count) ?></b> <?php echo lang("count_comment") ?></span>
-                            <!--<span class="date_created"> <b><?php /*echo $row->_created */
-                            ?></b> </span>-->
+                    <div class="item-author">
+                        <div class="item-photo">
+                            <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $author)); ?>
 
                         </div>
+                        <div class="item-info">
+                                <span class="name">
+                                 <a href="<?php echo $author->_url_view; ?>">
+                                     <?php echo $author->name ?>
 
-                        <div class="item-actions">
-                            <?php echo widget('product')->action_favorite($row) ?>
-                            <?php widget('product')->action_share($row) ?>
-                            <?php //widget('product')->action_close()
-                            ?>
+                                 </a>
+                               </span>
+
+                            <div class="item-meta">
+                                <span class="profession"><?php echo $author->profession ?></span>
+                                <?php if (isset($author->_working_city_name) && $author->_working_city_name): ?>
+                                    <span class="place"> <i
+                                            class="pe-7s-map-marker"></i> <?php echo $author->_working_city_name ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
                         </div>
+                        <?php /* ?>
+                        <span class="item-time"><?php echo $row->_created_carbon->diffForHumans(); ?>  </span>
+                        <?php */ ?>
 
-                        <?php //t('view')->load('tpl::_widget/product/display/item/infos')
-                        ?>
                     </div>
                     <div class="item-media">
-                        <?php t('view')->load('tpl::_widget/product/display/item/info_media',['row'=>$row])?>
-                     </div>
+                        <div class="item-name">
+                            <a href="<?php echo $row->_url_view; ?>">
+                                <?php echo $row->name; ?>
+                                <?php if (isset($row->files) && $row->files): ?>
+                                    <i class="pe-7s-paperclip"></i>
+                                <?php endif; ?>
+                            </a>
+                        </div>
+                        <div class="item-desc">
+                            <?php echo macro()->more_block($row->description, 110); ?>
+                        </div>
+                        <div class="item-files">
+                            <?php t('view')->load('tpl::_widget/product/display/item/info_files', ['row' => $row]) ?>
+                        </div>
+                        <?php t('view')->load('tpl::_widget/product/display/item/info_media', ['row' => $row]) ?>
+
+                        <?php //echo widget('product')->action_comment($row) ?>
+
+
+                    </div>
                     <?php if($row_status != 'status-locked'): ?>
                      <?php t('view')->load('tpl::_widget/product/display/item/info_config',['row'=>$row,'row_status'=>$row_status])?>
                     <?php endif; ?>

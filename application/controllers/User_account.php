@@ -533,7 +533,68 @@ class User_account extends MY_Controller
         $this->{'_' . $action}($user);
     }
 
+    protected function _action_ajax($id)
+    {
+        $act = $this->input->get('_act');
+        if ($act && $this->input->is_ajax_request()) {
+            if (!in_array($act, [ 'load_file'])) return;
+            set_output('html', $this->{'_ajax_' . $act}($id));
+            return;
+        }
+    }
 
+    /**
+     * Lay file
+     */
+    function _ajax_load_file($id)
+    {
+        // Lay gia tri dau vao
+        $table 			= $this->_get_mod();
+        $table_id 		= $id;
+        $table_field 	= $this->input->get('field');
+        if(!$table_field) return;
+        // Lay thong tin cua file
+        $where = array();
+        $where['table'] 		= $table;
+        $where['table_id'] 		= $table_id;
+        $where['table_field'] 	= $table_field;
+        $info = model('file')->get_info_rule($where);
+        $info = file_add_info($info);
+
+        if($info && in_array($table_field,['banner'])){
+            $data=[];
+            $data[$table_field]	= $info->file_name;
+            $data[$table_field.'_id']	= $info->id;
+            model('user')->update($id,$data);
+        }
+        $info = (empty($info)) ? new stdClass() : $info;
+        $info->id 	= (isset($info->id)) ? $info->id : 0;
+        $info->_url = (isset($info->_url)) ? $info->_url : public_url('img/no_image.png');
+        $info->_url_del 		= site_url('file/del').'?'.security_create_query(array('id' => $info->id));
+        $info->_url_download = site_url('file/download').'?'.security_create_query(array('id' => $info->id));
+        if (isset($info->table) && isset($info->table_id))
+        {
+            $info->_url_get 	= site_url('file/get').'?'.security_create_query(array('table' => $info->table, 'table_id' => $info->table_id, 'table_field' => $info->table_field));
+        }
+        // Lay dung luong cua file
+        if (isset($info->_path))
+        {
+            $file_info = get_file_info($info->_path);
+            $info->_size = (isset($file_info['size'])) ? byte_format($file_info['size']) : '';
+        }
+
+        // Loai bo cac bien khong can thiet
+        foreach (array('_path', '_path_thumb', 'created', 'status', 'table', 'table_id', 'table_field', 'user_id') as $p)
+        {
+            if (isset($info->$p))
+            {
+                unset($info->$p);
+            }
+        }
+        // Tra lai ket qua
+        $output = json_encode($info);
+        set_output('json', $output);
+    }
     /*
      * ------------------------------------------------------
      *  User action handle
@@ -587,6 +648,8 @@ class User_account extends MY_Controller
      */
     protected function _edit($user)
     {
+        $this->_action_ajax($user->id);
+
         // Cap nhat thong tin
         if ($this->input->get('act') == 'update_image') {
             $this->_edit_update_image($user->id);
@@ -663,11 +726,12 @@ class User_account extends MY_Controller
         $this->data['upload_avatar'] = $widget_upload;
 
         //- up file dinh kem
-        /*$widget_upload['file_type'] 	= 'file';
+        $widget_upload['file_type'] 	= 'file';
         $widget_upload['table_field'] = 'attach';
-        $widget_upload['url_update']	= ($user->id > 0) ? current_url().'?act=update_image&field=attach' : null;
-        $widget_upload['allowed_types'] =  'pdf|doc|docx';
-        $this->data['upload_files'] 	= $widget_upload;*/
+        $widget_upload['url_update']	= ($user->id > 0) ? $this->_url('edit').'?act=update_image&field=attach' : null;
+        $widget_upload['allowed_types'] =  'pdf';//|doc|docx
+        $this->data['upload_attach'] 	= $widget_upload;
+
         $this->data['countrys'] = model("country")->get_all();
         $this->data['citys'] = model("city")->get_list_rule(["country_id"=>$user->country]);;
         $cat_types = mod('cat')->get_cat_types();
@@ -757,6 +821,7 @@ class User_account extends MY_Controller
 
     protected function _edit_submit($user)
     {
+
         $type = $this->input->post('_type');
         if (!$type) return;
 
@@ -881,11 +946,11 @@ class User_account extends MY_Controller
 
         // Cap nhat du lieu vao data
         $data = array();
-        // $data[$field.'_id']	= $file->id;
-        // $data[$field.'_name']	= $file->file_name;
         $data[$field] = $file->file_name;
+        $data[$field.'_id']	= $file->id;
+        // $data[$field.'_name']	= $file->file_name;
         model('user')->update($id, $data);
-        pr_db();
+       // pr_db();
     }
 
 

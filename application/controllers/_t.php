@@ -133,7 +133,8 @@ class _t extends MY_Controller
 
     function time()
     {
-        pr(get_date('1462587598', 'full'));
+        pr(get_date('1504630800', 'full'),0);
+        pr(get_date('1505926800', 'full'));
     }
 
     function _login()

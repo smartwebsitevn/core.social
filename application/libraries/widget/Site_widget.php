@@ -87,6 +87,14 @@ class Site_widget extends MY_Widget {
 	}
 
 	/**
+	 * Hien thi thong bao theo khu vuc
+	 */
+	function notice($type)
+	{
+		$this->data['type'] = $type;
+		$this->load->view('tpl::_widget/common/notice', $this->data);
+	}
+	/**
 	 * Hien thi thong bao
 	 */
 	function message($message = array())

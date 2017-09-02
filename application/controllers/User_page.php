@@ -13,16 +13,18 @@ class User_page extends MY_Controller
 
 
     }
+
     protected function _get_mod()
     {
         return 'user';
     }
+
     /**
      * Remap method
      */
     public function _remap($method, $params = array())
     {
-        return $this->_remap_action($method, $params, array('view', 'view_profile', 'invite', 'report', 'favorite', 'favorite_del', 'subscribe', 'subscribe_del'));
+        return $this->_remap_action($method, $params, array('view', 'view_profile','view_attach', 'invite', 'report', 'favorite', 'favorite_del', 'subscribe', 'subscribe_del'));
     }
 
     /*
@@ -166,6 +168,16 @@ class User_page extends MY_Controller
 
         // Chuyen den ham duoc yeu cau
         $this->{'_' . $action}();
+    }
+
+    function _action_ajax($id)
+    {
+        $act = $this->input->get('_act');
+        if ($act && $this->input->is_ajax_request()) {
+            if (!in_array($act, ['post_youtube', 'post_link', 'load_types', 'load_url', 'load_files'])) return;
+            set_output('html', $this->{'_ajax_' . $act}($id));
+            return;
+        }
     }
 
     /**
@@ -346,7 +358,8 @@ class User_page extends MY_Controller
         $data ['created'] = now();
         mod('user_storage')->set($user_current_id, $data);
 
-        model('user')->update_stats(['id'=>$user_id],['follow_total'=>1]);
+        model('user')->update_stats(['id' => $user_current_id], ['follow_total' => 1]);
+        model('user')->update_stats(['id' => $user_id], ['follow_by_total' => 1]);
         $this->_response(array('msg_toast' => lang('notice_user_subscribe_success')));
     }
 
@@ -364,7 +377,8 @@ class User_page extends MY_Controller
             $this->_response(array('msg_toast' => 'Error'));
         }
         mod('user_storage')->del($user_current_id, $data);
-        model('user')->update_stats(['id'=>$user_id],['follow_total'=>-1]);
+        model('user')->update_stats(['id' => $user_current_id], ['follow_total' => -1]);
+        model('user')->update_stats(['id' => $user_id], ['follow_by_total' => -1]);
 
         $this->_response(array('msg_toast' => lang('notice_user_subscribe_del_succcess')));
     }
@@ -373,33 +387,39 @@ class User_page extends MY_Controller
     function _view_profile()
     {
         $user = $this->data['user'];
-        $user = $this->data['user'];
         $user = mod('user')->add_info($user);
-        // pr($user);
-
-        // tam tat chuc nang nay
-        //kiem tra da luu hay chua
-        /*$viewed = mod('company')->user_get($user->id, $user->user_id, 'view_profile');
-        if (!$viewed) {
-            mod('company')->user_set($user->id, $user->user_id, 'view_profile');
-            // tru trong goi
-            mod('user')->setPackages(mod('user')->config('user_type_company'), array('view_detail_brief' => -1), $user);
-        }
-        $attach = $this->input->get('attach');
-        if ($attach) {
-            // $this->load->helper('download');
-            // $data = file_get_contents($user->attach->url); // Read the file's contents
-            //force_download($user->attach_name, $data);
-            $this->_response(array('location' => $user->attach->url));
-        }*/
-        // neu da luu roi thi hien thong tin
-        $result['msg_modal'] = t('view')->load('tpl::_widget/user/info/contact',['info'=>$user],true) ;//// widget('user')->info_private($user, array(), 'info_private_ajax', array('return' => 1));
+        $result['msg_modal'] = t('view')->load('tpl::_widget/user/info/contact', ['info' => $user], true);//// widget('user')->info_private($user, array(), 'info_private_ajax', array('return' => 1));
         $result['msg_modal_title'] = 'Thông tin cá nhân';
         $this->_response($result);
 
 
     }
 
+// xem thong tin ca nhan
+    function _view_attach()
+    {
+        $user = $this->data['user'];
+        $user = mod('user')->add_info($user);
+
+        // tam tat chuc nang nay
+        //kiem tra da luu hay chua
+        /* $viewed = mod('company')->cancidate_get($user->id, $cancidate->user_id, 'view_profile');
+         if (!$viewed) {
+             mod('company')->cancidate_set($user->id, $cancidate->user_id, 'view_profile');
+             // tru trong goi
+             mod('user')->setPackages(mod('user')->config('user_type_company'), array('view_detail_brief' => -1), $user);
+         }*/
+
+
+        if ($user->attach) {
+           // file_download($user->attach_id);
+             $this->_response(array('location' => $user->attach->url));
+            return;
+        }
+        return;
+
+
+    }
 
     public function index()
     {
@@ -409,14 +429,33 @@ class User_page extends MY_Controller
         $user = user_get_account_info();
         $this->data['user'] = $user;
         $page = $this->input->get('page');
-        if (!in_array($page, ['posts', 'posts_draft', 'posts_save'])) {
+        if (!in_array($page, ['posts', 'posts_draft', 'posts_save', 'follow', 'follow_by',])) {
             $page = 'posts';
         }
         $this->{'_my_' . $page}();
         $this->data['page'] = $page;
         $this->data['info'] = mod('user')->add_info($user);
-        $this->_display('my_'.$page);
+
+
+        // Khai bao cac bien cua widget upload
+        $widget_upload = array();
+        $widget_upload['mod'] = 'single';
+        $widget_upload['file_type'] = 'image';
+        $widget_upload['status'] = config('file_public', 'main');
+        $widget_upload['resize'] = TRUE;
+        $widget_upload['thumb'] = TRUE;
+
+        $widget_upload['table'] = $this->_get_mod();
+        $widget_upload['table_id'] = $user->id;
+        //- up anh banner
+        $widget_upload['url_get'] = site_url('user_account/edit') . '?_act=load_file&field=banner';
+        //$widget_upload['url_update'] = ($user->id > 0) ? $this->_url('edit') . '?act=update_image&field=banner' : null;
+        $widget_upload['table_field'] = 'banner';
+        $this->data['upload_banner'] = $widget_upload;
+
+        $this->_display('my_' . $page);
     }
+
     public function _my_posts()
     {
         $user = $this->data['user'];
@@ -425,6 +464,7 @@ class User_page extends MY_Controller
         $filter['user_id'] = $user->id;
         $this->_post_create_list([], $filter);
     }
+
     public function _my_posts_draft()
     {
 
@@ -435,18 +475,41 @@ class User_page extends MY_Controller
         $filter['is_draft'] = 1;
         $this->_post_create_list([], $filter);
     }
+
     public function _my_posts_save()
     {
         $user = $this->data['user'];
         // Filter set
         $filter = array();
-       // $filter['user_id'] = $user->id;
+        // $filter['user_id'] = $user->id;
         $input['where']['f.user_id'] = $user->id;
         $input['join'] = array(array('product_to_favorite f', 'f.product_id = product.id'));
         $this->_post_create_list($input, $filter);
     }
 
 
+    public function _my_follow()
+    {
+        $user = $this->data['user'];
+        $input['where']['us.action'] = 'subscribe';
+        $input['where']['us.table'] = 'user';
+        $input['where']['us.user_id'] = $user->id;
+        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+        $filter = array();
+        $this->_user_create_list($input, $filter);
+    }
+
+    public function _my_follow_by()
+    {
+        $user = $this->data['user'];
+        $input['where']['us.action'] = 'subscribe';
+        $input['where']['us.table'] = 'user';
+        $input['where']['us.table_id'] = $user->id;
+        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+        $filter = array();
+        $this->_user_create_list($input, $filter);
+
+    }
 
     public function _view()
     {
@@ -459,8 +522,9 @@ class User_page extends MY_Controller
         $this->data['page'] = $page;
         $this->data['info'] = mod('user')->add_info($this->data['user']);
         //$this->data['user_current'] = mod('user')->add_info( $this->data['user_current']);
-        $this->_display($page);
+        $this->_display('view_' . $page);
     }
+
     public function _view_posts()
     {
         $user = $this->data['user'];
@@ -572,7 +636,7 @@ class User_page extends MY_Controller
         }*/
         // pr($filter);
         $list = model('product')->filter_get_list($filter, $input);
-       // pr_db($filter);
+        // pr_db($filter);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row);
         }
@@ -737,7 +801,7 @@ class User_page extends MY_Controller
         }*/
         $list = model('user')->filter_get_list($filter, $input);
         // pr($filter,0);
-       // pr_db($filter);
+        // pr_db($filter);
         foreach ($list as $row) {
             $row = mod('user')->add_info($row);
         }

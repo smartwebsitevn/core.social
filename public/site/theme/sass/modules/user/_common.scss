@@ -15,8 +15,11 @@ body.user-page {
       line-height: 50px;
     }
     img.avatar {
-      height: 40px;
-      padding-top: 7px;
+      border-radius: 100%;
+      height: 35px;
+      width: 35px;
+      margin-top: 10px;
+
     }
     .name {
       direction: rtl;
@@ -53,7 +56,7 @@ body.user-page {
 }
 
 /*=======dropdown link tai khoan==========*/
-.dropdown-notice,.dropdown-message {
+.dropdown-home,.dropdown-notice,.dropdown-message {
   margin-top: 5px;
   li {
     a {

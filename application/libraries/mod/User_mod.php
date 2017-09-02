@@ -32,6 +32,21 @@ class User_mod extends MY_Mod
         $row = $this->add_info_working_country($row);
         $row = $this->add_info_relation_cat($row);
         $row = $this->add_info_relation_cat_multi($row);
+
+
+        $avatar_name = $row->avatar;// (isset($user->avatar_name)) ? $user->avatar_name : '';
+        $avatar_default= public_url('img/user_no_image.png');
+        if(!$avatar_name &&  $row->avatar_api)
+            $avatar_default= $row->avatar_api;
+        $row->avatar = file_get_image_from_name($avatar_name,$avatar_default);
+        //	<img src="https://graph.facebook.com/<?php echo $member['fb_id']/picture?width=21&height=21&type=normal"
+        if($row->banner)
+         $row->banner = file_get_image_from_name($row->banner);
+        if($row->attach)
+            $row->attach = file_get_image_from_name($row->attach);
+
+
+
         $row = $this->url($row);
         return $row;
     }
@@ -151,7 +166,7 @@ class User_mod extends MY_Mod
         }
 
         foreach (array('edit') as $p) {
-            $row->{'_url_' . $p} = site_url("user_account/{$p}");
+            $row->{'_url_account_' . $p} = site_url("user_account/{$p}");
         }
         if (isset($row->id)) {
             foreach (array('favorite', 'favorite_del', 'subscribe', 'subscribe_del', 'vote', 'vote', 'raty', 'report') as $p) {
@@ -159,6 +174,7 @@ class User_mod extends MY_Mod
             }
             $row->_url_view = site_url('user-' . $row->id);
             $row->_url_view_profile = site_url('user_page/view_profile/' . $row->id);
+            $row->_url_view_attach = site_url('user_page/view_attach/' . $row->id);
             $row->_url_my_account = site_url('my-account');
             $row->_url_my_page = site_url('my-page');
 

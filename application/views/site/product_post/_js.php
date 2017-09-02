@@ -57,48 +57,25 @@
                         });
                     })
                     <?php if($info):?>
-                        <?php if($info['type'] =='media'):?>
-                           // upload_media_show()
-                        <?php else:?>
-                           // upload_link_show()
-                        <?php endif?>
+                    loadTypeCat(<?php echo $info['type_cat_id']?>)
                     <?php endif?>
 
-                   /* $("#upload-media").click(function () {
-                        upload_media_show()
-                        return false;
-                    });
-                    $("#upload-link").click(function () {
-                        upload_link_show()
-                        return false;
-                    });*/
-
-                    /*$('input[name="link"]').on('change', function () {
-                        var url = $(this).val()
-                        if (!validURL(url))
-                            return;
-                        $(this).nstUI('loadAjax', {
-                            url: "<?php echo current_url(); ?>?_act=load_url&url=" + url,
-                            field: {load: '_'},
-                            datatype: 'html',
-                            event_complete: function (data) {
-                                $('#form').find('#data_link').html(data);
-                            },
-
-                        });
-                    });*/
                 },
             };
             form.init();
         });
     })(jQuery);
-    function upload_media_show() {
-        $(".upload-action,.upload-action-data").hide();
-        $("#upload-media-content").show();
-    }
-    function upload_link_show() {
-        $(".upload-action,.upload-action-data").hide();
-        $("#upload-link-content").show();
+    function loadTypeCat(value){
+        if(value){
+            $.ajax({
+                type: "post",
+                url: "<?php echo current_url(); ?>?_act=load_types&type_cat=" + value ,
+                data: {token:csrf_token,type_cat_id: value,product_id:<?php echo $info?$info['id']:0?>},
+                success: function (data) {
+                    $('#form').find('#data_types').html(data);
+                }
+            });
+        }
     }
     function eventChangeTypeCat($params,$ele) {
         if($ele != undefined)
@@ -108,7 +85,7 @@
             return;
         }
         $(this).nstUI('loadAjax', {
-            url: "<?php echo current_url(); ?>?_act=load_types&type_cat=" + type_cat + "&p=" + 1,
+            url: "<?php echo current_url(); ?>?_act=load_types&type_cat=" + type_cat ,
             field: {load: '_'},
             datatype: 'html',
             event_complete: function (data) {
@@ -117,6 +94,7 @@
 
         });
     }
+
     function validURL(str) {
         var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
         if (!regex.test(str)) {
@@ -126,8 +104,6 @@
             return true;
         }
     }
-
-
     (function ($) {
         $.fn.pluploadScript = function (user_setting) {
             var g_setting_default = {

@@ -1,4 +1,4 @@
-<?php if ($can_do): ?>
+<?php if ($can_do)://pr($info); ?>
     <span  class="action_vote_group">
           <a href="#0" title='' class="do_action <?php if ($voted) echo $voted->like?'on':''; ?>"
              data-action="toggle"
@@ -23,6 +23,6 @@
               <i class="pe-7s-bottom-arrow"></i>
           </a>
     </span>
-    <span   class="points"><b id="<?php echo $info->id?>_vote_points" ><?php echo number_format($info->_point_total) ?></b> <?php echo lang("count_point") ?> </span>
+    <span   class="points"><b id="<?php echo $info->id?>_vote_points" ><?php echo $info->_point_total ?></b> <?php echo lang("count_point") ?> </span>
 
 <?php endif; ?>

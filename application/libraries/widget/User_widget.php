@@ -28,7 +28,8 @@ class User_widget extends MY_Widget
 
         // Tao cac lien ket
         $user = user_get_account_info();
-        $user = user_add_info($user);
+        if($user)
+        $user = mod('user')->add_info($user);
         $user = site_create_url('account', $user);
         $user = UserFactory::auth()->user($user);
         // Luu cac bien gui den view
@@ -47,7 +48,7 @@ class User_widget extends MY_Widget
 
         // Lay thong tin user hien tai
         $user = user_get_account_info();
-        $user = user_add_info($user);
+        $user = mod('user')->add_info($user);
         $user = site_create_url('account', $user);
         $user = UserFactory::auth()->user($user);
 
@@ -142,7 +143,7 @@ class User_widget extends MY_Widget
         if (!user_is_login()) return;
 
         $user = user_get_account_info();
-        $user = user_add_info($user);
+        $user = mod('user')->add_info($user);
         $this->data['user'] = $user;
         //lay pin hien tai cua thanh vien
         $balance_pin = model('user')->balance_get($user->id, 'balance_pin');
@@ -258,7 +259,7 @@ class User_widget extends MY_Widget
         // $tags = model('tag')->get_list(["status"=>1,"feature"=>1,'']);
 
         $this->data['tags'] = $tags;
-        $this->data['action'] = current_url();
+        $this->data['action'] =  array_get($temp_options, 'action', current_url());
         $this->data['filter'] = $filter;
         $this->data['sort_order'] = $sort_order;
         $this->data['sort_orders'] = $sort_orders;
@@ -267,13 +268,10 @@ class User_widget extends MY_Widget
 
         $this->data['user_groups'] = model('user_group')->filter_get_list(['show' => 1]);
 
-        // loc theo cac loai danh muc
-        $cat_types = mod('cat')->get_cat_types();
-        foreach ($cat_types as $t) {
-            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
-        }
+        $this->data['type_cats'] = model('type_cat')->get_hierarchy_data();
+
         // Lay danh sach country, city
-        $this->data['countrys'] = model('country')->filter_get_list(['show' => 1]);
+       // $this->data['countrys'] = model('country')->filter_get_list(['show' => 1]);
         // $this->data['countrys'] = model('country')->get_grouped();
         $this->data['citys'] = model('city')->filter_get_list(['show' => 1,'country_id'=>230]);
         // lay cac loai danh muc
@@ -330,7 +328,32 @@ class User_widget extends MY_Widget
             $this->display_list($list, $temp, $temp_options);
     }
 
+    function adsed($options = [], $temp = 'adsed', $temp_options = array())
+    {
+        $filter = array_get($options, 'filter', []);
 
+        $limit = array_get($options, 'limit', 8);
+        $order = array_get($options, 'order', array('adsed_order', 'asc'));
+
+        // Get list
+        $filter['adsed'] = TRUE;
+        //$this->data['url'] = site_url('user_list/home') . '?feature=1' . $type;
+
+        // ==
+        $input = array();
+        $input['order'] = $order;
+        $input['limit'] = array(0, $limit);
+        $list = $this->get_list($filter, $input);
+
+
+        //== Su ly hien thi temp hay tra ve du lieu
+        $return = array_get($temp_options, 'return_data', false);
+        if ($return)
+            return $this->display_list($list, $temp, $temp_options);
+        else
+            $this->display_list($list, $temp, $temp_options);
+
+    }
 
     function feature($options = [], $temp = 'feature', $temp_options = array())
     {

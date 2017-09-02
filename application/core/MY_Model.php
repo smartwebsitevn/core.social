@@ -1229,10 +1229,10 @@ class MY_Model extends CI_Model
             $value = [];
             if (is_array($filter[$key])) {
                 foreach ($filter[$key] as $v) {
-                    $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $this->table.'.'.$f . "`)";
+                    $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
                 }
             } else
-                $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $this->table.'.'.$f . "`)";
+                $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" .$f . "`)";
 
 
             if ($value) {

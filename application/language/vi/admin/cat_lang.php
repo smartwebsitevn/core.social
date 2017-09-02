@@ -15,7 +15,9 @@ $lang['job_welfare'] = 'Phúc lợi';
 
 
 // user
-$lang['user_type'] = 'Loại ứng viên';
+$lang['user_type'] = 'Loại thành viên';
+$lang['user_job'] = 'Lĩnh vực hoạt động';
+
 $lang['user_rank'] = 'Cấp bậc';
 $lang['user_specialize'] = 'Chuyên môn';
 $lang['user_meetwork'] = 'Khả năng đáp ứng';

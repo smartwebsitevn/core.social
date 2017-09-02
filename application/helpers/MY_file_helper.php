@@ -92,15 +92,16 @@
 		   //	$file->table 	= $file_table;
 			$file->status 		= config('file_public', 'main');
 			$file->server 		= ( ! is_null(array_get(config('upload', 'main'), 'server')));
-
 			$file = file_add_info($file);
-
 		}
 		
 		$image = new stdClass();
 		$image->url 		= (isset($file->_url)) ? $file->_url : $file_default;
 		$image->url_thumb 	= (isset($file->_url_thumb)) ? $file->_url_thumb : $image->url;
-		
+		$image->path	= (isset($file->_path)) ? $file->_path : '';
+		$image->name	= (isset($file->file_name)) ? $file->file_name : '';
+		//$image->orig_name	= (isset($file->_orig_name)) ? $file->_orig_name : '';
+
 		return $image;
 	}
 	

@@ -122,8 +122,8 @@ $this->register('status_color', function ($status, $label = null) {
  * More_block
  */
 $this->register('more_block', function ($content, $height = 200) {
-    $content= str_replace("\n",'<br/>',$content);
-    if(!$content) return;
+    $content = n_to_br($content);
+    if (!$content) return;
 
     ob_start(); ?>
     <div class="more_block" <?php echo $height ? 'data-height="' . $height . '"' : '' ?>>
@@ -131,8 +131,10 @@ $this->register('more_block', function ($content, $height = 200) {
             <?php echo $content ?>
         </div>
         <div class="mt5">
-            <a href="javascript:void(0)" class="act_block_all" ><?php echo lang("view_more") ?><i class="pe-7s-angle-down"></i></a>
-            <a href="javascript:void(0)" class="act_block_short" style="display: none"><?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
+            <a href="javascript:void(0)" class="act_block_all"><?php echo lang("view_more") ?><i
+                    class="pe-7s-angle-down"></i></a>
+            <a href="javascript:void(0)" class="act_block_short" style="display: none"><?php echo lang("view_less") ?><i
+                    class="pe-7s-angle-up"></i></a>
         </div>
     </div>
     <?php return ob_get_clean();
@@ -142,16 +144,19 @@ $this->register('more_block', function ($content, $height = 200) {
  * More_list
  */
 $this->register('more_list', function ($content, $num = 5, $item = ".item") {
-    if(!$content) return;
+    if (!$content) return;
 
     ob_start(); ?>
-    <div  class="more_list" <?php echo $item ? 'data-item="' . $item . '"' : '' ?>   <?php echo $num ? 'data-num="' . $num . '"' : '' ?> >
+    <div
+        class="more_list" <?php echo $item ? 'data-item="' . $item . '"' : '' ?>   <?php echo $num ? 'data-num="' . $num . '"' : '' ?> >
         <div class="more_block_list">
             <?php echo $content ?>
         </div>
         <div class="mt5">
-            <a href="javascript:void(0)" class="act_list_all" style="display: none"><?php echo lang("view_more") ?><i class="pe-7s-angle-down"></i></a>
-            <a href="javascript:void(0)" class="act_list_short " style="display: none"><?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
+            <a href="javascript:void(0)" class="act_list_all" style="display: none"><?php echo lang("view_more") ?><i
+                    class="pe-7s-angle-down"></i></a>
+            <a href="javascript:void(0)" class="act_list_short " style="display: none"><?php echo lang("view_less") ?><i
+                    class="pe-7s-angle-up"></i></a>
         </div>
     </div>
     <?php return ob_get_clean();
@@ -164,8 +169,8 @@ $this->register('more_word', function ($str, $limit = 20) {
 
     // return $str;
     //$str=strip_tags($str);
-    $str= str_replace("\n",'<br/>',$str);
-    if(!$str) return;
+    $str = n_to_br($str);
+    if (!$str) return;
     ob_start();
     if (trim($str) === '') {
         return $str;
@@ -181,16 +186,18 @@ $this->register('more_word', function ($str, $limit = 20) {
     <?php if (!$shorted): ?>
         <?php echo $str; ?>
     <?php else: ?>
-        <div class="more_word" >
+        <div class="more_word">
             <div class="more_word_content">
-                <?php echo  $shorted ?>
+                <?php echo $shorted ?>
             </div>
             <div class="mt5">
-                <a href="javascript:void(0)" class="act_show_all" > <?php echo lang("view_more") ?><i class="pe-7s-angle-down"></i></a>
-                <a href="javascript:void(0)" class="act_show_short"  style="display: none"> <?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
+                <a href="javascript:void(0)" class="act_show_all"> <?php echo lang("view_more") ?><i
+                        class="pe-7s-angle-down"></i></a>
+                <a href="javascript:void(0)" class="act_show_short"
+                   style="display: none"> <?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
             </div>
-            <div class="data-content-full" style="display: none"><?php echo $str?></div>
-            <div class="data-content-shorted" style="display: none"><?php echo $shorted?></div>
+            <div class="data-content-full" style="display: none"><?php echo $str ?></div>
+            <div class="data-content-shorted" style="display: none"><?php echo $shorted ?></div>
         </div>
     <?php endif; ?>
 
@@ -251,7 +258,6 @@ $this->register('navbar_collapse_start', function ($input = array()) {
 
     <?php return ob_get_clean();
 });
-
 $this->register('navbar_collapse_end', function () {
     ob_start(); ?>
     </div>
@@ -267,7 +273,6 @@ $this->register('filter_dropdown_category', function ($input) {
     $values_opts = array_get($input, 'values_opts', array());
     $name = array_get($input, 'name', lang($param));
 
-
     //== holder
     $req = array_get($input, 'req');
     $desc = array_get($input, 'desc', '');
@@ -275,6 +280,8 @@ $this->register('filter_dropdown_category', function ($input) {
     $placeholder = array_get($input, 'placeholder', '');
     $class = array_get($input, 'class', '');
     $attr = array_get($input, 'attr', array());
+
+    $count_values = count($values);
     ob_start(); ?>
     <!-- city-->
     <div class="dropdown search-dropdown <?php echo $class ?>" <?php echo t('html')->attr($attr) ?>>
@@ -284,42 +291,51 @@ $this->register('filter_dropdown_category', function ($input) {
         </div>
         <span class="search-remove"></span>
         <ul class="dropdown-menu">
-            <li class="search-results  act-filter-dropdown " href="Javascript:;" data-name="<?php echo $param ?>"
-                data-value="">
-                <a class="search-results-option " href="#0">Tất cả</a>
-            </li>
-            <?php foreach ($values as $cat) {
-                if ($cat->parent_id > 0) continue;
-
-                $cat = mod($obj)->add_info_url($cat);
-                if (is_array($value))
-                    $active_status = (in_array($cat->id, $value)) ? 1 : 0;
-                else
-                    $active_status = $cat->id == $value ? 1 : 0;
-                ?>
-                <li class="search-results act-filter-dropdown <?php echo $active_status ? 'active' : '' ?>"
-                    data-name="<?php echo $param ?>" data-value="<?php echo $cat->id ?>">
-                    <a class="search-results-option" href="#"
-                       title="<?php echo $cat->name ?>"><?php echo $cat->name ?></a>
-                    <?php if ($cat->parent_id == 0 && $cat->_subs): ?>
-                        <ul class="sub-menu">
-                            <?php foreach ($cat->_subs as $row) {
-                                $row = mod($obj)->add_info_url($row);
-                                if (is_array($value))
-                                    $active_status = (in_array($row->id, $value)) ? 1 : 0;
-                                else
-                                    $active_status = $row->id == $value ? 1 : 0;
-                                ?>
-                                <li class="search-results act-filter-dropdown <?php echo $active_status ? 'active' : '' ?>"
-                                    data-name="<?php echo $param ?>" data-value="<?php echo $row->id ?>">
-                                    <a class="search-results-option" href="#"
-                                       title="<?php echo $row->name ?>"><?php echo $row->name ?></a>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    <?php endif; ?>
+            <?php if ($count_values >= 5): ?>
+            <div class="form-group">
+                <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">
+            </div>
+            <div class="slimscroll">
+            <?php endif; ?>
+                <li class="search-results  act-filter-dropdown " href="Javascript:;" data-name="<?php echo $param ?>"
+                    data-value="">
+                    <a class="search-results-option " href="#0">Tất cả</a>
                 </li>
-            <?php } ?>
+                <?php foreach ($values as $cat) {
+                    if ($cat->parent_id > 0) continue;
+
+                    $cat = mod($obj)->add_info_url($cat);
+                    if (is_array($value))
+                        $active_status = (in_array($cat->id, $value)) ? 1 : 0;
+                    else
+                        $active_status = $cat->id == $value ? 1 : 0;
+                    ?>
+                    <li class="search-results act-filter-dropdown <?php echo $active_status ? 'active' : '' ?>"
+                        data-name="<?php echo $param ?>" data-value="<?php echo $cat->id ?>">
+                        <a class="search-results-option" href="#"
+                           title="<?php echo $cat->name ?>"><?php echo $cat->name ?></a>
+                        <?php if ($cat->parent_id == 0 && $cat->_subs): ?>
+                            <ul class="sub-menu">
+                                <?php foreach ($cat->_subs as $row) {
+                                    $row = mod($obj)->add_info_url($row);
+                                    if (is_array($value))
+                                        $active_status = (in_array($row->id, $value)) ? 1 : 0;
+                                    else
+                                        $active_status = $row->id == $value ? 1 : 0;
+                                    ?>
+                                    <li class="search-results act-filter-dropdown <?php echo $active_status ? 'active' : '' ?>"
+                                        data-name="<?php echo $param ?>" data-value="<?php echo $row->id ?>">
+                                        <a class="search-results-option" href="#"
+                                           title="<?php echo $row->name ?>"><?php echo $row->name ?></a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        <?php endif; ?>
+                    </li>
+                <?php } ?>
+            <?php if ($count_values >= 5): ?>
+            </div>
+        <?php endif; ?>
         </ul>
     </div>
     <?php return ob_get_clean();
@@ -384,7 +400,6 @@ $this->register('filter_dropdown_obj', function ($input) {
     $values_opts = array_get($input, 'values_opts', array());
     $name = array_get($input, 'name', lang($param));
 
-
     //== holder
     $req = array_get($input, 'req');
     $desc = array_get($input, 'desc', '');
@@ -392,11 +407,13 @@ $this->register('filter_dropdown_obj', function ($input) {
     $placeholder = array_get($input, 'placeholder', '');
     $class = array_get($input, 'class', '');
     $attr = array_get($input, 'attr', array());
+
+    $count_values = count($values);
     ob_start(); ?>
     <?php if ($values): ?>
         <?php
-       // echo 'name:'.$name;
-       // echo 'value:'.$value;
+        // echo 'name:'.$name;
+        // echo 'value:'.$value;
         ?>
 
         <div class="dropdown search-dropdown <?php echo $class ?>" <?php echo t('html')->attr($attr) ?>>
@@ -407,6 +424,12 @@ $this->register('filter_dropdown_obj', function ($input) {
             </div>
             <span class="search-remove"></span>
             <ul class="dropdown-menu">
+                <?php if ($count_values >= 5): ?>
+                <div class="form-group">
+                    <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">
+                </div>
+                <div class="slimscroll">
+                    <?php endif; ?>
                 <li class="search-results  act-filter-dropdown " href="Javascript:;" data-name="<?php echo $param ?>"
                     data-value="">
                     <a class="search-results-option " href="#0">Tất cả</a>
@@ -427,6 +450,9 @@ $this->register('filter_dropdown_obj', function ($input) {
                         <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
+                    <?php if ($count_values >= 5): ?>
+                </div>
+            <?php endif; ?>
             </ul>
         </div>
     <?php endif; ?>
@@ -447,6 +473,8 @@ $this->register('filter_dropdown_list', function ($input) {
     $placeholder = array_get($input, 'placeholder', '');
     $class = array_get($input, 'class', '');
     $attr = array_get($input, 'attr', array());
+
+    $count_values = count($values);
     ob_start(); ?>
     <?php if ($values):
         ?>
@@ -457,8 +485,15 @@ $this->register('filter_dropdown_list', function ($input) {
             </div>
             <span class="search-remove"></span>
             <ul class="dropdown-menu">
+                <?php if ($count_values >= 5): ?>
+                <div class="form-group">
+                    <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">
+                </div>
+                <div class="slimscroll">
+                    <?php endif; ?>
                 <?php if (!array_get($values_opts, 'value_required', false)): ?>
-                    <li class="search-results  act-filter-dropdown " href="Javascript:;" data-name="<?php echo $param ?>"
+                    <li class="search-results  act-filter-dropdown " href="Javascript:;"
+                        data-name="<?php echo $param ?>"
                         data-value="">
                         <a class="search-results-option " href="#0">Tất cả</a>
                     </li>
@@ -479,6 +514,9 @@ $this->register('filter_dropdown_list', function ($input) {
                         <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
+                 <?php if ($count_values >= 5): ?>
+            </div>
+        <?php endif; ?>
             </ul>
         </div>
     <?php endif; ?>

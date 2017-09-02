@@ -50,17 +50,7 @@ function user_add_info($user)
         $vs = config('verify', 'main');
         $user->_blocked = (isset($vs[$user->blocked])) ? $vs[$user->blocked] : '';
     }
-   // if (isset($user->avatar))
-    //{
-    //$CI->load->helper('file');
-    $avatar_name = $user->avatar;// (isset($user->avatar_name)) ? $user->avatar_name : '';
-    $avatar_default= public_url('img/user_no_image.png');
-    if(!$avatar_name &&  $user->avatar_api)
-        $avatar_default=$user->avatar_api;
-    $user->avatar = file_get_image_from_name($avatar_name,$avatar_default);
-    //	<img src="https://graph.facebook.com/<?php echo $member['fb_id']/picture?width=21&height=21&type=normal"
 
-    //}
     if (isset($user->user_group_id)) {
         $group = model('user_group')->get_info($user->user_group_id, 'name,type');
         $user->user_group_name =$user->user_group_type = '';
@@ -937,10 +927,23 @@ function user_current_is_manager()
     static $user_current = null;
     if($user_current === null)
         $user_current =user_get_account_info();
-    if(user_is_manager($user_current)){
-        return $user_current;
+    if(!user_is_manager($user_current)){
+        return false;
     }
-    return false;
+    return $user_current;
 
 }
 
+function user_current_is_manager_special()
+{
+    static $user_current = null;
+    if($user_current === null)
+        $user_current =user_get_account_info();
+    if(!user_is_manager($user_current)){
+        return false;
+    }
+    if(!$user_current->is_special)
+        return false;
+    return $user_current;
+
+}

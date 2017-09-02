@@ -270,3 +270,29 @@ ALTER TABLE `comment`
 
 ALTER TABLE `user`
 	ADD COLUMN `point_fake` INT(11) NULL DEFAULT '0' AFTER `post_total`;
+
+// 31-8-2017 
+ALTER TABLE `user`
+	ADD COLUMN `follow_by_total` INT(11) NULL DEFAULT '0' AFTER `follow_total`;
+
+
+// 2-9-2017 
+ALTER TABLE `user`
+	ADD COLUMN `adsed` TINYINT(1) NOT NULL DEFAULT '0' AFTER `last_ip`,
+	ADD COLUMN `adsed_begin` INT(11) NOT NULL DEFAULT '0' AFTER `adsed`,
+	ADD COLUMN `adsed_end` INT(11) NOT NULL DEFAULT '0' AFTER `adsed_begin`,
+	ADD COLUMN `adsed_order` INT(11) NOT NULL DEFAULT '0' AFTER `adsed_end`,
+	ADD COLUMN `adsed_option` VARCHAR(255) NOT NULL DEFAULT '0' AFTER `adsed`,
+	ADD COLUMN `is_special` TINYINT(1) NOT NULL DEFAULT '0' AFTER `is_popular`,
+	ADD COLUMN `avatar_id` INT(11) NOT NULL DEFAULT '0' AFTER `avatar`,
+	ADD COLUMN `banner` VARCHAR(255) NOT NULL AFTER `avatar_api`,
+	ADD COLUMN `banner_id` INT(11) NOT NULL DEFAULT '0' AFTER `banner`,
+	ADD COLUMN `attach_id` INT(11) NOT NULL DEFAULT '0' AFTER `banner_id`,
+	ADD COLUMN `attach` VARCHAR(128) NULL DEFAULT NULL AFTER `attach_id`,
+	CHANGE COLUMN `birthday` `birthday` VARCHAR(128) NULL DEFAULT NULL AFTER `attach`;
+
+
+
+	
+
+	

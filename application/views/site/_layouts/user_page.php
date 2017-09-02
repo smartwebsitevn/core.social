@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php widget('site')->head(["css" => "page_user"]); ?>
+    <?php widget('site')->head(["css" => ["page_user","page_social"]]); ?>
 </head>
 <body class="user-page">
 <div class="wrapper">

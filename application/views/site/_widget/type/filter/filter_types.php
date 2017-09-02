@@ -19,7 +19,7 @@
     ));
 }*/
 //pr($filter);
-$filter_types = $filter['types'];
+$filter_types = isset($filter['types'])?$filter['types']:[];
 if ($types) {
     foreach ($types as $type) {
         // pr($type);

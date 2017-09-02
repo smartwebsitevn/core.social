@@ -1,0 +1,121 @@
+body.user-account {
+
+  .sidebar {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    position: relative;
+    h3 {
+      margin-top: 0;
+    }
+    .nav li a {
+      &:hover, &.active {
+        background: #eee;
+        border-color: #e0e0e0 transparent;
+        border-style: solid;
+        border-width: 1px 2px;
+        line-height: 22px;
+        position: relative;
+        border-left-width: 4px;
+        border-left-color: #f7941e;
+      }
+    }
+  }
+  .main-content {
+
+    .panel {
+      background: none;
+      margin-bottom: 40px;
+      .panel-title {
+        font-size: 1.5em;
+        margin-top: 5px;
+      }
+      .panel-body {
+        background: #fff;
+        padding: 40px;
+      }
+      .item-photo {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 180px;
+        float: left;
+        text-align: center;
+        .item-img {
+          width: 120px;
+          float: left;
+          img {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 5px;
+            border-radius: 100%;
+          }
+
+        }
+        .item-label {
+          color: _palette(button-3);
+          font-size: 30px;
+          font-weight: bold;
+          bottom: 5px;
+          left: 90px;
+          position: absolute;
+          background: #fff;
+          border-radius: 100%;
+          width: 33px;
+          height: 33px;
+          text-align: center;
+          vertical-align: middle;
+        }
+      }
+
+      form {
+        /* padding: 20px;*/
+        .form-group {
+          margin:0;
+          border-bottom: 1px solid _palette(border);
+          padding: 20px 30px 15px;
+          .control-label {
+            text-align: left;
+          }
+          select.form-control {
+            width: 200px;
+            float: left;
+          }
+          .form-control {
+            width: 100%;
+            float: left;
+
+          }
+          /*&:hover{
+            border: 1px solid _palette(button-1);
+          }*/
+          &:last-child{
+           /* border-bottom: none;*/
+            margin-bottom: 50px;
+          }
+        }
+        .actions {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+      }
+      table{
+        tr{
+          td{
+            padding: 20px 30px 15px;
+            /*border: 1px solid #ccc;
+            border-bottom: 0;
+            &:first-child{
+              border-right: none;
+            }*/
+          }
+        }
+      /*  tr:hover td { border-top-color: red; border-bottom: 1px solid red; }
+        tr:hover td:first-child { border-left-color: red; }
+        tr:hover td:last-child  { border-right-color: red; }*/
+      }
+    }
+  }
+
+}

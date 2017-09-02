@@ -1508,7 +1508,7 @@ class User extends MY_Controller
 
         // Lay thong tin cua thanh vien
         $user = user_get_account_info();
-        $user = user_add_info($user);
+        $user = mod('user')->add_info($user);
 
         // Neu user khong duoc phep xac thuc
         if (!user_can_do($user, 'verify') && !user_can_do($user, 'verify_edit')) {

@@ -69,9 +69,9 @@ $config['list_auto_limit'] 	= 10;
 $config['url_action_expire'] = 1*24*60*60;
 
 // Date format
-$config['date_format']			= '%d/%m/%Y';
-$config['date_format_time']		= '%d/%m/%Y - %H:%i';
-$config['date_format_full']		= '%d/%m/%Y - %H:%i:%s';
+$config['date_format']			= '%d-%m-%Y';
+$config['date_format_time']		= '%d-%m-%Y - %H:%i';
+$config['date_format_full']		= '%d-%m-%Y - %H:%i:%s';
 
 // Date format display
 $config['date_format_display']			= '%d-%m-%Y';

@@ -1,4 +1,4 @@
-<form class="form form-horizontal form_action" method="post" action="<?php echo $user->_url_edit; ?>">
+<form class="form form-horizontal form_action" method="post" action="<?php echo $user->_url_account_edit; ?>">
     <input type="hidden" name="_type" value="info">
     <div class="panel-heading">
         <div class="row">
@@ -25,6 +25,11 @@
             'param' => 'avatar', 'name' => lang('Avatar'),
             'type' => 'image',
             '_upload' => $upload_avatar,
+        ]);
+        echo macro('mr::form')->row([
+            'param' => 'attach', 'name' => 'File đính kèm',
+            'type' => 'image',
+            '_upload' => $upload_attach,
         ]);
 
         echo macro('mr::form')->row([

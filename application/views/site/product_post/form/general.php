@@ -78,9 +78,7 @@
             <div id="data_link">
                 <?php if($info): ?>
                     <?php t('view')->load('tpl::product_post/form/_common/link',['link'=>$info['link'],'tags'=>json_decode($info['link_data'],true)]) ?>
-
                 <?php endif; ?>
-
             </div>
         </div>
     </div>

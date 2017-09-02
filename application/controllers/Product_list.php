@@ -9,14 +9,14 @@ class Product_list extends MY_Controller
             redirect();
         // Tai cac file thanh phan
         $this->load->language('site/product');
-        $layout= $this->input->get('layout');
+        /*$layout= $this->input->get('layout');
         $layouts=['block'=>'site','grid'=>'site_social'];
          if(array_key_exists($layout,$layouts)){
             // t('tpl')->set_tpl($layouts[$layout]);
              t('input')->set_user_layout($layouts[$layout]);
          }
-       // t('tpl')->set_tpl('site_social');
-        t('tpl')->set_tpl(t('input')->get_user_layout('site_social'));
+        // t('tpl')->set_tpl('site_social');
+        t('tpl')->set_tpl(t('input')->get_user_layout('site_social'));*/
 
     }
     protected function _get_mod()

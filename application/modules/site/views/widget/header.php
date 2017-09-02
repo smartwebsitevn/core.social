@@ -87,10 +87,19 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
             <span data-action="close-nav" class="close-nav"><span>close</span></span>
             <ul class="nav login  pull-right">
                 <li class="dropdown">
-                    <a href="<?php echo site_url('product_post') ?>" title="Đăng tin" class="btn btn-default">
+                    <a href="<?php echo site_url('product_post') ?>" title="Đăng tin" class="btn btn-default btn-round ">
                         Đăng tin
                     </a>
                 </li>
+                <?php if(user_is_login()): ?>
+                <li class=" dropdown dropdown-home">
+                    <a href="<?php echo site_url('my-page') ?>" title="Xem trang của tôi" >
+                      <i class="pe-7s-home" style="font-size:26px"></i>
+                    </a>
+
+                </li>
+
+                <?php endif; ?>
                 <?php widget("message")->newest() ?>
                 <?php widget("user_notice")->newest() ?>
                 <?php /* if (!mod("product")->setting('turn_off_function_order')): ?>

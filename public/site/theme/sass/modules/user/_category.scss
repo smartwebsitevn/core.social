@@ -1,6 +1,163 @@
 /*====================*\
 //Categori social
 \*====================*/
+.block-search {
+  margin: 0px;
+  padding: 0px;
+  .block-title {
+    line-height: 20px;
+    padding: 0;
+    margin-bottom: 7px;
+  }
+  .block-content {
+    border-bottom: none;
+    padding: 10px;
+    background-color: #ffffff;
+    .input-group {
+      width: 100%;
+
+      float: left;
+      position: relative;
+      background-color: #ffffff;
+
+      input {
+        &.input-clear {
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: none;
+          background-color: transparent;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-image: url(../img/icon/da-xem-xong-1.png);
+          &:hover {
+            background-image: url(../img/icon/da-xem-xong-2.png);
+          }
+        }
+        &.input-text {
+          padding-right: 40px;
+          &:focus + input.input-clear, &[keepfocus] + input.input-clear, &[autofocus] + input.input-clear {
+            background-image: url(../img/icon/da-xem-xong-2.png);
+          }
+          &:focus + input.input-clear + .dropdown-menu, &[keepfocus] + input.input-clear + .dropdown-menu, &[autofocus] + input.input-clear + .dropdown-menu {
+            display: block;
+          }
+        }
+
+      }
+      .select-input {
+        width: 84.6%;
+      }
+      .dropdown-menu {
+        width: 100%;
+        &:before, &:after {
+          content: none;
+        }
+      }
+    }
+
+    .action {
+      width: 140px;
+      float: right;
+      background-color: #ffffff;
+      width: 200px;
+      button {
+        padding-left: 0;
+        padding-right: 0;
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.block-filter {
+  z-index: 30;
+  .navbar-collapse {
+    padding: 0;
+  }
+
+  .block-content {
+    margin-bottom: 10px;
+    padding: 0 20px;
+
+    .ajax-filter, .action-filter {
+      display: inline-block;
+      width: 100%;
+
+    }
+    .btn-clear-all {
+      font-weight: bolder;
+      text-transform: capitalize;
+    }
+
+    .search-dropdown {
+      display: inline-block;
+      /* vertical-align: top;
+       margin-bottom: 12px;*/
+      width: 100%;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      .dropdown-toggle {
+        max-width: 100%;
+      }
+      .dropdown-menu {
+        width: 100%;
+
+      }
+    }
+    .block-total {
+      text-align: right;
+      margin-bottom: 10px;
+      span {
+        font-weight: bold;
+        font-size: 25px;
+      }
+    }
+    .block-point {
+      /* float: right;*/
+      margin-right: 10px;
+    }
+    .block-layout {
+      /* float: right;*/
+      margin-right: 20px;
+      margin-top: 2px;
+    }
+    .block-sorter {
+      float: right;
+      .total_product {
+        margin-bottom: 10px;
+      }
+      .sort-dropdown {
+
+        .search-rendered {
+          line-height: 26px;
+        }
+        .dropdown-toggle {
+          &:hover .search-rendered, &:focus .search-rendered {
+            line-height: 26px;
+          }
+        }
+
+      }
+    }
+    .slider.slider-horizontal {
+      width: 95% !important;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+    #slider_point {
+      margin-bottom: 10px;
+    }
+  }
+  .filter-dropdow .search-dropdown .search-rendered {
+    font-size: 13px;
+    line-height: 26px;
+  }
+}
+
 .list-user {
   margin-bottom: 40px;
   background-color: #ffffff;
@@ -8,24 +165,20 @@
   color: #666;
   .item-user {
     border-bottom: 1px solid #e0e0e0;
-    padding: 35px 5px 35px 35px;
+    padding: 20px;
     position: relative;
     display: block;
     //== structure
     .item-photo {
-      width: 145px;
+      width: 95px;
       float: left;
-      @include user-avatar(120px,120px);
-      @include user-label(32px,36px,36px,90px,0px);
+      @include user-avatar(85px, 85px);
+      @include user-label(25px, 28px, 28px, 60px, 0px);
 
     }
     .item-info {
       float: left;
-      width: calc(75% - 150px);
-      &-full {
-        width: calc(100% - 150px);
-
-      }
+      width: calc(100% - 100px);
     }
     .item-profile {
       float: right;
@@ -49,7 +202,7 @@
         }
 
       }
-       .links {
+      .links {
         a {
           font-size: 25px;
           margin: 0 5px;
@@ -66,8 +219,10 @@
       text-transform: capitalize;
 
     }
-    .item-profession{
+    .item-profession {
       margin-top: 4px;
+      font-size: 11px;
+
       color: _palette(text-2);
     }
     a.btn-xs {
@@ -75,21 +230,24 @@
     }
     //== detail
     .item-desc {
+      margin-top: 10px;
       margin-bottom: 10px;
       display: block;
     }
 
     .item-meta {
+      font-size: 11px;
+
       display: flex;
       color: _palette(text-3);
       font-weight: 300;
       margin-bottom: 5px;
-      line-height: 25px;
-      .places,.posts,.points,.follows {
+      line-height: 22px;
+      .places, .posts, .points, .follows {
         margin-right: 20px;
       }
 
-      .place {
+      .place {   font-size: 11px;
         max-width: 350px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -101,18 +259,18 @@
         cursor: pointer;
       }
     }
+    .item-action {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      .dropdown {
+        margin-left: 10px;
+        i {
+          font-size: 24px;
+        }
 
-    .item-action a {
-      display: inline-block;
-      vertical-align: top;
-      margin: 0 12px 10px 0;
-      color: #666;
-      &:hover {
-        color: #f67004;
       }
-      .fa {
-        margin-right: 5px;
-      }
+
     }
     .item-vote {
       margin-bottom: 9px;
@@ -176,8 +334,8 @@
       float: left;
       margin-right: 5px;
       padding-right: 5px;
-      @include user-avatar(35px,35px);
-      @include user-label(15px,16px,16px,25px,0px);
+      @include user-avatar(35px, 35px);
+      @include user-label(15px, 16px, 16px, 25px, 0px);
 
     }
     .item-info {
@@ -189,7 +347,7 @@
       margin-bottom: 2px;
       text-transform: capitalize;
       a {
-        color: _palette(text-4);
+        color: _palette(text-1);
         font-weight: bolder;
       }
     }
@@ -202,7 +360,7 @@
       font-size: 9px;
       padding: 1px 5px;
       position: absolute;
-      top:12px;
+      top: 12px;
       right: 0;
       &.on {
         background-color: transparent;
@@ -218,7 +376,6 @@
         }
       }
     }
-
 
   }
 }

@@ -13,7 +13,7 @@ class Notice_mod extends MY_Mod
         return $row;
     }
 
-    function get($key, $params)
+    function get($key, $params=[])
     {
         $content = '';
         $row = $this->_model()->filter_get_info(['show' => 1, 'key' => $key],'name,content');
@@ -21,8 +21,10 @@ class Notice_mod extends MY_Mod
             return;
 
         $row = $this->add_info($row);
+        if($params)
         foreach (array('name', 'content') as $p) {
-            $row->$p = $this->bind($row->$p, $params);
+            $p = $this->bind($row->$p, $params);
+            $row->$p =handle_content($p,'output');
         }
         return $row;
     }

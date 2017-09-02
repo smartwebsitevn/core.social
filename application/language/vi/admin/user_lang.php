@@ -11,6 +11,8 @@ $lang['verify']								= 'Xác thực';
 $lang['verify_yes']							= 'Đã xác thực';
 $lang['verify_no']							= 'Chưa xác thực';
 $lang['view_verify_info']					= 'Xem thông tin xác thực';
+
+
 $lang['transaction']						= 'Giao dịch';
 $lang['withdraw']							= 'Rút tiền';
 $lang['deposit']							= 'Nạp tiền';
@@ -36,6 +38,17 @@ $lang['payment_total_amount']				= 'Số tiền giao dịch tối đa trong 1 ng
 $lang['pin']								= 'Mật khẩu cấp 2';
 $lang['pin_repeat']							= 'Nhập lại mật khẩu cấp 2';
 
+
+
+$lang['is_new']								= 'Thành viên mới';
+$lang['is_feature']								= 'Thành viên nổi bật';
+$lang['is_special']								= 'Thành viên đặc biệt';
+
+
+$lang['adsed']								= 'Chạy quảng cáo';
+$lang['adsed_begin']								= 'Ngày bắt đầu';
+$lang['adsed_end']								= 'Ngày kết thúc';
+$lang['adsed_order']								= 'Thứ tự ưu tiên';
 
 // info general
 $lang['name']				   				= 'Tên';

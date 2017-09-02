@@ -110,6 +110,10 @@ function _cutText($text, $start=0, $limit=12)
 		
 		return url_title(strtolower(preg_replace(array_keys($characters), array_values($characters), $str)));
 	}
-	
-	
+function n_to_br($str)
+{
+
+	return str_replace("\n",'<br/>',$str);
+}
+
 	

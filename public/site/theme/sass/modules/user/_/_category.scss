@@ -1,0 +1,224 @@
+/*====================*\
+//Categori social
+\*====================*/
+.list-user {
+  margin-bottom: 40px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  color: #666;
+  .item-user {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 35px 5px 35px 35px;
+    position: relative;
+    display: block;
+    //== structure
+    .item-photo {
+      width: 145px;
+      float: left;
+      @include user-avatar(120px,120px);
+      @include user-label(32px,36px,36px,90px,0px);
+
+    }
+    .item-info {
+      float: left;
+      width: calc(75% - 150px);
+      &-full {
+        width: calc(100% - 150px);
+
+      }
+    }
+    .item-profile {
+      float: right;
+      width: 22%;
+      padding-bottom: 20px;
+      position: relative;
+      text-align: center;
+      .avatar {
+        i {
+          font-size: 48px;
+          color: _palette(button-1);
+        }
+      }
+      .group {
+        text-transform: capitalize;
+        display: block;
+        margin: 5px 0;
+        span {
+          color: _palette(text-3);
+
+        }
+
+      }
+       .links {
+        a {
+          font-size: 25px;
+          margin: 0 5px;
+        }
+      }
+    }
+    .item-name {
+      display: block;
+      color: #000;
+      font-weight: 500;
+      line-height: 1;
+      font-size: 16px;
+      /* margin-bottom: 5px;*/
+      text-transform: capitalize;
+
+    }
+    .item-profession{
+      margin-top: 4px;
+      color: _palette(text-2);
+    }
+    a.btn-xs {
+      font-size: 11px;
+    }
+    //== detail
+    .item-desc {
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .item-meta {
+      display: flex;
+      color: _palette(text-3);
+      font-weight: 300;
+      margin-bottom: 5px;
+      line-height: 25px;
+      .places,.posts,.points,.follows {
+        margin-right: 20px;
+      }
+
+      .place {
+        max-width: 350px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+      }
+      .do_action {
+        font-size: 48px;
+        cursor: pointer;
+      }
+    }
+
+    .item-action a {
+      display: inline-block;
+      vertical-align: top;
+      margin: 0 12px 10px 0;
+      color: #666;
+      &:hover {
+        color: #f67004;
+      }
+      .fa {
+        margin-right: 5px;
+      }
+    }
+    .item-vote {
+      margin-bottom: 9px;
+      .vote-count {
+        display: block;
+        clear: both;
+      }
+      .vote-result {
+        display: block;
+        clear: both;
+        margin-bottom: 5px;
+      }
+      .vote-count {
+        font-size: 13px;
+        line-height: 14px;
+        span {
+          color: #666;
+        }
+      }
+      .vote-result > span {
+        color: #17aa1c;
+      }
+    }
+
+    .item-list-tag .item-tag-title {
+      max-width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+    }
+
+    &:hover {
+      .item-name {
+        color: #f67004;
+        a {
+          color: #f67004;
+        }
+      }
+    }
+
+  }
+}
+
+.list-user-feature {
+  /* margin-bottom: 40px;
+   background-color: #ffffff;
+   border: 1px solid #e0e0e0;
+   color: #666;*/
+  .item-user {
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-bottom: 1px solid _palette(border);
+    padding: 10px 0;
+    position: relative;
+    display: inline-block;
+    font-size: 11px;
+    width: 100%;
+    //== structure
+    .item-photo {
+      float: left;
+      margin-right: 5px;
+      padding-right: 5px;
+      @include user-avatar(35px,35px);
+      @include user-label(15px,16px,16px,25px,0px);
+
+    }
+    .item-info {
+      float: left;
+      width: calc(100% - 50px);
+    }
+    .item-name {
+      display: block;
+      margin-bottom: 2px;
+      text-transform: capitalize;
+      a {
+        color: _palette(text-4);
+        font-weight: bolder;
+      }
+    }
+    .item-meta {
+      text-transform: capitalize;
+      color: _palette(text-3);
+    }
+
+    a.btn-xs {
+      font-size: 9px;
+      padding: 1px 5px;
+      position: absolute;
+      top:12px;
+      right: 0;
+      &.on {
+        background-color: transparent;
+        border-color: _palette(border);
+        color: _palette(text-4);
+      }
+    }
+    &:hover, &.active {
+      .item-name {
+        color: #f67004;
+        a {
+          color: #f67004;
+        }
+      }
+    }
+
+
+  }
+}

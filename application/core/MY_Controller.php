@@ -298,6 +298,13 @@ class MY_Controller extends CI_Controller
 		$widget_upload['url_update'] = ($id > 0) ? current_url() . '?act=update_image&field=icon' : null;
 		$widget_upload['table_field'] = 'icon';
 		$this->data['widget_upload_icon'] = $widget_upload;
+
+		// up attach
+		$widget_upload['file_type'] 	= 'file';
+		$widget_upload['url_update'] = ($id > 0) ? current_url() . '?act=update_image&field=attach' : null;
+		$widget_upload['table_field'] = 'attach';
+		//$widget_upload['allowed_types'] =  'pdf';//|doc|docx
+		$this->data['widget_upload_attach'] = $widget_upload;
 		// up anh multi
 		$widget_upload['mod'] = 'multi';
 		$widget_upload['table_field'] = 'images';

@@ -2,45 +2,62 @@
 //Detail user
 \*====================*/
 
-.background{
+#banner_background {
+  position: relative;
   background-color: #f60;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   color: #b2b2b2;
   font-size: 13px;
   text-transform: capitalize;
-  margin-bottom: 0;
-  padding-bottom: 245px;
-}
-.nav-links {
-  text-align: center;
-  margin: 30px 0;
+  padding-top: 80px;
+  .background1 {
+    background-color: #bd4b00;
+    padding-top: 150px;
+    opacity: 0.1;
+  }
+  .background2 {
+    background-color: #fff;
+    padding-top: 50px;
 
+  }
+  #banner_upload {
+    position: absolute;
+    top: 10px;
+    left: 45%;
+    z-index: 1;
+    width: 100px;
+    text-align: center;
+    a{
+      color: #fff;
+    }
+    i{
+      font-size: 48px;
+    }
+    img {
+      width: 70px;
+      height: 50px;
+    }
+  }
 }
-
 
 .detail-user {
-  width: 80%;
-  padding:20px;
-  margin:0 auto;
-  margin-top: -200px;
+  margin: -215px auto 10px;
+  padding-bottom: 2px;
   position: relative;
-  background-color: #fff;
-  border: 2px solid #e0e0e0;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  color: #666;
+  color: #fff;
+  display: flow-root;
   .item-user {
-    margin-bottom: 30px;
-    border-bottom: _palette(border);;
-    padding:  35px 5px 35px 5px;
     position: relative;
     display: block;
     //== structure
     .item-photo {
-      width: 180px;
+      width: 200px;
       float: left;
       text-align: center;
-      @include user-avatar(160px,160px);
-      @include user-label(30px,33px,33px,120px,30px);
+      @include user-avatar(180px, 180px);
+      @include user-label(30px, 33px, 33px, 120px, 30px);
       .links {
         a {
           font-size: 25px;
@@ -51,17 +68,55 @@
     }
     .item-info {
       float: left;
-      width: calc(80% - 190px);
-      &-full {
-        width: calc(100% - 190px);
+      width: calc(80% - 210px);
+      padding-top: 35px;
+      line-height: 28px;
+
+      .item-name {
+        display: block;
+        color: #fff;
+        font-weight: 500;
+        font-size: 18px;
+        text-transform: capitalize;
+        a, a:hover {
+          color: #fff;
+          .file_attach{
+            font-size: 24px;
+          }
+        }
+
       }
+      .item-meta {
+        display: flex;
+        color: #fff;
+        font-weight: 300;
+        .places, .posts, .points, .follows {
+          margin-right: 20px;
+        }
+
+        .place {
+          max-width: 280px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: inline-block;
+        }
+        .do_action {
+          font-size: 48px;
+          cursor: pointer;
+        }
+      }
+
+
     }
     .item-profile {
       float: right;
       width: 20%;
+      padding-top: 35px;
       padding-bottom: 20px;
       position: relative;
       text-align: center;
+      line-height: 21px;
       .avatar {
         img {
           display: inline-block;
@@ -69,99 +124,61 @@
         }
         i {
           font-size: 48px;
-          color: _palette(button-1);
+          color: #fff;
         }
       }
-      .group {
+      .infos {
         text-transform: capitalize;
         display: block;
         margin: 5px 0;
-        span {
-          color: _palette(text-3);
+        span.group {
+          font-weight: bolder;
         }
       }
-
       .btn-outline {
         margin-top: 5px;
       }
-    }
-    .item-name {
-      display: block;
-      color: #000;
-      font-weight: 500;
-      line-height: 1;
-      font-size: 18px;
-      margin-bottom: 5px;
-      text-transform: capitalize;
-      a {
-        /*  color: #000;*/
-      }
-    }
-    //== detail
-    .item-desc {
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .item-meta {
-      display: flex;
-      color: #666;
-      font-weight: 300;
-      margin-bottom: 5px;
-      line-height: 48px;
-      span {
-        margin-right: 20px;
-
-        &.place{
-          display: inline-block;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          max-width: 280px;
-
-        }
-      }
-      .do_action {
-        font-size: 48px;
-        cursor: pointer;
-      }
-    }
-
-    .item-vote {
-      margin-bottom: 9px;
-      .vote-count {
-        display: block;
-        clear: both;
-      }
-      .vote-result {
-        display: block;
-        clear: both;
-        margin-bottom: 5px;
-      }
-      .vote-count {
-        font-size: 13px;
-        line-height: 14px;
-        span {
-          color: #666;
-        }
-      }
-      .vote-result > span {
-        color: #17aa1c;
-      }
-    }
 
 
-    &:hover {
-      .item-name {
-        color: #f67004;
-        a {
-          color: #f67004;
-        }
-      }
     }
 
   }
-  .item-action{
-    text-align: center;
+  .nav-links {
+    position: absolute;
+    bottom: 0px;
+    left: 210px;
+    a {
+      color: _palette(text-3);
+      padding: 2px 15px;
+      .text {
+        font-size: 12px;
+      }
+      .value {
+        color: _palette(text-2);
+        font-size: 16px;
+      }
+      &:hover, &.active {
+        text-decoration: none;
+        border-bottom: 2px solid #f7941e;
+        .value {
+          color: _palette(button-1);
+        }
+      }
+    }
+  }
+  .item-action {
+    position: absolute;
+    bottom: 12px;
+    right: 0px;
+    height: 26px;
+    i{
+      font-size: 16px;
+    }
+    .dropdown {
+      margin-left: 10px;
+    }
+    .file_attach{
+      margin-right: 10px;
+    }
   }
 }

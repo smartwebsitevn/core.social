@@ -180,8 +180,7 @@ class Product_widget extends MY_Widget
 
 
         // loc theo tag
-        $where = array();
-        $input['where']["table"] = 'product';
+       /* $input['where']["table"] = 'product';
         //$input['where']["table_cat"] = 'product';
         $input['where']["status"] = 1;
         $input['where']["feature"] = 1;
@@ -191,8 +190,8 @@ class Product_widget extends MY_Widget
         $tags = model('tag')->get_list($input);
         //pr_db($tags);
         // $tags = model('tag')->get_list(["status"=>1,"feature"=>1,'']);
-        $this->data['tags'] = $tags;
-        $this->data['action'] = current_url();
+        $this->data['tags'] = $tags;*/
+        $this->data['action'] =  array_get($temp_options, 'action', current_url());
         $this->data['filter'] = $filter;
         $this->data['sort_order'] = $sort_order;
         $this->data['sort_orders'] = $sort_orders;
@@ -203,15 +202,8 @@ class Product_widget extends MY_Widget
 
         $this->data['type_cats'] = model('type_cat')->get_hierarchy_data();
 
-        // loc theo cac loai danh muc
-        $cat_types = mod('cat')->get_cat_types();
-        foreach ($cat_types as $t) {
-            $this->data['cat_type_' . $t] = model('cat')->get_type($t);
-        }
         // Lay danh sach country, city
-        $this->data['manufactures'] = model('manufacture')->get_list();
-        // Lay danh sach country, city
-        $this->data['countrys'] = model('country')->filter_get_list(['show' => 1]);
+        //$this->data['countrys'] = model('country')->filter_get_list(['show' => 1]);
         // $this->data['countrys'] = model('country')->get_grouped();
         // $this->data['citys'] = model('city')->get_list();
 
@@ -298,8 +290,6 @@ class Product_widget extends MY_Widget
         else
             $this->display_list($list, $temp, $temp_options);
     }
-
-
     function same_author($author_id = null, $options = [], $temp = '', $temp_options = array())
     {
         $filter = array_get($options, 'filter', []);

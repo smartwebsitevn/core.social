@@ -88,7 +88,7 @@ class Module extends \MY_Module
 		$is_login = user_is_login();
 
 		$user = user_get_account_info();
-		$user = user_add_info($user);
+		$user = mod('user')->add_info($user);
 		$user = mod_url('user', $user);
 
 		$menu_items = t('mod')->menu->get_items($widget->setting['menu']);

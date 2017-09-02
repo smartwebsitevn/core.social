@@ -1971,7 +1971,7 @@ var nfc = {
 
             $('.slimscroll').each(function () {
                 var $this = $(this);
-                var height = "300px";
+                var height = "200px";
                 if ($this.data('height') != undefined)
                     height = $this.data('height')
                 $this.slimScroll({

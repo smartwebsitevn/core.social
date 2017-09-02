@@ -10,9 +10,14 @@
   li {
 	float: left;
 	margin-right: 35px;
+	&.dropdown-home{
+	  margin-right: 20px;
+	}
+
 	&:last-child {
 	  margin-right: 0;
 	}
+
 	> a {
 	  line-height: 50px;
 	  min-width: 10px;

@@ -8,7 +8,7 @@ class Module extends \MY_Module
      */
     public function widget_setting($module)
     {
-        if ($module->widget =='html')
+        if ($module->widget =='html' && isset($module->setting['content']) )
             $module->setting['content'] = handle_content($module->setting['content'], 'output');
 
     }
@@ -18,7 +18,8 @@ class Module extends \MY_Module
      */
     public function widget_setting_save_pre($module)
     {
-        if ($module->widget =='html')
+        if ($module->widget =='html' && isset($module->setting['content']) )
+
             $module->setting['content'] = handle_content($module->setting['content'], 'input');
         //pr($module->setting);
     }
