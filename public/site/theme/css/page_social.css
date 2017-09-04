@@ -147,7 +147,7 @@
         .block-search .block-content .input-group input.input-text:focus + input.input-clear + .dropdown-menu, .block-search .block-content .input-group input.input-text[keepfocus] + input.input-clear + .dropdown-menu, .block-search .block-content .input-group input.input-text[autofocus] + input.input-clear + .dropdown-menu {
           display: block; }
       .block-search .block-content .input-group .select-input {
-        width: 84.6%; }
+        width: 69.6%; }
       .block-search .block-content .input-group .dropdown-menu {
         width: 100%; }
         .block-search .block-content .input-group .dropdown-menu:before, .block-search .block-content .input-group .dropdown-menu:after {

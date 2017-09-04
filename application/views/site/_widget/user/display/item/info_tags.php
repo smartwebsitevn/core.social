@@ -2,15 +2,15 @@
     <ul class="item-list-tag">
         <?php
 
-        $url_filter_cat = site_url('user_list');
+        $url = site_url('user_list');
         $d=count($row->_job);
         foreach ($row->_job as $it):
             if(!isset($it->name) || !$it->name) continue;
-            $url_filter_cat  .='?' . url_build_query(['job'=>$it->id]);
+            $url_filter_cat  = $url .'?' . url_build_query(['job'=>$it->id]);
 
             $class ='item-tag-title ';
             if(is_numeric($it->id))
-                $link_cat ='href="'.$url_filter_cat .  '"';
+                $link_cat = 'href="'.$url_filter_cat .  '"';
               $class ='item-tag-title  ';
             ?>
             <li class="item-tag">

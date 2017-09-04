@@ -86,7 +86,7 @@ class User_list extends MY_Controller
         $key = $this->input->get('name');
         $key = str_replace(array('-', '+'), ' ', $key);
         if (isset($filter['name']) && $filter['name']) {
-            $filter['%name'] = $key;
+            $filter['%name'] = trim($key);
             unset($filter['name']);
 
         }
@@ -143,9 +143,9 @@ class User_list extends MY_Controller
         } else {
             $orderex = explode('|', $sort_orders[0]);
         }
-        /*if (!isset($input['order'])) {
+       if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
-        }*/
+        }
         $list = model('user')->filter_get_list($filter, $input);
        // pr($filter,0);
        // pr_db($filter);

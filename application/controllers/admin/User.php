@@ -57,7 +57,7 @@ class User extends MY_Controller
         $rules['pin'] = array('pin', 'required|trim|xss_clean|min_length[' . $password_lenght . ']');
         $rules['pin_repeat'] = array('pin_repeat', 'required|trim|xss_clean|matches[pin]');
         $rules['name'] = array('name', 'required|trim|xss_clean');
-        $rules['phone'] = array('phone', 'required|trim|xss_clean|callback__check_phone');
+        $rules['phone'] = array('phone', 'trim|xss_clean|callback__check_phone');
         $rules['address'] = array('address', 'trim|xss_clean');
         $rules['user_group'] = array('user_group', 'required|callback__check_user_group');
 
@@ -102,6 +102,7 @@ class User extends MY_Controller
      */
     public function _check_phone($value)
     {
+        if($value) return true;
         $phone = handle_phone($value);
 
         if (!valid_phone($phone)) {

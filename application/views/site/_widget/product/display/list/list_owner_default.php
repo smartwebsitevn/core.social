@@ -122,7 +122,7 @@
 
     <?php endif; ?>
     <?php if (t('input')->is_ajax_request() && isset($pages_config)) : ?>
-        <?php //echo t('view')->load('tpl::_widget/product/display/list/_reload_js'); ?>
+        <?php widget('site')->js_reboot(); ?>
         <?php widget('product')->display_pagination($pages_config); ?>
     <?php endif; ?>
 

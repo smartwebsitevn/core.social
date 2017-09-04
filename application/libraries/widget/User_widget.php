@@ -338,7 +338,6 @@ class User_widget extends MY_Widget
         // Get list
         $filter['adsed'] = TRUE;
         //$this->data['url'] = site_url('user_list/home') . '?feature=1' . $type;
-
         // ==
         $input = array();
         $input['order'] = $order;
@@ -447,8 +446,6 @@ class User_widget extends MY_Widget
         else {
 
             $list = model('user')->filter_get_list($filter, $input);
-            //
-            //
             // pr_db();
             $list = $this->_get_list_add_info($list);
         }

@@ -1977,7 +1977,7 @@ var nfc = {
                 $this.slimScroll({
                     height: height,
                     color: '#2A2B3D',
-                    wheelStep: 2,
+                   // wheelStep: 2,
                     alwaysVisible: false
 
                 });
@@ -2104,7 +2104,7 @@ var nfc = {
         },
         auto_filter: function () {
             $(document).on('submit', 'form.ajax_form_filter', function () {
-
+                alert()
                 nfc.catch_hook_event(this);
 
                 return false;
@@ -2299,18 +2299,18 @@ var nfc = {
                             $(this).click();
                         }
                     });
-
+                    $(document).on('keyup', '.searachSelect', function () {
                     // su kien tim kiem
-                    $('.searachSelect').keyup(function () {
+                 //   $('.searachSelect').keyup(function () {
                         var key = $(this).val();
                         var parent = $(this).closest('.dropdown-menu');
 
                         // loai bo ku tu
-                        if (!parent.hasClass('convertName')) {
+                        if (!parent.hasClass('converted')) {
                             parent.find('.search-results').each(function () {
                                 $(this).attr('search', nfc.string.vi_to_en($.trim($(this).text())));
                             });
-                            parent.addClass('convertName');
+                            parent.addClass('converted');
                         }
                         // neu khong co ki tu, hien tat ca
                         if (!key) {
@@ -2323,17 +2323,19 @@ var nfc = {
                         //parent.find(".search-results:not(:contains('"+key+"'))").hide();
                     });
 
-                    // su kien tim kiem thong tin ky nang chuyen mon
-                    $('.select-input-field').keyup(function () {
+                    // su kien tim kiem thong tin
+                    $(document).on('keyup', '.select-input-field', function () {
+
+                      //  $('.select-input-field').keyup(function () {
                         var key = $(this).val();
                         var parent = $(this).closest('.select-search-chosen');
 
                         // loai bo ku tu
-                        if (!parent.hasClass('convertName')) {
+                        if (!parent.hasClass('converted')) {
                             parent.find('.select-results-option').each(function () {
                                 $(this).attr('search', nfc.string.vi_to_en($.trim($(this).text())));
                             });
-                            parent.addClass('convertName');
+                            parent.addClass('converted');
                         }
                         // neu khong co ki tu, an tat ca
                         if (!key) {
@@ -2373,7 +2375,7 @@ var nfc = {
                         }
                     });
                     // su kien xoa toan bo du lieu loc hien tai
-                    $('.btn-clear-all').click(function () {
+                    $(document).on('click', '.btn-clear-all', function () {
                         var $this = this;
                         $($this).hide();
                         var parent = $($this).closest('form');

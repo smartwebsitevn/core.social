@@ -19,7 +19,29 @@
 				<?php t('view')->load('tpl::_widget/user/display/item/info_avatar',['row'=>$user]) ?>
 				</div>
 			</td>
-			<td><?php //echo $user->email; ?></td>
+			<td>
+				<div class="item-attach">
+					<?php if ($user->attach_id): //pr($user); ?>
+						<?php $attach= $user->attach?>
+						<?php if (!empty($attach) && file_exists($attach->path)): ?>
+							<?php
+							$file_infos = file_parse($attach->path);
+							?>
+
+								<a href="<?php echo $attach->url ?>"
+								   target="_blank">
+									<i class="fa fa-<?php echo $file_infos['icon'] ?>"></i><br>
+
+									<?php echo $attach->name ?>
+								</a>
+						<?php endif; ?>
+
+					<?php endif; ?>
+
+
+					<?php // view('tpl::_widget/user/display/item/info_attach_name',['row'=>$user]) ?>
+				</div>
+			</td>
 		</tr>
 		<tr>
 			<td><b><?php echo lang('name'); ?></b></td>

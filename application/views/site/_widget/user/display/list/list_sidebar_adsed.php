@@ -6,7 +6,6 @@
             </div>
             <div class="panel-body" >
                 <div class="slimscroll" data-height="90vh">
-
                     <div class="list-user-feature">
                         <?php foreach ($list as $row):    //pr($row);?>
                             <div class="item-user">

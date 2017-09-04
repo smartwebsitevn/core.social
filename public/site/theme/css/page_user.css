@@ -11,28 +11,58 @@
 body.user-page #main {
   margin-top: 50px; }
 
-.dropdown-user a.user-panel {
-  display: flex !important;
-  line-height: 45px; }
-  .dropdown-user a.user-panel i.avatar {
+.dropdown-user .user-panel {
+  display: block;
+  line-height: 45px;
+  position: relative; }
+  .dropdown-user .user-panel .item-photo {
+    float: left;
+    display: block;
+    position: relative; }
+    .dropdown-user .user-panel .item-photo .item-img {
+      width: 35px;
+      height: 35px;
+      border-radius: 100%;
+      border: 1px solid rgba(160, 160, 160, 0.3);
+      background: #fff;
+      display: block;
+      text-align: center;
+      vertical-align: middle;
+      overflow: hidden; }
+      .dropdown-user .user-panel .item-photo .item-img img {
+        width: 100%;
+        height: auto; }
+    .dropdown-user .user-panel .item-photo .item-label {
+      font-size: 15px;
+      width: 16px;
+      height: 16px;
+      left: 25px;
+      bottom: 0px;
+      color: #f7941e;
+      font-weight: bold;
+      position: absolute;
+      background: #fff;
+      border-radius: 100%;
+      text-align: center;
+      vertical-align: middle; }
+  .dropdown-user .user-panel .item-info {
+    float: left; }
+    .dropdown-user .user-panel .item-info .name {
+      direction: rtl;
+      padding: 0 6px;
+      max-width: 120px;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+      white-space: nowrap; }
+  .dropdown-user .user-panel i.avatar {
     font-size: 32px;
     line-height: 50px; }
-  .dropdown-user a.user-panel img.avatar {
-    border-radius: 100%;
-    height: 35px;
-    width: 35px;
+  .dropdown-user .user-panel .item-img {
     margin-top: 10px; }
-  .dropdown-user a.user-panel .name {
-    direction: rtl;
-    padding: 0 6px;
-    max-width: 120px;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    text-align: right;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    white-space: nowrap; }
 .dropdown-user .dropdown-menu {
   width: 376px; }
   .dropdown-user .dropdown-menu .slideThree-uv {
@@ -113,7 +143,7 @@ body.user-page #main {
         .block-search .block-content .input-group input.input-text:focus + input.input-clear + .dropdown-menu, .block-search .block-content .input-group input.input-text[keepfocus] + input.input-clear + .dropdown-menu, .block-search .block-content .input-group input.input-text[autofocus] + input.input-clear + .dropdown-menu {
           display: block; }
       .block-search .block-content .input-group .select-input {
-        width: 84.6%; }
+        width: 69.6%; }
       .block-search .block-content .input-group .dropdown-menu {
         width: 100%; }
         .block-search .block-content .input-group .dropdown-menu:before, .block-search .block-content .input-group .dropdown-menu:after {
@@ -576,34 +606,44 @@ body.user-account .main-content .panel {
     background: #fff;
     padding: 40px; }
   body.user-account .main-content .panel .item-photo {
-    display: block;
-    position: relative;
-    overflow: hidden;
     width: 180px;
     float: left;
-    text-align: center; }
+    display: block;
+    position: relative; }
     body.user-account .main-content .panel .item-photo .item-img {
       width: 120px;
-      float: left; }
+      height: 120px;
+      border-radius: 100%;
+      border: 1px solid rgba(160, 160, 160, 0.3);
+      background: #fff;
+      display: block;
+      text-align: center;
+      vertical-align: middle;
+      overflow: hidden; }
       body.user-account .main-content .panel .item-photo .item-img img {
-        display: inline-block;
-        width: 120px;
-        height: 120px;
-        margin-bottom: 5px;
-        border-radius: 100%; }
+        width: 100%;
+        height: auto; }
     body.user-account .main-content .panel .item-photo .item-label {
-      color: #f7941e;
       font-size: 30px;
-      font-weight: bold;
-      bottom: 5px;
+      width: 33px;
+      height: 38px;
       left: 90px;
+      bottom: 5px;
+      color: #f7941e;
+      font-weight: bold;
       position: absolute;
       background: #fff;
       border-radius: 100%;
-      width: 33px;
-      height: 33px;
       text-align: center;
       vertical-align: middle; }
+  body.user-account .main-content .panel .item-attach {
+    float: right;
+    border: 1px solid rgba(160, 160, 160, 0.3);
+    text-align: center;
+    padding: 10px; }
+    body.user-account .main-content .panel .item-attach i {
+      font-size: 64px;
+      margin-bottom: 10px; }
   body.user-account .main-content .panel form {
     /* padding: 20px;*/ }
     body.user-account .main-content .panel form .form-group {

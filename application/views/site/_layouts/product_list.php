@@ -15,6 +15,7 @@
 						<div class="slimscroll_" data-height="90vh">
 							<?php echo widget('product')->filter([], "sidebar") ?>
 							<?php //widget('site')->notice('site_intro');?>
+							<?php if(!user_is_login()): ?>
 							<?php $notice = mod('notice')->get('site_intro'); ?>
 							<?php if($notice): ?>
 								<div class="panel">
@@ -26,6 +27,7 @@
 
 									</div>
 								</div>
+							<?php endif; ?>
 							<?php endif; ?>
 						</div>
 					</div>

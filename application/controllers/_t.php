@@ -7,7 +7,6 @@ class _t extends MY_Controller
 
     function update_db()
     {
-
         $this->_update_comment();
     }
     function _update_user()
@@ -22,6 +21,25 @@ class _t extends MY_Controller
                 ]
             );
             echo  '<br>--';pr_db(0,0);
+        }
+    }
+
+
+    function _update_product()
+    {
+        $tbl = 'product';
+        $list = model($tbl)->get_list();
+        foreach ($list as $i) {
+            $name = "Sản phẩm Demo " . $i->id;
+            $desc = 'Nội dung đang được cập nhập...';
+            model($tbl)->update($i->id,
+                [
+                    'name' => $name,
+                    'seo_url' => convert_vi_to_en($name),
+                    'brief' => $desc,
+                    'description' => $desc,
+                ]
+            );
         }
     }
     function _update_comment()
@@ -41,25 +59,6 @@ class _t extends MY_Controller
             echo  '<br>--';pr_db(0,0);
         }
     }
-
-    function _update_product()
-    {
-        $tbl = 'product';
-        $list = model($tbl)->get_list();
-        foreach ($list as $i) {
-            $name = "Sản phẩm Demo " . $i->id;
-            $desc = 'Nội dung đang được cập nhập...';
-            model($tbl)->update($i->id,
-                [
-                    'name' => $name,
-                    'seo_url' => convert_vi_to_en($name),
-                    'brief' => $desc,
-                    'description' => $desc,
-                ]
-            );
-        }
-    }
-
     function _update_page()
     {
         $tbl = 'page';

@@ -162,13 +162,15 @@ class Product_list extends MY_Controller
         $key = str_replace(array('-', '+'), ' ', $key);
         if (isset($filter['name']) && $filter['name']) {
             unset($filter['name']);
-            $filter['%name'] = $filter_fields['name'] = $key;
+            $filter['%name'] = $filter_fields['name'] = trim($key);
         }
-        if (isset($filter['point']) && $filter['point']) {
+        if (isset($filter['point']) ) {
+            if( $filter['point'])
             $filter['point_gte'] =$filter['point'];
-            unset($filter['point']);
 
+            unset($filter['point']);
         }
+
         // lay thong tin cua cac khoang tim kiem
         foreach (array('price',) as $range) {
             if (isset($filter[$range])) {
@@ -224,7 +226,7 @@ class Product_list extends MY_Controller
         }
         $list = model('product')->filter_get_list($filter, $input);
        // pr($filter,0);
-       // pr_db($list);
+      //pr_db($filter);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row,1);
         }

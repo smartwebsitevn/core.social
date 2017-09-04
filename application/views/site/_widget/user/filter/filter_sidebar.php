@@ -27,6 +27,6 @@
 
         </div>
     </div>
-    <?php t('view')->load('tpl::_widget/product/filter/_common/follow') ?>
+    <?php //t('view')->load('tpl::_widget/product/filter/_common/follow') ?>
 
 </form>

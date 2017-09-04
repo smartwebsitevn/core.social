@@ -43,7 +43,7 @@ if ($info->banner) {
             </a>
         </div>
         <div class="item-action">
-            <?php t('view')->load('tpl::_widget/user/display/item/info_attach', ['row' => $info, 'name' => true]) ?>
+            <?php t('view')->load('tpl::_widget/user/display/item/info_attach_name', ['row' => $info]) ?>
 
             <?php //widget('user')->action_share($info) ?>
             <?php widget('user')->action_subscribe($info) ?>

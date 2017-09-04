@@ -78,13 +78,13 @@
         }
     }
     function eventChangeTypeCat($params,$ele) {
-        if($ele != undefined)
+        //if($ele != undefined)
         var $this = $($params.ele)
         var type_cat = $this.data('value')
         if (!type_cat) {
             return;
         }
-        $(this).nstUI('loadAjax', {
+        $this.nstUI('loadAjax', {
             url: "<?php echo current_url(); ?>?_act=load_types&type_cat=" + type_cat ,
             field: {load: '_'},
             datatype: 'html',

@@ -27,7 +27,7 @@
             '_upload' => $upload_avatar,
         ]);
         echo macro('mr::form')->row([
-            'param' => 'attach', 'name' => 'File đính kèm',
+            'param' => 'attach', 'name' => 'Hồ sơ đính kèm',
             'type' => 'image',
             '_upload' => $upload_attach,
         ]);

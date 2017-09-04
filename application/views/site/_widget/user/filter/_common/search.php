@@ -12,6 +12,9 @@
                                    placeholder="Tìm thành viên"
                                    id="select-input-field" name="name">
                         </li>
+                        <li >
+                            <input class="btn btn-default btn-xs " type="submit" value="Tìm"  >
+                        </li>
                         <?php /* ?>
                             <li class="select-placeholder">
                                 <label

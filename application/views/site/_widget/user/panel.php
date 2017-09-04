@@ -22,15 +22,26 @@
 
 <?php else:// pr($user);?>
     <li class="dropdown-user dropdown">
-        <a href="#" class="user-panel dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-           aria-expanded="false">
-            <?php if ($user->avatar): ?>
-                <img src="<?php echo $user->avatar->url_thumb ?> " class="avatar"/>
-            <?php else: ?>
-                <i class="pe-7s-user avatar"></i>
-            <?php endif; ?>
-            <span class="name"><?php echo $user->name ?></span>
-        </a>
+        <div href="#" class="user-panel dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+             aria-expanded="false">
+            <div class="item-photo">
+                <span class="item-img">
+                    <?php if ($user->avatar): ?>
+                        <img src="<?php echo $user->avatar->url_thumb ?> " class="avatar"/>
+                    <?php else: ?>
+                        <i class="pe-7s-user avatar"></i>
+                    <?php endif; ?>
+                </span>
+                <?php /* if ($user->user_group_type == 'user_manager'): ?>
+                    <span class="item-label label-user-manager">  <i class="pe-7s-helm"></i></span>
+                <?php elseif ($user->user_group_type == 'user_active'): ?>
+                    <span class="item-label label-user-active">  <i class="pe-7s-medal"></i></span>
+                <?php endif; */ ?>
+            </div>
+            <div class="item-info">
+                <span class="name"><?php echo $user->name ?></span>
+            </div>
+        </div>
         <ul class="dropdown-menu">
             <?php /* ?>
 

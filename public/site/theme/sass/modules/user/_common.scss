@@ -7,32 +7,41 @@ body.user-page {
 
 .dropdown-user {
 
-  a.user-panel{
-    display: flex !important;
+ .user-panel{
+   display: block;
     line-height: 45px;
+    position: relative;
+   .item-photo {
+     float: left;
+     @include user-avatar(35px,35px);
+     @include user-label(15px,16px,16px,25px,0px);
+
+   }
+   .item-info {
+     float: left;
+     .name {
+       direction: rtl;
+       padding: 0 6px;
+       max-width: 120px;
+       text-overflow: ellipsis;
+       text-transform: capitalize;
+       text-align: right;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       text-transform: capitalize;
+       white-space: nowrap;
+     }
+   }
+
+
     i.avatar {
       font-size: 32px;
       line-height: 50px;
     }
-    img.avatar {
-      border-radius: 100%;
-      height: 35px;
-      width: 35px;
+    .item-img {
       margin-top: 10px;
+    }
 
-    }
-    .name {
-      direction: rtl;
-      padding: 0 6px;
-      max-width: 120px;
-      text-overflow: ellipsis;
-      text-transform: capitalize;
-      text-align: right;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-transform: capitalize;
-      white-space: nowrap;
-    }
 
   }
 

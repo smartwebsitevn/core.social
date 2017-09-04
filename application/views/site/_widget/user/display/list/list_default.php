@@ -30,7 +30,7 @@
                 <div class="item-desc">
                     <?php // echo macro()->more_word($row->desc, 45); ?>
                     <?php echo macro()->more_block($row->desc, 55); ?>
-                    <?php view('tpl::_widget/user/display/item/info_attach_name',['row'=>$row]) ?>
+                    <?php view('tpl::_widget/user/display/item/info_attach_file',['row'=>$row]) ?>
 
                 </div>
 
@@ -57,7 +57,7 @@
 
     <?php endif; ?>
     <?php if (t('input')->is_ajax_request() && isset($pages_config)) : ?>
-        <?php echo t('view')->load('tpl::_widget/user/display/list/_reload_js'); ?>
+        <?php widget('site')->js_reboot(); ?>
         <?php widget('user')->display_pagination($pages_config); ?>
     <?php endif; ?>
 
