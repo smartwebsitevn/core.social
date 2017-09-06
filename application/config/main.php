@@ -18,7 +18,7 @@ include('main_const.php');
 // Base
 $config['base_url']			= 'http://'.$_SERVER['HTTP_HOST'].'/smart/core.social';
 $config['encryption_key'] 	= 'c5a15cb929c90063432a18e1d1b2e72e';
-$config['admin_folder'] 	= 'admin';
+$config['admin_folder'] 	= 'socialcp';
 $config['admin_email'] 		= '';
 
 // Database

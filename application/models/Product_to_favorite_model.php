@@ -16,7 +16,7 @@ class Product_to_favorite_model extends MY_Model {
 	function _filter_get_where(array $filter)
 	{
 		$where = parent::_filter_get_where($filter);
-		foreach (array('id', 'product_id') as $key)
+		foreach (array('id', 'product_id','user_id') as $key)
 		{
 			$this->_filter_parse_where( $key, $filter );
 		}

@@ -62,14 +62,14 @@
 /// Applies padding to an element, taking the current element-margin value into account.
 /// @param {mixed} $w Top/bottom padding.
 /// @param {mixed} $h Left/right padding.
-@mixin user-avatar($w, $h) {
+@mixin user-avatar($w, $h,$b:'1px',$name :'.item-img') {
   display: block;
   position: relative;
-  .item-img {
+  #{$name} {
     width: $w;
     height: $h;
     border-radius: 100%;
-    border: 1px solid _palette(border);
+    border: $b solid _palette(border);
     background: #fff;
     display: block;
     text-align: center;

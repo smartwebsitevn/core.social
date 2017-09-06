@@ -2,58 +2,13 @@
     <?php $_data_list = function () use ($list) {
         ob_start() ?>
         <?php
-        $now = now();
         $user_manager = user_current_is_manager_special();
         foreach ($list as $row):
             $row = mod('product')->add_info_images($row);
-            $layout_full = (!$row->video && !$row->images && !$row->link);
-            $author = $row->_author;// pr($row);
-
-            // if($row->id == 35) pr($row);
-            $row_status = 'status-on';
-            $row_label = '';
-            $row_text = '';
-            if ($row->verified == 0) {
-                $row_status = 'status-pendding';
-                $row_label = 'Đang chờ duyệt';
-            }
-            /*if ($row->_ads) {
-                $row_status = 'tuyen-gap';
-                $row_label = $row->ads_title;
-            }*/
-            /*if ($row->expired <= $now) {
-                $row_status = 'het-han';
-                $row_label = 'Hết hạn';
-
-            }*/
-            if ($row->is_draft) {
-                $row_status = 'status-draft';
-                $row_label = 'Bản nháp';
-            }
-            if (!$row->status) {
-                $row_status = 'status-off';
-                $row_label = 'Đang ẩn';
-            }
-            if (($row->point_total + $row->point_fake) <=-10)  {
-                $row_status = 'status-locked';
-                $row_label = 'Tin đã bị khóa';
-                $row_text = '<a href="'.site_url('tro-giup').'" target="_blank">Tại sao tin này bị khóa?</a>' ;
-            }
+            $author = $row->_author; //pr($author);
             ?>
-            <div class="item-social <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $row_status ?>  ">
+            <div class="item-social <?php echo isset($row->_ads) ? 'item-social-ads' : '' ?> ">
                 <div class="clearfix">
-                    <?php if ($row_label): ?>
-                        <label class="label <?php echo 'label-'.$row_status ?> "><?php echo $row_label ?></label>
-
-                    <?php endif; ?>
-                    <?php if ($row_text): ?>
-                        <label class="label label-text "><?php echo $row_text ?></label>
-
-                    <?php endif; ?>
-                    <?php if ( isset($row->_adsed) && $row->_adsed): ?>
-                        <label class="label-job"><?php echo $row->ads_title ?></label>
-                    <?php endif; ?>
-
                     <div class="item-author">
                         <div class="item-photo">
                             <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $author)); ?>
@@ -76,7 +31,7 @@
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <span class="item-time-manager"><?php echo $row->_created_carbon->diffForHumans(); ?>  </span>
+                        <span class="item-time"><?php echo $row->_created_carbon->diffForHumans(); ?>  </span>
 
                     </div>
                     <div class="item-media">
@@ -118,9 +73,9 @@
                             <?php echo widget('product')->action_manager($row, $user_manager) ?>
                         </div>
                     <?php endif; ?>
-                    <?php if($row_status != 'status-locked'): ?>
-                     <?php t('view')->load('tpl::_widget/product/display/item/info_config',['row'=>$row,'row_status'=>$row_status])?>
-                    <?php endif; ?>
+                    <?php //t('view')->load('tpl::_widget/product/display/item/infos')
+                    ?>
+
                 </div>
             </div>
 
@@ -129,6 +84,7 @@
         <?php return ob_get_clean();
     }
     ?>
+
     <?php if (isset($load_more) && $load_more): ?>
         <?php echo $_data_list(); ?>
     <?php else: ?>
@@ -143,7 +99,7 @@
     <?php endif; ?>
 
 <?php else: ?>
-    <div class="clearfix mt20"></div>
+    <div class="clearfix"></div>
     <div class="well">
         <?php echo lang('have_no_list') ?>
     </div>

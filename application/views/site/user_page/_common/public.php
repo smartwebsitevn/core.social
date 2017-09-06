@@ -1,6 +1,9 @@
-<?php $banner_background = '';
+<?php
+$banner_background = '';
+//$banner_class = '';
 if ($info->banner) {
-    $banner_background = ' style="background-image: url(' . $info->banner->url . ')" ';
+    $banner_background = ' class="active" style="background-image: url(' . $info->banner->url . ')" ';
+    //$banner_class = ' active';
 }
 ?>
 <div id="banner_background" <?php echo $banner_background ?> >
@@ -25,7 +28,8 @@ if ($info->banner) {
             <a href="<?php echo $info->_url_view . '?page=posts'//site_url('user_page/posts') ?>"
                class="btn btn-link <?php echo $page == 'posts' ? 'active' : '' ?>">
                 <span class="text">Đã đăng</span><br>
-                <span class="value"><?php echo number_format($info->post_total) ?></span>
+                <?php $post_total =model('product')->filter_get_total(['user_id'=>$info->id,'show'=>1]) ?>
+                <span class="value"><?php echo number_format($post_total) ;//$info->post_total ?></span>
 
             </a>
 

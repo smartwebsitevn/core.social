@@ -280,7 +280,7 @@
           width: 35px;
           height: 35px;
           border-radius: 100%;
-          border: 1px solid rgba(160, 160, 160, 0.3);
+          border: "1px" solid rgba(160, 160, 160, 0.3);
           background: #fff;
           display: block;
           text-align: center;
@@ -329,6 +329,10 @@
         position: absolute;
         top: 0;
         right: 0; }
+      .block-products-items .list-social .item-social .item-author .item-time-manager {
+        position: absolute;
+        right: 130px;
+        top: -8px; }
     .block-products-items .list-social .item-social .item-media {
       width: 100%;
       margin-top: 10px; }
@@ -650,7 +654,7 @@
         width: 120px;
         height: 120px;
         border-radius: 100%;
-        border: 1px solid rgba(160, 160, 160, 0.3);
+        border: "1px" solid rgba(160, 160, 160, 0.3);
         background: #fff;
         display: block;
         text-align: center;

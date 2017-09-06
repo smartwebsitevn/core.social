@@ -23,7 +23,7 @@ body.user-page #main {
       width: 35px;
       height: 35px;
       border-radius: 100%;
-      border: 1px solid rgba(160, 160, 160, 0.3);
+      border: "1px" solid rgba(160, 160, 160, 0.3);
       background: #fff;
       display: block;
       text-align: center;
@@ -233,7 +233,7 @@ body.user-page #main {
         width: 85px;
         height: 85px;
         border-radius: 100%;
-        border: 1px solid rgba(160, 160, 160, 0.3);
+        border: "1px" solid rgba(160, 160, 160, 0.3);
         background: #fff;
         display: block;
         text-align: center;
@@ -371,7 +371,7 @@ body.user-page #main {
         width: 35px;
         height: 35px;
         border-radius: 100%;
-        border: 1px solid rgba(160, 160, 160, 0.3);
+        border: "1px" solid rgba(160, 160, 160, 0.3);
         background: #fff;
         display: block;
         text-align: center;
@@ -424,18 +424,36 @@ body.user-page #main {
 /*====================*\
 //Detail user
 \*====================*/
+/* body.user-page{
+.block-products-items {
+   .list-social {
+     .item-social {
+       .item-author {
+         .item-time {
+           right: 130px;
+           top: -8px;
+         }
+       }
+     }
+   }
+ }
+
+}
+*/
 #banner_background {
   position: relative;
-  background-color: #f60;
+  background-color: #b1b1b1;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  color: #b2b2b2;
+  color: #fff;
   font-size: 13px;
   text-transform: capitalize;
   padding-top: 80px; }
+  #banner_background.active {
+    padding-top: 150px; }
   #banner_background .background1 {
-    background-color: #bd4b00;
+    background-color: black;
     padding-top: 150px;
     opacity: 0.1; }
   #banner_background .background2 {
@@ -449,7 +467,7 @@ body.user-page #main {
     width: 100px;
     text-align: center; }
     #banner_background #banner_upload a {
-      color: #fff; }
+      color: #eb8305; }
     #banner_background #banner_upload i {
       font-size: 48px; }
     #banner_background #banner_upload img {
@@ -475,7 +493,7 @@ body.user-page #main {
         width: 180px;
         height: 180px;
         border-radius: 100%;
-        border: 1px solid rgba(160, 160, 160, 0.3);
+        border: 6px solid rgba(160, 160, 160, 0.3);
         background: #fff;
         display: block;
         text-align: center;
@@ -573,11 +591,17 @@ body.user-page #main {
     position: absolute;
     bottom: 12px;
     right: 0px;
-    height: 26px; }
+    height: 26px;
+    line-height: 28px;
+    display: flex; }
     .detail-user .item-action i {
       font-size: 16px; }
     .detail-user .item-action .dropdown {
       margin-left: 10px; }
+      .detail-user .item-action .dropdown i {
+        font-size: 32px;
+        height: 20px;
+        line-height: 25px; }
     .detail-user .item-action .file_attach {
       margin-right: 10px; }
 
@@ -614,7 +638,7 @@ body.user-account .main-content .panel {
       width: 120px;
       height: 120px;
       border-radius: 100%;
-      border: 1px solid rgba(160, 160, 160, 0.3);
+      border: "1px" solid rgba(160, 160, 160, 0.3);
       background: #fff;
       display: block;
       text-align: center;

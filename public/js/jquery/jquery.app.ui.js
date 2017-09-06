@@ -2104,7 +2104,6 @@ var nfc = {
         },
         auto_filter: function () {
             $(document).on('submit', 'form.ajax_form_filter', function () {
-                alert()
                 nfc.catch_hook_event(this);
 
                 return false;

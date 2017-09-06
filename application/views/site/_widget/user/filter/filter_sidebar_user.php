@@ -16,9 +16,8 @@
 
                         <?php t('view')->load('tpl::_widget/user/filter/_common/city') ?>
                         <?php t('view')->load('tpl::_widget/user/filter/_common/sort') ?>
-                        <?php t('view')->load('tpl::_widget/product/filter/_common/slider_point') ?>
-
-                        <?php t('view')->load('tpl::_widget/product/filter/_common/reset') ?>
+                        <?php t('view')->load('tpl::_widget/user/filter/_common/slider_point') ?>
+                        <?php t('view')->load('tpl::_widget/user/filter/_common/reset') ?>
 
 
                     </div>

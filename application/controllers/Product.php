@@ -48,10 +48,9 @@ class Product extends MY_Controller
         //$this->_view_process();
         //$this->_other_process();
         if ($this->input->is_ajax_request()) {
-            $this->_display('view_quick',null);
-        }
-        else
-         $this->_display();
+            $this->_display('view_quick', null);
+        } else
+            $this->_display();
     }
 
     function _common_process()
@@ -412,8 +411,8 @@ class Product extends MY_Controller
 
     protected function _action($action)
     {
-        $user =user_get_account_info();
-        $dont_check_login = array('comment', 'demo', 'report', 'favorite', 'favorite_del',/*'vote',*/);
+        $user = user_get_account_info();
+        $dont_check_login = array(/*'comment', 'demo', 'report', 'favorite', 'favorite_del','vote',*/);
         if (!in_array($action, $dont_check_login)) {
 
             if (!$user) {
@@ -424,7 +423,7 @@ class Product extends MY_Controller
             }
         }
 
-        $need_manager= array('set_point', 'set_feature');
+        $need_manager = array('set_point', 'set_feature');
         if (in_array($action, $need_manager)) {
             if (!user_is_manager($user)) {
                 $this->_response();
@@ -448,7 +447,7 @@ class Product extends MY_Controller
         //if ( !  $this->_mod()->can_do($info, $action)) return;
 
         $this->data['info'] = $info;
-        $this->data['user'] =$user;
+        $this->data['user'] = $user;
         // Tai cac file thanh phan
         $this->load->library('form_validation');
         $this->load->helper('form');
@@ -463,26 +462,27 @@ class Product extends MY_Controller
     {
         $form = array();
         $form['validation']['params'] = ['set_point'];
-        $form['submit'] = function () use($info) {
+        $form['submit'] = function () use ($info) {
             $point = $this->input->post('set_point');
-            $this->_model()->update_field( $info->id,'point_fake',$point);
+            $this->_model()->update_field($info->id, 'point_fake', $point);
             $point_total = $info->point_total + $point;
-            $result['element'] =  ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
-            if($info->user_id)
-             model('user')->update_stats(['id'=>$info->user_id],['point_total'=>$point]);
-            $result['msg_toast'] =lang('notice_update_success');
+            $result['element'] = ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
+            if ($info->user_id)
+                model('user')->update_stats(['id' => $info->user_id], ['point_total' => $point]);
+            $result['msg_toast'] = lang('notice_update_success');
 
             return $result;
         };
-        $form['display'] =false;
+        $form['display'] = false;
         $this->_form($form);
     }
 
     function _set_feature($info)
     {
-        $this->_model()->update_field( $info->id,'is_feature',!$info->is_feature);
+        $this->_model()->update_field($info->id, 'is_feature', !$info->is_feature);
         $this->_response(array('msg_toast' => lang('notice_update_success')));
     }
+
     /* Demo
      * */
     function _demo($info)
@@ -504,62 +504,67 @@ class Product extends MY_Controller
             $this->_response();
         $user = $this->data['user'];
 
-            //kiem tra da luu hay chua
-            $data = array();
-            $data ['table_name'] = 'product';
-            $data ['table_id'] = $info->id;
-            $data ['user_id'] = $user->id;
-        $point=0;
-            if ($act == 'like') {
-                $data ['like'] = 1;
-                $data ['dislike'] = 0;
-                $point =1;
-            } elseif ($act == 'like_del') {
-                $data ['like'] = 0;
-                $data ['dislike'] = 0;
-                $point =-1;
-            } elseif ($act == 'dislike') {
-                $data ['like'] = 0;
-                $data ['dislike'] = 1;
-                $point =-1;
-            } elseif ($act == 'dislike_del') {
-                $data ['like'] = 0;
-                $data ['dislike'] = 0;
-                $point =1;
-            }
+        // khong cho vote bai cua minh
+        if ($user->id ==$info->user_id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+        }
 
-            $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $info->id, 'user_id' => $user->id));
-            if ($voted) {
-                $data ['updated'] = now();
-                model('social_vote')->update($voted->id, $data);
-            } else {
-                $data ['created'] = now();
-                model('social_vote')->create($data);
-            }
-            // thong ke
-            $list = model('social_vote')->filter_get_list(array('table_name' => 'product', 'table_id' => $info->id));
-            if ($list) {
-                $d = 0;
-                $p = 0;
-                $stats = ['vote_total' => 0, 'vote_like' => 0, 'vote_dislike' => 0];
-                foreach ($list as $row) {
-                    if ($row->like) {
-                        $stats['vote_like']++;
-                        $p++;
-                    } elseif ($row->dislike) {
-                        $stats['vote_dislike']++;
-                        $p--;
-                    }
-                    $d++;
+        //kiem tra da luu hay chua
+        $data = array();
+        $data ['table_name'] = 'product';
+        $data ['table_id'] = $info->id;
+        $data ['user_id'] = $user->id;
+        $point = 0;
+        if ($act == 'like') {
+            $data ['like'] = 1;
+            $data ['dislike'] = 0;
+            $point = 1;
+        } elseif ($act == 'like_del') {
+            $data ['like'] = 0;
+            $data ['dislike'] = 0;
+            $point = -1;
+        } elseif ($act == 'dislike') {
+            $data ['like'] = 0;
+            $data ['dislike'] = 1;
+            $point = -1;
+        } elseif ($act == 'dislike_del') {
+            $data ['like'] = 0;
+            $data ['dislike'] = 0;
+            $point = 1;
+        }
+
+        $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $info->id, 'user_id' => $user->id));
+        if ($voted) {
+            $data ['updated'] = now();
+            model('social_vote')->update($voted->id, $data);
+        } else {
+            $data ['created'] = now();
+            model('social_vote')->create($data);
+        }
+        // thong ke
+        $list = model('social_vote')->filter_get_list(array('table_name' => 'product', 'table_id' => $info->id));
+        if ($list) {
+            $d = 0;
+            $p = 0;
+            $stats = ['vote_total' => 0, 'vote_like' => 0, 'vote_dislike' => 0];
+            foreach ($list as $row) {
+                if ($row->like) {
+                    $stats['vote_like']++;
+                    $p++;
+                } elseif ($row->dislike) {
+                    $stats['vote_dislike']++;
+                    $p--;
                 }
-                $stats['vote_total'] = $d;
-                $stats['point_total'] = $p;
+                $d++;
             }
+            $stats['vote_total'] = $d;
+            $stats['point_total'] = $p;
+        }
 
 
         //pr($stats);
-            model('product')->update($info->id, $stats);
-            model('user')->update_stats(['id'=>$user->id],['point_total'=>$point]);
+        model('product')->update($info->id, $stats);
+        model('user')->update_stats(['id' => $user->id], ['point_total' => $point]);
 
         // pr_db();
         /*  else {
@@ -567,7 +572,7 @@ class Product extends MY_Controller
          }*/
         $point_total = $stats['point_total'] + $info->point_fake;
         //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
-        $result['element'] =  ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
+        $result['element'] = ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
 
         $this->_response($result);
     }
@@ -577,17 +582,24 @@ class Product extends MY_Controller
      */
     function _favorite($info)
     {
-        $id = $this->data['info']->id;
-        if ($this->data['user']) {
+        $user= $this->data['user'];
+        // khong cho vote bai cua minh
+        if ($user->id == $info->user_id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+        }
+
+
+        $id = $info->id;
+        if ($user) {
             //kiem tra da luu hay chua
-            $favorited = model('product_to_favorite')->check_exits(array('product_id' => $id, 'user_id' => $this->data['user']->id));
+            $favorited = model('product_to_favorite')->check_exits(array('product_id' => $id, 'user_id' => $user->id));
             if ($favorited) {
                 $this->_response(array('msg_toast' => lang('notice_product_favorited')));
             }
             //them vao table product_favorite
             $data = array();
-            $data ['product_id'] = $this->data['info']->id;
-            $data ['user_id'] = $this->data['user']->id;
+            $data ['product_id'] = $info->id;
+            $data ['user_id'] = $user->id;
             $data ['created'] = now();
             model('product_to_favorite')->create($data);
         } else {
@@ -599,17 +611,23 @@ class Product extends MY_Controller
 
     function _favorite_del($info)
     {
+        $user= $this->data['user'];
+        // khong cho vote bai cua minh
+        if ($user->id == $info->user_id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+        }
+
         $id = $info->id;
-        if ($this->data['user']) {
+        if ($user) {
 
             //kiem tra da luu hay chua
-            $favorited = model('product_to_favorite')->check_exits(array('product_id' => $id, 'user_id' => $this->data['user']->id));
+            $favorited = model('product_to_favorite')->check_exits(array('product_id' => $id, 'user_id' => $user->id));
             if (!$favorited) {
                 $this->_response(array('msg_toast' => 'Error'));
             }
             $data = array();
-            $data ['product_id'] = $this->data['info']->id;
-            $data ['user_id'] = $this->data['user']->id;
+            $data ['product_id'] = $info->id;
+            $data ['user_id'] = $user->id;
             model('product_to_favorite')->del_rule($data);
         } else {
             mod('product')->guest_owner_del($id, "favorited");;
@@ -623,6 +641,8 @@ class Product extends MY_Controller
     {
         // cho phep he thong tu dong bao cao
         $auto = $this->input->get('auto');
+        $user = $this->data['user'];
+
         if ($auto) {
             $reported = model('product_report')->check_exits(array('product_id' => $info->id, 'user_id' => 0));
             if ($reported) {
@@ -643,7 +663,6 @@ class Product extends MY_Controller
         }
 
 
-        $user = $this->data['user'];
         if ($user)
             $user_id = $user->id;
         else
@@ -699,7 +718,7 @@ class Product extends MY_Controller
     {
         $msg = lang('notice_product_subscribe_success');
         //kiem tra da luu hay chua
-        $subscribed = model('product_subscribe')->check_exits(array('product_id' => $this->data['info']->id, 'user_id' => $this->data['user']->id));
+        $subscribed = model('product_subscribe')->check_exits(array('product_id' => $info->id, 'user_id' => $this->data['user']->id));
         if ($subscribed) {
             $this->_response(array('msg_toast' => $msg, 'reload' => 1));
 
@@ -707,7 +726,7 @@ class Product extends MY_Controller
 
         //them vao table product_subscribe
         $data = array();
-        $data ['product_id'] = $this->data['info']->id;
+        $data ['product_id'] = $info->id;
         $data ['user_id'] = $this->data['user']->id;
         $data ['email'] = $this->data['user']->email;
         $data ['name'] = $this->data['user']->name;
@@ -719,12 +738,12 @@ class Product extends MY_Controller
     function _subscribe_del($info)
     {
         //kiem tra da luu hay chua
-        $subscribed = model('product_subscribe')->check_exits(array('product_id' => $this->data['info']->id, 'user_id' => $this->data['user']->id));
+        $subscribed = model('product_subscribe')->check_exits(array('product_id' => $info->id, 'user_id' => $this->data['user']->id));
         if (!$subscribed) {
             return;
         }
         $data = array();
-        $data ['product_id'] = $this->data['info']->id;
+        $data ['product_id'] = $info->id;
         $data ['user_id'] = $this->data['user']->id;
         model('product_subscribe')->del_rule($data);
         $this->_response(array('msg_toast' => lang('notice_product_subscribe_del_succcess'), 'reload' => 1));
@@ -845,7 +864,6 @@ class Product extends MY_Controller
          if (!$info) {
              return false;
          }*/
-        $info = $this->data['info'];
         $id = $info->id;
         //kiem tra xem khach da binh chon hay chua
         $raty = $this->session->userdata('session_raty');
@@ -881,14 +899,15 @@ class Product extends MY_Controller
 
         $act = $this->input->get('_act');
         if ($act) {
-            if (!in_array($act, ['show','add', 'reply','vote'])) return;
+            if (!in_array($act, ['show', 'add', 'reply', 'vote'])) return;
             set_output('html', $this->{'_comment_' . $act}($info));
             return;
         }
-        $total_featured =model('comment')->filter_get_total(['table_id'=>$info->id,'table_type'=>'product','featured'=>1]);
-        $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
-        echo widget('comment')->comment_list($info, 'product',['featured'=>0],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+        $total_featured = model('comment')->filter_get_total(['table_id' => $info->id, 'table_type' => 'product', 'featured' => 1]);
+        $tmpl = $total_featured ? 'tpl::_widget/product/comment/list_no_form' : 'tpl::_widget/product/comment/list';
+        echo widget('comment')->comment_list($info, 'product', ['featured' => 0], [], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
     }
+
     function _comment_show($info)
     {
         $comment_id = $this->input->get('id');
@@ -897,10 +916,11 @@ class Product extends MY_Controller
         if (!$comment) {
             return;
         }
-        $tmpl ='tpl::_widget/product/comment/list_child';
+        $tmpl = 'tpl::_widget/product/comment/list_child';
 
-        echo widget('comment')->comment_list($info, 'product',['parent_id'=>$comment_id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+        echo widget('comment')->comment_list($info, 'product', ['parent_id' => $comment_id], [], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
     }
+
     function _comment_add($info)
     {
         // if(!mod("product")->setting('comment_allow'))
@@ -929,7 +949,7 @@ class Product extends MY_Controller
             $data['table_name'] = 'product';
             $data['content'] = $content;
 
-            if(user_is_manager($user) || user_is_active($user))
+            if (user_is_manager($user) || user_is_active($user))
                 $data['featured'] = 1;
             $data['user_id'] = $user->id;
 
@@ -941,21 +961,21 @@ class Product extends MY_Controller
 
             }
             $data['created'] = now();
-            $id =0;
-            model("comment")->create($data,$id);
+            $id = 0;
+            model("comment")->create($data, $id);
             // Khai bao du lieu tra ve
 
-            $total_featured =model('comment')->filter_get_total(['id_lt'=>$id,'table_id'=>$info->id,'table_name'=>'product','featured'=>1]);
-            $tmpl = $total_featured?'tpl::_widget/product/comment/list_no_form':'tpl::_widget/product/comment/list';
+            $total_featured = model('comment')->filter_get_total(['id_lt' => $id, 'table_id' => $info->id, 'table_name' => 'product', 'featured' => 1]);
+            $tmpl = $total_featured ? 'tpl::_widget/product/comment/list_no_form' : 'tpl::_widget/product/comment/list';
             //$tmpl = 'tpl::_widget/product/comment/list';
-            $data_comment = widget('comment')->comment_list($info, 'product',['id_gte'=>$id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $data_comment = widget('comment')->comment_list($info, 'product', ['id_gte' => $id], [], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             //$data_comment = widget('comment')->comment_list($info, 'product',[],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['reset_form'] = TRUE;
 
             $result['elements'] = [
                 ['pos' => '#' . $info->id . '_comment_show', 'data' => $data_comment],
-                ['pos' => '#' . $info->id . '_comment_total', 'data' =>  $info->comment_count + 1]
+                ['pos' => '#' . $info->id . '_comment_total', 'data' => $info->comment_count + 1]
             ];
 
             if ($comment_active_status == config('status_on', 'main')) {
@@ -1005,7 +1025,7 @@ class Product extends MY_Controller
             $data['user_id'] = $user->id;
             $data['parent_id'] = $comment->id;
             $data['level'] = $comment->level + 1;
-            if(user_is_manager($user) || user_is_active($user))
+            if (user_is_manager($user) || user_is_active($user))
                 $data['featured'] = 1;
             $comment_active_status = 1;// mod("product")->setting('comment_auto_verify');
 
@@ -1015,8 +1035,8 @@ class Product extends MY_Controller
             $data['created'] = now();
             $data['reuped'] = $data['created'];
             //pr($data);
-            $id =0;
-            model("comment")->create($data,$id);
+            $id = 0;
+            model("comment")->create($data, $id);
             // reup lai parent, va set la chua view
             model('comment')->update($comment->id, ["readed" => 0, "reuped" => now()]);
 
@@ -1046,11 +1066,11 @@ class Product extends MY_Controller
             $result['reset_form'] = TRUE;
 
             $tmpl = 'tpl::_widget/product/comment/list_child';
-            $data_comment = widget('comment')->comment_list($info, 'product',['parent_id'=>$comment->id],[], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+            $data_comment = widget('comment')->comment_list($info, 'product', ['parent_id' => $comment->id], [], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
             $result['complete'] = TRUE;
             $result['elements'] = [
                 ['pos' => '#reply_' . $comment->id . '_comment_show', 'data' => $data_comment],
-                ['pos' => '#' . $info->id . '_comment_total', 'data' =>  $info->comment_count + 1]
+                ['pos' => '#' . $info->id . '_comment_total', 'data' => $info->comment_count + 1]
             ];
 
             if ($comment_active_status == config('status_on', 'main')) {
@@ -1126,7 +1146,7 @@ class Product extends MY_Controller
         return TRUE;
     }
 
-    public  function _check_security_code($value)
+    public function _check_security_code($value)
     {
         if (!lib('captcha')->check($value, 'four')) {
             $this->form_validation->set_message(__FUNCTION__, lang('notice_value_incorrect'));

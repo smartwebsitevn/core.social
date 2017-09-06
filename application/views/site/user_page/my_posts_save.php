@@ -19,7 +19,7 @@
      <?php */ ?>
                     <div class="block-content ajax-content-product-list">
                         <?php if ($pages_config['total_rows'] > 0): ?>
-                            <?php widget('product')->display_list($list,'owner_default'); ?>
+                            <?php widget('product')->display_list($list,'owner_save'); ?>
                             <?php widget('product')->display_pagination($pages_config); ?>
                         <?php else: ?>
                             <div class="clearfix mt20"></div>

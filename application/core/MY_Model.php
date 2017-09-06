@@ -1070,7 +1070,6 @@ class MY_Model extends CI_Model
         $where = $this->_filter_get_where($filter);
         if ($input)
             $this->_get_list_set_input($input);
-
         return $this->get_total($where);
     }
 

@@ -1,19 +1,37 @@
 /*====================*\
 //Detail user
 \*====================*/
+/* body.user-page{
+.block-products-items {
+   .list-social {
+     .item-social {
+       .item-author {
+         .item-time {
+           right: 130px;
+           top: -8px;
+         }
+       }
+     }
+   }
+ }
 
+}
+*/
 #banner_background {
   position: relative;
-  background-color: #f60;
+  background-color: rgb(177, 177, 177);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  color: #b2b2b2;
+  color: #fff;
   font-size: 13px;
   text-transform: capitalize;
   padding-top: 80px;
+  &.active{
+    padding-top: 150px;
+  }
   .background1 {
-    background-color: #bd4b00;
+    background-color: rgb(0, 0, 0);
     padding-top: 150px;
     opacity: 0.1;
   }
@@ -30,7 +48,7 @@
     width: 100px;
     text-align: center;
     a{
-      color: #fff;
+      color: _palette(button-1);
     }
     i{
       font-size: 48px;
@@ -41,7 +59,6 @@
     }
   }
 }
-
 .detail-user {
   margin: -215px auto 10px;
   padding-bottom: 2px;
@@ -56,7 +73,7 @@
       width: 200px;
       float: left;
       text-align: center;
-      @include user-avatar(180px, 180px);
+      @include user-avatar(180px, 180px,6px);
       @include user-label(30px, 33px, 33px, 120px, 30px);
       .links {
         a {
@@ -171,11 +188,19 @@
     bottom: 12px;
     right: 0px;
     height: 26px;
+    line-height: 28px;
+    display: flex;
     i{
       font-size: 16px;
     }
     .dropdown {
       margin-left: 10px;
+      i{
+        font-size: 32px;
+        height: 20px;
+        line-height: 25px;
+
+      }
     }
     .file_attach{
       margin-right: 10px;

@@ -24,7 +24,8 @@
                         <?php else: ?>
                             <div class="clearfix mt20"></div>
                             <div class="well">
-                                Thành viên này không theo dõi ai
+                                Không có ai đang theo dõi thành viên này
+
                                 <?php //echo lang('have_no_list') ?>
                             </div>
                         <?php endif; ?>

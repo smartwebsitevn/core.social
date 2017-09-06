@@ -24,7 +24,7 @@ class User_page extends MY_Controller
      */
     public function _remap($method, $params = array())
     {
-        return $this->_remap_action($method, $params, array('view', 'view_profile','view_attach', 'invite', 'report', 'favorite', 'favorite_del', 'subscribe', 'subscribe_del'));
+        return $this->_remap_action($method, $params, array('view', 'view_profile','view_attach', 'invite', 'report', /*'favorite', 'favorite_del', */'subscribe', 'subscribe_del'));
     }
 
     /*
@@ -121,7 +121,7 @@ class User_page extends MY_Controller
         $this->data['user'] = $info;
         $this->data['user_current'] = user_get_account_info();
         // kiem tra che do voi cac action
-        if (in_array($action, array('view_profile', 'invite', 'favorite', 'favorite_del', 'subscribe', 'subscribe_del'))) {
+        if (in_array($action, array('view_profile', 'invite',/* 'favorite', 'favorite_del',*/ 'subscribe', 'subscribe_del'))) {
             /* neu mo ra thi cho xem thoa mai
             *  if ($action == 'view_profile' ) {//&& $this->data['user']->id == $id
                 // Chuyen den ham duoc yeu cau
@@ -294,56 +294,15 @@ class User_page extends MY_Controller
         $this->_form($form);
     }
 
-    /**
-     * Yeu thich
-     */
-    function _favorite()
-    {
-        $id = $this->data['info']->id;
-        if ($this->data['user']) {
-            //kiem tra da luu hay chua
-            $favorited = model('user_to_favorite')->check_exits(array('user_id' => $id, 'user_id' => $this->data['user']->id));
-            if ($favorited) {
-                $this->_response(array('msg_toast' => lang('notice_user_favorited')));
-            }
-            //them vao table user_favorite
-            $data = array();
-            $data ['user_id'] = $this->data['info']->id;
-            $data ['user_id'] = $this->data['user']->id;
-            $data ['created'] = now();
-            model('user_to_favorite')->create($data);
-        } else {
-            mod('user')->guest_owner_add($id, "favorited");;
-        }
-
-        $this->_response(array('msg_toast' => lang('notice_user_favorited')));
-    }
-
-    function _favorite_del()
-    {
-        $id = $this->data['info']->id;
-        if ($this->data['user']) {
-
-            //kiem tra da luu hay chua
-            $favorited = model('user_to_favorite')->check_exits(array('user_id' => $id, 'user_id' => $this->data['user']->id));
-            if (!$favorited) {
-                $this->_response(array('msg_toast' => 'Error'));
-            }
-            $data = array();
-            $data ['user_id'] = $this->data['info']->id;
-            $data ['user_id'] = $this->data['user']->id;
-            model('user_to_favorite')->del_rule($data);
-        } else {
-            mod('user')->guest_owner_del($id, "favorited");;
-        }
-        $this->_response(array('msg_toast' => lang('notice_user_favorited_del_succcess')));
-
-    }
 
     function _subscribe()
     {
         $user_current_id = $this->data['user_current']->id;
         $user_id = $this->data['user']->id;
+
+        if ($user_current_id == $user_id) {
+            $this->_response(array('msg_toast' => 'Error'));
+        }
         //kiem tra da luu hay chua
         $data = array();
         $data ['action'] = 'subscribe';
@@ -368,6 +327,10 @@ class User_page extends MY_Controller
         //kiem tra da luu hay chua
         $user_current_id = $this->data['user_current']->id;
         $user_id = $this->data['user']->id;
+        if ($user_current_id == $user_id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+        }
+
         $data = array();
         $data ['action'] = 'subscribe';
         $data ['table'] = 'user';
@@ -494,7 +457,7 @@ class User_page extends MY_Controller
         $input['where']['us.action'] = 'subscribe';
         $input['where']['us.table'] = 'user';
         $input['where']['us.user_id'] = $user->id;
-        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+        $input['join'] = array(array('user_storage us', 'us.table_id = user.id'));
         $filter = array();
         $this->_user_create_list($input, $filter);
     }
@@ -543,7 +506,7 @@ class User_page extends MY_Controller
         $input['where']['us.action'] = 'subscribe';
         $input['where']['us.table'] = 'user';
         $input['where']['us.user_id'] = $user->id;
-        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+        $input['join'] = array(array('user_storage us', 'us.table_id = user.id'));
         $filter = array();
         $this->_user_create_list($input, $filter);
     }
@@ -569,17 +532,19 @@ class User_page extends MY_Controller
         $mod_filter = mod('product')->create_filter($filter_fields, $filter_input);
         $filter = array_merge($filter, $mod_filter);
         // pr($filter_input);
-
+        $filter['types']= $this->input->get('types');
+        $filter_input['types'] =$filter['types'];
         $key = $this->input->get('name');
         $key = str_replace(array('-', '+'), ' ', $key);
         if (isset($filter['name']) && $filter['name']) {
             unset($filter['name']);
-            $filter['%name'] = $filter_fields['name'] = $key;
+            $filter['%name'] = $filter_fields['name'] = trim($key);
         }
-        if (isset($filter['point']) && $filter['point']) {
-            $filter['point_gte'] = $filter['point'];
-            unset($filter['point']);
+        if (isset($filter['point']) ) {
+            if( $filter['point'])
+                $filter['point_gte'] =$filter['point'];
 
+            unset($filter['point']);
         }
         // lay thong tin cua cac khoang tim kiem
         foreach (array('price',) as $range) {
@@ -613,12 +578,12 @@ class User_page extends MY_Controller
         }
         //== Sort Order
         $sort_orders = array(
+            'is_feature|desc',
             'id|desc',
-            'feature|desc',
+            'point_total|desc',
             //'price|asc',
             //'price|desc',
-            'point_total|desc',
-            'view_total|desc',
+            // 'view_total|desc',
             /*'count_buy|desc',
             'new|desc',
 
@@ -631,14 +596,14 @@ class User_page extends MY_Controller
         } else {
             $orderex = explode('|', $sort_orders[0]);
         }
-        /*if (!isset($input['order'])) {
+       if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
-        }*/
+        }
         // pr($filter);
         $list = model('product')->filter_get_list($filter, $input);
         // pr_db($filter);
         foreach ($list as $row) {
-            $row = mod('product')->add_info($row);
+            $row = mod('product')->add_info($row,1);
         }
         // Tao chia trang
         $pages_config = array();
@@ -678,6 +643,61 @@ class User_page extends MY_Controller
  * ------------------------------------------------------
  */
     private function _post_create_list_ajax()
+    {
+        if ($this->input->is_ajax_request()) {
+
+
+            //= su ly hien thi danh sach theo danh muc
+            $category = $style_display = '';
+            if (isset($this->data['category'])) {
+                $category = $this->data['category'];
+            } else {
+                $cat_id = $this->input->get('cat_id');
+                if ($cat_id)
+                    $category = model("product_cat")->get_info($cat_id);
+            }
+            if ($category && isset($category->common_data->display) && $category->common_data->display)
+                $style_display = $category->common_data->display;
+
+            //$temp = $this->input->get('temp');
+            $temp= $this->input->get('layout');
+            if(!in_array($temp,['block','grid'])){
+                $temp =$style_display ;
+            }
+
+            $temp = $temp ? $temp : $style_display;
+            //$temp ='default';
+            $load_more = $this->input->get("load_more", false);
+
+            $response=   [
+                'status' => true,
+                'total' => number_format($this->data['total']),
+                'content' => widget('product')->display_list(
+                    $this->data['list'], $temp,
+                    array(
+                        'return_data' => 1,
+                        'pages_config' => $this->data['pages_config'],
+                        'load_more' => $load_more)
+                ),
+
+            ];
+            //= su ly hien thi bo loc dong
+            if (isset($this->data['filter']['type_cat_id'])) {
+                $type_cat_id=$this->data['filter']['type_cat_id'];
+                $response['filter']=  widget('type')->filter_types(
+                    $type_cat_id, $this->data['filter'],'',[ 'return' => 1]
+                );
+            }
+            else{
+                $response['filter']='';
+            }
+
+            echo json_encode($response);
+            exit;
+        }
+    }
+
+    private function _post_create_list_ajax_()
     {
         if ($this->input->is_ajax_request()) {
 
@@ -739,7 +759,7 @@ class User_page extends MY_Controller
         $key = $this->input->get('name');
         $key = str_replace(array('-', '+'), ' ', $key);
         if (isset($filter['name']) && $filter['name']) {
-            $filter['%name'] = $key;
+            $filter['%name'] = trim($key);
             unset($filter['name']);
 
         }
@@ -796,12 +816,11 @@ class User_page extends MY_Controller
         } else {
             $orderex = explode('|', $sort_orders[0]);
         }
-        /*if (!isset($input['order'])) {
+        if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
-        }*/
+        }
         $list = model('user')->filter_get_list($filter, $input);
-        // pr($filter,0);
-        // pr_db($filter);
+        // pr($filter,0);         pr_db($list);
         foreach ($list as $row) {
             $row = mod('user')->add_info($row);
         }

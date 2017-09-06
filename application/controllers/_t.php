@@ -7,7 +7,7 @@ class _t extends MY_Controller
 
     function update_db()
     {
-        $this->_update_comment();
+        $this->_update_user();
     }
     function _update_user()
     {
