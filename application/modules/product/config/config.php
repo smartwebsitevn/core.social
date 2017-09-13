@@ -6,7 +6,7 @@
  */
 
 // Ten module
-$config['name'] = 'Sản phẩm';
+$config['name'] = 'Social';
 
 // Module co ho tro widget hay khong
 $config['widget'] = TRUE;

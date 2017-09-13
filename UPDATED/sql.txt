@@ -292,7 +292,16 @@ ALTER TABLE `user`
 	CHANGE COLUMN `birthday` `birthday` VARCHAR(128) NULL DEFAULT NULL AFTER `attach`;
 
 
-
+// 11-9-2017 
 	
+ALTER TABLE `user`
+	ADD COLUMN `post_is_publish` INT(11) NULL DEFAULT '0' AFTER `post_total`,
+	ADD COLUMN `post_is_draft` INT(11) NULL DEFAULT '0' AFTER `post_is_publish`,
+	ADD COLUMN `post_is_deleted` INT(11) NULL DEFAULT '0' AFTER `post_is_draft`;
 
-	
+// 14-9-2017 	
+ALTER TABLE `product`
+	CHANGE COLUMN `is_form` `is_form` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_in_menu`,
+	CHANGE COLUMN `is_draft` `is_draft` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_form`,
+	ADD COLUMN `is_lock` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_draft`,
+	CHANGE COLUMN `status` `status` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_lock`;

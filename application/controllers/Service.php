@@ -72,14 +72,17 @@ class Service extends MY_Controller
         //== Breadcrumbs
         $this->_breadcrumbs($category);
         //== Seos
+        page_info('url', $info->_url_view);
+        if ($info->image_id && isset($info->image->url_thumb))
+            page_info('image', $info->image->url_thumb);
         $title = character_limiter($info->name, 60);
-        if ($category->seo_title)
-            $title = $category->seo_title;
+        if ($info->seo_title)
+            $title = $info->seo_title;
         page_info('title', $title);
-        if ($category->seo_description)
-            page_info('description', character_limiter($category->seo_description, 160));
-        if ($category->seo_keywords)
-            page_info('keywords', $category->seo_keywords);
+        if ($info->seo_description)
+            page_info('description',$info->seo_description);
+        if ($info->seo_keywords)
+            page_info('keywords',$info->seo_keywords);
 
 
     }

@@ -4,8 +4,8 @@
             <div class="select-search select-search-chosen">
                 <div class="select-container select-container-above select-container-focus2">
                     <ul class="select-rendered">
-                        <li class="select-icon">
-                            <i class="fa fa-search"></i>
+                        <li class="search-input-remove">
+                            <i class="fa fa-remove"></i>
                         </li>
                         <li class="select-input">
                             <input type="text" class="select-input-field"
@@ -13,7 +13,7 @@
                                    id="select-input-field" name="name">
                         </li>
                         <li >
-                            <input class="btn btn-default btn-xs " type="submit" value="Tìm"  >
+                            <a _submit="1" ><i class="fa fa-search"></i> </a>
                         </li>
                         <?php /* ?>
                             <li class="select-placeholder">

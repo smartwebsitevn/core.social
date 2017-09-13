@@ -2103,9 +2103,48 @@ var nfc = {
             this.auto_complete();
         },
         auto_filter: function () {
+
+           /* $(document).on('focusin', '.select-search', function () {
+                $(this).children(".select-container-above").addClass("select-container-focus");
+                /!* $(this).children(".select-container-dropdown").addClass("select-container-open");*!/
+                $(this).children(".select-container-dropdown").fadeIn("1000");
+            })
+            $(document).on('focusout', '.select-search', function () {
+                $(this).children(".select-container-above").removeClass("select-container-focus");
+                /!* $(this).children(".select-container-dropdown").removeClass("select-container-open");*!/
+                $(this).children(".select-container-dropdown").fadeOut("1000");
+            })
+            $(document).on('click', 'select-search-chosen .select-results-option', function(){
+                /!*$(this).remove();*!/
+                $(this).hide();
+                $(this).closest('.select-search-chosen').find(".select-rendered").prepend("<li class='select-choice'>" + $(this).children("span").text() + "<span class='select-choice-remove'>×</span><input name='"+$(this).data('name')+"' value='"+$(this).data('value')+"' type='hidden' /></li>");
+                // reset lai input search
+                $(this).closest('.select-search-chosen').find(".select-input input[name='name']").val('');
+
+            });*/
+            //remove all item search
+
+            $(document).on('click', '.search-input-remove', function(){
+                $(this).closest("ul").children("li.select-choice").remove();
+                $(this).closest("ul").children("li.select-input").find("input[name='name']").val('');
+               /* $('.select-results .select-results-option').show();*/
+                nfc.catch_hook_event(this);
+            });
+            //remove 1 item search
+            $(document).on('click', '.select-choice-remove', function(){
+                $(this).parent(".select-choice").remove();
+                /*$(".select-results").prepend("<li class='select-results-option'> d</li>");*/
+                var name = $(this).next();
+                var value = name.val();
+                name = name.attr('name');
+                $('.select-results .select-results-option[data-name="'+name+'"][data-value="'+value+'"]').show();
+            });
             $(document).on('submit', 'form.ajax_form_filter', function () {
                 nfc.catch_hook_event(this);
-
+                return false;
+            })
+            $(document).on('click', 'form.ajax_form_filter [_submit]', function () {
+                nfc.catch_hook_event(this);
                 return false;
             })
         },
@@ -2168,7 +2207,7 @@ var nfc = {
                     $(document).on('click', '.act-filter', function () {
                         //reset
                         $(this).parent().find('input[type="hidden"]').remove();
-                        $(this).parent().find('li.active').removeClass('active');
+                        $(this).parent().find('.active').removeClass('active');
 
                         $(this).toggleClass('active');
                         if ($(this).hasClass('active')) {
@@ -2182,11 +2221,11 @@ var nfc = {
                         //reset
                         if (typeof $(this).data('parent') === 'undefined') {
                             $(this).closest('.search-dropdown').find('input[type="hidden"]').remove();
-                            $(this).closest('.search-dropdown').find('li.active').removeClass('active');
+                            $(this).closest('.search-dropdown').find('.active').removeClass('active');
                         }
                         else {
                             $(this).closest((this).data('parent')).find('input[type="hidden"]').remove();
-                            $(this).closest((this).data('parent')).find('li.active').removeClass('active');
+                            $(this).closest((this).data('parent')).find('.active').removeClass('active');
                         }
 
                         $(this).toggleClass('active');
@@ -2379,13 +2418,9 @@ var nfc = {
                         $($this).hide();
                         var parent = $($this).closest('form');
                         // xoa du lieu doi voi check box
-                        parent.find('.search-results.checkbox.checked span').click();
-                        // xoa du lieu doi voi filter
-                        parent.find('.act-filter-dropdown.active input[type="hidden"]').remove();
-                        parent.find('.act-filter-dropdown.active').removeClass('active');
-                        // xoa du lieu doi voi input
-                        parent.find('.act-input.active input[type="hidden"]').remove();
-                        parent.find('.act-input.active').removeClass('active');
+                       // parent.find('.search-results.checkbox.checked span').click();
+                        parent.find('.active input[type="hidden"]').remove();
+                        parent.find('.active').removeClass('active');
 
                         // gan lai ten ve vi tri cu
                         parent.find('.search-rendered').each(function () {

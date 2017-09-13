@@ -23,7 +23,7 @@
                             <?php widget('user')->display_pagination($pages_config); ?>
 
                         <?php else: ?>
-                            <div class="clearfix mt20"></div>
+                            <div class="clearfix"></div>
                             <div class="well">
                                 Thành viên này không theo dõi ai
                                

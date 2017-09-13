@@ -5,22 +5,39 @@ header('Content-Type: text/html; charset=utf-8');
 class _t extends MY_Controller
 {
 
+    function carbon()
+    {
+        $max = \Carbon\Carbon::now();
+        $i = 1;
+        for ($m = $max->month; $m >= 1; $m--) {
+            echo '<br>-m='.$max->subMonth(1);
+        }
+    }
+
     function update_db()
     {
         $this->_update_user();
     }
+
     function _update_user()
     {
         $tbl = 'user';
         $list = model($tbl)->get_list();
         foreach ($list as $row) {
-            $total = model('product')->filter_get_total(['user_id'=>$row->id]);
+            $post_total = model('product')->filter_get_total(['user_id' => $row->id]);
+            $post_is_publish = model('product')->filter_get_total(['user_id' => $row->id, 'status' => 1]);
+            $post_is_draft = model('product')->filter_get_total(['user_id' => $row->id, 'is_draft' => 1]);
+            $post_is_deleted = model('product')->filter_get_total(['user_id' => $row->id, 'deleted' => 1]);
             model($tbl)->update($row->id,
                 [
-                    'post_total' => $total,
+                    'post_total' => $post_total,
+                    'post_is_publish' => $post_is_publish,
+                    'post_is_draft' => $post_is_draft,
+                    'post_is_deleted' => $post_is_deleted,
                 ]
             );
-            echo  '<br>--';pr_db(0,0);
+            echo '<br>--';
+            pr_db(0, 0);
         }
     }
 
@@ -42,13 +59,14 @@ class _t extends MY_Controller
             );
         }
     }
+
     function _update_comment()
     {
         $tbl = 'comment';
         $list = model($tbl)->get_list();
         foreach ($list as $row) {
             $user = model('user')->get_info($row->user_id);
-            if(user_is_manager($user) || user_is_active($user)){
+            if (user_is_manager($user) || user_is_active($user)) {
                 $data['featured'] = 1;
                 model($tbl)->update($row->id,
                     [
@@ -56,9 +74,11 @@ class _t extends MY_Controller
                     ]);
             }
 
-            echo  '<br>--';pr_db(0,0);
+            echo '<br>--';
+            pr_db(0, 0);
         }
     }
+
     function _update_page()
     {
         $tbl = 'page';
@@ -132,8 +152,8 @@ class _t extends MY_Controller
 
     function time()
     {
-        pr(get_date('1504630800', 'full'),0);
-        pr(get_date('1505926800', 'full'));
+        pr(get_date('1293814800', 'full'), 0);
+        pr(get_date('1325350799', 'full'));
     }
 
     function _login()
@@ -269,12 +289,12 @@ class _t extends MY_Controller
 
     function user_notice()
     {
-        mod('user_notice')->send(1,'Test','Noi dung thong bao Test');
+        mod('user_notice')->send(1, 'Test', 'Noi dung thong bao Test');
     }
 
     function user_storage()
     {
-        $input =['table'=>'user','table_id'=>'1','action'=>'follow','count'=>5];
-        mod('user_storage')->set(1,$input);
+        $input = ['table' => 'user', 'table_id' => '1', 'action' => 'follow', 'count' => 5];
+        mod('user_storage')->set(1, $input);
     }
 }

@@ -226,7 +226,21 @@ class Product extends MY_Controller
     function _set_rules($params = array())
     {
         $rules = parent::_form_set_rules($params);
+        $rules['user_id'] = array('user_id', 'required|trim|xss_clean|callback__check_user');
+
         $this->form_validation->set_rules_params($params, $rules);
+    }
+
+
+    // Su ly link thuoc loai chuyen biet
+    function _check_type_cat_id($value)
+    {
+        // Check Url invalid
+        if (!model('type_cat')->check_id($value)) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_value_invalid'));
+            return FALSE;
+        }
+        return true;
     }
     /**
      * Kiem tra city
@@ -300,14 +314,15 @@ class Product extends MY_Controller
     protected function _get_params()
     {
         $params =  $this->_model()->fields;
-        // array_push($params, 'image','avatar','icon', 'banner');
+        array_push($params, 'user_id');
+        //array_push($params, 'image','avatar','icon', 'banner');
         return $params;
     }
     protected function _get_inputs($id=null,$fake_id=null)
     {
         $data = parent::_form_get_inputs($id,$fake_id);
         $data['user_id'] = $this->_get_user_id();
-        $user_options = $this->input->post("user_options");
+        /*$user_options = $this->input->post("user_options");
         if ($user_options) {
             $user_options["amount"] = currency_handle_input($user_options["amount"]);
             $user_options['user_id'] = $data['user_id'];
@@ -317,17 +332,17 @@ class Product extends MY_Controller
         if ($affiliate_options) {
             $affiliate_options["amount"] = currency_handle_input($affiliate_options["amount"]);
             $data['affiliate_options'] = json_encode($affiliate_options);
-        }
-        $data['price_is_contact'] = (int) $data['price_is_contact'];
-        $data['price_is_auction'] = (int) $data['price_is_auction'];
+        }*/
+        //['price_is_contact'] = (int) $data['price_is_contact'];
+        //$data['price_is_auction'] = (int) $data['price_is_auction'];
         //pr($data);
         return $data;
     }
 
     protected function _update_infos($id, $data)
     {
-        $this->_mod()->tags_set($id, $this->input->post('tags'));
-         $this->_mod()->to_types( $id, $this->input->post('types'), $this->input->post('type_cat_id') );
+        $this->_mod()->to_types( $id, $this->input->post('types'), $this->input->post('type_cat_id') );
+        // $this->_mod()->tags_set($id, $this->input->post('tags'));
         // $this->_mod()->to_option( $id, $this->input->post('option'), $this->input->post('option_value') );
        // $this->_mod()->to_attribute( $id, $this->input->post('attribute') );
        // $this->_mod()->to_discount( $id, $this->input->post('discount') );

@@ -40,7 +40,7 @@ $lang['count_view'] = 'Views';
 $lang['count_buy'] = 'Buy';
 $lang['count_comment'] = 'Comment';
 $lang['count_point'] = 'Points';
-$lang['count_follow'] = 'Follows';
+$lang['count_follow'] = 'Followers';
 $lang['count_post'] = 'Posts';
 
 

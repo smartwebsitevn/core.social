@@ -21,13 +21,12 @@ class Product extends MY_Controller
 
         }
         return $this->_remap_action($method, $params, array(
-            'demo',
             'report', 'raty', 'vote',
             'favorite', 'favorite_del',
             'subscribe_del', 'subscribe', 'subscribe_adv',
             'comment',
             // manager
-            'set_point', 'set_feature',
+            'set_point', 'set_feature','set_lock',
         ));
     }
 
@@ -143,15 +142,17 @@ class Product extends MY_Controller
         //== Breadcrumbs
         $this->_breadcrumbs($category);
         //== Seos
+        page_info('url', $info->_url_view);
+        if ($info->image_id && isset($info->image->url_thumb))
+            page_info('image', $info->image->url_thumb);
         $title = character_limiter($info->name, 60);
         if ($info->seo_title)
             $title = $info->seo_title;
         page_info('title', $title);
         if ($info->seo_description)
-            page_info('description', character_limiter($info->seo_description, 160));
+            page_info('description', $info->seo_description);
         if ($info->seo_keywords)
             page_info('keywords', $info->seo_keywords);
-
 
     }
 
@@ -423,7 +424,7 @@ class Product extends MY_Controller
             }
         }
 
-        $need_manager = array('set_point', 'set_feature');
+        $need_manager = array('set_point', 'set_feature', 'set_lock');
         if (in_array($action, $need_manager)) {
             if (!user_is_manager($user)) {
                 $this->_response();
@@ -442,12 +443,18 @@ class Product extends MY_Controller
         if (!$info->status) {
             redirect();
         }
-
         // Kiem tra co the thuc hien hanh dong nay khong
         //if ( !  $this->_mod()->can_do($info, $action)) return;
+        /*if ( $info->user_id == $user->id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+        }*/
 
+        //======
+        $info = $this->_mod()->add_info($info);
         $this->data['info'] = $info;
         $this->data['user'] = $user;
+
+
         // Tai cac file thanh phan
         $this->load->library('form_validation');
         $this->load->helper('form');
@@ -480,20 +487,21 @@ class Product extends MY_Controller
     function _set_feature($info)
     {
         $this->_model()->update_field($info->id, 'is_feature', !$info->is_feature);
+        if(!$info->is_feature){
+            mod('user_notice')->send($info->user_id, 'Bài viết <b>'.$info->name . '</b> đã được vào trang Mới Nổi', ['url' => $info->_url_view]);
+        }
+
         $this->_response(array('msg_toast' => lang('notice_update_success')));
     }
-
-    /* Demo
-     * */
-    function _demo($info)
+    function _set_lock($info)
     {
-        if (!$info->link_demo) redirect();
+        $this->_model()->update_field($info->id, 'is_lock', !$info->is_lock);
+        if(!$info->is_lock){
+            mod('user_notice')->send($info->user_id, 'Bài viết <b>'.$info->name . '</b> đã bị khóa', ['url' => $info->_url_view]);
+        }
 
-        $this->data['info'] = $this->_mod()->add_info($info, true);
-        $this->_display();
-
+        $this->_response(array('msg_toast' => lang('notice_update_success')));
     }
-
     /**
      * Yeu thich
      */
@@ -505,7 +513,7 @@ class Product extends MY_Controller
         $user = $this->data['user'];
 
         // khong cho vote bai cua minh
-        if ($user->id ==$info->user_id) {
+        if ($user->id == $info->user_id) {
             $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
         }
 
@@ -540,6 +548,13 @@ class Product extends MY_Controller
         } else {
             $data ['created'] = now();
             model('social_vote')->create($data);
+
+            //== Gui thong bao
+            if($point == 1)
+                mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> đã thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
+            //elseif($point == -1)
+               //mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> không thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
+
         }
         // thong ke
         $list = model('social_vote')->filter_get_list(array('table_name' => 'product', 'table_id' => $info->id));
@@ -564,7 +579,7 @@ class Product extends MY_Controller
 
         //pr($stats);
         model('product')->update($info->id, $stats);
-        model('user')->update_stats(['id' => $user->id], ['point_total' => $point]);
+        model('user')->update_stats(['id' => $info->user_id], ['point_total' => $point]);
 
         // pr_db();
         /*  else {
@@ -582,7 +597,7 @@ class Product extends MY_Controller
      */
     function _favorite($info)
     {
-        $user= $this->data['user'];
+        $user = $this->data['user'];
         // khong cho vote bai cua minh
         if ($user->id == $info->user_id) {
             $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
@@ -611,7 +626,7 @@ class Product extends MY_Controller
 
     function _favorite_del($info)
     {
-        $user= $this->data['user'];
+        $user = $this->data['user'];
         // khong cho vote bai cua minh
         if ($user->id == $info->user_id) {
             $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
@@ -716,6 +731,11 @@ class Product extends MY_Controller
 
     function _subscribe($info)
     {
+        $user = $this->data['user'];
+
+        if ($info->user_id == $user->id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+        }
         $msg = lang('notice_product_subscribe_success');
         //kiem tra da luu hay chua
         $subscribed = model('product_subscribe')->check_exits(array('product_id' => $info->id, 'user_id' => $this->data['user']->id));
@@ -737,116 +757,24 @@ class Product extends MY_Controller
 
     function _subscribe_del($info)
     {
+        $user = $this->data['user'];
+        if ($info->user_id == $user->id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+        }
+
         //kiem tra da luu hay chua
         $subscribed = model('product_subscribe')->check_exits(array('product_id' => $info->id, 'user_id' => $this->data['user']->id));
         if (!$subscribed) {
             return;
         }
+
+
         $data = array();
         $data ['product_id'] = $info->id;
         $data ['user_id'] = $this->data['user']->id;
         model('product_subscribe')->del_rule($data);
         $this->_response(array('msg_toast' => lang('notice_product_subscribe_del_succcess'), 'reload' => 1));
 
-
-    }
-
-    /**
-     * theo doi phim (cho phep nhap thong tin email)
-     */
-    function _subscribe_adv($info)
-    {
-        // Tai cac file thanh phan
-        $this->load->library('form_validation');
-        $this->load->helper('form');
-        $this->load->model('product_subscribe_model');
-
-        //kiem tra id product
-        // Xu ly form
-        if ($this->input->post('_submit')) {
-            // Gan dieu kien cho cac bien
-            $params = array('client_name', 'client_email', 'security_code');
-
-            $this->_set_rules($params);
-
-            // Xu ly du lieu
-            $result = array();
-            if ($this->form_validation->run()) {
-                if (!user_is_login()) {
-                    $subscribeds = get_cookie('subscribed_products');
-                    if (!empty($subscribeds) && $subscribeds != 'null')// neu chua luu thi luu lai
-                    {
-                        $subscribeds = security_encrypt($subscribeds, 'decode');
-                        $subscribeds = json_decode($subscribeds);
-
-                    } else
-                        $subscribeds = array();
-
-
-                    //pr($subscribeds);
-                    if (in_array($info_id, $subscribeds)) {
-                        $result['complete'] = TRUE;
-                        $result['reset_form'] = TRUE;
-                        $result['msg'] = 'Ban da dang ky';
-                        $this->_form_submit_output($result);
-                    }
-
-                    //$subscribeds = array_merge($subscribeds,array($info_id));
-                    array_unshift($subscribeds, $info_id);// them vao dau mang $compare[]=$info_id;
-                    $count = count($subscribeds);
-                    if ($count > 8) // neu hon 4 san pham thi bo phan tu cuoi
-                        array_pop($subscribeds);
-
-                    $subscribeds = json_encode($subscribeds);
-                    $subscribeds = security_encrypt($subscribeds, 'encode');
-                    set_cookie('subscribed_products', $subscribeds, 365 * 24 * 60 * 60);
-
-                    $user_id = get_cookie('_client_id');
-
-
-                } else {
-                    $user = user_get_account_info();
-
-                    $where = array();
-                    $where ['product_id'] = $id;
-                    $where ['user_id'] = $user->id;
-                    //kiem tra xem thanh vien da thich phim nay chua
-                    $id = $this->product_subscribe_model->get_id($where);
-                    if ($id) {
-                        $result['complete'] = TRUE;
-                        $result['reset_form'] = TRUE;
-                        $result['msg'] = 'Ban da dang ky';
-                        $this->_form_submit_output($result);
-                    }
-
-                    $user_id = $user->id;
-
-                }
-
-                //them vao table product_subscribe
-                $data = array();
-                $data ['product_id'] = $info_id;
-                $data ['user_id'] = $user_id;
-                $data ['email'] = $this->input->post('client_email');
-                $data ['name'] = $this->input->post('client_name');
-                $data ['created'] = now();
-                $this->product_subscribe_model->create($data);
-
-
-                // Khai bao du lieu tra ve
-                $result['complete'] = TRUE;
-
-                $result['reset_form'] = TRUE;
-                //$result['msg']        = 'Gửi thành công';
-
-            } else {
-                foreach ($params as $param) {
-                    $result[$param] = form_error($param);
-                }
-            }
-            //Form Submit
-            $this->_form_submit_output($result);
-        }
 
     }
 
@@ -895,7 +823,6 @@ class Product extends MY_Controller
     {
         if (!$this->input->is_ajax_request())
             return;
-        $info = $this->_mod()->add_info($info);
 
         $act = $this->input->get('_act');
         if ($act) {
@@ -985,6 +912,13 @@ class Product extends MY_Controller
                 $result['msg_toast'] = lang('notice_send_comment_success');
                 //set_message(lang('notice_send_comment_success'));
             }
+            //==gui thong bao
+            // gui cho chu topic
+            if ($info->user_id && $info->user_id != $user->id) {
+                $url = $info->_url_view ;//. '#goto=#reply_' . $id;
+                mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> đã bình luận trong bài viết <b>' . $info->name . '</b>', ['url' => $url]);
+            }
+
 
         } else {
             foreach ($params as $param) {
@@ -1046,7 +980,7 @@ class Product extends MY_Controller
             //==gui thong bao
             // gui cho chu topic
             if ($comment->user_id && $comment->user_id != $user->id)
-                mod('user_notice')->send($comment->user_id, $user->name . ' đã trả lởi bình luận của bạn', ['url' => $info->_url_view]);
+                mod('user_notice')->send($comment->user_id,'</b>'. $user->name . '</b> đã trả lởi bình luận của bạn', ['url' => $info->_url_view]);
             // gui cho nhung nguoi dang binh luan topic nay
             $comments = model('comment')->filter_get_list(['parent_id' => $comment->id]);
             if ($comments) {
@@ -1054,7 +988,7 @@ class Product extends MY_Controller
                 // khong gui thong bao cho nguoi gui binh luan
                 $users = array_diff($users, [$user->id]); // xoa nguoi binh luan khoi danh sach
                 if ($users) {
-                    $msg = $user->name . ' đã bình luận chủ đề bạn quan tâm';
+                    $msg ='</b>'. $user->name . '</b> đã bình luận chủ đề bạn quan tâm';
                     foreach ($users as $v) {
                         mod('user_notice')->send($v, $msg, ['url' => $info->_url_view]);
                     }

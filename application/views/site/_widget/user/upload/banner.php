@@ -29,7 +29,7 @@
 	<div class="clear"></div>
 
 	<div class="upload_action " style="margin-top:2px;">
-		<a href="#0" id="action_upload">Cập nhập </a>  <a href="" id="action_del"  style="display:none" >| Xóa</a>
+		<a href="#0" id="action_upload">Cập nhật</a>  <a href="" id="action_del"  style="display:none" >| Xóa</a>
 	</div>
 	<div class="clear"></div>
 

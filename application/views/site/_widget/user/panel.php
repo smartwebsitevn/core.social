@@ -1,8 +1,7 @@
 <?php if (!$is_login): ?>
     <?php if (mod("user")->setting('login_allow')): ?>
-
         <li class="dropdown-login login">
-            <a class="cd-signin link-login" href="javascript:void(0)">
+            <a data-dismiss="modal" data-target="#login-modal" data-toggle="modal" href="#0" class="link-login">
                 <span class="text ">
                     <i class="fa fa-sign-in f18"></i>
                     <?php echo lang('button_login'); ?></span>
@@ -12,7 +11,7 @@
 
     <?php if (mod("user")->setting('register_allow')): ?>
         <li class="dropdown-singup register">
-            <a class="cd-signup link-register" href="javascript:void(0)">
+            <a data-dismiss="modal" data-target="#register-modal" data-toggle="modal" href="#0" class="link-register">
                 <span class="text ">
                     <i class="fa fa-pencil f16"></i>
                     <?php echo lang('button_register'); ?> </span>

@@ -85,6 +85,13 @@
   padding: 4px;
   width: 100%;
   position: relative;
+  border-radius: 20px;
+  .select-input {
+    width: 77%;
+  }
+  .search-remove {
+    cursor: pointer;
+  }
 }
 
 .select-container-above:hover {

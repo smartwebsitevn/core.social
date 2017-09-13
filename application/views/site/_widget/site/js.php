@@ -23,13 +23,13 @@ $asset_theme =$asset. '/site/theme/';
 <!-- B_THEME-->
 <script type="text/javascript" src="<?php echo $asset_theme ?>js/product.js"></script>
 
-<?php if (isset($js) && $js): ?>
-	<?php if (is_array($js)): ?>
-		<?php foreach ($js as $j): ?>
+<?php if (isset($_ASSET->js) && $_ASSET->js): ?>
+	<?php if (is_array($_ASSET->js)): ?>
+		<?php foreach ($_ASSET->js as $j): ?>
 			<script src="<?php echo $asset_theme ?>js/<?php echo $j ?>.js"></script>
 		<?php endforeach; ?>
 	<?php else: ?>
-		<script src="<?php echo $asset_theme ?>js/<?php echo $js ?>.js"></script>
+		<script src="<?php echo $asset_theme ?>js/<?php echo $_ASSET->js ?>.js"></script>
 	<?php endif; ?>
 <?php endif; ?>
 <!-- E_THEME-->
@@ -74,7 +74,7 @@ $asset_theme =$asset. '/site/theme/';
 <?php /* // Cong thuc toan hoc, site nao can moi bat len ?>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <?php */?>
-<?php  echo $embed_js; ?>
+<?php  echo $_ASSET->embed_js; ?>
 
 
 <?php  if(isset($banner_run_left) && $banner_run_left):?>
@@ -109,7 +109,7 @@ $asset_theme =$asset. '/site/theme/';
 <?php if(!user_is_login()):?>
 	<?php view('tpl::_widget/common/modal_login_require') ;?>
 	<?php //view('tpl::_widget/common/modal_login') ;?>
-	<?php view('tpl::user/combo1/combo_modal'); ?>
+	<?php view('tpl::user/modal/modal'); ?>
 
 <?php endif; ?>
 <?php  widget("product")->cart(null,'cart_modal');

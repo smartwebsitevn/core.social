@@ -200,10 +200,12 @@
                                         var html = temp_set_value(t.find('#temp #upload_complete').html(), params);
                                         upload_complete.html(html).fadeIn().find('img').attr('src', data._url);
                                         if (data.id != '0') {
+                                            $('#banner_background').addClass('active')
                                             $('#banner_background').css('background-image', 'url(' +  data._url + ')');
                                             t.find('.upload_action #action_del').attr('href', data._url_del).show();
                                         } else {
                                             $('#banner_background').css('background-image', 'none');
+                                            $('#banner_background').removeClass('active')
 
                                             t.find('.upload_action #action_del').hide();
                                         }

@@ -52,8 +52,6 @@
                         <?php t('view')->load('tpl::_widget/product/display/item/info_media', ['row' => $row]) ?>
 
                         <?php echo widget('product')->action_comment($row) ?>
-
-
                     </div>
                     <div class="item-actions">
                         <div class="item-meta item-action">

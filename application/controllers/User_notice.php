@@ -71,7 +71,10 @@ class User_notice extends MY_Controller
         $this->_display();
 
     }
-
+    function view_all(){
+        $this->_model()->update_rule(['user_id'=>$this->data['user']->id],['readed' =>1,'readed_time'=>now()]);
+        $this->_response(['reload'=>1]);
+    }
 
     /**
      * Build breadcrumbs

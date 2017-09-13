@@ -21,6 +21,9 @@ class Site_widget extends MY_Widget {
 		// Ki tu phan cach giua cac gia tri
 		$separators = array();
 		$separators['title'] 		= ' - ';
+		$separators['url'] 		= ' ';
+		$separators['image'] 		= ' ';
+		$separators['title'] 		= ' - ';
 		$separators['description'] 	= ', ';
 		$separators['keywords'] 	= ', ';
 		$separators['robots'] 		= ', ';
@@ -28,7 +31,7 @@ class Site_widget extends MY_Widget {
 
 		// Lay thong tin
 		$data = array();
-		foreach (array('title', 'description', 'keywords', 'robots') as $p)
+		foreach (array('title','url', 'image', 'description', 'keywords', 'robots') as $p)
 		{
 			$v = page_info($p);
 			$v = ( ! is_array($v)) ? array($v) : $v;
@@ -36,6 +39,10 @@ class Site_widget extends MY_Widget {
 			$v = implode($separators[$p], $v);
 
 			$data[$p] = $v;
+		}
+		foreach (array('title', 'description', 'keywords') as $p)
+		{
+			$data[$p] = character_limiter($data[$p] , 160);
 		}
 
 		// Xu ly robots
@@ -52,6 +59,20 @@ class Site_widget extends MY_Widget {
 		$data = $this->mod->seo_word->handle_page_info($data);
 
 
+		if(!$data['url']){
+			$data['url'] =site_url();
+		}
+
+		if(!$data['image']){
+			$data['image'] =public_url('site/images/logo.png') ;
+			if(isset($config['logo']) ){
+
+				$logo=file_get_image_from_name($config['logo']);
+				if($logo)
+					$data['image'] =$logo->url;
+			}
+		}
+
 		$data['icon'] =public_url('site/images/icon.png') ;
 		if(isset($config['favicon']) ){
 
@@ -59,27 +80,31 @@ class Site_widget extends MY_Widget {
 			if($favicon)
 				$data['icon'] =$favicon->url;
 		}
-
-		$data['css']=[];
-		if(isset($separators_custom['css'])){
-			$data['css'] =$separators_custom['css'];
-		}
-		$data['js']=[];
-		if(isset($separators_custom['js'])){
-			$data['js'] =$separators_custom['js'];
-		}
-
-
-		$data['embed_js']='';
-		if(isset($config['embed_js'])){
-			$data['embed_js']=$config['embed_js'];
-		}
 		$data['meta_other']='';
 		if(isset($config['meta_other'])){
 			$data['meta_other'] = html_entity_decode($config['meta_other']) ;
 		}
+
+		//== Lay thong tin asset
+
+		$asset['css']=[];
+		if(isset($separators_custom['css'])){
+			$asset['css'] =$separators_custom['css'];
+		}
+		$asset['js']=[];
+		if(isset($separators_custom['js'])){
+			$asset['js'] =$separators_custom['js'];
+		}
+
+
+		$asset['embed_js']='';
+		if(isset($config['embed_js'])){
+			$asset['embed_js']=$config['embed_js'];
+		}
+
 		// Luu bien gui den view
-		$this->data = $data;
+		$this->data['_SEO'] = (object)$data;
+		$this->data['_ASSET'] = (object)$asset;
 		//pr($data);
 		// Hien thi view
 		$temp = ( ! $temp) ? 'tpl::_widget/site/head' : $temp;

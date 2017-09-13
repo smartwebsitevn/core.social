@@ -46,6 +46,43 @@
             'attr' => ['placehold'=>'CEO tại Smartwebsite.vn'],
         ]);
 
+        echo macro('mr::form')->info_cat_single(array(
+            'name' => 'Loại thành viên',
+            'param' => 'type',
+            'value' => $user->type,
+            'values' => $cat_type_user_type,
+            'req' => true,
+
+        ));
+        $user->job = explode(',', $user->job);
+        echo macro('mr::form')->info_cat_multi(array(
+            'name' => 'Lĩnh vực hoạt động',
+            'param' => 'job',
+            'value' => $user->job,
+            'values' => $cat_type_user_job,
+            'req' => true,
+
+        ));
+        //city-country
+        //$countrys = model('country')->filter_get_list(['show' => 1]);
+        $citys = model('city')->filter_get_list(["country_id"=>230,'show' => 1]);
+        if(is_string($user->working_city))
+            $user->working_city = explode(',', $user->working_city);
+        echo macro('mr::form')->info_city(array(
+            'name' => 'Nơi làm việc',
+            'param' => 'working_city',
+            'value' => $user->working_city,
+            'values' => $citys,
+            'req' => true,
+
+        ));
+        /* echo macro('mr::form')->info_country_multi(array(
+             'name' => 'Country',
+             'param' => 'working_country,
+             'value' => $user->working_country,
+             'values' => $countrys,
+         ));*/
+
         if ($user->can_edit_email) {
             echo macro('mr::form')->row(array(
                 'param' => 'email_edit',
@@ -119,36 +156,7 @@
             'values_row' => [ $districs, 'distric_id', 'distric_name'],
        ]);*/
 
-        echo macro('mr::form')->info_cat_single(array(
-            'name' => 'Loại thành viên',
-            'param' => 'type',
-            'value' => $user->type,
-            'values' => $cat_type_user_type,
-        ));
-        $user->job = explode(',', $user->job);
-        echo macro('mr::form')->info_cat_multi(array(
-            'name' => 'Lĩnh vực hoạt động',
-            'param' => 'job',
-            'value' => $user->job,
-            'values' => $cat_type_user_job,
-        ));
-        //city-country
-        //$countrys = model('country')->filter_get_list(['show' => 1]);
-        $citys = model('city')->filter_get_list(["country_id"=>230,'show' => 1]);
-        if(is_string($user->working_city))
-        $user->working_city = explode(',', $user->working_city);
-         echo macro('mr::form')->info_city(array(
-            'name' => 'Nơi làm việc',
-            'param' => 'working_city',
-            'value' => $user->working_city,
-            'values' => $citys,
-        ));
-       /* echo macro('mr::form')->info_country_multi(array(
-            'name' => 'Country',
-            'param' => 'working_country,
-            'value' => $user->working_country,
-            'values' => $countrys,
-        ));*/
+
         echo macro('mr::form')->row([
             'name' => 'Địa chỉ',
             'param' => 'address',

@@ -535,6 +535,7 @@ class Product_widget extends MY_Widget
 
         $this->data['url_set_point'] = site_url('product/set_point/' . $id);
         $this->data['url_set_feature'] = site_url('product/set_feature/' . $id);
+        $this->data['url_set_lock'] = site_url('product/set_lock/' . $id);
 
         $temp = (!$temp) ? 'manager' : $temp;
         $temp = 'tpl::_widget/product/action/' . $temp;

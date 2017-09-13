@@ -238,9 +238,18 @@ class Comment extends MY_Controller
                     model($table_name)->update($model->id, $_data);
             }
             $data['created'] = now();
+            $id =0;
+            model("comment")->create($data,$id);
 
-            model("comment")->create($data);
+            //==gui thong bao
+            if ($model) {
+                // gui cho chu topic
+                if ($model->user_id && $model->user_id != $user->id){
+                    $url=$model->_url_view.'#goto=#reply_'.$id;
+                    mod('user_notice')->send($model->user_id, $user->name . ' đã bình luận trong bài viết <b>'.$model->name.'</b>', ['url' => $url]);
 
+                }
+            }
             // Khai bao du lieu tra ve
             $result['complete'] = TRUE;
 
@@ -319,8 +328,10 @@ class Comment extends MY_Controller
             //==gui thong bao
             if ($model) {
                 // gui cho chu topic
-                if ($comment->user_id && $comment->user_id != $user->id)
+                if ($comment->user_id && $comment->user_id != $user->id){
                     mod('user_notice')->send($comment->user_id, $user->name . ' đã trả lởi bình luận của bạn', ['url' => $model->_url_view]);
+
+                }
                 // gui cho nhung nguoi dang binh luan topic nay
                 $comments = model('comment')->filter_get_list(['parent_id' => $comment->id]);
                 if ($comments) {
@@ -329,8 +340,9 @@ class Comment extends MY_Controller
                     $users = array_diff($users, [$user->id]); // xoa nguoi binh luan khoi danh sach
                     if ($users) {
                         $msg = $user->name . ' đã bình luận chủ đề bạn quan tâm';
+                        $url=$model->_url_view.'#goto=#reply_'.$comment->id;
                         foreach ($users as $v) {
-                            mod('user_notice')->send($v, $msg, ['url' => $model->_url_view]);
+                            mod('user_notice')->send($v, $msg, ['url' => $url]);
                         }
                     }
 
@@ -375,6 +387,10 @@ class Comment extends MY_Controller
         if (!$user) {
             $this->_response();
 
+        }
+
+        if ( $comment->user_id == $user->id) {
+            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
         }
         //kiem tra da luu hay chua
         $data = array();

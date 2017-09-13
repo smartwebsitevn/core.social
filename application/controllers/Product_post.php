@@ -17,10 +17,11 @@ class Product_post extends MY_Controller
         $this->data['user'] = $user;
 
         $this->lang->load('site/product');
+        $this->lang->load('site/product_post');
 
         $this->data['currency'] = currency_get_default();
         $this->data['categories'] = model('product_cat')->get_hierarchy_data();
-        $this->data['manufactures'] = model('manufacture')->get_list();
+        //$this->data['manufactures'] = model('manufacture')->get_list();
 
         $cat_types = mod('cat')->get_cat_types();
         foreach ($cat_types as $t) {
@@ -30,6 +31,7 @@ class Product_post extends MY_Controller
         foreach ($range_types as $t) {
             $this->data['range_type_' . $t] = model('range')->get_type($t);
         }
+        $this->data['product_settings'] = mod('product')->setting();
 
     }
 
@@ -243,10 +245,20 @@ class Product_post extends MY_Controller
             $draft = $this->input->post('is_draft');
             if ($draft)
                 $data['is_draft'] = 1;
-
             $data['created'] = now();
+            $data['verified'] = $this->_get_verify($data);
+
             $this->_model()->create($data, $id);
             $this->_update_infos($id, $data,$user);
+
+            // thong ke
+            $stats =['post_total'=>1];
+            if($draft)
+            {
+                $stats['post_is_draft'] =1;
+            }
+            model('user')->update_stats(['id'=>$user->id],$stats);
+
             // Cap nhat lai anh
             model('file')->update_table_id_of_mod($this->_get_mod(), $fake_id, $id);
             fake_id_del($this->_get_mod());
@@ -343,6 +355,23 @@ class Product_post extends MY_Controller
             $this->_model()->update($info->id, $data);
             //pr_db($data);
             $this->_update_infos($info->id, $data,$user);
+
+            // thong ke
+            $stats = [];
+            if ($info->is_draft)// neu dang o che o tin nhap
+            {
+                if(!$data['is_draft'] )
+                {
+                    $stats['post_is_draft'] =-1;
+                    $stats['post_is_publish'] =1;
+                }
+            }
+           // pr($data,0);
+            if($stats){
+                model('user')->update_stats(['id'=>$user->id],$stats);
+
+            }
+
             set_message(lang('notice_update_success'));
             return $user->_url_my_page;
 
@@ -380,6 +409,19 @@ class Product_post extends MY_Controller
 
         $this->form_validation->set_rules_params($params, $rules);
     }
+
+
+    // Su ly link thuoc loai chuyen biet
+    function _check_type_cat_id($value)
+    {
+        // Check Url invalid
+        if (!model('type_cat')->check_id($value)) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_value_invalid'));
+            return FALSE;
+        }
+        return true;
+    }
+
     // Su ly link thuoc loai chuyen biet
     function _check_link($link)
     {
@@ -496,37 +538,16 @@ class Product_post extends MY_Controller
 
     protected function _get_verify($data)
     {
-        return 1;
-        // pr($data,0);
-        $settings = $this->data['recruit_settings'];
-        if ($settings['mode_verify_recruit'] == 'auto') {
+        //return 1;
+        $settings = $this->data['product_settings'];
+        //pr($settings);
+        if ($settings['mode_verify_product'] == 'auto') {
             return 1;
-        } elseif ($settings['mode_verify_recruit'] == 'special') {
-            // cac truong can check noi dung rieng
-            foreach (array(
-                         'cat_lang_id', 'cat_j_note_id', 'cat_j_welfare_id',
-                         'cat_u_specialize_id', 'cat_u_meetwork_id', 'cat_u_quality_id',
-                     ) as $f) {
 
-                if (isset($data[$f]) && $data[$f]) {
-                    $list = json_decode($data[$f]);
-                    // echo '<br>-';pr($list,0);
-                    if ($list) {
-                        foreach ($list as $it) {
-                            // echo '<br>-';pr($it,0);
-                            if (!is_numeric($it->id) && $it->content) {
-                                //echo '<br>-';pr($it,0);
-                                return 0;
-                            }
-                        }
-                    }
-                }
-            }
-        } elseif ($settings['mode_verify_recruit'] == 'handle') {
+        } elseif ($settings['mode_verify_product'] == 'handle') {
             return 0;
         }
-        // pr(1);
-        return 1;
+        return 0;
     }
     function _get_url_data($url)
     {
@@ -595,7 +616,6 @@ class Product_post extends MY_Controller
         }
 
 
-        $data['verified'] = $this->_get_verify($data);
         $data['status'] = 1;// cong bo ngay khi dang
 
 
@@ -608,7 +628,8 @@ class Product_post extends MY_Controller
     {
         //$this->_mod()->tags_set($id, $this->input->post('tags'));
         $this->_mod()->to_types( $id, $this->input->post('types'), $this->input->post('type_cat_id') );
-        model('user')->update_stats(['id'=>$user->id],['post_total'=>1]);
+
+
 
 
     }

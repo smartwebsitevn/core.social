@@ -100,6 +100,7 @@ class System_pre_handle extends MY_Pre_handle
 		mod('user')->set_setting('register_banned_countries',$this->_settings['user_register_banned_countries']);
 
 		mod('user')->set_setting('login_allow',$this->_settings['user_login_allow']);
+		mod('user')->set_setting('login_auth_allow',$this->_settings['user_login_auth_allow']);
 		mod('user')->set_setting('login_fail_count_max',$this->_settings['user_login_fail_count_max']);
 		mod('user')->set_setting('login_fail_block_timeout',$this->_settings['user_login_fail_block_timeout']);
 		mod('user')->set_setting('login_check_ip',$this->_settings['user_login_check_ip']);

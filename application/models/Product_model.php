@@ -38,7 +38,7 @@ class Product_model extends MY_Model
         //== Info thuoc tinh bool
        // 'comment_allow',  'comment_fb_allow',
         'has_voucher', //  'has_combo',
-        'is_feature', 'is_new',   'is_sellbest', 'is_alway_in_stock',// 'is_in_menu','is_soon', 'is_live',  'is_slide',
+        'is_feature', 'is_new',   // 'is_draft', 'is_alway_in_stock','is_in_menu','is_soon', 'is_live',  'is_slide',
 
         // == Info seo
         'seo_title',   'seo_url',    'seo_description',  'seo_keywords',
@@ -67,11 +67,14 @@ class Product_model extends MY_Model
         'id','!id','id_gt', 'id_gte', 'id_lt', 'id_lte',
         'seo_url',  'BINARY seo_url',
         'is_feature', 'is_new', 'is_soon',   'is_sellbest', 'is_alway_in_stock', 'is_live',  'is_slide',  'is_in_menu', 'is_show',
-        'is_draft','is_form',
-        'status','created', 'created_to',
+        'is_draft','is_form','is_lock' ,'deleted',
+        'status',
+       // 'created', 'created_to',
     );
     public $fields_rule = array(
         'name' => 'required',
+        'type_cat_id' => ['type_cat_id','required|callback__check_type_cat_id'],
+
         //'description' => 'required',
     );
 
@@ -186,26 +189,26 @@ class Product_model extends MY_Model
         //  1: tu ngay  - den ngay
         if (isset($filter['created']) && isset($filter['created_to'])) {
             $where[$this->table . '.created >='] = is_numeric($filter['created']) ? $filter['created'] : get_time_from_date($filter['created']);
-            $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']) + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
+            $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']);// + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
         } //2: tu ngay
         elseif (isset($filter['created'])) {
             $where[$this->table . '.created >='] = is_numeric($filter['created']) ? $filter['created'] : get_time_from_date($filter['created']);
         } //3: den ngay
         elseif (isset($filter['created_to'])) {
-            $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']) + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
+            $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']);// + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
         }
 
         // hien thi san pham phia ngoai
         if (isset($filter['show'])) {
-            $where[$this->table.'.is_draft'] = 0;// ko hien tin nhap cua cong ty
-            $where[$this->table.'.is_form'] = 0;// ko hien  tin mau cua he thong
-            $where[$this->table.'.status'] = 1; // chi hien tin la cong bo
+            $where[$this->table.'.is_draft'] = 0;// ko hien tin nhap
+            $where[$this->table.'.is_form'] = 0;// ko hien  tin mau
+            $where[$this->table.'.is_lock'] = 0; // ko hien  tin da bi khoa
             $where[$this->table.'.deleted'] = 0; // ko hien  tin da xoa tam
-            //$where[$this->table.'.point_total >'] = -10; // ko hien  tin co diem -
-            $this->db->where('(point_total + point_fake) > -10');
-            //$where[$this->table.'.verified >'] = 0; // chi hien tin da xac thuc
+            $where[$this->table.'.status'] = 1; // chi hien tin la cong bo
+            $where[$this->table.'.verified >'] = 0; // chi hien tin da xac thuc
             //$where[$this->table.'.expired >='] = now();// chi hien tin con han dang
-
+            //$where[$this->table.'.point_total >'] = -10; // ko hien  tin co diem -
+            //$this->db->where('(point_total + point_fake) > -10');
 
         }
         return $where;
@@ -247,6 +250,20 @@ class Product_model extends MY_Model
 
 
         return $filter;
+    }
+
+    function get_streampost($user_id)
+    {
+        $this->db->select('min(created) min, max(created) max');
+        $this->db->where('product.user_id', $user_id);
+        $this->db->limit(1, 0);
+        $query = $this->db->get($this->table);
+        if ($query->num_rows()) {
+            $row = $query->row();
+            return $row;
+        }
+
+        return FALSE;
     }
 
 

@@ -37,7 +37,6 @@
                 'values_row' => array($product_cats, 'id', 'name'),
                 'value_default' => 'Chọn một chủ đề',
 
-                'show_error' => false
             );
             echo macro('mr::form')->info($_data_info);
             ?>

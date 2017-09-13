@@ -1,4 +1,5 @@
 <?php
+
 $lang['title_user']							= 'Khách hàng';
 $lang['title_login']						= 'Đăng nhập';
 $lang['title_register']				   		= 'Đăng ký tài khoản';

@@ -22,7 +22,7 @@
                             <?php widget('user')->display_list($list); ?>
                             <?php widget('user')->display_pagination($pages_config); ?>
                         <?php else: ?>
-                            <div class="clearfix mt20"></div>
+                            <div class="clearfix"></div>
                             <div class="well">
                                 Không có ai đang theo dõi thành viên này
                                 <?php //echo lang('have_no_list') ?>

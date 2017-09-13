@@ -3,6 +3,27 @@ TRUNCATE `comment`;
 TRUNCATE `social_vote`;
 
 
-UPDATE `product` SET `view_total`=0,`comment_count`=0,`point_total`=0,`point_fake`=0,`vote_total`=0,`vote_like`=0,`vote_dislike`=0;
+TRUNCATE `product_to_favorite`;
 
-UPDATE `user` SET `point_total`=0,`point_fake`=0,`post_total`=0,`view_total`=0,`follow_total`=0,`follow_by_total`=0,`comment_total`=0,`vote_total`=0,`vote_like`=0,`vote_dislike`=0;
+UPDATE `product` SET `view_total`=0,
+`comment_count`=0,
+`point_total`=0,
+`point_fake`=0,
+`vote_total`=0,
+`vote_like`=0,
+`vote_dislike`=0;
+
+UPDATE `user` SET
+`point_total`=0,
+`point_fake`=0,
+`post_total`=0,
+`post_is_publish`=0,
+`post_is_draft`=0,
+`post_is_deleted`=0,
+`view_total`=0,
+`follow_total`=0,
+`follow_by_total`=0,
+`comment_total`=0,
+`vote_total`=0,
+`vote_like`=0,
+`vote_dislike`=0;

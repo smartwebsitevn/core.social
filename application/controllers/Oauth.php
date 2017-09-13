@@ -8,7 +8,9 @@ class Oauth extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-
+        if ( !mod("user")->setting('login_auth_allow') ) {
+            $this->_redirect();
+        }
         // Neu da dang nhap roi
         if (user_is_login()) {
             $this->_redirect('user');

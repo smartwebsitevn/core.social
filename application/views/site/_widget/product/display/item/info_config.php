@@ -13,7 +13,7 @@
                 <li><a title="Chỉnh sửa tin " href="<?php echo $row->_url_user_edit ?>">Chỉnh sửa tin</a></li>
             <?php endif; ?>
 
-            <?php if (!in_array($row_status, array('status-expried', 'status-pending'))): ?>
+            <?php if (!in_array($row_status, array('status-expried', 'status-pending','status-draft'))): ?>
                 <?php if ($row->status): ?>
                     <li><a title="Ẩn tin " class=" do_action" data-url="<?php echo $row->_url_status_hide ?>"
                            data-action="confirm"> Ẩn tin</a></li>

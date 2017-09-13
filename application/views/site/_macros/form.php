@@ -867,7 +867,7 @@ $this->register('info', function (array $input) {
 
         <label>
             <?php echo $name ?><?php echo (!empty($unit) && $type != 'range') ? ' (' . $unit . ')' : ''; ?>
-            <?php if ($req): ?><b class="red">*</b><?php endif; ?>
+            <?php if ($req): ?><span class="req">*</span><?php endif; ?>
         </label>
         <div class="clearfix"></div>
     <?php endif; ?>
@@ -1088,8 +1088,7 @@ $this->register('info_cat_single', function (array $input) {
     ?>
     <?php if ($name): ?>
         <div class="form-group ">
-        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><b
-                class="red">*</b><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
@@ -1147,8 +1146,7 @@ $this->register('info_cat_multi', function (array $input) {
 
     <?php if ($name): ?>
         <div class="form-group ">
-        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><b
-                class="red">*</b><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
     <div class="dropdown search-dropdown">
@@ -1276,8 +1274,7 @@ $this->register('info_country', function (array $input) {
     <?php if ($name): ?>
         <div class="form-group ">
 
-        <label class="col-sm-3  control-label "><?php echo $name ?> <?php if ($req): ?><b
-                class="red">*</b><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?> <?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 

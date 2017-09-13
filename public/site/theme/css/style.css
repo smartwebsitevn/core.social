@@ -2330,7 +2330,12 @@ table {
   border: 2px solid #e0e0e0;
   padding: 4px;
   width: 100%;
-  position: relative; }
+  position: relative;
+  border-radius: 20px; }
+  .select-container .select-input {
+    width: 77%; }
+  .select-container .search-remove {
+    cursor: pointer; }
 
 .select-container-above:hover {
   border: 3px solid #f7941e;

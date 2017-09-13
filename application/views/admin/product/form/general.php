@@ -28,7 +28,12 @@ echo macro('mr::advForm')->row(array(
 echo macro('mr::advForm')->row(array(
     'param' => 'name', 'value' => $info['name'], 'req' => true,
 ));
+echo macro('mr::advForm')->row(array(
+    'param' => 'user_id', 'name' => "Bài viết của thành viên",
+    'value' => isset($info['_user']) ? $info['_user']->email : '',
+    'attr' => array('class' => 'autocomplete form-control', '_url' => $url_search_user),
 
+));
 /*
 echo macro('mr::advForm')->row(array(
     'param' => 'link_demo', 'value' => $info['link_demo'],

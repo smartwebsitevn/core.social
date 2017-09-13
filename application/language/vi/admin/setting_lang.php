@@ -149,6 +149,8 @@ $lang['license_domain']								= 'Tên miền';
 $lang['license_status']								= 'Trạng thái';
 
 //Connect
+$lang['user_login_auth_allow']					= 'Cho phép thành viên đăng nhập bằng Google, Facebook';
+
 $lang['facebook_oauth_id']							= 'Facebook ID';
 $lang['facebook_oauth_key']							= 'Facebook Key';
 $lang['google_oauth_id']							= 'Google ID';

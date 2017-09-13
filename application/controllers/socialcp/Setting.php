@@ -184,6 +184,11 @@ class Setting extends MY_Controller
         
         
         //===== Connect
+        $setting_default['connect'] = array(
+            'user_login_auth_allow' => 0,
+        );
+
+
         foreach (array('facebook_oauth_id', 'facebook_oauth_key', 'google_oauth_id', 'google_oauth_key') as $p) {
             $setting_default['connect'][$p] = '';
         }

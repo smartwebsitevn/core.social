@@ -11,6 +11,7 @@ $config = array(
 
 	// cho phep dang nhap h? thong
 	'login_allow' => true,
+	'login_auth_allow' => true,
 
 	// So lan dang nhap sai de block IP (0: Khong kiem tra)
 	'login_fail_count_max' => 10,

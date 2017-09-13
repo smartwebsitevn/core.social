@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"   xmlns:fb="http://ogp.me/ns/fb#">
 <head>
     <?php widget('site')->head(["css" => "page_blog"]); ?>
 </head>
@@ -9,15 +9,12 @@
     <!-- MAIN -->
     <div id="main">
         <div class="container">
-
-
             <div class="row pt10 pb20">
                 <?php echo html_entity_decode(mod('blog')->setting('blog_intro')); ?>
             </div>
             <div class="row">
             <?php echo widget('blog')->cat() ?>
             </div>
-
             <div class="row">
                 <div class="col-md-8 main-content">
                     <?php //echo $content_top; ?>

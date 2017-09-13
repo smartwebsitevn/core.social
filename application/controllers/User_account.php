@@ -69,25 +69,22 @@ class User_account extends MY_Controller
         $rules['security_code'] = array('security_code', 'required|captcha[four]');
         $rules['rule'] = array('', 'callback__check_rule');
 
+        //==
+
 
         //info
+        $rules ['working_city'] = array (lang ( 'city' ), 'trim|xss_clean|callback__check_working_city' );
+        /*$rules ['working_country'] = array (lang ( 'country' ), 'trim|xss_clean|callback__check_working_country' );
+        $rules ['country'] = array (lang ( 'country' ), 'trim|xss_clean|callback__check_country' );
+        $rules ['city'] = array (lang ( 'city' ), 'trim|xss_clean|callback__check_city' );*/
+
         $rules ['gender'] = array (lang ( 'gender' ), 'trim|xss_clean|callback__check_gender' );
         $rules ['birthday'] = array (lang ( 'birthday' ), 'trim|xss_clean|callback__check_birthday' );
-        $rules ['country'] = array (lang ( 'country' ), 'trim|xss_clean|callback__check_country' );
-        $rules ['city'] = array (lang ( 'city' ), 'trim|xss_clean|callback__check_city' );
-
-
-        // Verify
-        $rules['card_no'] = array('card_no', 'required|trim|xss_clean');
-        $rules['card_place'] = array('card_place', 'required|trim|xss_clean');
-        $rules['card_date'] = array('card_date', 'required|trim|xss_clean');
-        $rules['paypal_emails'] = array('paypal_emails', 'required|trim|xss_clean|callback__check_paypal_emails');
-        $rules['image_card_front'] = array('image_card_front', 'callback__check_image_card_front');
-        $rules['image_card_back'] = array('image_card_front', 'callback__check_image_card_back');
-        $rules['image_photo'] = array('image_card_front', 'callback__check_image_photo');
 
 
         $rules['affiliate'] 		    = array('affiliate', 'trim|xss_clean|callback__check_affiliate');
+
+
         // Upgrade
       /*  $rules['user_upgrade'] = array('user_upgrade', 'trim|xss_clean|callback__check_user_upgrade');
 
@@ -97,7 +94,21 @@ class User_account extends MY_Controller
 
         $rules['node_parent_add'] = array('node_parent', 'trim|xss_clean|callback__check_node_parent_add');*/
 
-
+        //== Check Cat
+        // cat id don
+        foreach (array(
+                     'type',
+                 ) as $p) {
+            $_p ='user_'.$p;
+            $rules [$p] = array($p, 'filter_html|callback__check_cat_id_single[' . $p . ',' . $_p . ']');
+        }
+        // cat id danh sach
+        foreach (array(
+                     'job',
+                 ) as $p) {
+            $_p ='user_'.$p;
+            $rules [$p] = array($p, 'filter_html|callback__check_cat_id_list[' . $p . ',' . $_p . ']');
+        }
 
         $this->form_validation->set_rules_params($params, $rules);
     }
@@ -335,6 +346,26 @@ class User_account extends MY_Controller
         }
         return TRUE;
     }
+
+    function _check_working_country()
+    {
+        $list = $this->_get_working_country();
+        if (!$list) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_working_country_require'));
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    function _check_working_city()
+    {
+        $list = $this->_get_working_city();
+        if (!$list) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_working_city_require'));
+            return FALSE;
+        }
+        return TRUE;
+    }
     public function _check_country($value) {
 
         if (empty ( $value )) {
@@ -348,6 +379,7 @@ class User_account extends MY_Controller
 
         return TRUE;
     }
+
     public function _check_city($value) {
 
         if (empty ( $value )) {
@@ -378,62 +410,32 @@ class User_account extends MY_Controller
 
 
     /**
-     * Kiem tra hinh anh xac thuc
+     * Kiem tra the loai dang don
      */
-    function _check_image_card_front($value)
+    function _check_cat_id_single($value, $type)
     {
-        return $this->_check_image_verify('image_card_front');
-    }
-
-    function _check_image_card_back($value)
-    {
-        return $this->_check_image_verify('image_card_back');
-    }
-
-    function _check_image_photo($value)
-    {
-        return $this->_check_image_verify('image_photo');
-    }
-
-    function _check_image_verify($param)
-    {
-        // Tai file thanh phan
-        $this->load->helper('file');
-
-        // Tao config upload
-        $upload_config = config('upload', 'main');
-        $upload_config['upload_path'] = $upload_config['path'] . $upload_config['folder'] . '/public';
-        $upload_config['allowed_types'] = $upload_config['img']['allowed_types'];
-
-        // Thuc hien upload file
-        $this->load->library('upload', $upload_config);
-        if ($this->upload->do_upload($param)) {
-            $upload_data = $this->upload->data();
-
-            // Lay thong tin user
-            $user = user_get_account_info();
-            $user_verify = $this->user_verify_model->get_info($user->id, $param);
-
-            // Xoa file cu neu co
-            if (!empty($user_verify->$param)) {
-                $file = new stdClass();
-                $file->file_name = $user_verify->$param;
-                $file->status = config('file_public', 'main');
-                file_del($file);
-            }
-
-            // Cap nhat vao data
-            $data = array();
-            $data[$param] = $upload_data['file_name'];
-            $this->user_verify_model->set_info($user->id, $data);
-
-            return TRUE;
-        } else {
-            $upload_error = $this->upload->display_errors();
-
-            $this->form_validation->set_message('_check_' . $param, $upload_error);
+       $type =explode(',',$type);
+        $rs = $this->_check_cat_id($value, $type[1]);
+        if (!$rs) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_'.$type[1].'_require'));
             return FALSE;
         }
+        return TRUE;
+    }
+
+    /**
+     * Kiem tra the loai dang danh sach
+     */
+    function _check_cat_id_list( $value,$type)
+    {
+        $type =explode(',',$type);
+        $value = $this->input->post($type[0]);
+        $list = $this->_get_cat_id_list($value,$type[1]);
+        if (!$list) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_'.$type[1].'_require'));
+            return FALSE;
+        }
+        return TRUE;
     }
 
     /* ------------------------------------------------------
@@ -1022,363 +1024,91 @@ class User_account extends MY_Controller
         return $image;
     }
 
-    /**
-     * Lay input dang add them noi dung rieng
-     */
-    protected function _get_data_addtext_inputs($type,$info,$act)
+    // get cat voi danh sach id
+    function _get_cat_id_list($ids,$type)
     {
-        $data =$this->input->post('text');
-        $type = 'cat_' . $type . '_id';// chuyen ve ten truong giong trong CSDL
-        // pr( $data_type);
-        if (empty($info->$type))// neu chua co du lieu
-            $list = array();
-        else {
-            // echo $type;           pr($info);
-            if (!is_array($info->$type) && !is_object($info->$type))
-                $list = json_decode($info->$type);
-            else
-                $list = $info->$type;
-
-        }
-
-        /*  [id] => 39
-            [name] => Giám Sát Tác Gi?
-            [sort_order] => 1
-            [priority] => 1
-            [rating] =>
-        )*/
-
-        $list = object_to_array($list);
-        if ($act == 'add_text') {
-            $tmp =array();
-            $tmp['id']=random_string('md5');
-            $tmp['name']=$data[lang_get_default()->id];
-            $tmp['sort_order']=0;
-            $tmp['priority']=0;
-            $tmp['rating']=3;
-            $tmp['content']=$data;
-
-            array_push($list, $tmp);
-        }
-        /*elseif ($act == 'updatetext') {
-            $id = $this->input->post('_id');
-            if (isset($list[$id])) {
-                $list[$id] = $data;
-            }
-        }*/
-
-        // pr($list);
-        return $list;
-
-    }
-    // su ly du lieu dang rating
-    protected function _get_data_multi_inputs($type, $info, $act)
-    {
-        $data = array();
-        $fields = $this->_fields($type);
-        $data_type= 0; //0: la mang du lieu don ,1 la mang du lieu cac thanh phan
-        foreach ($fields as $f) {
-            $v = $this->input->post($f);
-            if(is_array($v))
-            {
-                foreach ($v as $_v)
-                    $data[][$f] = $_v;
-                $data_type =1;
-            }
-            else
-                $data[$f] = $v;
-            // pr($langs);
-        }
-
-        // pr($data);
-        $type = 'cat_' . $type . '_id';// chuyen ve ten truong giong trong CSDL
-
-        // pr( $data_type);
-        if (empty($info->$type))// neu chua co du lieu
-            $list = array();
-        else {
-            // echo $type;           pr($info);
-            if (!is_array($info->$type) && !is_object($info->$type))
-                $list = json_decode($info->$type);
-            else
-                $list = $info->$type;
-
-        }
-        $list = object_to_array($list);
-        if ($act == 'add') {
-            if($data_type)
-                $list=  array_merge($list, $data);
-            else
-                array_push($list, $data);
-
-        }
-        /*elseif ($act == 'update') {
-
-            $id = $this->input->post('_id');
-            if (isset($list[$id])) {
-                $list[$id] = $data;
-            }
-        }*/
-        // pr($list,0);
-        // loc bo id trung
-        $list = array_unique_key($list, 'id');
-        // pr($list,1);
-        // sap sep du lieu , du lieu rieng dc day xuong duoi cung
-        $list = array_values(array_sort($list, function ($value) {
-            return !is_numeric($value['id']);
-        }));
-
-        // pr($list);
-        return $list;
-    }
-
-    // du lieu la 1 danh sach ma nguoi dung chon moi
-    protected function _get_data_multi_special_inputs($type, $info, $act)
-    {
-        $data = array();
-        $fields = $this->_fields($type);
-
-        $new_list = array();
-        if ($act == 'add') {
-            foreach ($fields as $f) {
-                $new_list = $this->input->post($f);
-            }
-        }
-        // Tai dung lai du lieu cu
-        $type = 'cat_' . $type . '_id';// chuyen ve ten truong giong trong CSDL
-
-        // pr( $type);
-        if (empty($info->$type))// neu chua co du lieu
-            $list = array();
-        else {
-
-            if (!is_array($info->$type) && !is_object($info->$type))
-                $list = json_decode($info->$type);
-            else
-                $list = $info->$type;
-
-        }
-        // pr($list);
-        // Bat dau su ly voi su thay doi
-
-        $list = object_to_array($list);
-
-        if ($act == 'add') {
-            $tmp_list = array(); // tao danh sach tam chua su ket hop cua 2 danh sach
-            // duyet qua danh sach moi va tao 1 danh sach dua tren danh sach cu
-            foreach ($new_list as $id) {
-                $exist = false;
-                foreach ($list as $it) {
-                    if ($it['id'] == $id)// neu danh sach cu co phan tu nay
-                    {
-                        $exist = true;
-                        $tmp_list[] = $it;// sao chep phan tu cu vao danh sach moi
-                        break;// thoat len vong lap tren
-                    }
-                }
-                // neu phan tu chua ton tai, thi tao moi
-                if (!$exist) {
-                    $tmp_list[] = array('id' => $id, 'rating' => 3);
-                }
-            }
-            // sap sep du lieu , du lieu rieng dc day xuong duoi cung
-            $tmp_list = array_values(array_sort($tmp_list, function ($value) {
-                return !is_numeric($value['id']);
-            }));
-            $list = $tmp_list;
-        } elseif ($act == 'update') {
-
-            $id = $this->input->post('_id');
-            if (isset($list[$id])) {
-                $list[$id] = $data;
-            }
-        }
-
-        //pr($list);
-        return $list;
-    }
-
-    /**
-     * Lay input jobs
-     */
-    protected function _get_data_job_inputs()
-    {
-
-        $data = $jobs = $job_cats = array();
-
-        // $ids = $this->input->post('jobs');
-        $ids =$this->data['jobs'];
-        foreach ($ids as $id) {
-            $job = model('job')->get_info($id, 'cat_id');
-
-            if ($job) {
-                $jobs[] = $id;
-                $job_cats[] = $job->cat_id;
-            }
-        }
-
-        $jobs = array_unique($jobs);
-        $job_cats = array_unique($job_cats);
-
-        //pr($jobs,0);
-        //pr($job_cats);
-        if ($jobs) {
-            $data['job_id'] = implode(',', $jobs);
-        }
-        if ($job_cats) {
-            $data['job_cat_id'] = implode(',', $job_cats);
-        }
-        return $data;
-    }
-    /**
-     * Lay input jobs
-     */
-    protected function _get_data_ads_job_inputs()
-    {
-        $data = $jobs =$job_cat = array();
-        $ids =$this->data['jobs'];// $this->input->post('jobs');
-        if ($ids) {
-            foreach ($ids as $id) {
-                $job = model('job')->get_info($id, 'cat_id');
-                if ($job) {
-                    $jobs[] = $id;
-                    $job_cat[]=$job->cat_id;
-                }
-            }
-            $jobs = array_unique($jobs);
-            $job_cat = array_unique($job_cat);
-            // kiem tra so job toi da co the them
-            $setting = $this->data['recruit_settings'];
-            if (count($jobs) > $setting['ads_cancidate_max_number_job'])
-                $this->_response(array('msg_alert' => 'B?n ch? ???c ch?n t?i ?a ' . $setting['ads_cancidate_max_number_job'] . ' l?nh v?c'));
-            //========================================
-
-
-
-            if ($jobs) {
-                // neu co linh vuc thi bat chuc nang quang cao len dong thoi lay thoi gian quang cao tu goi
-                $cancidate_packages =$this->data['cancidate_packages'];
-                // pr($cancidate_packages);
-                $data['ads_job_id'] = implode(',', $jobs);
-                $data['ads_job_cat_id'] = implode(',', $job_cat);
-                $data['ads_status'] =1;
-                if($cancidate_packages['ads_company'] == -1){
-                    $data['ads_time'] =-1;
-                    $data['ads_expired'] =-1;
-                }
-                else{
-                    //pr($cancidate_packages);
-                    $data['ads_time'] =$cancidate_packages['ads_company'];
-                    $data['ads_expired'] =$cancidate_packages['_ads_company'];
-                }
-
-
-            }
-        }
-        else{
-            $data['ads_job_id']='';
-            $data['ads_status'] =0;
-            $data['ads_time'] =0;
-            $data['ads_expired'] =0;
-        }
-        //pr($data);
-        return $data;
-    }
-
-    // su ly du lieu dang danh sach, nhieu ngon nu
-    protected function _get_data_list_inputs($type, $info, $act)
-    {
-        $data = array();
-        $fields = $this->_fields($type);
-        foreach ($fields as $f) {
-            $vs = $this->input->post($f);
-            if (is_array($vs)) {
-                foreach ($vs as $l => $v) {
-                    $data[$l][$f] = $v;
-                }
-            }
-            // pr($langs);
-        }
-        // pr( $data_type);
-        if (empty($info->$type))// neu chua co du lieu
-            $list = array();
-        else {
-            $list =json_decode($info->$type);
-        }
-        // pr($data);
-        if ($act == 'add') {
-            if($list)
-                array_push($list, $data);
-            else
-                $list[] =$data;
-        }
-        elseif ($act == 'update') {
-
-            $id = $this->input->post('_id');
-            if (isset($list[$id])) {
-                $list[$id] = $data;
-            }
-        }
-
-        // pr( $list);
-
-        return $list;
-    }
-
-    protected function _get_content_inputs($type)
-    {
-        $data = array();
-        $fields = $this->_content_fields($type);
-        foreach ($fields as $f) {
-            $vs = $this->input->post($f);
-            //echo $f; pr($vs,0);
-            if (is_array($vs))
-                foreach ($vs as $l => $v) {
-                    //if(!$v) continue;
-                    $data[$l][$f] = $v;
-                }
-
-        }
-        /*  if ($type != 'infos_intro')
-              foreach ($data as $l => $d) {
-                  $data[$l]['name'] = $d['first_name'] . ' ' . $d['last_name'];
-              }*/
-        // pr($data);
-        return $data;
-    }
-
-    protected function _get_letter_content_inputs($type)
-    {
-        $data = array();
-        $fields = $this->_fields($type);
-        foreach ($fields as $f) {
-            $vs = $this->input->post($f);
-            if (is_array($vs)) {
-                foreach ($vs as $l => $v) {
-                    $data[$l][$f] = $v;
-                }
-            }
-            // pr($langs);
-        }
-        // pr($data);
-        return $data;
-    }
-
-    function _get_jobs()
-    {
+       // pr($ids,0);
         // Kiem tra format
-        $ids = $this->input->post('jobs');
-        //pr($infos);
         $result = array();
-
-        foreach ($ids as $id) {
-            $id = model('job')->check_id($id);
-
-            if ($id) {
-                $result[] = $id;
+        if ($ids && is_array($ids)) {
+            foreach ($ids as $id) {
+                if (!$this->_check_cat_id($id, $type))
+                    continue;
+                $result[$id] = $id;
             }
         }
+        //pr($result);
+        return $result;
+    }
 
+    // kiem tra 1 cat co thuoc 1 loai nao do
+    function _check_cat_id($id, $type)
+    {
+       // $type = str_replace(array('cat_', '_id'), '', $type);
+        $id = model('cat')->get_id(array('id' => $id, 'type' => $type));// check  id theo loai
+        //echo $this->db->last_query();
+        if (!$id) return false;
+        return true;
+    }
+
+    // get cat voi nhieu truong thong tin
+    function _get_working_city()
+    {
+        $rows = $this->input->post('working_city');
+        $result = array();
+        if ($rows && is_array($rows)) {
+            foreach ($rows as $v) {
+                if (!model('city')->check_id($v))
+                    continue;
+                $result[] = $v;
+            }
+        }
+        return $result;
+    }
+
+    // get cat voi nhieu truong thong tin
+    function _get_working_country()
+    {
+        $rows = $this->input->post('working_country');
+        $result = array();
+        if ($rows && is_array($rows)) {
+            foreach ($rows as $v) {
+                if (!model('country')->check_id($v))
+                    continue;
+                $result[] = $v;
+            }
+        }
+        return $result;
+    }
+
+
+    // get cat voi nhieu truong thong tin
+    function _get_city()
+    {
+        $rows = $this->input->post('city');
+        $result = array();
+        if ($rows && is_array($rows)) {
+            foreach ($rows as $v) {
+                if (!model('city')->check_id($v))
+                    continue;
+                $result[] = $v;
+            }
+        }
+        return $result;
+    }
+
+    // get cat voi nhieu truong thong tin
+    function _get_country()
+    {
+        $rows = $this->input->post('country');
+        $result = array();
+        if ($rows && is_array($rows)) {
+            foreach ($rows as $v) {
+                if (!model('country')->check_id($v))
+                    continue;
+                $result[] = $v;
+            }
+        }
         return $result;
     }
 

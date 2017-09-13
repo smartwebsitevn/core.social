@@ -3,7 +3,8 @@
 class Type_item_model extends MY_Model
 {
     public $table = 'type_item';
-    public $order = array( array('id', 'desc'));
+    public $order = array(array('sort_order', 'asc'), array('id', 'desc'));
+
     public $translate_auto = TRUE;
     public $translate_fields = array(
         'name',

@@ -18,7 +18,9 @@
 			smartSpeed:700,
 		})
 		$(".slide-blog .owl-carousel").owlCarousel({
-			loop:true,
+			loop:false,
+			items: 3,
+
 			margin: 15,
 			nav: true,
 			navText: ["", ""],

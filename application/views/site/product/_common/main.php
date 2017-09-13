@@ -9,37 +9,53 @@
         </p>
     </div>
 
-    <div class="item-meta">
-                            <span>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('product/vote/' . $info->id) . "?act=like" ?>"><i
-                                    class="pe-7s-angle-up-circle"></i></a>
-                            <a class="do_action" data-type=""
-                               data-url="<?php echo site_url('product/vote/' . $info->id) . "?act=dislike" ?>"><i
-                                    class="pe-7s-angle-down-circle"></i></a>
-                            </span>
-                                <span
-                                    class="points"> <b><?php echo number_format($info->vote_total) ?></b> <?php echo lang("count_point") ?></span>
-                            <span
-                                class="views"> <b><?php echo number_format($info->view_total) ?></b> <?php echo lang("count_view") ?></span>
-                            <span
-                                class="comments"> <b><?php echo number_format($info->comment_count) ?></b> <?php echo lang("count_comment") ?></span>
-        <span class="date_created"> <b><?php echo $info->_created ?></b> </span>
-
-    </div>
 
     <?php //t('view')->load('tpl::product/_common/info_video') ?>
     <div>
-
         <?php t('view')->load('tpl::product/_common/info_images') ?>
+    </div>
+    <?php if($info->link): ?>
+    <div class="item-media">
+        <?php if (isset($info->link) && $info->link):
+            $tags = json_decode($info->link_data, 1);
+            ?>
+            <div class="media">
+                <a href="<?php echo $info->link ?>" target="_blank">
+
+                    <?php if (isset($tags['image'])): ?>
+                        <div class="media-left">
+                            <img class="media-object" src="<?php echo $tags['image'] ?>">
+                        </div>
+                    <?php endif; ?>
+                    <div class="media-body">
+                        <h5 class="media-heading"><?php echo isset($tags['title']) ? $tags['title'] : '' ?></h5>
+                        <?php if (isset($tags['description'])): ?>
+                            <small><?php echo $tags['description'] ?></small>
+                        <?php endif; ?>
+                    </div>
+                </a>
+
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
+    <div class="item-actions">
+        <div class="item-meta item-action">
+            <?php echo widget('product')->action_vote($info) ?>
+        </div>
+        <div class="item-action">
+            <?php echo widget('product')->action_favorite($info) ?>
+        </div>
+        <div class="item-action">
+            <?php widget('product')->action_share($info
+            ) ?>
+        </div>
 
     </div>
     <div class="item-overview">
         <?php echo macro()->more_word($info->description,63); ?>
-
     </div>
     <?php t('view')->load('tpl::product/_common/info_files') ?>
-
 
     <?php //t('view')->load('tpl::product/_common/info') ?>
 

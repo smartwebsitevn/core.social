@@ -18,26 +18,27 @@
                 $row_label = 'Đang chờ duyệt';
             }
             /*if ($row->_ads) {
-                $row_status = 'tuyen-gap';
+                $row_status = 'status-ads';
                 $row_label = $row->ads_title;
             }*/
             /*if ($row->expired <= $now) {
-                $row_status = 'het-han';
+                $row_status = 'status-expired';
                 $row_label = 'Hết hạn';
 
             }*/
-            if ($row->is_draft) {
-                $row_status = 'status-draft';
-                $row_label = 'Bản nháp';
-            }
             if (!$row->status) {
                 $row_status = 'status-off';
                 $row_label = 'Đang ẩn';
             }
-            if (($row->point_total + $row->point_fake) <=-10)  {
+            if ($row->is_lock)  {
+           //if (($row->point_total + $row->point_fake) <=-10)  {
                 $row_status = 'status-locked';
                 $row_label = 'Tin đã bị khóa';
                 $row_text = '<a href="'.site_url('tro-giup').'" target="_blank">Tại sao tin này bị khóa?</a>' ;
+            }
+            if ($row->is_draft) {
+                $row_status = 'status-draft';
+                $row_label = 'Bản nháp';
             }
             ?>
             <div class="item-social <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $row_status ?>  ">
@@ -143,7 +144,7 @@
     <?php endif; ?>
 
 <?php else: ?>
-    <div class="clearfix mt20"></div>
+    <div class="clearfix"></div>
     <div class="well">
         <?php echo lang('have_no_list') ?>
     </div>

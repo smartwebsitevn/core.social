@@ -22,7 +22,7 @@
                             <?php widget('product')->display_list($list,'owner_save'); ?>
                             <?php widget('product')->display_pagination($pages_config); ?>
                         <?php else: ?>
-                            <div class="clearfix mt20"></div>
+                            <div class="clearfix"></div>
                             <div class="well">
                                 Thành viên này không có bài viết nào
                                 <?php //echo lang('have_no_list') ?>

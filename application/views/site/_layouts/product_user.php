@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"   xmlns:fb="http://ogp.me/ns/fb#">
 <head>
 	<?php //widget('site')->head(["css" => ["pages/page_user","pages/page_product_list"]]); ?>
 	<?php widget('site')->head(["css" => ["page_user"]]); ?>

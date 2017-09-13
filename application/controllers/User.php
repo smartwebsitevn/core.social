@@ -517,8 +517,8 @@ class User extends MY_Controller
     protected function _register_params()
     {
         $params = array(
-            'email', 'password', 'password_repeat', 'security_code', 'rule',
-            'name',  /*'phone', 'address',*/
+            'name', 'email', 'password', 'password_repeat',
+              /*'phone', 'address', 'security_code', 'rule',*/
         );
 
         if (t('input')->post('username') !== null) {
@@ -698,11 +698,11 @@ class User extends MY_Controller
         // Xu ly form
         if ($this->input->post('_submit')) {
             // Gan dieu kien cho cac bien
-            $params = array('email', 'password', 'security_code');
+            $params = array('email', 'password'/*, 'security_code'*/);
             $this->form_validation->set_rules('email', 'lang:account', 'required|trim|xss_clean');
             $this->form_validation->set_rules('password', 'lang:password', 'required|trim|xss_clean');
-            if (!$this->input->post('login_fast'))
-                $this->form_validation->set_rules('security_code', 'lang:security_code', 'required|trim|captcha[four]|xss_clean');
+           // if (!$this->input->post('login_fast'))
+              //  $this->form_validation->set_rules('security_code', 'lang:security_code', 'required|trim|captcha[four]|xss_clean');
 
 
             // Xu ly du lieu

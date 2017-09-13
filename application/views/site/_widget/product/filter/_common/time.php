@@ -1,27 +1,78 @@
 <?php
-$user = user_get_account_info();
-if ($user):
+$streampost = model('product')->get_streampost($user->id);
+if ($streampost->min):
+
+    $month_selected= t('input')->get('month');
+    $year_selected= t('input')->get('year');
+
+    //pr_db($streampost);
+    $min = \Carbon\Carbon::createFromTimestamp($streampost->min);
+    if ($streampost->max)
+        $max = \Carbon\Carbon::createFromTimestamp($streampost->max);
+    else        $max = \Carbon\Carbon::now();
+    //pr($max);
     ?>
     <?php
-    $input['where']['us.action'] = 'subscribe';
-    $input['where']['us.table'] = 'user';
-    $input['where']['us.user_id'] = $user->id;
-    $input['join'] = array(array('user_storage us', 'us.table_id = user.id'));
     //$input['limit'] = array(0,2);
     $filter = array();
-    $users = mod('user')->get_list($filter, $input);
+    $filter['show'] = 1;
+    $filter['user_id'] = $user->id;
     //pr_db($users);
+   // pr_db($min->year);
+
     ?>
-    <?php if ($users): ?>
-    <div>
-        <h5 style="border-bottom:1px solid #ccc; padding:10px 5px  ">
-            Đang theo dõi
-        </h5>
+    <div class="slimscroll">
+        <ul class="list-group">
+            <?php if ($min->year < $max->year): ?>
 
-        <div class="slimscroll">
 
-            <?php widget('user')->display_list($users, 'sidebar_follow') ?>
-        </div>
+                <li class="list-group-item"><b>Năm <?php echo $max->year ?></b></li>
+                <?php $i=1; for ($m = $max->month; $m >= 1; $m--) : ?>
+                    <?php
+                    $filter['created'] = $max->copy()->startOfMonth()->timestamp;
+                     $filter['created_to'] = $max->copy()->endOfMonth()->timestamp;
+                     $total= model('product')->filter_get_total($filter);
+                    $max->subMonth(1);
+
+                    // echo '<br>-m='.$max->subMonth(1);
+                   // pr_db($max->month,0);
+                    if(!$total) continue;
+                    ?>
+                    <li class="list-group-item act-filter " data-name="created" data-value="<?php echo $filter['created'].'|'.$filter['created_to'] ?>"><a href="#0"> - Tháng <?php echo $m  ?> : <?php echo number_format($total) ?>posts </a></li>
+
+                <?php endfor; ?>
+
+                <?php foreach (range($max->year-1, $min->year, -1) as $y): ?>
+                    <?php
+                    $max->subYear(1);
+                    $filter['created'] = $max->copy()->startOfYear()->timestamp;
+                    $filter['created_to'] = $max->copy()->endOfYear()->timestamp;
+                    $total= model('product')->filter_get_total($filter);
+                    //pr_db($max->year,0);
+                    if(!$total) continue;
+
+                    ?>
+                    <li class="list-group-item act-filter " data-name="created" data-value="<?php echo $filter['created'].'|'.$filter['created_to'] ?>"><a href="#0"><b>Năm <?php echo $y  ?></b> : <?php echo number_format($total) ?>posts </a></li>
+
+                <?php endforeach; ?>
+            <?php else: ?>
+                <li class="list-group-item"><b>Năm <?php echo $max->year ?></b></li>
+                <?php for ($m = $max->month; $m >= $min->month; $m--) : ?>
+                    <?php
+                    $filter['created'] = $max->copy()->startOfMonth()->timestamp;
+                    $filter['created_to'] = $max->copy()->endOfMonth()->timestamp;
+                    $total= model('product')->filter_get_total($filter);
+                    $max->subMonth(1);
+
+                    if(!$total) continue;
+
+                    ?>
+                    <li class="list-group-item act-filter " data-name="created" data-value="<?php echo $filter['created'].'|'.$filter['created_to'] ?>"><a href="#0"> - Tháng <?php echo $m  ?> : <?php echo number_format($total) ?>posts </a></li>
+
+                <?php endfor; ?>
+            <?php endif; ?>
+
+        </ul>
+
     </div>
-<?php endif; ?>
 <?php endif; ?>

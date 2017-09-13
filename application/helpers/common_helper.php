@@ -381,7 +381,7 @@ function db_get_row($table, $id, $cache = TRUE)
 function page_info($key)
 {
     // Kiem tra key
-    if (!in_array($key, array('title', 'description', 'keywords', 'robots', 'breadcrumbs'))) {
+    if (!in_array($key, array('title','url','image', 'description', 'keywords', 'robots', 'breadcrumbs'))) {
         return FALSE;
     }
 
@@ -397,6 +397,9 @@ function page_info($key)
 
         // Neu la cac bien co trong setting thi gan gia tri mac dinh
         $key_setting = array();
+        $key_setting['title'] = 'name';
+        $key_setting['url'] = 'url';
+        $key_setting['image'] = 'image';
         $key_setting['title'] = 'name';
         $key_setting['description'] = 'meta_desc';
         $key_setting['keywords'] = 'meta_key';

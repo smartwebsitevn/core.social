@@ -1138,47 +1138,47 @@ class MY_Model extends CI_Model
 
         if(! isset($filter[$key]) )
             return;
-
+         $value = escape($filter[$key]);
         // Compare
         if( preg_match("#_gt$#", $key) )
         {
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' >', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' >', $value );
             return;
         }
         if( preg_match("#_gte$#", $key) )
         {
 
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' >=', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' >=', $value );
             return;
         }
         if( preg_match("#_lt$#", $key) )
         {
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' <', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' <', $value );
             return;
         }
         if( preg_match("#_lte$#", $key) )
         {
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' <=', $filter[$key] );
+            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' <=', $value );
             return;
         }
         // Like
         if( strpos( $key, "%" ) !== false )
         {
-            //pr($filter[$key] );
-            $this->db->like( $this->table.'.'.substr( $key, 1, strlen($key) ), $filter[$key] );
+            //pr($value );
+            $this->db->like( $this->table.'.'.substr( $key, 1, strlen($key) ), $value );
             return;
         }
 
         // Phủ định
         if( strpos( $key, "!" ) !== false )
         {
-            if( is_array($filter[$key]) )
+            if( is_array($value) )
             {
-                $this->db->where_not_in( $this->table.'.'.substr( $key, 1, strlen($key) ), $filter[$key] );
+                $this->db->where_not_in( $this->table.'.'.substr( $key, 1, strlen($key) ), $value );
                 return;
             }
 
-            $this->db->where( substr( $this->table.'.'.$key, 1, strlen($key) ) . " !=", $filter[$key] );
+            $this->db->where( substr( $this->table.'.'.$key, 1, strlen($key) ) . " !=", $value );
             return;
         }
 
@@ -1186,7 +1186,7 @@ class MY_Model extends CI_Model
         if( strpos( $key, "BINARY" ) !== false )
         {
             //7 la bao gom ca khoang trang , vd BINARY NAME
-            $this->db->where( $this->table.'.'.substr( $key, 7, strlen($key) ) . " like BINARY '".$filter[$key]."'" );
+            $this->db->where( $this->table.'.'.substr( $key, 7, strlen($key) ) . " like BINARY '".$value."'" );
             return;
         }
         //  FIND BY KEYWORD
@@ -1196,9 +1196,9 @@ class MY_Model extends CI_Model
             $f=substr( $key, 8, strlen($key));
             $value = '';
 
-            if (is_array($filter[$key])) {
+            if (is_array($value)) {
 
-                $key = str_replace([',', '.'], '', $filter[$key]);
+                $key = str_replace([',', '.'], '', $value);
                 $key = trim($key);
 
                 $query = ["`$f` LIKE '%".t('db')->escape_like_str($key)."%'"];
@@ -1226,8 +1226,8 @@ class MY_Model extends CI_Model
 
             $f=substr( $key, 5, strlen($key));
             $value = [];
-            if (is_array($filter[$key])) {
-                foreach ($filter[$key] as $v) {
+            if (is_array($value)) {
+                foreach ($value as $v) {
                     $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
                 }
             } else
@@ -1239,10 +1239,11 @@ class MY_Model extends CI_Model
             }
             return;
         }
-        if( is_array($filter[$key]) )
-            $this->db->where_in( $this->table.'.'.$key, $filter[$key] );
+
+        if( is_array($value) )
+            $this->db->where_in( $this->table.'.'.$key, $value );
         else
-            $this->db->where( $this->table.'.'.$key, $filter[$key] );
+            $this->db->where( $this->table.'.'.$key, $value );
     }
     /*
      * ------------------------------------------------------
