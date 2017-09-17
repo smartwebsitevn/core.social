@@ -1,6 +1,6 @@
 <div class="p20">
     <div class="row mb10">
-        <div class="col-md-4">Họ tên</div>
+        <div class="col-md-4">Tên thành viên</div>
         <div class="col-md-8"><b><?php echo $info->name ?></b></div>
     </div>
     <div class="row mb10">
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="row mb10">
-        <div class="col-md-4">Chức danh</div>
+        <div class="col-md-4">Chức danh/Lĩnh vực</div>
         <div class="col-md-8"><?php echo $info->profession ?></div>
     </div>
     <div class="row mb10">

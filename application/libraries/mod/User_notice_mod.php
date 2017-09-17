@@ -17,16 +17,13 @@ class User_notice_mod extends MY_Mod
     function send($user_id,$title,  $opts = [])
     {
         $data = [];
-        if ($user_id) {
-            if (is_numeric($user_id)) {
-                $user = model('user')->get_info($user_id, 'id,name,email');
-            } else {
-                $user = $user_id;
-            }
+        $user_id =(int)$user_id;
+        if (!$user_id) {
+            return;
         }
-        if (!$user) {
+        $user = model('user')->get_info($user_id, 'id,name,email');
 
-        }
+
         $data['title'] = $title;
 
         $data['user_id'] = $user->id;

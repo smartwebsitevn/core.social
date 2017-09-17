@@ -1,14 +1,14 @@
 <?php
-$streampost = model('product')->get_streampost($user->id);
-if ($streampost->min):
+$stream = model('product')->get_streamline_post($user->id);
+if ($stream->min):
 
     $month_selected= t('input')->get('month');
     $year_selected= t('input')->get('year');
 
-    //pr_db($streampost);
-    $min = \Carbon\Carbon::createFromTimestamp($streampost->min);
-    if ($streampost->max)
-        $max = \Carbon\Carbon::createFromTimestamp($streampost->max);
+    //pr_db($stream);
+    $min = \Carbon\Carbon::createFromTimestamp($stream->min);
+    if ($stream->max)
+        $max = \Carbon\Carbon::createFromTimestamp($stream->max);
     else        $max = \Carbon\Carbon::now();
     //pr($max);
     ?>
@@ -22,7 +22,7 @@ if ($streampost->min):
 
     ?>
     <div class="slimscroll">
-        <ul class="list-group">
+        <ul class="list-group  timeline">
             <?php if ($min->year < $max->year): ?>
 
 

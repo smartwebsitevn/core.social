@@ -52,6 +52,8 @@ var product_nfc = {
 product_nfc.boot();
 /* FUNTIONS SUPPORT HOOK EVENT*/
 function productFilter(option) {
+    var form = $(option.ele).closest("form")
+
     var $target_data = $(".ajax-content-product-list");
     var $target_total = $(".ajax-content-product-total");
     // nfc.loader("show");
@@ -59,10 +61,11 @@ function productFilter(option) {
     $('body').append('<div class="loader_mini">Loading...</div>');
 
     var matches = 0;
-    $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
+    form.find(".block-filter input[type=hidden]").each(function (i, val) {
         if ($(this).val())
         matches++;
     });
+
     if (matches > 1)
         $('.btn-clear-all').show();
     else
@@ -81,13 +84,28 @@ function productFilter(option) {
             load_more = option.load_more;
         }
     }
-    if (url == '')
-        url = $('#form_filter_advance').attr('action') + '?' + $('#form_filter_advance').serialize() + "&" + $('#form_filter_base').serialize();
+    if (url == ''){
+        url = form.attr('action') + '?';
+        if(form.data('group') != undefined){
+            var group= form.data('group');
+            $("form[data-group ="+ group+"]").each(function (i, val) {
+                url +=   $(this).serialize()+'&';
+            });
+        }
+        else{
+            url += form.serialize();
 
-    $('#form_filter_advance').ajaxSubmit({
+        }
+    }
+    //alert(url);
+
+    $.ajax({
+        async: false,
+        type: "GET",
         url: url,
         dataType: 'json',
-        success: function (rs, statusText, xhr, $form) {
+        // data: {'id_new': id_new},
+        success: function (rs) {
             history.pushState('data', '', url);
             //nfc.loader("hide");
             //$target_data.find('span.loader_block').remove()
@@ -95,19 +113,15 @@ function productFilter(option) {
             if (rs.status) {
                 $(".ajax-filter").html();
                 if (rs.filter != undefined || rs.filter ==null) {
-
                     $(".ajax-filter").html(rs.filter);
                 }
-
                 if (load_more) {
                     // xoa phan trang va nut load more
                     $('.page-pagination').remove();
                     $target_data.find('.product-list').append(rs.content);
                 }
                 else {
-                    //alert(2)
                     $target_data.html(rs.content);
-
                 }
                 // var go_to = $target.offset().top - 150;
                 // $('html, body').animate({scrollTop: go_to}, 500);

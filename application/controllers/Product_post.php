@@ -257,7 +257,20 @@ class Product_post extends MY_Controller
             {
                 $stats['post_is_draft'] =1;
             }
+            else{
+                // gui thong bao cho nguoi follow
+               $user_follows =model('user')->followers($user->id);
+                if($user_follows){
+                    $info= $this->_model()->get_info($id);
+                    $info =$this->_mod()->add_info_url($info);
+                    foreach($user_follows as $row){
+                          mod('user_notice')->send($row->id, '<b>'.$user->name.'</b> mới đăng bài <b>' . $info->name . '</b>' , ['url' => $info->_url_view]);
+                    }
+                }
+
+            }
             model('user')->update_stats(['id'=>$user->id],$stats);
+
 
             // Cap nhat lai anh
             model('file')->update_table_id_of_mod($this->_get_mod(), $fake_id, $id);

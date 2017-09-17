@@ -29,7 +29,7 @@ class User_widget extends MY_Widget
         // Tao cac lien ket
         $user = user_get_account_info();
         if($user)
-        $user = mod('user')->add_info($user);
+            $user = mod('user')->add_info($user);
         $user = site_create_url('account', $user);
         $user = UserFactory::auth()->user($user);
         // Luu cac bien gui den view

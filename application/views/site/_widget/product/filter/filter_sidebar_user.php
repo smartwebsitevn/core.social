@@ -1,4 +1,4 @@
-<form id="form_filter_advance" class="ajax_form_filter" name="form_filter_advance" event-hook="productFilter"
+<form id="form_filter" event-hook="productFilter" data-group="product-filter"
       action="<?php echo $action; ?>"
       method="get">
     <div class="panel">
@@ -17,5 +17,5 @@
             </div>
         </div>
     </div>
-    <?php t('view')->load('tpl::_widget/product/filter/_common/time') ?>
+    <?php //t('view')->load('tpl::_widget/product/filter/_common/time') ?>
 </form>

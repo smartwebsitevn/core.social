@@ -13,6 +13,7 @@ class User_account extends MY_Controller
 
         $this->load->helper('user');
         $this->lang->load('site/user');
+        $this->lang->load('site/user_account');
 
         if (!user_is_login()) {
             redirect_login_return();
@@ -73,7 +74,7 @@ class User_account extends MY_Controller
 
 
         //info
-        $rules ['working_city'] = array (lang ( 'city' ), 'trim|xss_clean|callback__check_working_city' );
+        $rules ['working_city'] = array (lang ( 'city' ), 'filter_html|callback__check_working_city' );
         /*$rules ['working_country'] = array (lang ( 'country' ), 'trim|xss_clean|callback__check_working_country' );
         $rules ['country'] = array (lang ( 'country' ), 'trim|xss_clean|callback__check_country' );
         $rules ['city'] = array (lang ( 'city' ), 'trim|xss_clean|callback__check_city' );*/
@@ -810,7 +811,8 @@ class User_account extends MY_Controller
              $data['image_id']	= $image->id;
              $data['image_name']	= $image->file_name;
          }*/
-        // pr($data);
+        //pr($fields,0);
+        //pr($data);
         return $data;
     }
     /**
@@ -828,7 +830,6 @@ class User_account extends MY_Controller
         if (!$type) return;
 
         $data = $this->_edit_get_inputs($type);
-        //pr($data);
         $can_confirm = false;
         if ($data['name'] != $user->name /*|| $data['address'] != $user->address*/) {
             $can_confirm = true;

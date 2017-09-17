@@ -291,7 +291,7 @@ $this->register('filter_dropdown_category', function ($input) {
         </div>
         <span class="search-remove"></span>
         <ul class="dropdown-menu">
-            <?php if ($count_values >= 5): ?>
+            <?php if ($count_values >= 7): ?>
             <div class="form-group">
                 <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">
             </div>
@@ -333,7 +333,7 @@ $this->register('filter_dropdown_category', function ($input) {
                         <?php endif; ?>
                     </li>
                 <?php } ?>
-            <?php if ($count_values >= 5): ?>
+            <?php if ($count_values >= 7): ?>
             </div>
         <?php endif; ?>
         </ul>
@@ -424,7 +424,7 @@ $this->register('filter_dropdown_obj', function ($input) {
             </div>
             <span class="search-remove"></span>
             <ul class="dropdown-menu">
-                <?php if ($count_values >= 5): ?>
+                <?php if ($count_values >= 7): ?>
                 <div class="form-group">
                     <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">
                 </div>
@@ -450,7 +450,7 @@ $this->register('filter_dropdown_obj', function ($input) {
                         <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
-                    <?php if ($count_values >= 5): ?>
+                    <?php if ($count_values >= 7): ?>
                 </div>
             <?php endif; ?>
             </ul>
@@ -485,7 +485,7 @@ $this->register('filter_dropdown_list', function ($input) {
             </div>
             <span class="search-remove"></span>
             <ul class="dropdown-menu">
-                <?php if ($count_values >= 5): ?>
+                <?php if ($count_values >= 7): ?>
                 <div class="form-group">
                     <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">
                 </div>
@@ -514,7 +514,7 @@ $this->register('filter_dropdown_list', function ($input) {
                         <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
-                 <?php if ($count_values >= 5): ?>
+                 <?php if ($count_values >= 7): ?>
             </div>
         <?php endif; ?>
             </ul>

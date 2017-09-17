@@ -11,98 +11,13 @@
 body.user-page #main {
   margin-top: 50px; }
 
-.dropdown-user .user-panel {
-  display: block;
-  line-height: 45px;
-  position: relative; }
-  .dropdown-user .user-panel .item-photo {
-    float: left;
-    display: block;
-    position: relative; }
-    .dropdown-user .user-panel .item-photo .item-img {
-      width: 35px;
-      height: 35px;
-      border-radius: 100%;
-      border: "1px" solid rgba(160, 160, 160, 0.3);
-      background: #fff;
-      display: block;
-      text-align: center;
-      vertical-align: middle;
-      overflow: hidden; }
-      .dropdown-user .user-panel .item-photo .item-img img {
-        width: 100%;
-        height: auto; }
-    .dropdown-user .user-panel .item-photo .item-label {
-      font-size: 15px;
-      width: 16px;
-      height: 16px;
-      left: 25px;
-      bottom: 0px;
-      color: #f7941e;
-      font-weight: bold;
-      position: absolute;
-      background: #fff;
-      border-radius: 100%;
-      text-align: center;
-      vertical-align: middle; }
-  .dropdown-user .user-panel .item-info {
-    float: left; }
-    .dropdown-user .user-panel .item-info .name {
-      direction: rtl;
-      padding: 0 6px;
-      max-width: 120px;
-      text-overflow: ellipsis;
-      text-transform: capitalize;
-      text-align: right;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-transform: capitalize;
-      white-space: nowrap; }
-  .dropdown-user .user-panel i.avatar {
-    font-size: 32px;
-    line-height: 50px; }
-  .dropdown-user .user-panel .item-img {
-    margin-top: 10px; }
-.dropdown-user .dropdown-menu {
-  width: 376px; }
-  .dropdown-user .dropdown-menu .slideThree-uv {
-    font-size: 13px;
-    height: 70px; }
-  .dropdown-user .dropdown-menu li > a, .dropdown-user .dropdown-menu li > a:hover {
-    padding: 18px 20px;
-    line-height: 26px;
-    display: flex; }
-    .dropdown-user .dropdown-menu li > a i, .dropdown-user .dropdown-menu li > a:hover i {
-      font-size: 26px;
-      margin-right: 15px; }
-
-/*=======dropdown link tai khoan==========*/
-.dropdown-home, .dropdown-notice, .dropdown-message {
-  margin-top: 5px; }
-  .dropdown-home li a, .dropdown-notice li a, .dropdown-message li a {
-    text-transform: none !important;
-    text-decoration: none; }
-  .dropdown-home li .title, .dropdown-notice li .title, .dropdown-message li .title {
-    font-size: 13px; }
-  .dropdown-home li .created, .dropdown-notice li .created, .dropdown-message li .created {
-    font-size: 11px;
-    color: #90949c; }
-  .dropdown-home li .avatar, .dropdown-notice li .avatar, .dropdown-message li .avatar {
-    float: left; }
-  .dropdown-home li .infos, .dropdown-notice li .infos, .dropdown-message li .infos {
-    display: block;
-    overflow: hidden;
-    padding-left: 7px; }
-    .dropdown-home li .infos .created, .dropdown-notice li .infos .created, .dropdown-message li .infos .created {
-      color: #90949c;
-      display: block;
-      font-size: 12px;
-      padding-top: 2px;
-      position: absolute;
-      right: 14px;
-      top: 20%; }
-  .dropdown-home .dropdown-menu, .dropdown-notice .dropdown-menu, .dropdown-message .dropdown-menu {
-    width: 376px; }
+.timeline .list-group-item a {
+  color: #494949; }
+.timeline .list-group-item.active {
+  background-color: #fff;
+  border: 1px solid #ddd; }
+  .timeline .list-group-item.active a {
+    color: #eb8305; }
 
 /*====================*\
 //Categori social

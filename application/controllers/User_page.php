@@ -24,7 +24,8 @@ class User_page extends MY_Controller
      */
     public function _remap($method, $params = array())
     {
-        return $this->_remap_action($method, $params, array('view', 'view_profile','view_attach', 'invite', 'report', /*'favorite', 'favorite_del', */'subscribe', 'subscribe_del'));
+        return $this->_remap_action($method, $params, array('view', 'view_profile', 'view_attach', 'invite', 'report', /*'favorite', 'favorite_del', */
+            'subscribe', 'subscribe_del'));
     }
 
     /*
@@ -121,7 +122,8 @@ class User_page extends MY_Controller
         $this->data['user'] = $info;
         $this->data['user_current'] = user_get_account_info();
         // kiem tra che do voi cac action
-        if (in_array($action, array('view_profile', 'invite',/* 'favorite', 'favorite_del',*/ 'subscribe', 'subscribe_del'))) {
+        if (in_array($action, array('view_profile', 'invite',/* 'favorite', 'favorite_del',*/
+            'subscribe', 'subscribe_del'))) {
             /* neu mo ra thi cho xem thoa mai
             *  if ($action == 'view_profile' ) {//&& $this->data['user']->id == $id
                 // Chuyen den ham duoc yeu cau
@@ -162,7 +164,6 @@ class User_page extends MY_Controller
             }*/
         }
         //======================================
-
 
 
         // Kiem tra co the thuc hien hanh dong nay khong
@@ -290,8 +291,8 @@ class User_page extends MY_Controller
 
     function _subscribe()
     {
-        $user_current=$this->data['user_current'];
-        $user_current=mod('user')->add_info_url($user_current);
+        $user_current = $this->data['user_current'];
+        $user_current = mod('user')->add_info_url($user_current);
         $user_current_id = $user_current->id;
         $user_id = $this->data['user']->id;
 
@@ -315,7 +316,7 @@ class User_page extends MY_Controller
         model('user')->update_stats(['id' => $user_id], ['follow_by_total' => 1]);
 
         // gui thong bao
-        mod('user_notice')->send($user_id, '<b>'.$user_current->name . '</b> đã theo dõi bạn', ['url' => $user_current->_url_view]);
+        mod('user_notice')->send($user_id, '<b>' . $user_current->name . '</b> đã theo dõi bạn', ['url' => $user_current->_url_view]);
 
         $this->_response(array('msg_toast' => lang('notice_user_subscribe_success')));
     }
@@ -350,7 +351,7 @@ class User_page extends MY_Controller
         $user = $this->data['user'];
         $user = mod('user')->add_info($user);
         $result['msg_modal'] = t('view')->load('tpl::_widget/user/info/contact', ['info' => $user], true);//// widget('user')->info_private($user, array(), 'info_private_ajax', array('return' => 1));
-        $result['msg_modal_title'] = 'Thông tin cá nhân';
+        $result['msg_modal_title'] = 'Thông Tin Thành Viên';
         $this->_response($result);
 
 
@@ -373,8 +374,8 @@ class User_page extends MY_Controller
 
 
         if ($user->attach) {
-           // file_download($user->attach_id);
-             $this->_response(array('location' => $user->attach->url));
+            // file_download($user->attach_id);
+            $this->_response(array('location' => $user->attach->url));
             return;
         }
         return;
@@ -390,7 +391,7 @@ class User_page extends MY_Controller
         $user = user_get_account_info();
         $this->data['user'] = $user;
         $page = $this->input->get('page');
-        if (!in_array($page, ['posts', 'posts_draft', 'posts_save', 'follow', 'follow_by',])) {
+        if (!in_array($page, ['posts', 'posts_draft', 'posts_save', 'follow', 'follow_by', 'notice', 'message'])) {
             $page = 'posts';
         }
         $this->{'_my_' . $page}();
@@ -479,6 +480,28 @@ class User_page extends MY_Controller
         $this->_user_create_list($input, $filter);
 
     }
+    public function _my_notice()
+    {
+        $user = $this->data['user'];
+        // Filter set
+        $filter = array();
+        $filter['user_id'] = $user->id;
+        $this->data['temp'] = 'owner_default';
+        $this->_notice_create_list([], $filter);
+    }
+    public function _my_message()
+    {
+        $user = $this->data['user'];
+        // Filter set
+        $filter = array();
+        $filter['user_id'] = $user->id;
+        $this->data['temp'] = 'owner_default';
+        $this->_message_create_list([], $filter);
+    }
+
+    //==============================================================================
+    //==============================================================================
+    //==============================================================================
 
     public function _view()
     {
@@ -541,26 +564,27 @@ class User_page extends MY_Controller
         $mod_filter = mod('product')->create_filter($filter_fields, $filter_input);
         $filter = array_merge($filter, $mod_filter);
         // pr($filter_input);
-        $filter['types']= $this->input->get('types');
-        $filter_input['types'] =$filter['types'];
+        $filter['types'] = $this->input->get('types');
+        $filter_input['types'] = $filter['types'];
         $key = $this->input->get('name');
         $key = str_replace(array('-', '+'), ' ', $key);
         if (isset($filter['name']) && $filter['name']) {
             unset($filter['name']);
             $filter['%name'] = $filter_fields['name'] = trim($key);
         }
-        if (isset($filter['point']) ) {
-            if( $filter['point'])
-                $filter['point_gte'] =$filter['point'];
+        if (isset($filter['point'])) {
+            if ($filter['point'])
+                $filter['point_gte'] = $filter['point'];
 
             unset($filter['point']);
-        }        $filter['types']= $this->input->get('types');
+        }
+        $filter['types'] = $this->input->get('types');
 
         $created = $this->input->get('created');
 
         if ($created) {
-            $created =explode('|',escape($created));
-            if(count($created) ==2){
+            $created = explode('|', escape($created));
+            if (count($created) == 2) {
                 $filter['created'] = $created[0];
                 $filter['created_to'] = $created[1];
 
@@ -584,7 +608,7 @@ class User_page extends MY_Controller
         //pr($input);
         // Gan filter
         //$filter['show'] = 1;
-        $input['select']='product.*';
+        $input['select'] = 'product.*';
         //== Lay tong so
         if (!isset($input['limit'])) {
             $total = model('product')->filter_get_total($filter, $input);
@@ -616,15 +640,15 @@ class User_page extends MY_Controller
         } else {
             $orderex = explode('|', $sort_orders[0]);
         }
-       if (!isset($input['order'])) {
-            $input['order'] = array('product.'.$orderex[0], $orderex[1]);
+        if (!isset($input['order'])) {
+            $input['order'] = array('product.' . $orderex[0], $orderex[1]);
         }
 
 
         $list = model('product')->filter_get_list($filter, $input);
         //pr_db($filter);
         foreach ($list as $row) {
-            $row = mod('product')->add_info($row,1);
+            $row = mod('product')->add_info($row, 1);
         }
         // Tao chia trang
         $pages_config = array();
@@ -667,19 +691,19 @@ class User_page extends MY_Controller
     {
         if ($this->input->is_ajax_request()) {
 
-            $style_display = isset($this->data['temp'])?$this->data['temp']:'default';
+            $style_display = isset($this->data['temp']) ? $this->data['temp'] : 'default';
 
             //$temp = $this->input->get('temp');
-            $temp= $this->input->get('layout');
-            if(!in_array($temp,['block','grid'])){
-                $temp =$style_display ;
+            $temp = $this->input->get('layout');
+            if (!in_array($temp, ['block', 'grid'])) {
+                $temp = $style_display;
             }
 
             $temp = $temp ? $temp : $style_display;
             //$temp ='default';
             $load_more = $this->input->get("load_more", false);
 
-            $response=   [
+            $response = [
                 'status' => true,
                 'total' => number_format($this->data['total']),
                 'content' => widget('product')->display_list(
@@ -693,13 +717,12 @@ class User_page extends MY_Controller
             ];
             //= su ly hien thi bo loc dong
             if (isset($this->data['filter']['type_cat_id'])) {
-                $type_cat_id=$this->data['filter']['type_cat_id'];
-                $response['filter']=  widget('type')->filter_types(
-                    $type_cat_id, $this->data['filter'],'',[ 'return' => 1]
+                $type_cat_id = $this->data['filter']['type_cat_id'];
+                $response['filter'] = widget('type')->filter_types(
+                    $type_cat_id, $this->data['filter'], '', ['return' => 1]
                 );
-            }
-            else{
-                $response['filter']='';
+            } else {
+                $response['filter'] = '';
             }
 
             echo json_encode($response);
@@ -775,7 +798,7 @@ class User_page extends MY_Controller
         }
         $point = $this->input->get('point');
         if ($point) {
-            $filter['vote_total_gte'] = $point;
+            $filter['point_total_gte'] = $point;
 
         }
         // lay thong tin cua cac khoang tim kiem
@@ -795,7 +818,7 @@ class User_page extends MY_Controller
         //pr($input);
         // Gan filter
         $filter['show'] = 1;
-        $input['select']='user.*';
+        $input['select'] = 'user.*';
 
         //== Lay tong so
         if (!isset($input['limit'])) {
@@ -876,7 +899,7 @@ class User_page extends MY_Controller
     {
         if ($this->input->is_ajax_request()) {
             //= su ly hien thi danh sach theo danh muc
-            $style_display = isset($this->data['temp'])?$this->data['temp']:'default';
+            $style_display = isset($this->data['temp']) ? $this->data['temp'] : 'default';
 
             $temp = $this->input->get('temp');
             $temp = $temp ? $temp : $style_display;
@@ -885,6 +908,102 @@ class User_page extends MY_Controller
                 array(
                     'status' => true,
                     'content' => widget('user')->display_list(
+                        $this->data['list'], $temp,
+                        array(
+                            'return_data' => 1,
+                            'pages_config' => $this->data['pages_config'],
+                            'load_more' => $load_more)
+                    ),
+                    'total' => number_format($this->data['total']))
+            );
+            exit;
+        }
+    }
+
+    private function _notice_create_list($input = array(), $filter = array(), $filter_fields = array())
+    {
+        $filter_input = array();
+        $filter_fields = array_merge($filter_fields, model('user_notice')->fields_filter);
+        $mod_filter = mod('user_notice')->create_filter($filter_fields, $filter_input);
+        $filter = array_merge( $filter,$mod_filter);
+        // pr($filter_input);
+
+        $key = $this->input->get('name');
+        $key = str_replace(array('-', '+'), ' ', $key);
+        if ($key) {
+            $filter['%name'] = $filter_fields['name'] = $key;
+        }
+        // Gan filter
+        $filter['show'] = 1;
+
+        //== Lay tong so
+        if (!isset($input['limit'])) {
+            $total = model('user_notice')->filter_get_total($filter, $input);
+            // pr_db();
+            $page_size = config('list_limit', 'main');
+
+            $limit = $this->input->get('per_page');
+            $limit = min($limit, $total - fmod($total, $page_size));
+            $limit = max(0, $limit);
+            //== Lay danh sach
+            $input['limit'] = array($limit, $page_size);
+        }
+
+
+        $list = model('user_notice')->filter_get_list($filter, $input);
+        //pr_db($list);
+        foreach ($list as $row) {
+            $row = mod('user_notice')->add_info($row);
+            if(!$row->readed)
+                $row = model('user_notice')->update_field($row->id,'readed',1);
+
+        }
+
+        // Tao chia trang
+        $pages_config = array();
+        if (isset($total)) {
+            $pages_config['page_query_string'] = TRUE;
+            $pages_config['base_url'] = current_url() . '?' . url_build_query($filter_input);
+            $pages_config['total_rows'] = $total;
+            $pages_config['per_page'] = $page_size;
+            $pages_config['cur_page'] = $limit;
+        }
+
+        $this->data['pages_config'] = $pages_config;
+        $this->data['total'] = $total;
+        $this->data['page'] = 'notice';
+        $this->data['list'] = $list;
+        $this->data['filter'] = $filter_input;
+        $this->data['action'] = current_url();
+
+        //===== Ajax list====
+        $this->_notice_create_list_ajax();
+
+
+    }
+
+    private function _notice_create_list_ajax()
+    {
+        if ($this->input->is_ajax_request()) {
+            //= su ly hien thi danh sach theo danh muc
+            $category = $style_display = '';
+            if (isset($this->data['category'])) {
+                $category = $this->data['category'];
+            } else {
+                $cat_id = $this->input->get('cat_id');
+                if ($cat_id)
+                    $category = model("user_notice_cat")->get_info($cat_id);
+            }
+            if ($category && isset($category->common_data->display) && $category->common_data->display)
+                $style_display = $category->common_data->display;
+
+            $temp = $this->input->get('temp');
+            $temp = $temp ? $temp : $style_display;
+            $load_more = $this->input->get("load_more", false);
+            echo json_encode(
+                array(
+                    'status' => true,
+                    'content' => widget('user_notice')->display_list(
                         $this->data['list'], $temp,
                         array(
                             'return_data' => 1,

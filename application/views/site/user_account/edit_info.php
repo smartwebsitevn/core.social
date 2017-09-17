@@ -38,13 +38,7 @@
             'value' => $user->name,
             'req' => true,
         ]);
-        echo macro('mr::form')->row([
-            'param' => 'profession',
-            'name' => lang('profession'),
-            'value' => $user->profession,
-            'req' => true,
-            'attr' => ['placehold'=>'CEO tại Smartwebsite.vn'],
-        ]);
+
 
         echo macro('mr::form')->info_cat_single(array(
             'name' => 'Loại thành viên',
@@ -66,7 +60,7 @@
         //city-country
         //$countrys = model('country')->filter_get_list(['show' => 1]);
         $citys = model('city')->filter_get_list(["country_id"=>230,'show' => 1]);
-        if(is_string($user->working_city))
+        if($user->working_city && is_string($user->working_city))
             $user->working_city = explode(',', $user->working_city);
         echo macro('mr::form')->info_city(array(
             'name' => 'Nơi làm việc',
@@ -82,7 +76,12 @@
              'value' => $user->working_country,
              'values' => $countrys,
          ));*/
-
+        echo macro('mr::form')->row([
+            'param' => 'profession',
+            'name' => 'Chức danh/lĩnh vực',
+            'value' => $user->profession,
+            'attr' => ['placehold'=>'CEO tại Smartwebsite.vn'],
+        ]);
         if ($user->can_edit_email) {
             echo macro('mr::form')->row(array(
                 'param' => 'email_edit',

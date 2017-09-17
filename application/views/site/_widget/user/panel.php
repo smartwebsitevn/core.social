@@ -31,11 +31,11 @@
                         <i class="pe-7s-user avatar"></i>
                     <?php endif; ?>
                 </span>
-                <?php /* if ($user->user_group_type == 'user_manager'): ?>
+                <?php  if ($user->user_group_type == 'user_manager'): ?>
                     <span class="item-label label-user-manager">  <i class="pe-7s-helm"></i></span>
                 <?php elseif ($user->user_group_type == 'user_active'): ?>
                     <span class="item-label label-user-active">  <i class="pe-7s-medal"></i></span>
-                <?php endif; */ ?>
+                <?php endif; ?>
             </div>
             <div class="item-info">
                 <span class="name"><?php echo $user->name ?></span>

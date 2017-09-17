@@ -3,14 +3,8 @@ $user = user_get_account_info();
 if ($user):
     ?>
     <?php
-    $input['where']['us.action'] = 'subscribe';
-    $input['where']['us.table'] = 'user';
-    $input['where']['us.user_id'] = $user->id;
-    $input['join'] = array(array('user_storage us', 'us.table_id = user.id'));
-    //$input['limit'] = array(0,2);
-    $filter = array();
-    $users = mod('user')->get_list($filter, $input);
-    //pr_db($users);
+    $users = model('user')->followers($user->id);
+   // pr_db($users);
     ?>
     <?php if ($users): ?>
     <div>
@@ -19,7 +13,12 @@ if ($user):
         </h5>
 
         <div class="slimscroll">
-
+        <?php
+        foreach($users as $row){
+            $row = mod('user')->add_info($row);
+        }
+        //pr($users);
+        ?>
             <?php widget('user')->display_list($users, 'sidebar_follow') ?>
         </div>
     </div>

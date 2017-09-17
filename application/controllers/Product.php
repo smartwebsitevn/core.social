@@ -26,7 +26,7 @@ class Product extends MY_Controller
             'subscribe_del', 'subscribe', 'subscribe_adv',
             'comment',
             // manager
-            'set_point', 'set_feature','set_lock',
+            'set_point', 'set_feature', 'set_lock',
         ));
     }
 
@@ -474,8 +474,11 @@ class Product extends MY_Controller
             $this->_model()->update_field($info->id, 'point_fake', $point);
             $point_total = $info->point_total + $point;
             $result['element'] = ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
-            if ($info->user_id)
-                model('user')->update_stats(['id' => $info->user_id], ['point_total' => $point]);
+            model('user')->update_stats(['id' => $info->user_id], ['point_total' => $point]);
+
+            if ($point)
+                mod('user_notice')->send($info->user_id, 'Bài viết <b>' . $info->name . '</b> có thêm <b>' . number_format($point) . ' lượt thích mới</b>', ['url' => $info->_url_view]);
+
             $result['msg_toast'] = lang('notice_update_success');
 
             return $result;
@@ -487,21 +490,23 @@ class Product extends MY_Controller
     function _set_feature($info)
     {
         $this->_model()->update_field($info->id, 'is_feature', !$info->is_feature);
-        if(!$info->is_feature){
-            mod('user_notice')->send($info->user_id, 'Bài viết <b>'.$info->name . '</b> đã được vào trang Mới Nổi', ['url' => $info->_url_view]);
+        if (!$info->is_feature) {
+            mod('user_notice')->send($info->user_id, 'Bài viết <b>' . $info->name . '</b> đã được vào trang Mới Nổi', ['url' => $info->_url_view]);
         }
 
         $this->_response(array('msg_toast' => lang('notice_update_success')));
     }
+
     function _set_lock($info)
     {
         $this->_model()->update_field($info->id, 'is_lock', !$info->is_lock);
-        if(!$info->is_lock){
-            mod('user_notice')->send($info->user_id, 'Bài viết <b>'.$info->name . '</b> đã bị khóa', ['url' => $info->_url_view]);
+        if (!$info->is_lock) {
+            mod('user_notice')->send($info->user_id, 'Bài viết <b>' . $info->name . '</b> đã bị khóa', ['url' => $info->_url_view]);
         }
 
         $this->_response(array('msg_toast' => lang('notice_update_success')));
     }
+
     /**
      * Yeu thich
      */
@@ -550,10 +555,10 @@ class Product extends MY_Controller
             model('social_vote')->create($data);
 
             //== Gui thong bao
-            if($point == 1)
-                mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> đã thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
+            if ($point == 1)
+                mod('user_notice')->send($info->user_id, '<b>' . $user->name . '</b> đã thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
             //elseif($point == -1)
-               //mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> không thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
+            //mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> không thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
 
         }
         // thong ke
@@ -915,8 +920,8 @@ class Product extends MY_Controller
             //==gui thong bao
             // gui cho chu topic
             if ($info->user_id && $info->user_id != $user->id) {
-                $url = $info->_url_view ;//. '#goto=#reply_' . $id;
-                mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> đã bình luận trong bài viết <b>' . $info->name . '</b>', ['url' => $url]);
+                $url = $info->_url_view;//. '#goto=#reply_' . $id;
+                mod('user_notice')->send($info->user_id, '<b>' . $user->name . '</b> đã bình luận trong bài viết <b>' . $info->name . '</b>', ['url' => $url]);
             }
 
 
@@ -980,7 +985,7 @@ class Product extends MY_Controller
             //==gui thong bao
             // gui cho chu topic
             if ($comment->user_id && $comment->user_id != $user->id)
-                mod('user_notice')->send($comment->user_id,'</b>'. $user->name . '</b> đã trả lởi bình luận của bạn', ['url' => $info->_url_view]);
+                mod('user_notice')->send($comment->user_id, '</b>' . $user->name . '</b> đã trả lởi bình luận của bạn', ['url' => $info->_url_view]);
             // gui cho nhung nguoi dang binh luan topic nay
             $comments = model('comment')->filter_get_list(['parent_id' => $comment->id]);
             if ($comments) {
@@ -988,7 +993,7 @@ class Product extends MY_Controller
                 // khong gui thong bao cho nguoi gui binh luan
                 $users = array_diff($users, [$user->id]); // xoa nguoi binh luan khoi danh sach
                 if ($users) {
-                    $msg ='</b>'. $user->name . '</b> đã bình luận chủ đề bạn quan tâm';
+                    $msg = '</b>' . $user->name . '</b> đã bình luận chủ đề bạn quan tâm';
                     foreach ($users as $v) {
                         mod('user_notice')->send($v, $msg, ['url' => $info->_url_view]);
                     }

@@ -319,20 +319,26 @@ class Product_widget extends MY_Widget
         else
             $this->display_list($list, $temp, $temp_options);
     }
-    function slide_show($options = [], $temp = '', $temp_options = array())
+
+    function point_highest($options = [], $temp = '', $temp_options = array())
     {
         $filter = array_get($options, 'filter', []);
 
-        $limit = array_get($options, 'limit', 8);
-        $order = array_get($options, 'order', array('id', 'desc'));
+        $limit = array_get($options, 'limit', 20);
+        $order = array_get($options, 'order', array('point_total', 'desc'));
 
-        $filter['slide'] = TRUE;
+        // Get list
+        $filter['feature'] = TRUE;
+        //$this->data['url'] = site_url('product_list/home') . '?feature=1' . $type;
 
+        // ==
         $input = array();
         $input['order'] = $order;
         $input['limit'] = array(0, $limit);
 
         $list = $this->get_list($filter, $input);
+
+
         //== Su ly hien thi temp hay tra ve du lieu
         $return = array_get($temp_options, 'return_data', false);
         if ($return)

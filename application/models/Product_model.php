@@ -252,20 +252,30 @@ class Product_model extends MY_Model
         return $filter;
     }
 
-    function get_streampost($user_id)
+    function get_streamline_post($user_id)
     {
         $this->db->select('min(created) min, max(created) max');
-        $this->db->where('product.user_id', $user_id);
+        $this->db->where('user_id', $user_id);
         $this->db->limit(1, 0);
         $query = $this->db->get($this->table);
         if ($query->num_rows()) {
             $row = $query->row();
             return $row;
         }
-
         return FALSE;
     }
-
+    function get_streamline_save($user_id)
+    {
+        $this->db->select('min(created) min, max(created) max');
+        $this->db->where('user_id', $user_id);
+        $this->db->limit(1, 0);
+        $query = $this->db->get($this->table.'_to_favorite');
+        if ($query->num_rows()) {
+            $row = $query->row();
+            return $row;
+        }
+        return FALSE;
+    }
 
     /**
      * Tim kiem du lieu

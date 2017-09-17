@@ -92,7 +92,7 @@ class User_list extends MY_Controller
         }
         $point = $this->input->get('point');
         if ($point) {
-            $filter['vote_total_gte'] =$point;
+            $filter['point_total_gte'] =$point;
 
         }
         // lay thong tin cua cac khoang tim kiem
@@ -148,7 +148,7 @@ class User_list extends MY_Controller
         }
         $list = model('user')->filter_get_list($filter, $input);
        // pr($filter,0);
-       // pr_db($filter);
+        //pr_db($filter);
         foreach ($list as $row) {
             $row = mod('user')->add_info($row);
         }

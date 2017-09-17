@@ -1138,7 +1138,7 @@ class MY_Model extends CI_Model
 
         if(! isset($filter[$key]) )
             return;
-         $value = escape($filter[$key]);
+         $value = $filter[$key];
         // Compare
         if( preg_match("#_gt$#", $key) )
         {
@@ -1194,7 +1194,7 @@ class MY_Model extends CI_Model
         {
             //9 la bao gom ca khoang trang , vd KEYWORD NAME
             $f=substr( $key, 8, strlen($key));
-            $value = '';
+            $keywords= '';
 
             if (is_array($value)) {
 
@@ -1209,13 +1209,13 @@ class MY_Model extends CI_Model
                     $v = t('db')->escape_like_str($v);
                     $query[] = "`$f` LIKE '%{$v}%'";
                 }
-                $value = implode(' OR ', $query);
-                $value ="($value)";
+                $keywords = implode(' OR ', $query);
+                $keywords ="($keywords)";
             }
 
 
-            if ($value) {
-                $this->db->where($value);
+            if ($keywords) {
+                $this->db->where($keywords);
             }
             return;
         }
@@ -1225,17 +1225,18 @@ class MY_Model extends CI_Model
             //5 la bao gom ca khoang trang , vd FIND NAME
 
             $f=substr( $key, 5, strlen($key));
-            $value = [];
+           // pr($f,0);     pr($key);         pr($filter);
+            $keywords = [];
             if (is_array($value)) {
                 foreach ($value as $v) {
-                    $value[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
+                    $keywords[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
                 }
             } else
-                $value[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" .$f . "`)";
+                $keywords[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" .$f . "`)";
 
 
-            if ($value) {
-                $this->db->where('((' . implode(') or (', $value) . '))');
+            if ($keywords) {
+                $this->db->where('((' . implode(') or (', $keywords) . '))');
             }
             return;
         }

@@ -1350,6 +1350,8 @@ $this->register('info_country_multi', function (array $input) {
     $value = array_get($input, 'value', '');
     $values = array_get($input, 'values', array());
     $can_hide = array_get($input, 'can_hide', 0);
+    $req = array_get($input, 'req');
+
     //$_id = '_'.random_string('unique');
     ?>
 
@@ -1357,7 +1359,7 @@ $this->register('info_country_multi', function (array $input) {
     <?php if ($name): ?>
         <div class="form-group ">
 
-        <label class="col-sm-3  control-label "><?php echo $name ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
@@ -1430,10 +1432,12 @@ $this->register('info_city', function (array $input) {
     $value = array_get($input, 'value', []);
     $values = array_get($input, 'values', array());
     $can_hide = array_get($input, 'can_hide', 0);
+    $req = array_get($input, 'req');
+
     ?>
     <?php if ($name): ?>
         <div class="form-group ">
-        <label class="col-sm-3  control-label "><?php echo $name ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
@@ -1512,12 +1516,13 @@ $this->register('info_city_country', function (array $input) {
     $country_param = array_get($input, 'country_param');
     $country_value = array_get($input, 'country_value', '');
     $country_values = array_get($input, 'country_values', array());
+    $req = array_get($input, 'req');
 
     //$_id = '_'.random_string('unique');
     ?>
     <div class="form-group ">
         <?php if ($name): ?>
-            <label><?php echo $name ?></label>
+            <label><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
         <?php endif; ?>
 
         <div class="dropdown search-dropdown">
@@ -2109,6 +2114,7 @@ $this->register('job_datasource', function (array $input) {
 
 function rendered_value($value, $values, $name = null)
 {
+
     // echo $value;
     // pr($values);
     if ($value) {
@@ -2126,9 +2132,11 @@ function rendered_value($value, $values, $name = null)
         }
         if ($selected)
             echo implode(',', $selected);
-    } else
+    } else{
         if ($name)
             echo $name;
         else
             echo 'All';
+    }
+
 }

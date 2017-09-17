@@ -1,4 +1,4 @@
-<form id="form_filter_advance" class="ajax_form_filter" name="form_filter_advance" event-hook="moduleCoreFilter"
+<form id="form_filter"  event-hook="moduleCoreFilter"
       action="<?php echo $action; ?>"
       method="get">
     <div class="panel">

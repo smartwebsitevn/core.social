@@ -14,7 +14,7 @@
                             <?php echo widget('product')->action_favorite($row) ?>
                         </strong>
                         <div class="item-meta"><?php echo character_limiter($row->brief, 50); ?></div>
-                        <?php echo view('tpl::_widget/product/display/item/info_price', array('row' => $row)); ?>
+                        <?php //echo view('tpl::_widget/product/display/item/info_price', array('row' => $row)); ?>
                         <?php //echo view('tpl::_widget/product/display/item/info_rate', array('row' => $row)); ?>
                     </div>
                 </div>

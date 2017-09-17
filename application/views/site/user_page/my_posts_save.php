@@ -5,6 +5,8 @@
             <div class="sticky-element" data-spacing="65" data-limiter="#footer">
                 <div class="slimscroll_" data-height="90vh">
                     <?php echo widget('product')->filter(['input_hidden'=>['page'=>$page]], "sidebar_user") ?>
+                    <?php t('view')->load('tpl::_widget/product/filter/filter_sidebar_user_streamline_save') ?>
+
                 </div>
             </div>
         </div>
@@ -36,11 +38,11 @@
             <div class="sticky-element" data-spacing="65" data-limiter="#footer">
                 <div class="panel">
                     <div class="panel-heading">
-                        Tự giới thiệu
+                        Bạn nên lưu
                     </div>
                     <div class="panel-body">
                         <div class="slimscroll" data-height="90vh">
-                            <?php echo n_to_br($info->desc) ?>
+                            <?php echo widget('product')->point_highest([],'sidebar_point_highest') ?>
                         </div>
                     </div>
                 </div>

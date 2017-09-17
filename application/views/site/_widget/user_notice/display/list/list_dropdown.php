@@ -25,7 +25,7 @@
                     </li>
                 <?php endforeach; ?>
             </div>
-            <div class="p10 text-center"><a href="<?php echo site_url('user_notice') ?>">Xem tất cả</a></div>
+            <div class="p10 text-center"><a href="<?php echo site_url('my-page').'?page=notice' ?>">Xem tất cả</a></div>
         </ul>
 
     <?php endif; ?>

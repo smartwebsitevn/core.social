@@ -3451,11 +3451,11 @@ function moduleCoreFilter(option) {
     $('body').append('<div class="loader_mini">Loading...</div>');
 
     var matches = 0;
-    $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
+    $("#form_filter .block-filter input[type=hidden]").each(function (i, val) {
         if ($(this).val())
             matches++;
     });
-    $("#form_filter_advance .block-filter input[type=checkbox]").each(function (i, val) {
+    $("#form_filter .block-filter input[type=checkbox]").each(function (i, val) {
         if ($(this).is(":checked"))
             matches++;
     });
@@ -3478,8 +3478,19 @@ function moduleCoreFilter(option) {
             load_more = option.load_more;
         }
     }
-    if (url == '')
-        url = $(form).attr('action') + '?' + $(form).serialize();
+    if (url == ''){
+        url = form.attr('action') + '?';
+        if(form.data('group') != undefined){
+            var group= form.data('group');
+            $("form[data-group ="+ group+"]").each(function (i, val) {
+                url +=   $(this).serialize()+'&';
+            });
+        }
+        else{
+            url += form.serialize();
+
+        }
+    }
 
     $.ajax({
         async: false,
@@ -3528,7 +3539,7 @@ function moduleUserFilter(option) {
     $('body').append('<div class="loader_mini">Loading...</div>');
 
     var matches = 0;
-    $("#form_filter_advance .block-filter input[type=hidden]").each(function (i, val) {
+    $("#form_filter .block-filter input[type=hidden]").each(function (i, val) {
         if ($(this).val())
             matches++;
     });
@@ -3549,8 +3560,19 @@ function moduleUserFilter(option) {
             load_more = option.load_more;
         }
     }
-    if (url == '')
-        url = $(form).attr('action') + '?' + $(form).serialize();
+    if (url == ''){
+        url = form.attr('action') + '?';
+        if(form.data('group') != undefined){
+            var group= form.data('group');
+            $("form[data-group ="+ group+"]").each(function (i, val) {
+                url +=   $(this).serialize()+'&';
+            });
+        }
+        else{
+            url += form.serialize();
+
+        }
+    }
 
     $.ajax({
         async: false,

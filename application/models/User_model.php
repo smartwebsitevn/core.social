@@ -46,8 +46,8 @@ class User_model extends MY_Model
         'cat_id', 'country', 'city', 'working_country', 'working_city',
         'job',
         'vote_total', '!vote_total', 'vote_total_gt', 'vote_total_gte', 'vote_total_lt', 'vote_total_lte',
+        'point_total', '!point_total', 'point_total_gt', 'point_total_gte', 'point_total_lt', 'point_total_lte',
 
-        'vote_total',
         'verify', 'user_group', 'user_group_id', 'gender', 'birthday_year', 'subject_id',
         'user_affiliate_id',
         //== core
@@ -563,5 +563,30 @@ class User_model extends MY_Model
         return FALSE;
     }
 
+    //============
+    public function followers($user_id)
+    {
+        $input['select'] = 'user.*';
+        $input['where']['us.action'] = 'subscribe';
+        $input['where']['us.table'] = 'user';
+        $input['where']['us.user_id'] = $user_id;
+        $input['where']['us.deleted'] = 0;
+        $input['join'] = array(array('user_storage us', 'us.table_id = user.id'));
+        $filter = array();
+        $filter['show'] =1;
+        return $this->filter_get_list($filter,$input);
 
+    }
+    public function followers_by($user_id)
+    {
+        $input['select'] = 'user.*';
+        $input['where']['us.action'] = 'subscribe';
+        $input['where']['us.table'] = 'user';
+        $input['where']['us.table_id'] = $user_id;
+        $input['where']['us.deleted'] = 0;
+        $input['join'] = array(array('user_storage us', 'us.user_id = user.id'));
+        $filter = array();
+        $filter['show'] =1;
+        return $this->filter_get_list($filter,$input);
+    }
 }

@@ -41,7 +41,7 @@ if ($info->banner) {
                 <span class="value"><?php echo number_format($saved) ?></span>
             </a>
             <?php /* ?>
-                            <a href="<?php echo $info->_url_my_page.'?page=posts_draft'//site_url('user_page/follow_by') ?>" class="btn btn-link <?php echo $page=='posts_draft'?'active':''?>">
+                            <a href="<?php echo $info->_url_my_page.'?page=posts_draft' ?>" class="btn btn-link <?php echo $page=='posts_draft'?'active':''?>">
 
                                 <span class="text">Bản nháp</span><br>
                                 <span class="value">0<?php //echo number_format($info->post_total) ?></span>
@@ -55,10 +55,22 @@ if ($info->banner) {
 
 
             </a>
-            <a href="<?php echo $info->_url_my_page . '?page=follow_by'//site_url('user_page/follow_by') ?>"
+            <a href="<?php echo $info->_url_my_page . '?page=follow_by' ?>"
                class="btn btn-link <?php echo $page == 'follow_by' ? 'active' : '' ?>">
                 <span class="text">Người theo dõi</span><br>
                 <span class="value"><?php echo number_format($info->follow_by_total) ?></span>
+            </a>
+            
+            <a href="<?php echo $info->_url_my_page . '?page=notice' ?>"
+               class="btn btn-link <?php echo $page == 'notice' ? 'active' : '' ?>">
+                <span class="text">Thông báo</span><br>
+                <span class="value">-<?php //echo number_format($info->follow_by_total) ?></span>
+            </a>
+
+            <a href="<?php echo $info->_url_my_page . '?page=message' ?>"
+               class="btn btn-link <?php echo $page == 'notice' ? 'active' : '' ?>">
+                <span class="text">Tin nhắn</span><br>
+                <span class="value">-<?php //echo number_format($info->follow_by_total) ?></span>
             </a>
         </div>
         <div class="item-action">

@@ -22,7 +22,7 @@ $asset_theme = $asset . '/site/theme/';
       <meta property="og:image" content="<?php echo  $_SEO->image ?>" />
 <?php endif;?>
 <!-- E_SEO FACE -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width" />
 <?php echo  $_SEO->meta_other; ?>
 
 <link href="<?php echo $_SEO->icon ?>" rel="shortcut icon" type="image/x-icon"/>
