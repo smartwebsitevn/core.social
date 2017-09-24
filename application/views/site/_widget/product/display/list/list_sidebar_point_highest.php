@@ -2,8 +2,9 @@
     <ol class="list-social-point-highest">
         <?php foreach ($list as $row):    //pr($row);?>
             <li class="item-social">
-                    <div class="item-name"><a href="<?php echo $row->_url_view; ?>">
-                            <?php echo $row->name; ?></a>
+                    <div class="item-name">
+                        <?php t('view')->load('tpl::_widget/product/display/item/info_name', ['row' => $row]) ?>
+
                     </div>
                     <div class="item-meta">
                         <span class="point">

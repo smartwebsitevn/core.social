@@ -38,6 +38,7 @@ $route['my-account'] 					= 'user_account/index';
 $route['my-balance'] 					= 'user_account/balance';
 $route['my-page'] 						= 'user_page/index';
 $route['user-(:num)'] 					= 'user_page/view/$1';
+$route['thanh-vien'] 					= 'user_list';
 //$route['(:any)-u(:num)'] 					= 'user_page/view/$1';
 
 

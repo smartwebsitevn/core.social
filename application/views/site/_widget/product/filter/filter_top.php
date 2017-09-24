@@ -88,7 +88,7 @@ foreach ($sort_orders as $v) {
 };*/
 
 ?>
-<form id="form_filter" data-group="product-filter"  event-hook="productFilter"
+<form class="ajax_form_filter" data-group="product-filter"  event-hook="productFilter"
       action="<?php echo $action; ?>"
       method="get">
     <div class="block block-search">

@@ -207,3 +207,65 @@
     }
   }
 }
+
+@include breakpoint(small) {
+  #banner_background {
+    font-size: 11px;
+    padding-top: 80px;
+    &.active{
+      padding-top: 150px;
+    }
+    .background1 {
+      padding-top: 60px;
+    }
+    .background2 {
+      padding-top: 50px;
+    }
+    #banner_upload {
+      top: 10px;
+      left: 45%;
+      width: 100px;
+      i{
+        font-size: 48px;
+      }
+      img {
+        width: 70px;
+        height: 50px;
+      }
+    }
+  }
+  .detail-user {
+    margin: -175px auto 0px;
+    .item-user {
+      //== structure
+      .item-photo {
+        width: 140px;
+        @include user-avatar(120px, 120px,3px);
+        @include user-label(20px, 25px, 25px, 90px, 10px);
+        .links {
+          a {
+            font-size: 25px;
+            margin: 0 5px;
+          }
+        }
+
+      }
+      .item-info {
+        width: calc(80% - 210px);
+        padding-top: 72px;
+        line-height: 20px;
+        .item-name {
+          font-size: 18px;
+        }
+      }
+    }
+    .nav-links {
+      bottom: -55px;
+      left: 0px;
+    }
+  }
+  .ajax_form_filter{
+    margin-top: 10px;
+  }
+}
+

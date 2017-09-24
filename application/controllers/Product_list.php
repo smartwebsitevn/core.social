@@ -160,15 +160,15 @@ class Product_list extends MY_Controller
         $filter_input['types'] =$filter['types'];
         $key = $this->input->get('name');
         $key = str_replace(array('-', '+'), ' ', $key);
+
         if (isset($filter['name']) && $filter['name']) {
             unset($filter['name']);
             $filter['%name'] = $filter_fields['name'] = trim($key);
         }
-        if (isset($filter['point']) ) {
-            if( $filter['point'])
-            $filter['point_gte'] =$filter['point'];
-
-            unset($filter['point']);
+        $filter['point_total']= $this->input->get('point');
+        if ($filter['point_total']) {
+                 $filter['point_total_gte'] =$filter['point_total'];
+            unset($filter['point_total']);
         }
 
         // lay thong tin cua cac khoang tim kiem
@@ -225,8 +225,7 @@ class Product_list extends MY_Controller
             $input['order'] = array($orderex[0], $orderex[1]);
         }
         $list = model('product')->filter_get_list($filter, $input);
-       // pr($filter,0);
-      //pr_db($filter);
+        //pr($filter,0);        pr_db($list);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row,1);
         }

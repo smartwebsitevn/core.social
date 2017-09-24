@@ -65,8 +65,11 @@ function productFilter(option) {
         if ($(this).val())
         matches++;
     });
-
-    if (matches > 1)
+    form.find(".block-filter input[type=checkbox]").each(function (i, val) {
+        if ($(this).is(":checked"))
+            matches++;
+    });
+    if (matches > 0)
         $('.btn-clear-all').show();
     else
         $('.btn-clear-all').hide();

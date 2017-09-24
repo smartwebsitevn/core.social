@@ -83,6 +83,8 @@ class User_model extends MY_Model
         $where = parent::_filter_get_where($filter);
         //pr($this->fields_filter );
         foreach ($this->fields_filter as $key) {
+            if(in_array($key,['created','created_to'])) continue;
+
             if (isset($filter[$key]) && $filter[$key] != -1) {
                 //echo '<br>key='.$key.', v='.$filter[$key];
                 if (in_array($key, ['working_city', 'job'])) {
@@ -96,6 +98,9 @@ class User_model extends MY_Model
                 $this->_filter_parse_where($key, $filter);
             }
         }
+        //=== Su ly loc theo time
+        $where= $this->_filter_parse_time_where($filter,$where );
+
        // pr($filter);
 
         // kiem tra quang cao
@@ -148,22 +153,7 @@ class User_model extends MY_Model
             }
         }
 
-        //=== Su ly loc theo ngay tao
-        //  1: tu ngay  - den ngay
-        if (isset($filter['created']) && isset($filter['created_to'])) {
-            $where[$this->table . '.created >='] = is_numeric($filter['created']) ? $filter['created'] : get_time_from_date($filter['created']);
-            $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']) + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
-        } //2: tu ngay
-        elseif (isset($filter['created'])) {
-            if (is_array($filter['created'])) {
-                $where[$this->table . '.created >='] = $filter['created'][0];
-                $where[$this->table . '.created <'] = $filter['created'][1];
-            } else
-                $where[$this->table . '.created >='] = is_numeric($filter['created']) ? $filter['created'] : get_time_from_date($filter['created']);
-        } //3: den ngay
-        elseif (isset($filter['created_to'])) {
-            $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']) + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
-        }
+
 
         if (isset($filter['show'])) {
             //$where[$this->table.'.blocked'] = 0;

@@ -1,20 +1,17 @@
 <?php if (isset($list) && $list): ?>
-
-<div class=" dropdown dropdown-message">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-       aria-expanded="false">
+    <a data-dismiss="modal" data-toggle="modal" data-target="#system_message_notify"
+       href="#">
         <i class="pe-7s-comment" style="font-size:26px"></i>
         <span class="count"><?php echo $total_unread ?></span>
     </a>
+<?php echo  macro()->modal_start(['id'=>'system_user_notify','name'=>'Thông báo mới']); ?>
 
-        <ul class="dropdown-menu">
             <div class="heading clearfix">
-                <span class="title pull-left">Tin nhắn</span>
                 <?php if($total_unread==0): ?>
                 <span class="check-count pull-right"> <i class="fa fa-check"></i>&nbsp;đã xem hết</span>
                 <?php endif; ?>
             </div>
-            <div class="slimscroll p2">
+            <ul>
                 <?php foreach ($list as $row):  //pr($row);?>
                     <li>
                         <a href="<?php //echo $row->url?$row->url:'#0'; ?>">
@@ -28,9 +25,7 @@
                         </a>
                     </li>
                 <?php endforeach; ?>
-            </div>
+            </ul>
             <div class="p10 text-center"><a href="<?php echo site_url('my-page').'?page=message' ?>"">Xem tất cả</a></div>
-        </ul>
-
-</div>
+    <?php echo macro()->modal_end(); ?>
 <?php endif; ?>

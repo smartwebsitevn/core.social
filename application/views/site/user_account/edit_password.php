@@ -40,7 +40,7 @@
 			} ?>
 			</div>
 			<div class="col-md-12 text-right">
-				<a class="btn btn-outline btn-sm mr20"_submit="true"  >Cập nhập</a>
+				<a class="btn btn-outline btn-sm mr20"_submit="true"  >Cập nhật</a>
 				<a class="show-account-password">Hủy</a>
 			</div>
 		</div>

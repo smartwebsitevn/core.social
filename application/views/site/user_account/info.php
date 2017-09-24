@@ -14,12 +14,10 @@
 	<table class="table  table-hover">
 		<tbody>
 		<tr>
-			<td width="25%">
+			<td colspan="2" >
 				<div class="item-photo">
 				<?php t('view')->load('tpl::_widget/user/display/item/info_avatar',['row'=>$user]) ?>
 				</div>
-			</td>
-			<td>
 				<div class="item-attach">
 					<?php if ($user->attach_id): //pr($user); ?>
 						<?php $attach= $user->attach?>
@@ -44,39 +42,39 @@
 			</td>
 		</tr>
 		<tr>
-			<td><b><?php echo lang('name'); ?></b></td>
-			<td><?php echo $user->name; ?></td>
+			<td class="title"><b><?php echo lang('name'); ?></b></td>
+			<td class="value"><?php echo $user->name; ?></td>
 		</tr>
 		<tr>
-			<td><b><?php echo lang('profession'); ?></b></td>
-			<td><?php echo $user->profession; ?></td>
-		</tr>
-
-		<tr>
-			<td><b><?php echo lang('phone'); ?></b></td>
-			<td><?php echo $user->phone; ?></td>
-		</tr>
-		<tr>
-			<td width="25%"><b><?php echo lang('email'); ?></b></td>
-			<td><?php echo $user->email; ?></td>
-		</tr>
-		<tr>
-			<td><b><?php echo lang('facebook'); ?></b></td>
-			<td><?php echo $user->facebook; ?></td>
+			<td class="title"><b><?php echo lang('profession'); ?></b></td>
+			<td class="value"><?php echo $user->profession; ?></td>
 		</tr>
 
 		<tr>
-			<td><b><?php echo lang('website'); ?></b></td>
-			<td><?php echo $user->website; ?></td>
+			<td class="title"><b><?php echo lang('phone'); ?></b></td>
+			<td class="value"><?php echo $user->phone; ?></td>
+		</tr>
+		<tr>
+			<td class="title"><b><?php echo lang('email'); ?></b></td>
+			<td class="value"><?php echo $user->email; ?></td>
+		</tr>
+		<tr>
+			<td class="title"><b><?php echo lang('facebook'); ?></b></td>
+			<td class="value"><?php echo $user->facebook; ?></td>
+		</tr>
+
+		<tr>
+			<td class="title"><b><?php echo lang('website'); ?></b></td>
+			<td class="value"><?php echo $user->website; ?></td>
 		</tr>
 		<?php /* ?>
 		<tr>
-			<td><b><?php echo lang('gender'); ?></b></td>
-			<td><?php echo $user->_gender; ?></td>
+			<td class="title"><b><?php echo lang('gender'); ?></b></td>
+			<td class="value"><?php echo $user->_gender; ?></td>
 		</tr>
 		<tr>
-			<td><b><?php echo lang('birthday'); ?></b></td>
-			<td><?php echo $user->birthday; ?></td>
+			<td class="title"><b><?php echo lang('birthday'); ?></b></td>
+			<td class="value"><?php echo $user->birthday; ?></td>
 		</tr>
 
  		<?php */ ?>
@@ -84,41 +82,41 @@
 
 
 		<tr>
-			<td><b>Loại thành viên<?php //echo lang('user_type'); ?></b></td>
-			<td><?php echo $user->_type_name; ?></td>
+			<td class="title"><b>Loại thành viên<?php //echo lang('user_type'); ?></b></td>
+			<td class="value"><?php echo $user->_type_name; ?></td>
 		</tr>
 		<tr>
-			<td><b>Lĩnh vực hoạt động<?php //echo lang('user_type'); ?></b></td>
+			<td class="title"><b>Lĩnh vực hoạt động<?php //echo lang('user_type'); ?></b></td>
 			<td>
 				<?php echo  $user->_job_name; ?>
 			</td>
 		</tr>
 		<?php /* ?>
 		<tr>
-			<td><b><?php echo lang('user_group'); ?></b></td>
-			<td><?php echo $user->user_group->name; ?></td>
+			<td class="title"><b><?php echo lang('user_group'); ?></b></td>
+			<td class="value"><?php echo $user->user_group->name; ?></td>
 		</tr>
 		<?php */ ?>
 		<tr>
-			<td><b>Nơi làm việc<?php // echo lang('country'); ?></b></td>
-			<td><?php echo  $user->_working_city_name; ?></td>
+			<td class="title"><b>Nơi làm việc<?php // echo lang('country'); ?></b></td>
+			<td class="value"><?php echo  $user->_working_city_name; ?></td>
 		</tr>
 		<tr>
-			<td><b><?php echo lang('address'); ?></b></td>
-			<td><?php echo $user->address; ?></td>
+			<td class="title"><b><?php echo lang('address'); ?></b></td>
+			<td class="value"><?php echo $user->address; ?></td>
 		</tr>
 		<tr>
-			<td><b>Tự giới thiệu<?php //echo lang('birthday'); ?></b></td>
-			<td><?php echo macro()->more_word($user->desc,40); ?></td>
+			<td class="title"><b>Tự giới thiệu<?php //echo lang('birthday'); ?></b></td>
+			<td class="value"><?php echo macro()->more_word($user->desc,40); ?></td>
 
 		</tr>
 		<tr>
-			<td><b><?php echo lang('user_date_added'); ?></b></td>
-			<td><?php echo get_date($user->created, "full"); ?></td>
+			<td class="title"><b><?php echo lang('user_date_added'); ?></b></td>
+			<td class="value"><?php echo get_date($user->created, "full"); ?></td>
 		</tr>
 		<tr>
-			<td><b><?php echo lang('last_login'); ?></b></td>
-			<td><?php echo  get_date($user->last_login, "full")?></td>
+			<td class="title"><b><?php echo lang('last_login'); ?></b></td>
+			<td class="value"><?php echo  get_date($user->last_login, "full")?></td>
 		</tr>
 
 		</tbody>

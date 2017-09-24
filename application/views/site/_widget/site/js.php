@@ -97,7 +97,7 @@ $asset_theme =$asset. '/site/theme/';
 		<a href="<?php echo $page_tech->_url_view ?>" class="sb-film"><span class="icon"></span><span><?php echo $page_tech->title ?></span></a>
 	</div>
 <?php */ ?>
-<?php //view('tpl::_widget/common/back_to_top') ;?>
+<?php view('tpl::_widget/common/back_to_top') ;?>
 <?php view('tpl::_widget/common/modal_social_view') ;?>
 <?php view('tpl::_widget/common/modal_blank') ;?>
 <?php view('tpl::_widget/common/modal_balance_deposit') ;?>

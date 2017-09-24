@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-6 text-right">
                 <a _submit="true" class="btn btn-default mr20" href="<?php echo site_url('user_account/edit') ?>">Cập
-                    nhập</a>
+                    nhật</a>
                 <a class="show-account-info">Hủy</a>
             </div>
         </div>
@@ -184,7 +184,7 @@
     </div>
     <div class="panel-footer text-right">
         <a _submit="true" class="btn btn-default mr20" href="<?php echo site_url('user_account/edit') ?>">Cập
-            nhập</a>
+            nhật</a>
         <a class="show-account-info">Hủy</a>
 
     </div>

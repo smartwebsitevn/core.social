@@ -5,6 +5,8 @@
             <div class="sticky-element" data-spacing="65" data-limiter="#footer">
                 <div class="slimscroll_" data-height="90vh">
                     <?php echo widget('product')->filter(['input_hidden'=>['page'=>$page]], "sidebar_user") ?>
+                    <?php t('view')->load('tpl::_widget/product/filter/filter_sidebar_user_streamline_post') ?>
+
                 </div>
             </div>
         </div>

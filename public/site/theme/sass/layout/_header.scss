@@ -25,7 +25,7 @@
       img {
         display: inline-block;
         max-width: 150px;
-        max-height: 35px;
+        max-height: 48px;
       }
     }
   }
@@ -256,7 +256,7 @@
 
   }
 
-  .dropdown-home, .dropdown-notice, .dropdown-message {
+  .dropdown-home, .dropdown-notice, .dropdown-message{
     margin-top: 5px;
     li {
       a {
@@ -296,11 +296,15 @@
   }
 
   @include breakpoint(small) {
+
     .nav-toggle-menu, .navbar-toggle {
       display: block;
     }
     .logo {
       width: 100%;
+      a img {
+        max-height: 40px;
+      }
     }
     .btn-post {
       position: absolute;
@@ -326,7 +330,9 @@
         float: left;
         @include user-avatar(30px, 30px);
         @include user-label(15px, 16px, 16px, 25px, 0px);
-
+        .pe-7s-user{
+          font-size: 30px;
+        }
       }
     }
     .nav-menu {

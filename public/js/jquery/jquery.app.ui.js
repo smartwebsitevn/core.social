@@ -7,7 +7,7 @@
         lightbox: {opacity: 0.75},
         loadAjax: {
             url: '',
-            data: {'token':csrf_token},
+            data: {'token': csrf_token},
             field: {load: '', show: ''},
             datatype: 'html',
             event_complete: '',
@@ -258,7 +258,7 @@
                 var url = options.url;
                 var field = options.field;
                 if (!url) return false;
-                if(options.data.token == undefined)
+                if (options.data.token == undefined)
                     options.data.token = csrf_token;
                 nfc.loader('show', field.load);
 
@@ -310,7 +310,7 @@
                 $this.ajaxSubmit({
                     url: action,
                     type: method,
-                    data: {'_autocheck': name,token:csrf_token},
+                    data: {'_autocheck': name, token: csrf_token},
 
                     dataType: 'json',
                     success: function (data, statusText, xhr, $form) {
@@ -374,7 +374,7 @@
                 $this.ajaxSubmit({
                     url: action,
                     type: method,
-                    data: {'_submit': 'true',token:csrf_token},
+                    data: {'_submit': 'true', token: csrf_token},
                     dataType: 'json',
                     success: function (data, statusText, xhr, $form) {
                         formActionResultHandle(data);
@@ -506,7 +506,7 @@
                 $this.ajaxSubmit({
                     url: action,
                     type: method,
-                    data: {'_submit': 'true',token:csrf_token},
+                    data: {'_submit': 'true', token: csrf_token},
                     dataType: 'json',
                     success: function (data, statusText, xhr, $form) {
                         formActionAdvResultHandle(data);
@@ -771,7 +771,7 @@
                 var handle = {
                     loader: '',  // khu vuc hien thi loader neu khong, he thong se hien loader o giua man hinh
                     url: '',
-                    data: {token:csrf_token},
+                    data: {token: csrf_token},
                     datatype: 'json',
                     modaler: null,// modal cua confirm
                     do_action: function () {
@@ -1188,7 +1188,7 @@
                     var status = (act == 'on') ? true : false;
                     toggle_action_handle_class(status);
 
-                    $.post(url,{'token':csrf_token}, function (data) {
+                    $.post(url, {'token': csrf_token}, function (data) {
                         if (!data['complete']) {
                             toggle_action_handle_class((status) ? false : true);
                         }
@@ -1609,6 +1609,7 @@ var nfc = {
             this.common_need_reboot();
             this.pagination();
             this.mobile();
+            this.scroll();
         },
         reboot: function () {
             this.common_need_reboot();
@@ -1792,7 +1793,7 @@ var nfc = {
                         $this.append('<span class="loader_item"><span>');
 
                         var url = $(this).data('url');
-                        $.post(url,{'token':csrf_token}, function (data) {
+                        $.post(url, {'token': csrf_token}, function (data) {
                             if (data) {
                                 $this.find('span.loader_item').remove();
                                 $this.popover({
@@ -1907,21 +1908,6 @@ var nfc = {
                 $.scrollTo(el, 800);
             }
 
-            /*Back to top */
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 50) {
-                    $('#to-top').fadeIn();
-                } else {
-                    $('#to-top').fadeOut();
-                }
-            });
-
-            $('#to-top').on('click', function (e) {
-                e.preventDefault();
-                $("html, body").animate({
-                    scrollTop: 0
-                }, 500);
-            });
 
             /* Dropdown hover */
             $(".dropdown-hover").hover(
@@ -1977,7 +1963,7 @@ var nfc = {
                 $this.slimScroll({
                     height: height,
                     color: '#2A2B3D',
-                   // wheelStep: 2,
+                    // wheelStep: 2,
                     alwaysVisible: false
 
                 });
@@ -2095,6 +2081,62 @@ var nfc = {
                 $(".nav-menu.navbar-right").removeClass("has-open");
             }
         },
+        scroll: function () {
+            var current_scrollTop = $(window).scrollTop();
+            // alert(current_scrollTop)
+            $(window).on('scroll', scrolled);
+            function scrolled() {
+                //do by scroll start
+                $(this).off('scroll')[0].setTimeout(function () {
+                    v = $(window).scrollTop();
+                    scrolled_show_hide_header_footer(v)
+                    scrolled_back_to_top(v)
+                    //alert(current_scrolling)
+
+                    $(this).on('scroll', scrolled);
+                }, 500)
+            }
+            function scrolled_show_hide_header_footer(v) {
+                if (v < current_scrollTop) {
+                    $('#header.auto,#footer_tool').slideDown('fast');
+                } else {
+                    $('#header.auto,#footer_tool').slideUp('fast');
+                }
+                current_scrollTop =v;
+            }
+
+
+
+            /*Back to top */
+            function scrolled_back_to_top(v) {
+                if (v > 50) {
+                    $('#to-top').fadeIn();
+                } else {
+                    $('#to-top').fadeOut();
+                }
+            }
+
+            /*== Su ly su kien scroll chuot==*/
+
+            /*Back to top */
+            /* $(window).scroll(function () {
+             current_scrollTop =$(this).scrollTop();
+             alert(current_scrollTop)
+             if (current_scrollTop > 50) {
+             $('#to-top').fadeIn();
+             } else {
+             $('#to-top').fadeOut();
+             }
+             });*/
+
+            $(document).on('click', '#to-top', function (e) {
+                e.preventDefault();
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+        },
     },
     form: {
         boot: function () {
@@ -2104,40 +2146,40 @@ var nfc = {
         },
         auto_filter: function () {
 
-           /* $(document).on('focusin', '.select-search', function () {
-                $(this).children(".select-container-above").addClass("select-container-focus");
-                /!* $(this).children(".select-container-dropdown").addClass("select-container-open");*!/
-                $(this).children(".select-container-dropdown").fadeIn("1000");
-            })
-            $(document).on('focusout', '.select-search', function () {
-                $(this).children(".select-container-above").removeClass("select-container-focus");
-                /!* $(this).children(".select-container-dropdown").removeClass("select-container-open");*!/
-                $(this).children(".select-container-dropdown").fadeOut("1000");
-            })
-            $(document).on('click', 'select-search-chosen .select-results-option', function(){
-                /!*$(this).remove();*!/
-                $(this).hide();
-                $(this).closest('.select-search-chosen').find(".select-rendered").prepend("<li class='select-choice'>" + $(this).children("span").text() + "<span class='select-choice-remove'>×</span><input name='"+$(this).data('name')+"' value='"+$(this).data('value')+"' type='hidden' /></li>");
-                // reset lai input search
-                $(this).closest('.select-search-chosen').find(".select-input input[name='name']").val('');
+            /* $(document).on('focusin', '.select-search', function () {
+             $(this).children(".select-container-above").addClass("select-container-focus");
+             /!* $(this).children(".select-container-dropdown").addClass("select-container-open");*!/
+             $(this).children(".select-container-dropdown").fadeIn("1000");
+             })
+             $(document).on('focusout', '.select-search', function () {
+             $(this).children(".select-container-above").removeClass("select-container-focus");
+             /!* $(this).children(".select-container-dropdown").removeClass("select-container-open");*!/
+             $(this).children(".select-container-dropdown").fadeOut("1000");
+             })
+             $(document).on('click', 'select-search-chosen .select-results-option', function(){
+             /!*$(this).remove();*!/
+             $(this).hide();
+             $(this).closest('.select-search-chosen').find(".select-rendered").prepend("<li class='select-choice'>" + $(this).children("span").text() + "<span class='select-choice-remove'>×</span><input name='"+$(this).data('name')+"' value='"+$(this).data('value')+"' type='hidden' /></li>");
+             // reset lai input search
+             $(this).closest('.select-search-chosen').find(".select-input input[name='name']").val('');
 
-            });*/
+             });*/
             //remove all item search
 
-            $(document).on('click', '.search-input-remove', function(){
+            $(document).on('click', '.search-input-remove', function () {
                 $(this).closest("ul").children("li.select-choice").remove();
                 $(this).closest("ul").children("li.select-input").find("input[name='name']").val('');
-               /* $('.select-results .select-results-option').show();*/
+                /* $('.select-results .select-results-option').show();*/
                 nfc.catch_hook_event(this);
             });
             //remove 1 item search
-            $(document).on('click', '.select-choice-remove', function(){
+            $(document).on('click', '.select-choice-remove', function () {
                 $(this).parent(".select-choice").remove();
                 /*$(".select-results").prepend("<li class='select-results-option'> d</li>");*/
                 var name = $(this).next();
                 var value = name.val();
                 name = name.attr('name');
-                $('.select-results .select-results-option[data-name="'+name+'"][data-value="'+value+'"]').show();
+                $('.select-results .select-results-option[data-name="' + name + '"][data-value="' + value + '"]').show();
             });
             $(document).on('submit', 'form.ajax_form_filter', function () {
                 nfc.catch_hook_event(this);
@@ -2338,8 +2380,8 @@ var nfc = {
                         }
                     });
                     $(document).on('keyup', '.searachSelect', function () {
-                    // su kien tim kiem
-                 //   $('.searachSelect').keyup(function () {
+                        // su kien tim kiem
+                        //   $('.searachSelect').keyup(function () {
                         var key = $(this).val();
                         var parent = $(this).closest('.dropdown-menu');
 
@@ -2364,7 +2406,7 @@ var nfc = {
                     // su kien tim kiem thong tin
                     $(document).on('keyup', '.select-input-field', function () {
 
-                      //  $('.select-input-field').keyup(function () {
+                        //  $('.select-input-field').keyup(function () {
                         var key = $(this).val();
                         var parent = $(this).closest('.select-search-chosen');
 
@@ -2418,7 +2460,7 @@ var nfc = {
                         $($this).hide();
                         var parent = $($this).closest('form');
                         // xoa du lieu doi voi check box
-                       // parent.find('.search-results.checkbox.checked span').click();
+                        // parent.find('.search-results.checkbox.checked span').click();
                         parent.find('.active input[type="hidden"]').remove();
                         parent.find('.active').removeClass('active');
 
@@ -2548,9 +2590,9 @@ var nfc = {
             init: function () {
                 var doAction = this;
                 var options = {loading: true}
-                  $('.do_action[data-action=toggle]').each(function (){
-                      handle = doAction.handle($(this), options);
-                      doAction._toggle(handle);
+                $('.do_action[data-action=toggle]').each(function () {
+                    handle = doAction.handle($(this), options);
+                    doAction._toggle(handle);
                 });
             },
             process: function ($this, options) {
@@ -2584,7 +2626,7 @@ var nfc = {
                     action_type: action_type,
                     loader: '',  // khu vuc hien thi loader neu khong, he thong se hien loader o giua man hinh
                     url: '',
-                    data: {'_submit': 'true',token:csrf_token},
+                    data: {'_submit': 'true', token: csrf_token},
                     datatype: 'json',
                     modaler: null,// modal cua confirm
                     do_action: function () {
@@ -2833,7 +2875,7 @@ var nfc = {
 
         },
         formAction: {
-            obj:null,
+            obj: null,
             config: {
                 action: '',
                 field_load: '',
@@ -2848,7 +2890,7 @@ var nfc = {
                 //== init prevent submit
                 formAction.init();
                 $(document).on('click', '.form_action [_submit]', function (e) {
-                    var $this =$(this).closest('.form_action');
+                    var $this = $(this).closest('.form_action');
                     formAction.config = {
                         field_load: $this.attr('_field_load'),
                         event_error: function (data) {
@@ -2869,84 +2911,83 @@ var nfc = {
             },
             init: function () {
                 var formAction = this;
-                $('.form_action').each(function (){
-                    var $this =$(this);
-                   $this.submit(function( event ) {
+                $('.form_action').each(function () {
+                    var $this = $(this);
+                    $this.submit(function (event) {
                         event.preventDefault();
-                       var $this =$(this);
-                       formAction.config = {
-                           field_load: $this.attr('_field_load'),
-                           event_error: function (data) {
-                               // Reset captcha
-                               //if (data['security_code']){
-                               var captcha = $this.find('img[_captcha]').attr('id');
-                               if (captcha) {
-                                   change_captcha(captcha);
-                               }
-                               //}
-                           },
-                       };
-                       //alert('init')
-                       formAction.obj = $this;
-                       formAction.process();
+                        var $this = $(this);
+                        formAction.config = {
+                            field_load: $this.attr('_field_load'),
+                            event_error: function (data) {
+                                // Reset captcha
+                                //if (data['security_code']){
+                                var captcha = $this.find('img[_captcha]').attr('id');
+                                if (captcha) {
+                                    change_captcha(captcha);
+                                }
+                                //}
+                            },
+                        };
+                        //alert('init')
+                        formAction.obj = $this;
+                        formAction.process();
                     });
                 });
             },
             process: function () {
-                    // Neu form dang xu ly thi bo qua
-                    if (this.config.loading) {
+                // Neu form dang xu ly thi bo qua
+                if (this.config.loading) {
+                    return false;
+                }
+                // Tao event submit
+                if (typeof this.config.event_submit == "function") {
+                    var submit = this.config.event_submit.call(this, this.config);
+                    if (submit == false) {
                         return false;
                     }
-                    // Tao event submit
-                    if (typeof this.config.event_submit == "function") {
-                        var submit = this.config.event_submit.call(this, this.config);
-                        if (submit == false) {
-                            return false;
-                        }
+                }
+
+                // Set trang thai loading
+                this.config.loading = true;
+
+                // Hien thi loader
+                nfc.loader('show', this.config.field_load);
+
+                // Lay action
+                var action = this.config.action;
+                action = (!action) ? this.obj.attr('action') : action;
+                action = (!action) ? window.location.href : action;
+                // Lay method
+                var method = this.obj.attr('method');
+                method = (!method) ? 'POST' : method;
+
+                // tao token cho form
+                //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo(this.obj);
+
+                // Load du lieu va xu ly
+                this.obj.ajaxSubmit({
+                    url: action,
+                    type: method,
+                    data: {'_submit': 'true', token: csrf_token},
+                    dataType: 'json',
+                    success: function (data, statusText, xhr, $form) {
+
+                        nfc.action.formAction.process_result(data);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // formActionAdvResultHandle();
+                        alert('Có lỗi xẩy ra trong qua trình xử lý');
                     }
+                });
 
-                    // Set trang thai loading
-                    this.config.loading = true;
-
-                    // Hien thi loader
-                    nfc.loader('show', this.config.field_load);
-
-                    // Lay action
-                    var action = this.config.action;
-                    action = (!action) ? this.obj.attr('action') : action;
-                    action = (!action) ? window.location.href : action;
-                    // Lay method
-                    var method = this.obj.attr('method');
-                    method = (!method) ? 'POST' : method;
-
-                    // tao token cho form
-                    //$('<input>').attr({   type: 'hidden', name: 'token',  value: csrf_token}).appendTo(this.obj);
-
-                    // Load du lieu va xu ly
-                    this.obj.ajaxSubmit({
-                        url: action,
-                        type: method,
-                        data: {'_submit': 'true',token:csrf_token},
-                        dataType: 'json',
-                        success: function (data, statusText, xhr, $form) {
-
-                            nfc.action.formAction.process_result(data);
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            // formActionAdvResultHandle();
-                            alert('Có lỗi xẩy ra trong qua trình xử lý');
-                        }
-                    });
-
-                    return false;
-
+                return false;
 
 
             },
             process_result: function (data) {
                 // Reset trang thai loading
                 this.config.loading = false;
-                $this =this.obj;
+                $this = this.obj;
                 // An loader
                 nfc.loader('hide', this.config.field_load);
                 // Neu ajax bi loi
@@ -3029,7 +3070,7 @@ var nfc = {
                 $this.ajaxSubmit({
                     url: action,
                     type: method,
-                    data: {'_autocheck': name,token:csrf_token},
+                    data: {'_autocheck': name, token: csrf_token},
                     dataType: 'json',
                     success: function (data, statusText, xhr, $form) {
                         var error = $this.find('[name="' + name + '_error"]');
@@ -3054,7 +3095,7 @@ var nfc = {
         },
         common: function () {
             return;
-           // $('.do_action').nstUI('doAction');
+            // $('.do_action').nstUI('doAction');
             // Form handle
             $('.form_action').each(function () {
                 var $this = $(this);
@@ -3316,7 +3357,7 @@ var nfc = {
     //== Khu vuc mahoa - bao mat
     // them token cho form
     csrf_attack_form: function (form) {
-        $token= form.find('input[token]')
+        $token = form.find('input[token]')
     },
     encode_base64: function (input) {
         var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv" + "wxyz0123456789";
@@ -3451,11 +3492,11 @@ function moduleCoreFilter(option) {
     $('body').append('<div class="loader_mini">Loading...</div>');
 
     var matches = 0;
-    $("#form_filter .block-filter input[type=hidden]").each(function (i, val) {
+    form.find(".block-filter input[type=hidden]").each(function (i, val) {
         if ($(this).val())
             matches++;
     });
-    $("#form_filter .block-filter input[type=checkbox]").each(function (i, val) {
+    form.find(".block-filter input[type=checkbox]").each(function (i, val) {
         if ($(this).is(":checked"))
             matches++;
     });
@@ -3478,15 +3519,15 @@ function moduleCoreFilter(option) {
             load_more = option.load_more;
         }
     }
-    if (url == ''){
+    if (url == '') {
         url = form.attr('action') + '?';
-        if(form.data('group') != undefined){
-            var group= form.data('group');
-            $("form[data-group ="+ group+"]").each(function (i, val) {
-                url +=   $(this).serialize()+'&';
+        if (form.data('group') != undefined) {
+            var group = form.data('group');
+            $("form[data-group =" + group + "]").each(function (i, val) {
+                url += $(this).serialize() + '&';
             });
         }
-        else{
+        else {
             url += form.serialize();
 
         }
@@ -3539,8 +3580,12 @@ function moduleUserFilter(option) {
     $('body').append('<div class="loader_mini">Loading...</div>');
 
     var matches = 0;
-    $("#form_filter .block-filter input[type=hidden]").each(function (i, val) {
+    form.find(".block-filter input[type=hidden]").each(function (i, val) {
         if ($(this).val())
+            matches++;
+    });
+    form.find(".block-filter input[type=checkbox]").each(function (i, val) {
+        if ($(this).is(":checked"))
             matches++;
     });
     //alert(matches);
@@ -3560,15 +3605,15 @@ function moduleUserFilter(option) {
             load_more = option.load_more;
         }
     }
-    if (url == ''){
+    if (url == '') {
         url = form.attr('action') + '?';
-        if(form.data('group') != undefined){
-            var group= form.data('group');
-            $("form[data-group ="+ group+"]").each(function (i, val) {
-                url +=   $(this).serialize()+'&';
+        if (form.data('group') != undefined) {
+            var group = form.data('group');
+            $("form[data-group =" + group + "]").each(function (i, val) {
+                url += $(this).serialize() + '&';
             });
         }
-        else{
+        else {
             url += form.serialize();
 
         }

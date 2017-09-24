@@ -1,7 +1,5 @@
 <div class="action-filter">
-    <a href="#0" class="btn btn-default btn-xs mt20 btn-clear-all" style="display: none"><i
-            class="pe-7s-close "
-            ></i> Xóa bộ lọc</a>
+    <a href="#0" class="btn btn-default btn-xs mt20 btn-clear-all" style="display: none">Xóa bộ lọc</a>
     <!--<a href="#0" class="btn btn-link btn-clear-all"><i class="pe-7s-lock"    style="font-size: 32px"></i></a>-->
 </div>
 <?php /* ?>

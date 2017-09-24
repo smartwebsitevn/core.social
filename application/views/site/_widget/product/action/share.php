@@ -2,9 +2,11 @@
          <a class="dropdown" href="#0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              <?php //echo lang("Share") ?><i class="pe-7s-next-2"></i> Chia sẻ...</a>
         <ul class="dropdown-menu">
+            <?php /* ?>
             <li><a title="Chia sẻ lên dòng thời gian "  class=" act-share"
                    data-social="facebook" data-url="<?php echo $url_share ?>"
                    href="#0"><i class="fa fa-facebook"></i> Chia sẻ lên dòng thời gian của tôi</a></li>
+            <?php */ ?>
 
             <li><a title="Chia sẻ lên Facebook "  class=" act-share"
                    data-social="facebook" data-url="<?php echo $url_share ?>"

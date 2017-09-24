@@ -50,7 +50,7 @@ class Product_model extends MY_Model
         //'affiliate_options' ,
     );
     public $fields_filter = array(
-        'point','!point','point_gt', 'point_gte', 'point_lt', 'point_lte',
+        'point_total','!point_total','point_total_gt', 'point_total_gte', 'point_total_lt', 'point_total_lte',
 
         //== price
         'price','price_gt', 'price_lt','price_gte', 'price_lte',
@@ -69,7 +69,7 @@ class Product_model extends MY_Model
         'is_feature', 'is_new', 'is_soon',   'is_sellbest', 'is_alway_in_stock', 'is_live',  'is_slide',  'is_in_menu', 'is_show',
         'is_draft','is_form','is_lock' ,'deleted',
         'status',
-       // 'created', 'created_to',
+        'created', 'created_to',
     );
     public $fields_rule = array(
         'name' => 'required',
@@ -113,12 +113,15 @@ class Product_model extends MY_Model
     {
         $where = parent::_filter_get_where($filter);
         foreach ($this->fields_filter as $key) {
+            if(in_array($key,['created','created_to'])) continue;
             if (isset($filter[$key]) && $filter[$key] != -1) {
                 //echo '<br>key='.$key.', v='.$filter[$key];
                 $this->_filter_parse_where($key, $filter);
             }
         }
-        //pr($filter);
+        //=== Su ly loc theo time
+        $where= $this->_filter_parse_time_where($filter,$where );
+        //pr($filter,0);
 
         foreach ($this->fields_type_image as $f) {
             if (isset($filter[$f])) {
@@ -187,7 +190,7 @@ class Product_model extends MY_Model
 
         //=== Su ly loc theo ngay tao
         //  1: tu ngay  - den ngay
-        if (isset($filter['created']) && isset($filter['created_to'])) {
+       /* if (isset($filter['created']) && isset($filter['created_to'])) {
             $where[$this->table . '.created >='] = is_numeric($filter['created']) ? $filter['created'] : get_time_from_date($filter['created']);
             $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']);// + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
         } //2: tu ngay
@@ -196,7 +199,7 @@ class Product_model extends MY_Model
         } //3: den ngay
         elseif (isset($filter['created_to'])) {
             $where[$this->table . '.created <='] = is_numeric($filter['created_to']) ? $filter['created_to'] : get_time_from_date($filter['created_to']);// + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
-        }
+        }*/
 
         // hien thi san pham phia ngoai
         if (isset($filter['show'])) {

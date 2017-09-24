@@ -572,11 +572,10 @@ class User_page extends MY_Controller
             unset($filter['name']);
             $filter['%name'] = $filter_fields['name'] = trim($key);
         }
-        if (isset($filter['point'])) {
-            if ($filter['point'])
-                $filter['point_gte'] = $filter['point'];
-
-            unset($filter['point']);
+        $filter['point_total']= $this->input->get('point');
+        if ($filter['point_total']) {
+            $filter['point_total_gte'] =$filter['point_total'];
+            unset($filter['point_total']);
         }
         $filter['types'] = $this->input->get('types');
 

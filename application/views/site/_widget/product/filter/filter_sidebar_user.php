@@ -1,4 +1,4 @@
-<form id="form_filter" event-hook="productFilter" data-group="product-filter"
+<form class="ajax_form_filter" event-hook="productFilter" data-group="product-filter"
       action="<?php echo $action; ?>"
       method="get">
     <div class="panel">

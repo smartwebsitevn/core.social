@@ -1,3 +1,1 @@
-<div class="back-top">
-    <a id="back-to-top" href="#">top</a>
-</div>
+<div id="to-top" ></div>

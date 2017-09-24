@@ -22,7 +22,7 @@
 <?php else:// pr($user);?>
     <li>
         <a href="<?php echo site_url('my-page') ?>"  >
-            <i class="pe-7s-home" ></i> Trang của tôi"
+            <i class="pe-7s-home" ></i> Trang của tôi
         </a>
     </li>
     <?php /* ?>

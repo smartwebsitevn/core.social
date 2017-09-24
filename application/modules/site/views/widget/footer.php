@@ -95,6 +95,5 @@ $_image_data = function ($image) {
         }
     </script>
 </div>
-<div id="to-top"></div>
 <?php //echo $widget->setting['js']; ?>
 

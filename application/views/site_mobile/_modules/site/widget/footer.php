@@ -95,6 +95,6 @@ $_image_data = function ($image) {
         }
     </script>
 </div>
-<div id="to-top"></div>
-<?php //echo $widget->setting['js']; ?>
 
+<?php widget("message")->newest([],'modal') ?>
+<?php  widget("user_notice")->newest([],'modal') ?>

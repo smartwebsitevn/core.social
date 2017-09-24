@@ -64,8 +64,6 @@ class MY_Model extends CI_Model
     public $fields_type_relation_cat_multi = array();
 
 
-
-
     // Cac actions row
     public $actions_row = array();
 
@@ -186,12 +184,13 @@ class MY_Model extends CI_Model
         // Goi ham callback
         $this->_event_change('create', array($data));
     }
+
     // Them row moi
-        function create_rows(array $data)
-        {
-            // Them vao data
-            $this->db->insert_batch($this->table, $data);
-        }
+    function create_rows(array $data)
+    {
+        // Them vao data
+        $this->db->insert_batch($this->table, $data);
+    }
 
 
     /**
@@ -274,12 +273,12 @@ class MY_Model extends CI_Model
         // Tao thong ke moi
         $stats_new = array();
         foreach ($stats_update as $f => $v) {
-           // if (isset($info->{$f})){
-                $stats_new[$f] = $info->{$f} + $v;
+            // if (isset($info->{$f})){
+            $stats_new[$f] = $info->{$f} + $v;
             //}
         }
-       // pr($stats_update,0);
-       // pr($stats_new);
+        // pr($stats_update,0);
+        // pr($stats_new);
 
         $data = array_merge($data, $stats_new);
         $where = array();
@@ -400,16 +399,15 @@ class MY_Model extends CI_Model
     // Xoa row tu dieu kien
     function del_rows($where)
     {
-        if (empty($where))
-        {
+        if (empty($where)) {
             return FALSE;
         }
 
         foreach ($where as $key => $value) {
-            if( is_array($value) )
-                $this->db->where_in($key,$value);
+            if (is_array($value))
+                $this->db->where_in($key, $value);
             else
-                $this->db->where($key,$value);
+                $this->db->where($key, $value);
         }
 
 
@@ -420,6 +418,7 @@ class MY_Model extends CI_Model
 
         return TRUE;
     }
+
     //============================== SETS FUNCTION CHECK DATA
     function check_id($id)
     {//by id
@@ -598,8 +597,8 @@ class MY_Model extends CI_Model
     function get_list_rule($where = array(), $wherein = array())
     {
         $input = array(
-            'where'     => $where,
-            'wherein'   => $wherein
+            'where' => $where,
+            'wherein' => $wherein
         );
         return $this->get_list($input);
 
@@ -615,11 +614,11 @@ class MY_Model extends CI_Model
         // Select
         $select = (empty($input['select'])) ? $this->select : $input['select'];
         $this->db->select($select);
-       /* if(isset($input['where']['ctf.user_id'])){
-            echo $select;
-            pr($input);
+        /* if(isset($input['where']['ctf.user_id'])){
+             echo $select;
+             pr($input);
 
-        }*/
+         }*/
         // From
         if (isset($input['from'])) {
             $this->db->from($input['from']);
@@ -707,9 +706,9 @@ class MY_Model extends CI_Model
         // Join table
         if ((isset($input['join']))) {
             foreach ($input['join'] as $join) {
-                if(count($join)==2)
+                if (count($join) == 2)
                     $this->db->join($join[0], $join[1]);
-                if(count($join)==3)
+                if (count($join) == 3)
                     $this->db->join($join[0], $join[1], $join[2]);
             }
         }
@@ -997,28 +996,24 @@ class MY_Model extends CI_Model
 
         // Lay gia tri cua filter dau vao
         $input = array();
-        foreach ($fields as $f)
-        {
+        foreach ($fields as $f) {
             $v = t('input')->get($f);
             $v = security_handle_input($v, in_array($f, array()));
 
             $input[$f] = $v;
         }
 
-        if ( ! empty($input['id']))
-        {
-            foreach ($input as $f => $v)
-            {
+        if (!empty($input['id'])) {
+            foreach ($input as $f => $v) {
                 $input[$f] = ($f != 'id') ? '' : $v;
             }
         }
 
         // Tao bien filter
         $filter = array();
-        $query 	= url_build_query($input, TRUE);
+        $query = url_build_query($input, TRUE);
 
-        foreach ($query as $f => $v)
-        {
+        foreach ($query as $f => $v) {
             if ($v === NULL) continue;
 
             $filter[$f] = $v;
@@ -1041,19 +1036,21 @@ class MY_Model extends CI_Model
 
         return $this->get_list($input);
     }
+
     /**
      * Lay info
      */
-    function filter_get_info(array $filter,$fields='')
+    function filter_get_info(array $filter, $fields = '')
     {
 
         $where = $this->_filter_get_where($filter);
-        return $this->get_info_rule($where,$fields);
+        return $this->get_info_rule($where, $fields);
     }
+
     /**
      * Lay tong so
      */
-    function filter_get_sum($field, $filter= array(), $input = array())
+    function filter_get_sum($field, $filter = array(), $input = array())
     {
         $where = $this->_filter_get_where($filter);
         if ($input)
@@ -1064,7 +1061,7 @@ class MY_Model extends CI_Model
     /**
      * Lay tong so
      */
-    function filter_get_total($filter= array(), $input = array())
+    function filter_get_total($filter = array(), $input = array())
     {
 
         $where = $this->_filter_get_where($filter);
@@ -1082,7 +1079,7 @@ class MY_Model extends CI_Model
         // loc inject
         if ($filter) {
             foreach ($filter as $k => $v) {
-                if (is_string($v)){
+                if (is_string($v)) {
                     $filter[$k] = $this->db->escape($v);
                 }
             }
@@ -1132,85 +1129,98 @@ class MY_Model extends CI_Model
         }
     }
 
-    protected function _filter_parse_where( $key, $filter )
+    protected function _filter_parse_time_where($filter, $where, $times = ['created'])
     {
-       // pr($key);
+        foreach ($times as $time) {
+            //  1: tu ngay  - den ngay
+            if (isset($filter[$time]) && isset($filter[$time.'_to'])) {
+                $where[$this->table . '.created >='] = is_numeric($filter[$time]) ? $filter[$time] : get_time_from_date($filter[$time]);
+                $where[$this->table . '.created <='] = is_numeric($filter[$time.'_to']) ? $filter[$time.'_to'] : get_time_from_date($filter[$time.'_to']) + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
+            } //2: tu ngay
+            elseif (isset($filter[$time])) {
+                if (is_array($filter[$time])) {
+                    $where[$this->table . '.created >='] = $filter[$time][0];
+                    $where[$this->table . '.created <'] = $filter[$time][1];
+                } else
+                    $where[$this->table . '.created >='] = is_numeric($filter[$time]) ? $filter[$time] : get_time_from_date($filter[$time]);
+            } //3: den ngay
+            elseif (isset($filter[$time.'_to'])) {
+                $where[$this->table . '.created <='] = is_numeric($filter[$time.'_to']) ? $filter[$time.'_to'] : get_time_from_date($filter[$time.'_to']) + 24 * 60 * 60;// phai cong them 1 ngay de thoi gian no la cuoi cua ngay hien thoi
+            }
+        }
+        return $where;
 
-        if(! isset($filter[$key]) )
+    }
+
+    protected function _filter_parse_where($key, $filter)
+    {
+        // pr($key);
+
+        if (!isset($filter[$key]))
             return;
-         $value = $filter[$key];
+        $value = $filter[$key];
         // Compare
-        if( preg_match("#_gt$#", $key) )
-        {
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' >', $value );
+        if (preg_match("#_gt$#", $key)) {
+            $this->db->where($this->table . '.' . substr($key, 0, strlen($key) - 3) . ' >', $value);
             return;
         }
-        if( preg_match("#_gte$#", $key) )
-        {
+        if (preg_match("#_gte$#", $key)) {
 
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' >=', $value );
+            $this->db->where($this->table . '.' . substr($key, 0, strlen($key) - 4) . ' >=', $value);
             return;
         }
-        if( preg_match("#_lt$#", $key) )
-        {
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 3 ) . ' <', $value );
+        if (preg_match("#_lt$#", $key)) {
+            $this->db->where($this->table . '.' . substr($key, 0, strlen($key) - 3) . ' <', $value);
             return;
         }
-        if( preg_match("#_lte$#", $key) )
-        {
-            $this->db->where( $this->table.'.'.substr( $key, 0, strlen($key) - 4 ) . ' <=', $value );
+        if (preg_match("#_lte$#", $key)) {
+            $this->db->where($this->table . '.' . substr($key, 0, strlen($key) - 4) . ' <=', $value);
             return;
         }
         // Like
-        if( strpos( $key, "%" ) !== false )
-        {
+        if (strpos($key, "%") !== false) {
             //pr($value );
-            $this->db->like( $this->table.'.'.substr( $key, 1, strlen($key) ), $value );
+            $this->db->like($this->table . '.' . substr($key, 1, strlen($key)), $value);
             return;
         }
 
         // Phủ định
-        if( strpos( $key, "!" ) !== false )
-        {
-            if( is_array($value) )
-            {
-                $this->db->where_not_in( $this->table.'.'.substr( $key, 1, strlen($key) ), $value );
+        if (strpos($key, "!") !== false) {
+            if (is_array($value)) {
+                $this->db->where_not_in($this->table . '.' . substr($key, 1, strlen($key)), $value);
                 return;
             }
 
-            $this->db->where( substr( $this->table.'.'.$key, 1, strlen($key) ) . " !=", $value );
+            $this->db->where(substr($this->table . '.' . $key, 1, strlen($key)) . " !=", $value);
             return;
         }
 
         // CASE sensitive
-        if( strpos( $key, "BINARY" ) !== false )
-        {
+        if (strpos($key, "BINARY") !== false) {
             //7 la bao gom ca khoang trang , vd BINARY NAME
-            $this->db->where( $this->table.'.'.substr( $key, 7, strlen($key) ) . " like BINARY '".$value."'" );
+            $this->db->where($this->table . '.' . substr($key, 7, strlen($key)) . " like BINARY '" . $value . "'");
             return;
         }
         //  FIND BY KEYWORD
-        if( strpos( $key, "KEYWORD" ) !== false )
-        {
+        if (strpos($key, "KEYWORD") !== false) {
             //9 la bao gom ca khoang trang , vd KEYWORD NAME
-            $f=substr( $key, 8, strlen($key));
-            $keywords= '';
+            $f = substr($key, 8, strlen($key));
+            $keywords = '';
 
             if (is_array($value)) {
 
                 $key = str_replace([',', '.'], '', $value);
                 $key = trim($key);
 
-                $query = ["`$f` LIKE '%".t('db')->escape_like_str($key)."%'"];
+                $query = ["`$f` LIKE '%" . t('db')->escape_like_str($key) . "%'"];
                 $keys = preg_replace('/\s+/', ' ', $key);
                 $keys = explode(' ', $keys);
-                foreach ($keys as $v)
-                {
+                foreach ($keys as $v) {
                     $v = t('db')->escape_like_str($v);
                     $query[] = "`$f` LIKE '%{$v}%'";
                 }
                 $keywords = implode(' OR ', $query);
-                $keywords ="($keywords)";
+                $keywords = "($keywords)";
             }
 
 
@@ -1220,19 +1230,18 @@ class MY_Model extends CI_Model
             return;
         }
         //  FIND_IN_SET
-        if( strpos( $key, "FIND" ) !== false )
-        {
+        if (strpos($key, "FIND") !== false) {
             //5 la bao gom ca khoang trang , vd FIND NAME
 
-            $f=substr( $key, 5, strlen($key));
-           // pr($f,0);     pr($key);         pr($filter);
+            $f = substr($key, 5, strlen($key));
+            // pr($f,0);     pr($key);         pr($filter);
             $keywords = [];
             if (is_array($value)) {
                 foreach ($value as $v) {
                     $keywords[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
                 }
             } else
-                $keywords[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" .$f . "`)";
+                $keywords[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $f . "`)";
 
 
             if ($keywords) {
@@ -1241,10 +1250,10 @@ class MY_Model extends CI_Model
             return;
         }
 
-        if( is_array($value) )
-            $this->db->where_in( $this->table.'.'.$key, $value );
+        if (is_array($value))
+            $this->db->where_in($this->table . '.' . $key, $value);
         else
-            $this->db->where( $this->table.'.'.$key, $value );
+            $this->db->where($this->table . '.' . $key, $value);
     }
     /*
      * ------------------------------------------------------
@@ -1254,13 +1263,13 @@ class MY_Model extends CI_Model
     /**
      * Xu ly du lieu dau vao
      */
-    function handle_data_input($data =array())
+    function handle_data_input($data = array())
     {
-        if(!$data) return $data;
+        if (!$data) return $data;
         foreach ($data as $p => $v) {
 
             // Params content
-            if ($this->fields_type_content &&in_array($p, $this->fields_type_content)) {
+            if ($this->fields_type_content && in_array($p, $this->fields_type_content)) {
                 $v = handle_content($v, 'input');
             }
             // Params list
@@ -1274,13 +1283,13 @@ class MY_Model extends CI_Model
                 $v = json_encode($v);
             }
             // Params list comma
-            if ( $this->fields_type_list_comma && in_array($p, $this->fields_type_list_comma)) {
+            if ($this->fields_type_list_comma && in_array($p, $this->fields_type_list_comma)) {
                 $v = (!is_array($v)) ? array($v) : $v;
-                $v = implode(",",$v);
+                $v = implode(",", $v);
             }
 
             // Params encode
-            if ( $this->fields_type_encode && in_array($p, $this->fields_type_encode)) {
+            if ($this->fields_type_encode && in_array($p, $this->fields_type_encode)) {
                 $v = security_encrypt($v, 'encode');
             }
             // Params currency
@@ -1297,9 +1306,9 @@ class MY_Model extends CI_Model
     /**
      * Xu ly du lieu xuat ra
      */
-    function handle_data_output($data =array())
+    function handle_data_output($data = array())
     {
-        if(!$data) return $data;
+        if (!$data) return $data;
         foreach ($data as $p => $v) {
             // Params content
             if ($this->fields_type_content && in_array($p, $this->fields_type_content)) {
@@ -1307,7 +1316,7 @@ class MY_Model extends CI_Model
             }
 
             // Params list
-            if ( $this->fields_type_list && in_array($p, $this->fields_type_list)) {
+            if ($this->fields_type_list && in_array($p, $this->fields_type_list)) {
                 $v = @unserialize($v);
                 $v = (!is_array($v)) ? array() : $v;
             }
@@ -1318,7 +1327,7 @@ class MY_Model extends CI_Model
             }
             // Params list comma
             if ($this->fields_type_list_comma && in_array($p, $this->fields_type_list_comma)) {
-                $v = explode(",",$v);
+                $v = explode(",", $v);
                 $v = (!is_array($v)) ? array() : $v;
             }
 

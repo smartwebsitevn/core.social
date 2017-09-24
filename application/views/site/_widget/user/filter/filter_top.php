@@ -65,7 +65,7 @@ $_data_layout = function () use ($filter) {
 };
 ?>
 
-<form  id="form_filter"  event-hook="moduleCoreFilter" action="<?php echo $action; ?>"
+<form  class="ajax_form_filter"  event-hook="moduleCoreFilter" action="<?php echo $action; ?>"
       method="get">
     <div class="block block-search">
         <div class="block-content clearfix">

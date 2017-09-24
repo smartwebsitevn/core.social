@@ -1,4 +1,4 @@
-<div>
+<div class="block-slider">
     <input name="point" class="act-filter-slider" id="slider_point_hander" type="hidden"
            data-provide="slider"
            data-slider-min="0"

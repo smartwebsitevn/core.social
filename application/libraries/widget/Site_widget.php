@@ -621,11 +621,19 @@ class Site_widget extends MY_Widget {
 	}
 
 	/**
-	 * Hien thi phan trang
+	 * Hien thi js reboot
 	 */
 	function js_reboot()
 	{
 		$this->load->view('tpl::_widget/site/js_reboot');
+	}
+	/**
+	 * Hien thi phan trang
+	 */
+	function footer_navi($type)
+	{
+		$this->data['type']=$type;
+		$this->load->view('tpl::_widget/site/footer_navi',$this->data);
 	}
 
 

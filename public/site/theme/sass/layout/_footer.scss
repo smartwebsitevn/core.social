@@ -6,7 +6,6 @@
 
 /* Footer */
 
-
 /*====================*\
 //Footer
 \*====================*/
@@ -97,28 +96,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  .site-footer .col {
-    width: 50%;
-    float: left;
-    &:nth-child(3n+1) {
-      clear: none;
-    }
-    &:nth-child(2n+1) {
-      clear: both;
-    }
-  }
-  #footer .footer-center .container {
-    padding: 0 30px;
-  }
-}
-
-@media (max-width: 639px) {
-  .site-footer .col {
-    width: 100%;
-  }
-}
-
 .site-footer {
   .block-social {
     margin-bottom: 20px;
@@ -205,6 +182,89 @@
       text-transform: uppercase;
       &:hover {
         background-color: #1d5a82;
+      }
+    }
+  }
+}
+
+@include breakpoint(small) {
+
+  #system_user_notify, #system_message_notify {
+    margin-top: 5px;
+    li {
+      a {
+        text-transform: none !important;
+        text-decoration: none;
+        border-bottom: #e0e0e0 solid;
+        border-width: 1px 2px;
+        display: block;
+        line-height: 22px;
+        margin: 0 -2px -1px;
+        padding: 9px 20px;
+        position: relative;
+        color: #494949;
+        white-space: normal;
+      }
+      .title {
+        font-size: 13px;
+      }
+      .created {
+        font-size: 11px;
+        color: #90949c;
+      }
+
+      .avatar {
+        float: left;
+      }
+      .infos {
+        display: block;
+        overflow: hidden;
+        padding-left: 7px;
+        .created {
+          color: #90949c;
+          display: block;
+          font-size: 12px;
+          padding-top: 2px;
+          position: absolute;
+          right: 14px;
+          top: 20%;
+        }
+      }
+    }
+  }
+  #footer_tool {
+    background-color: #fcfcfc;
+    box-shadow: 0 3px 2px -2px #ccc;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    .navigator-item {
+
+      text-align: center;
+      border-top: 2px solid #eee;
+      border-right: 1px solid _palette(border);
+      width: 25%;
+      display: block;
+      float: left;
+      &:last-child {
+        border-right: none;
+      }
+      a {
+        color: _palette(text-2);
+        &:hover, &.active {
+          color: _palette(button-2);
+        }
+        i {
+          font-size: 24px;
+          cursor: pointer;
+          line-height: 35px;
+
+        }
+      }
+      &:hover, &.active {
+        border-top: 2px solid _palette(button-1);
       }
     }
   }

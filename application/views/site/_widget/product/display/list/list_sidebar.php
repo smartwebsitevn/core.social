@@ -9,8 +9,9 @@
                              alt="<?php echo $row->name; ?>"/></a>
                     </div>
                     <div class="item-detail">
-                        <strong class="item-name">  <a href="<?php echo $row->_url_view; ?>" >
-                                <?php echo $row->name; ?></a>
+                        <strong class="item-name">
+                            <?php t('view')->load('tpl::_widget/product/display/item/info_name', ['row' => $row]) ?>
+
                             <?php echo widget('product')->action_favorite($row) ?>
                         </strong>
                         <div class="item-meta"><?php echo character_limiter($row->brief, 50); ?></div>

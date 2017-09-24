@@ -21,7 +21,6 @@ body.user-account {
     }
   }
   .main-content {
-
     .panel {
       background: none;
       margin-bottom: 40px;
@@ -82,21 +81,40 @@ body.user-account {
         }
       }
       table{
-        tr{
-          td{
-            padding: 20px 30px 15px;
-            /*border: 1px solid #ccc;
-            border-bottom: 0;
-            &:first-child{
-              border-right: none;
-            }*/
+           tr{
+             td{
+               padding: 20px 30px 15px;
+
+               &.title{
+                 width: 20%;
+               }
+               /*border: 1px solid #ccc;
+               border-bottom: 0;
+               &:first-child{
+                 border-right: none;
+               }*/
+             }
+           }
+           /*  tr:hover td { border-top-color: red; border-bottom: 1px solid red; }
+             tr:hover td:first-child { border-left-color: red; }
+             tr:hover td:last-child  { border-right-color: red; }*/
+         }
+    }
+  }
+  @include breakpoint(small) {
+    .main-content {
+      .panel{
+        table{
+          tr{
+            td{
+              padding: 15px;
+              &.title{
+                width: 30%;
+              }
+            }
           }
         }
-      /*  tr:hover td { border-top-color: red; border-bottom: 1px solid red; }
-        tr:hover td:first-child { border-left-color: red; }
-        tr:hover td:last-child  { border-right-color: red; }*/
       }
     }
   }
-
 }

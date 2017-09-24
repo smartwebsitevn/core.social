@@ -35,21 +35,21 @@
 	
 	<div class="upload_action " style="margin-top:2px;">
 		<div class="upload-medias">
-			<div class="col-md-4 ">
+			<div class="col-md-4 col-xs-4 ">
 				<a id="action_upload" class="">
 					<i class="pe-7s-photo"></i>
 					<span>Chia sẻ</span><br>
 					<span>hình ảnh</span>
 				</a>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-4 col-xs-4 ">
 				<a id="share-video" data-target="#modal_share_video" data-toggle="modal">
 					<i class="pe-7s-film"></i>
 					<span>Chia sẻ</span><br>
 					<span>video Youtube</span>
 				</a>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-4 col-xs-4 ">
 				<a id="upload-link"  data-target="#modal_share_link" data-toggle="modal" >
 					<i class="pe-7s-exapnd2"></i>
 					<span>Chia sẻ</span><br>

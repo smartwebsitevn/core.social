@@ -66,7 +66,7 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
 
 };
 ?>
-<div id="header">
+<div id="header" class="auto">
     <div class="container">
         <span data-action="toggle-navbar-left" class="nav-toggle-menu nav-toggle-navbar-left"><span>Menu</span></span>
 
@@ -76,8 +76,7 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
                 <?php echo $_menu_data($menu) ?>
             </ul>
         </div>
-        <?php widget("message")->newest() ?>
-        <?php widget("user_notice")->newest() ?>
+
         <div class="logo">
             <a href="<?php echo site_url() ?>">
                 <img src="<?php echo widget("site")->setting_image() ?>" alt="logo"/>

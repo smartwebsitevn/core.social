@@ -20,6 +20,11 @@ class Product_to_favorite_model extends MY_Model {
 		{
 			$this->_filter_parse_where( $key, $filter );
 		}
+
+		//=== Su ly loc theo time
+		$where= $this->_filter_parse_time_where($filter,$where );
+		//pr($filter);
+
 		return $where;
 	}
 

@@ -36,12 +36,7 @@
                     </div>
                     <div class="item-media">
                         <div class="item-name">
-                            <a href="<?php echo $row->_url_view; ?>">
-                                <?php echo $row->name; ?>
-                                <?php if (isset($row->files) && $row->files): ?>
-                                    <i class="pe-7s-paperclip"></i>
-                                <?php endif; ?>
-                            </a>
+                            <?php t('view')->load('tpl::_widget/product/display/item/info_name', ['row' => $row]) ?>
                         </div>
                         <div class="item-desc">
                             <?php echo macro()->more_block($row->description, 110); ?>
@@ -63,8 +58,6 @@
                         <div class="item-action">
                             <?php widget('product')->action_share($row) ?>
                         </div>
-
-
                     </div>
                     <?php if ($user_manager): ?>
                         <div class="item-manager">

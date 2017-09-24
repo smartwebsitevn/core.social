@@ -700,6 +700,10 @@
       /*border-width: 3px;
     padding-left: 29px;
     padding-right: 26px;*/
+
+    }
+    @include breakpoint(small) {
+      border-radius: 15px;
     }
   }
   &.form-control-error .dropdown-toggle {

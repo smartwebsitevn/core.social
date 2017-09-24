@@ -32,10 +32,9 @@ if ($stream->min):
                     $filter['created'] = $max->copy()->startOfMonth()->timestamp;
                      $filter['created_to'] = $max->copy()->endOfMonth()->timestamp;
                      $total= model('product')->filter_get_total($filter);
-                    $max->subMonth(1);
+                     $max->subMonth(1);
 
                     // echo '<br>-m='.$max->subMonth(1);
-                   // pr_db($max->month,0);
                     if(!$total) continue;
                     ?>
                     <li class="list-group-item act-filter " data-name="created" data-value="<?php echo $filter['created'].'|'.$filter['created_to'] ?>"><a href="#0"> - Tháng <?php echo $m  ?> : <?php echo number_format($total) ?> bài đã lưu </a></li>
@@ -47,7 +46,7 @@ if ($stream->min):
                     $max->subYear(1);
                     $filter['created'] = $max->copy()->startOfYear()->timestamp;
                     $filter['created_to'] = $max->copy()->endOfYear()->timestamp;
-                    $total= model('product')->filter_get_total($filter);
+                    $total= model('product_to_favorite')->filter_get_total($filter);
                     //pr_db($max->year,0);
                     if(!$total) continue;
 
@@ -61,8 +60,9 @@ if ($stream->min):
                     <?php
                     $filter['created'] = $max->copy()->startOfMonth()->timestamp;
                     $filter['created_to'] = $max->copy()->endOfMonth()->timestamp;
-                    $total= model('product')->filter_get_total($filter);
+                    $total= model('product_to_favorite')->filter_get_total($filter);
                     $max->subMonth(1);
+                   // pr_db();
 
                     if(!$total) continue;
 

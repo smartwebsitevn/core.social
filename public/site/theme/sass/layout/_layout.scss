@@ -1,14 +1,15 @@
-#header{
+#header {
   z-index: 11;
 
 }
-#main{
+
+#main {
   z-index: 10;
-  .sidebar{
+  .sidebar {
     z-index: 2;
   }
-  .main-content{
-   /* z-index: 1;*/
+  .main-content {
+    /* z-index: 1;*/
   }
 
   margin-top: 65px;
@@ -16,18 +17,11 @@
   -ms-flex: 1;
   width: 100%;
 }
-#footer{
+
+#footer {
   z-index: 9;
 
 }
-/*==========================================================
-
-	4. HEADER
-
-==========================================================*/
-
-
-/*========dropdow=========*/
 
 .drop-dropdown {
   .heading {
@@ -64,9 +58,6 @@
 
 /*=======logo=========*/
 
-
-
-
 .caret {
   width: 11px;
   height: 8px;
@@ -79,7 +70,6 @@
 .open .caret {
   background-image: url(../img/icon/down.png);
 }
-
 
 .select-search {
   position: relative;
@@ -127,7 +117,6 @@
     display: block;
   }
 }
-
 
 .select-search-default .select-container-dropdown {
   padding: 4px 0;
@@ -259,3 +248,8 @@
   }
 }
 
+@include breakpoint(small) {
+  #main {
+    margin-top: 40px;
+  }
+}

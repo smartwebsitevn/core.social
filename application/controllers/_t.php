@@ -5,6 +5,27 @@ header('Content-Type: text/html; charset=utf-8');
 class _t extends MY_Controller
 {
 
+    function api_process()
+    {
+        $json = file_get_contents('php://input');
+        $obj =json_decode($json);
+        $kq=$obj->a +$obj->b;
+        echo "{kq:$kq}";
+    }
+    function api_product()
+    {
+        $limit= $this->input->get('page');
+        $limit= $limit?$limit:0;
+        $page_size=3;
+        $input['limit'] = array($limit, $page_size);
+        $input['select'] = 'name,id,image_id,image_name,seo_url';
+        $tbl = 'product';
+        $list = model($tbl)->get_list($input);
+        /*foreach($list as $row){
+            $row =mod($tbl)->add_info_image($row);
+        }*/
+        echo json_encode($list);
+    }
     function carbon()
     {
         $max = \Carbon\Carbon::now();
