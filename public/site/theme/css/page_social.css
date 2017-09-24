@@ -635,6 +635,18 @@ body {
           font-weight: bold; }
       body .block-filter .block-content .modal .search-dropdown {
         width: 100% !important; }
+    body .block-products-items .list-social .item-social {
+      padding: 15px 10px; }
+      body .block-products-items .list-social .item-social .item-author .item-meta {
+        display: block; }
+        body .block-products-items .list-social .item-social .item-author .item-meta span {
+          display: block; }
+      body .block-products-items .list-social .item-social .item-actions .item-meta span {
+        margin: 0; }
+      body .block-products-items .list-social .item-social .item-actions .item-meta a i {
+        font-size: 15px; }
+      body .block-products-items .list-social .item-social .item-actions .item-action i {
+        font-size: 15px; }
     body .block-products-items-popup .list-social {
       margin-bottom: 0px; }
       body .block-products-items-popup .list-social .item-social {

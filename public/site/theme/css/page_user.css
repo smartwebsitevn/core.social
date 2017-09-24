@@ -385,7 +385,49 @@ body .list-user-feature {
         font-size: 25px;
         font-weight: bold; }
     body .block-filter .block-content .modal .search-dropdown {
-      width: 100% !important; } }
+      width: 100% !important; }
+  body .list-user .item-user {
+    padding: 10px; }
+    body .list-user .item-user .item-photo {
+      width: 55px;
+      float: left;
+      display: block;
+      position: relative; }
+      body .list-user .item-user .item-photo .item-img {
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        border: "1px" solid rgba(160, 160, 160, 0.3);
+        background: #fff;
+        display: block;
+        text-align: center;
+        vertical-align: middle;
+        overflow: hidden; }
+        body .list-user .item-user .item-photo .item-img img {
+          width: 100%;
+          height: auto; }
+      body .list-user .item-user .item-photo .item-label {
+        font-size: 15px;
+        width: 16px;
+        height: 16px;
+        left: 30px;
+        bottom: 0px;
+        color: #f7941e;
+        font-weight: bold;
+        position: absolute;
+        background: #fff;
+        border-radius: 100%;
+        text-align: center;
+        vertical-align: middle; }
+    body .list-user .item-user .item-info {
+      float: left;
+      width: calc(100% - 60px); }
+      body .list-user .item-user .item-info .item-name {
+        font-size: 13px; }
+    body .list-user .item-user .item-meta {
+      display: block; }
+      body .list-user .item-user .item-meta .places, body .list-user .item-user .item-meta .posts, body .list-user .item-user .item-meta .points, body .list-user .item-user .item-meta .follows {
+        margin-right: 10px; } }
 
 /*====================*\
 //Detail user

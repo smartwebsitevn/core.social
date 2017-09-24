@@ -6,18 +6,18 @@
         </a>
     </li>
     <?php endif; */ ?>
-
+    <li class="navigator-item <?php echo $type == "product_list"?"active":'' ?>">
+        <a  href="<?php echo site_url('ban-tin') ?>">
+            <i class="pe-7s-news-paper"></i>
+        </a>
+    </li>
     <li class="navigator-item <?php echo $type == "user_list"?"active":'' ?>">
         <a href="<?php echo site_url('thanh-vien') ?>" >
             <i class="pe-7s-users"></i>
         </a>
     </li>
 
-    <li class="navigator-item <?php echo $type == "product_list"?"active":'' ?>">
-        <a  href="<?php echo site_url('ban-tin') ?>">
-            <i class="pe-7s-news-paper"></i>
-        </a>
-    </li>
+
     <?php if(in_array($type,['product_list','product_filter'])): ?>
     <li class="navigator-item">
         <a  data-dismiss="modal" data-toggle="modal" data-target="#modal-product-filter"

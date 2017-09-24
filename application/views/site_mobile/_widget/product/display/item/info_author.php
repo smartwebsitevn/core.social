@@ -16,8 +16,7 @@
         <div class="item-meta">
             <span class="profession"><?php echo $author->profession ?></span>
             <?php if (isset($author->_working_city_name) && $author->_working_city_name): ?>
-                <span class="place"> <i
-                        class="pe-7s-map-marker"></i> <?php echo $author->_working_city_name ?>
+                <span class="place"> <i   class="pe-7s-map-marker"></i> <?php echo $author->_working_city_name ?>
                                     </span>
             <?php endif; ?>
         </div>

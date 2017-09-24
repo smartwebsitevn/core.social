@@ -2082,27 +2082,41 @@ var nfc = {
             }
         },
         scroll: function () {
+            //==========
             var current_scrollTop = $(window).scrollTop();
             // alert(current_scrollTop)
-            $(window).on('scroll', scrolled);
-            function scrolled() {
+            $(window).on('scroll', windowScrolled);
+           // $('.modal').on("scroll",modalScrolled);
+
+            function windowScrolled() {
+                var $this =this;
                 //do by scroll start
                 $(this).off('scroll')[0].setTimeout(function () {
-                    v = $(window).scrollTop();
+                    v = $($this).scrollTop();
                     scrolled_show_hide_header_footer(v)
                     scrolled_back_to_top(v)
-                    //alert(current_scrolling)
-
-                    $(this).on('scroll', scrolled);
+                    // alert(v)
+                    $(this).on('scroll', windowScrolled);
                 }, 500)
             }
+            function modalScrolled() {
+                setTimeout(function () {
+                    v = $($this).scrollTop();
+                     alert(v)
+
+                    $(this).on('scroll', modalScrolled);
+                }, 500)
+            }
+
+            //===
+
             function scrolled_show_hide_header_footer(v) {
                 if (v < current_scrollTop) {
                     $('#header.auto,#footer_tool').slideDown('fast');
                 } else {
                     $('#header.auto,#footer_tool').slideUp('fast');
                 }
-                current_scrollTop =v;
+                current_scrollTop = v;
             }
 
 
@@ -2117,18 +2131,6 @@ var nfc = {
             }
 
             /*== Su ly su kien scroll chuot==*/
-
-            /*Back to top */
-            /* $(window).scroll(function () {
-             current_scrollTop =$(this).scrollTop();
-             alert(current_scrollTop)
-             if (current_scrollTop > 50) {
-             $('#to-top').fadeIn();
-             } else {
-             $('#to-top').fadeOut();
-             }
-             });*/
-
             $(document).on('click', '#to-top', function (e) {
                 e.preventDefault();
                 $("html, body").animate({

@@ -41,7 +41,7 @@
                 $row_label = 'Bản nháp';
             }
             ?>
-            <div class="item-social <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $row_status ?>  ">
+            <div class="item-social item-owner <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $row_status ?>  ">
                 <div class="clearfix">
                     <?php if ($row_label): ?>
                         <label class="label <?php echo 'label-'.$row_status ?> "><?php echo $row_label ?></label>
@@ -56,29 +56,7 @@
                     <?php endif; ?>
 
                     <div class="item-author">
-                        <div class="item-photo">
-                            <?php echo view('tpl::_widget/user/display/item/info_avatar', array('row' => $author)); ?>
-
-                        </div>
-                        <div class="item-info">
-                                <span class="name">
-                                 <a href="<?php echo $author->_url_view; ?>">
-                                     <?php echo $author->name ?>
-
-                                 </a>
-                               </span>
-
-                            <div class="item-meta">
-                                <span class="profession"><?php echo $author->profession ?></span>
-                                <?php if (isset($author->_working_city_name) && $author->_working_city_name): ?>
-                                    <span class="place"> <i
-                                            class="pe-7s-map-marker"></i> <?php echo $author->_working_city_name ?>
-                                    </span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <span class="item-time-manager"><?php echo $row->_created_carbon->diffForHumans(); ?>  </span>
-
+                        <?php t('view')->load('tpl::_widget/product/display/item/info_author', ['row' => $row,'item_time_manager'=>1]) ?>
                     </div>
                     <div class="item-media">
                         <div class="item-name">

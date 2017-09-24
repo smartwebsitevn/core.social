@@ -721,6 +721,43 @@ body {
       }
 
     }
+    .block-products-items {
+      .list-social {
+        .item-social {
+          padding: 15px 10px;
+          .item-author {
+            .item-meta {
+              display: block;
+              span{
+                display: block;
+              }
+            }
+          }
+          .item-actions {
+            .item-meta {
+              span {
+                margin: 0;
+              }
+              a{
+                i{
+                  font-size: 15px;
+                }
+              }
+
+            }
+            .item-action {
+              i{
+                font-size: 15px;
+              }
+            }
+
+          }
+
+        }
+      }
+
+    }
+
     .block-products-items-popup {
       .list-social {
         margin-bottom: 0px;
@@ -733,6 +770,7 @@ body {
       }
 
     }
+
     .modal-social-view{
       button{
         width: 50px;

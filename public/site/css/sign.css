@@ -1,7 +1,9 @@
 .user_authentication .panel ,
 .user_authentication .modal-dialog
 {
-    width: 480px;
+    width: auto;
+    max-width: 480px;
+    margin: 0 auto;
 }
 .user_authentication .panel
 {

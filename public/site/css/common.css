@@ -533,18 +533,19 @@ img.captcha{
 
 
 #to-top {
+	/*background-color: #fff;*/
 	background-image: url("../images/to-top.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	border-radius: 5px;
-	bottom: 100px;
+	bottom: 36px;
 	cursor: pointer;
 	display: none;
 	height: 40px;
 	position: fixed;
-	right: 15px;
+	right: 5px;
 	width: 40px;
-	z-index: 999999;
+/*	z-index: 999999;*/
 }
 #to-top:hover,#to-top:focus  {
 	background-image: url("../images/to-top-active.png");

@@ -457,6 +457,32 @@ body{
     }
 
   }
+  .list-user {
+    .item-user{
+      padding: 10px;
+      .item-photo {
+        width: 55px;
+        float: left;
+        @include user-avatar(45px, 45px);
+        @include user-label(15px, 16px, 16px, 30px, 0px);
+
+      }
+      .item-info {
+        float: left;
+        width: calc(100% - 60px);
+        .item-name {
+          font-size: 13px;
+        }
+      }
+      .item-meta{
+        display: block;
+        .places, .posts, .points, .follows {
+          margin-right: 10px;
+        }
+      }
+
+    }
+  }
 }
 
 }

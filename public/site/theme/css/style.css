@@ -2766,6 +2766,11 @@ table {
         right: 14px;
         top: 20%; }
 
+  #footer .footer-center {
+    padding: 20px 0; }
+    #footer .footer-center .container {
+      padding: 0 20px; }
+
   #footer_tool {
     background-color: #fcfcfc;
     box-shadow: 0 3px 2px -2px #ccc;
