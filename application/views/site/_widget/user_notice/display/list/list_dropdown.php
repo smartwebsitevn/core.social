@@ -16,10 +16,10 @@
                 <?php endif; */?>
             </div>
             <div class="slimscroll p2">
-                <?php foreach ($list as $row):  //  pr($row);?>
+                <?php  foreach ($list as $row):  //  pr($row);?>
                     <li>
                         <a href="<?php echo $row->url?$row->url:'#0'; ?>">
-                        <div class="title"> <?php echo $row->title ?> </div>
+                            <div class="title"> <?php echo $row->title ?> </div>
                             <div class="created"><i class="fa fa-clock-o"></i> Cách đây <?php echo  timespan($row->created,'',1);//$row->_created ?></div>
                         </a>
                     </li>

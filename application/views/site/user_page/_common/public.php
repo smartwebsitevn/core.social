@@ -61,8 +61,11 @@ if ($info->banner) {
                                         <li><a title="Thông tin liên hệ " class=" do_action"
                                                data-url="<?php echo $info->_url_view_profile ?>">Thông
                                                 tin liên hệ</a></li>
+                                        <?php /* ?>
                                         <li><a title="Nhắn tin" href="<?php echo $info->_url_message ?>">Nhắn tin</a>
                                         </li>
+                                         <?php */ ?>
+
                                     </ul>
                             </span>
         </div>

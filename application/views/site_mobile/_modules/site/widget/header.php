@@ -67,8 +67,11 @@ $_menu_data = function ($menu, $menu_name = '', $a_class = '') {
 };
 ?>
 <div id="header" class="auto">
+    <div class="nav-toggle-navbar-background"></div>
     <div class="container">
-        <span data-action="toggle-navbar-left" class="nav-toggle-menu nav-toggle-navbar-left"><span>Menu</span></span>
+        <span data-action="toggle-navbar-left" class="nav-toggle-menu nav-toggle-navbar-left">
+         <i class="pe-7s-menu"></i>
+        </span>
 
         <div class="nav-menu navbar-left">
             <span data-action="close-nav" class="close-nav"><span>close</span></span>

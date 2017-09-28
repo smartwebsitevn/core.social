@@ -1,7 +1,7 @@
 <span class="item-action-share dropdown">
          <a class="dropdown" href="#0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              <?php //echo lang("Share") ?><i class="pe-7s-next-2"></i> Chia sẻ...</a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-menu-right">
             <?php /* ?>
             <li><a title="Chia sẻ lên dòng thời gian "  class=" act-share"
                    data-social="facebook" data-url="<?php echo $url_share ?>"

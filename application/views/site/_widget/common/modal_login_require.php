@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer">
                 <a  data-dismiss="modal"  class="btn">Hủy bỏ<?php //echo $this->lang->line('Ok'); ?></a>
-                <a data-dismiss="modal"  data-toggle="modal" data-target="#modal-user-login" href="#" class="btn btn-default">Đăng nhập<?php //echo $this->lang->line('Ok'); ?></a>
+                <a data-dismiss="modal"  data-toggle="modal" data-target="#modal-login" href="#" class="btn btn-default">Đăng nhập<?php //echo $this->lang->line('Ok'); ?></a>
                 <?php /* ?>
                  <a type="button" href="<?php echo site_url("login")?>" class="btn btn-danger">Đăng nhập<?php //echo $this->lang->line('Ok'); ?></a>
 

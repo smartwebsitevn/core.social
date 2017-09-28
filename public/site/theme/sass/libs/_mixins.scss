@@ -128,3 +128,26 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+@mixin box-shadow($h:0, $v:5,$color:"#ccc", $blur:10, $spread:0,  $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $h $v $blur $spread $color;
+    -moz-box-shadow:inset $h $v $blur $spread $color;
+    box-shadow:inset $h $v $blur $spread $color;
+  } @else {
+    -webkit-box-shadow: $h $v $blur $spread $color;
+    -moz-box-shadow: $h $v $blur $spread $color;
+    box-shadow: $h $v $blur $spread $color;
+  }
+}
+@mixin rounded($radius: 0.5em) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin gradient($from, $to) {
+  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+  background: -moz-linear-gradient(top,  $from, $to);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+}

@@ -1,29 +1,34 @@
-.more_word{
-  .more_word_content{
+.more {
+  .more_content {
     text-align: justify;
   }
-  .act_show_all,.act_show_short
-  {
-    font-size: 13px;
-    display: inline-flex;
-    line-height: 32px;
-    i{
-      font-size: 32px;
+  .more_action {
+    position: relative;
+    a {
+      font-size: 13px;
+      display: block;
+      line-height: 32px;
+      text-align: center;
+      cursor: pointer;
+      color: _palette(text-2);
+      width: 100%;
+      i {
+        font-size: 32px;
+      }
+      &:hover {
+        color: _palette(button-1);
+      }
+      &.act_block_all, &.act_word_all, &.act_list_all {
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 3px, rgb(255, 255, 255) 30px);
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding-top: 10px;
+        position: absolute;
+
+      }
     }
   }
 }
 
-.more_block{
-  .more_block_content{
-    text-align: justify;
-  }
-  .act_block_all,.act_block_short
-  {
-    font-size: 13px;
-    display: inline-flex;
-    line-height: 32px;
-    i{
-      font-size: 32px;
-    }
-  }
-}
+

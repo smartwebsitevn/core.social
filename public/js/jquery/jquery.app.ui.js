@@ -1430,7 +1430,7 @@
 
                     // Dua man hinh den item dau tien
                     if (scroll) {
-                        $.scrollTo($this.find(item), 800);
+                       $.scrollTo($this.find(item), 800,{offset:-80});
                     }
                 }
 
@@ -1492,7 +1492,7 @@
 
                     // Dua man hinh len dau block
                     if (scrollTo) {
-                        $.scrollTo($this, 800);
+                        $.scrollTo($this, 800,{offset:-80});
                     }
 
                     // Xu ly act
@@ -1538,9 +1538,9 @@
                 function show_word_short(scrollTo) {
                     $this.find('.more_word_content').html($this.find('.data-content-shorted').html());
                     // Dua man hinh len dau block
-                    /*if (scrollTo) {
-                     $.scrollTo($this, 800);
-                     }*/
+                    if (scrollTo) {
+                        $.scrollTo($this, 800,{offset:-80});
+                    }
                     // Xu ly act
                     act_all.show();
                     act_short.hide();
@@ -2041,7 +2041,7 @@ var nfc = {
                 $(".nav-menu.navbar-left").toggleClass("has-open");
                 $(this).find(".dropdown").addClass("open");
                 //   $(".nav-menu.navbar-left").find(".dropdown").addClass("open");
-
+                $('.nav-toggle-navbar-background').show()
                 return false;
             });
             $("[data-action='toggle-navbar-right']").on('click', function () {
@@ -2049,11 +2049,13 @@ var nfc = {
                 $(".nav-menu.navbar-right").toggleClass("has-open");
                 $(".nav-menu.navbar-right .dropdown-user").removeClass("open");
                 $(".nav-menu.navbar-right .dropdown-user").addClass("open");
+                $('.nav-toggle-navbar-background').show()
                 // $(".nav-menu.navbar-right").find(".dropdown").addClass("open");
                 return false;
             });
             $("[data-action='close-nav']").on('click', function () {
                 close_menu_sidebar();
+                $('.nav-toggle-navbar-background').hide()
                 return false;
 
             });
@@ -2079,6 +2081,7 @@ var nfc = {
                 $("[data-action='toggle-navbar-right']").removeClass('active');
                 $(".nav-menu.navbar-left").removeClass("has-open");
                 $(".nav-menu.navbar-right").removeClass("has-open");
+                $('.nav-toggle-navbar-background').hide()
             }
         },
         scroll: function () {
@@ -2102,7 +2105,6 @@ var nfc = {
             function modalScrolled() {
                 setTimeout(function () {
                     v = $($this).scrollTop();
-                     alert(v)
 
                     $(this).on('scroll', modalScrolled);
                 }, 500)
@@ -2111,7 +2113,7 @@ var nfc = {
             //===
 
             function scrolled_show_hide_header_footer(v) {
-                if (v < current_scrollTop) {
+                if (v < current_scrollTop || v < 300) {
                     $('#header.auto,#footer_tool').slideDown('fast');
                 } else {
                     $('#header.auto,#footer_tool').slideUp('fast');
@@ -2462,7 +2464,7 @@ var nfc = {
                         $($this).hide();
                         var parent = $($this).closest('form');
                         // xoa du lieu doi voi check box
-                        // parent.find('.search-results.checkbox.checked span').click();
+                         parent.find('.search-results.checkbox.checked span').click();
                         parent.find('.active input[type="hidden"]').remove();
                         parent.find('.active').removeClass('active');
 
@@ -2476,8 +2478,12 @@ var nfc = {
 
                         // xoa du lieu voi filter dong
                         parent.find('.act-filter-slider').val('');
-
-
+                       // $(".act-filter-slider").slider.setValue(0);
+                        //$('.act-filter-slider').slider('setValue', 0);
+                       // $("#slider_point_hander").slider('setValue', 0);
+                      //  $("#slider_point_hander").slider().setValue(0);
+                       // $(".act-filter-slider").attr('data-slider-value', 8);
+                       // $(".act-filter-slider").slider('refresh');
                         setTimeout(function () {
                             // $('form.autoSubmitFrom').submit()
                             nfc.catch_hook_event($this);
@@ -3504,8 +3510,7 @@ function moduleCoreFilter(option) {
     });
 
 
-    //alert(matches);
-    if (matches > 1)
+    if (matches > 0)
         $('.btn-clear-all').show();
     else
         $('.btn-clear-all').hide();
@@ -3558,6 +3563,9 @@ function moduleCoreFilter(option) {
                 }
                 else {
                     $target_data.html(rs.content);
+                    // di chuyen len dau danh sach
+                    $.scrollTo($target_data, 800,{offset:-80});
+
                 }
                 if ($target_total.length > 0)
                     $target_total.html(rs.total);
@@ -3590,8 +3598,7 @@ function moduleUserFilter(option) {
         if ($(this).is(":checked"))
             matches++;
     });
-    //alert(matches);
-    if (matches > 1)
+    if (matches > 0)
         $('.btn-clear-all').show();
     else
         $('.btn-clear-all').hide();
@@ -3645,6 +3652,9 @@ function moduleUserFilter(option) {
                 }
                 else {
                     $target_data.html(rs.content);
+
+                    // di chuyen len dau danh sach
+                    $.scrollTo($target_data, 800,{offset:-80});
                 }
                 if ($target_total.length > 0)
                     $target_total.html(rs.total);

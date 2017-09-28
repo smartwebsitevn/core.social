@@ -37,7 +37,8 @@ class _t extends MY_Controller
 
     function update_db()
     {
-        $this->_update_user();
+        //$this->_update_user();
+        $this->_update_product();
     }
 
     function _update_user()
@@ -72,10 +73,12 @@ class _t extends MY_Controller
             $desc = 'Nội dung đang được cập nhập...';
             model($tbl)->update($i->id,
                 [
-                    'name' => $name,
+                    'point_total' => $i->point_total +$i->point_fake,
+                    'point_fake'=>0,
+                   /* 'name' => $name,
                     'seo_url' => convert_vi_to_en($name),
                     'brief' => $desc,
-                    'description' => $desc,
+                    'description' => $desc,*/
                 ]
             );
         }
@@ -118,25 +121,6 @@ class _t extends MY_Controller
         }
     }
 
-    function _update_lesson()
-    {
-        $tbl = 'lesson';
-        $list = model($tbl)->get_list();
-        foreach ($list as $i) {
-            if ($i->product_id > 0 && $i->group_id) {
-                $t = [];
-                $t[$i->product_id][] = $i->group_id;
-                model($tbl)->update_field($i->id, 'product_group_id', json_encode($t));
-                $data = [];
-                $data['lesson_id'] = $i->id;
-                $data['product_id'] = $i->product_id;
-                $data['group_id'] = $i->group_id;
-                $e = model('lesson_to_product')->check_exits($data);
-                if (!$e)
-                    model('lesson_to_product')->create($data, $id_new);
-            }
-        }
-    }
 
     function _update_lang()
     {

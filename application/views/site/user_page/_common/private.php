@@ -60,7 +60,7 @@ if ($info->banner) {
                 <span class="text">Người theo dõi</span><br>
                 <span class="value"><?php echo number_format($info->follow_by_total) ?></span>
             </a>
-            
+            <?php /* ?>
             <a href="<?php echo $info->_url_my_page . '?page=notice' ?>"
                class="btn btn-link <?php echo $page == 'notice' ? 'active' : '' ?>">
                 <span class="text">Thông báo</span><br>
@@ -72,6 +72,8 @@ if ($info->banner) {
                 <span class="text">Tin nhắn</span><br>
                 <span class="value">-<?php //echo number_format($info->follow_by_total) ?></span>
             </a>
+             <?php */ ?>
+
         </div>
         <div class="item-action">
             <a href="<?php echo $info->_url_my_account ?>" class="btn btn-default btn-round btn-xs">Chỉnh sửa hồ

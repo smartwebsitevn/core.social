@@ -133,10 +133,10 @@
   \*====================*/
 
   .nav-toggle-menu {
-    background-color: #585858;
+   /* background-color: #585858;
     background-image: url("../images/icon/bar.png");
     background-position: center center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat;*/
     color: #333;
     cursor: pointer;
     display: none;
@@ -145,60 +145,38 @@
     font-weight: bold;
     height: 30px;
     line-height: 30px;
-    margin-left: 8px;
+    margin-left: 5px;
     margin-bottom: 10px;
     text-transform: uppercase;
     width: 40px;
     position: absolute;
-    top: 5px;
+    top: 2px;
 
+    span {
+      display: none;
+    }
+    &:hover {
+      color: #f67004;
+    }
   }
-
-  .navbar-toggle {
-    background-color: #585858;
-    background-image: url("../images/icon/bar.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    color: #333;
-    cursor: pointer;
-    display: none;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    height: 30px;
-    line-height: 30px;
-    margin-left: 8px;
-    /*  margin-top: 4px;
-      margin-bottom: 10px;*/
-    text-transform: uppercase;
-    width: 40px;
-  }
-
-  .nav-toggle-menu span, .navbar-toggle span {
-    display: none;
-  }
-
-  .nav-toggle-menu:hover, .navbar-toggle:hover {
-    background-color: #f67004;
-  }
-
   .nav-toggle-navbar-left {
     left: 0;
   }
-
   .nav-toggle-navbar-right {
     right: 0;
   }
+  .nav-toggle-navbar-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    opacity: 0.2;
+    z-index: 1999;
+    display: none;
+  }
 
-  .navbar-header {
-    background-color: #ffffff;
-    /* border: 1px solid #e0e0e0;*/
-    float: none;
-  }
-  .navbar-collapse {
-    padding-left: 0;
-    padding-right: 0;
-  }
 
   .dropdown-user {
     .user-panel {
@@ -297,13 +275,14 @@
 
   @include breakpoint(small) {
 
-    .nav-toggle-menu, .navbar-toggle {
-      display: block;
-    }
+
     .logo {
       width: 100%;
-      a img {
-        max-height: 40px;
+      a {
+        display: inline;
+        img {
+          max-height: 40px;
+        }
       }
     }
     .btn-post {
@@ -333,6 +312,13 @@
         .pe-7s-user{
           font-size: 30px;
         }
+      }
+    }
+
+    .nav-toggle-menu{
+      display: block;
+      i{
+        font-size: 35px;
       }
     }
     .nav-menu {

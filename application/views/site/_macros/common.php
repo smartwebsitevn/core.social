@@ -126,15 +126,15 @@ $this->register('more_block', function ($content, $height = 200) {
     if (!$content) return;
 
     ob_start(); ?>
-    <div class="more_block" <?php echo $height ? 'data-height="' . $height . '"' : '' ?>>
-        <div class="more_block_content">
+    <div class="more_block more" <?php echo $height ? 'data-height="' . $height . '"' : '' ?>>
+        <div class="more_block_content more_content">
             <?php echo $content ?>
         </div>
-        <div class="mt5">
-            <a href="javascript:void(0)" class="act_block_all"><?php echo lang("view_more") ?><i
-                    class="pe-7s-angle-down"></i></a>
-            <a href="javascript:void(0)" class="act_block_short" style="display: none"><?php echo lang("view_less") ?><i
-                    class="pe-7s-angle-up"></i></a>
+        <div class="more_block_action more_action">
+            <a href="javascript:void(0)" class="act_block_all "><?php //echo lang("view_more") ?><i
+                    class="pe-7s-angle-down-circle"></i></a>
+            <a href="javascript:void(0)" class="act_block_short" style="display: none"><?php //echo lang("view_less") ?><i
+                    class="pe-7s-angle-up-circle"></i></a>
         </div>
     </div>
     <?php return ob_get_clean();
@@ -148,15 +148,16 @@ $this->register('more_list', function ($content, $num = 5, $item = ".item") {
 
     ob_start(); ?>
     <div
-        class="more_list" <?php echo $item ? 'data-item="' . $item . '"' : '' ?>   <?php echo $num ? 'data-num="' . $num . '"' : '' ?> >
-        <div class="more_block_list">
+        class="more_list more" <?php echo $item ? 'data-item="' . $item . '"' : '' ?>   <?php echo $num ? 'data-num="' . $num . '"' : '' ?> >
+        <div class="more_list_content more_content">
             <?php echo $content ?>
         </div>
-        <div class="mt5">
-            <a href="javascript:void(0)" class="act_list_all" style="display: none"><?php echo lang("view_more") ?><i
-                    class="pe-7s-angle-down"></i></a>
-            <a href="javascript:void(0)" class="act_list_short " style="display: none"><?php echo lang("view_less") ?><i
-                    class="pe-7s-angle-up"></i></a>
+        <div class="more_list_action more_action">
+
+        <a href="javascript:void(0)" class="act_list_all" style="display: none"><?php //echo lang("view_more") ?><i
+                class="pe-7s-angle-down-circle"></i></a>
+            <a href="javascript:void(0)" class="act_list_short " style="display: none"><?php //echo lang("view_less") ?><i
+                    class="pe-7s-angle-up-circle"></i></a>
         </div>
     </div>
     <?php return ob_get_clean();
@@ -186,15 +187,16 @@ $this->register('more_word', function ($str, $limit = 20) {
     <?php if (!$shorted): ?>
         <?php echo $str; ?>
     <?php else: ?>
-        <div class="more_word">
-            <div class="more_word_content">
+        <div class="more_word more">
+            <div class="more_word_content more_content">
                 <?php echo $shorted ?>
             </div>
-            <div class="mt5">
-                <a href="javascript:void(0)" class="act_show_all"> <?php echo lang("view_more") ?><i
-                        class="pe-7s-angle-down"></i></a>
+            <div class="more_word_action more_action">
+                <a href="javascript:void(0)" class="act_show_all"> <?php //echo lang("view_more") ?><i
+                        class="pe-7s-angle-down-circle"></i></a>
                 <a href="javascript:void(0)" class="act_show_short"
-                   style="display: none"> <?php echo lang("view_less") ?><i class="pe-7s-angle-up"></i></a>
+                   style="display: none"> <?php //echo lang("view_less") ?>
+                    <i    class="pe-7s-angle-up-circle"></i></a>
             </div>
             <div class="data-content-full" style="display: none"><?php echo $str ?></div>
             <div class="data-content-shorted" style="display: none"><?php echo $shorted ?></div>
@@ -472,6 +474,8 @@ $this->register('filter_dropdown_list', function ($input) {
     $unit = array_get($input, 'unit', '');
     $placeholder = array_get($input, 'placeholder', '');
     $class = array_get($input, 'class', '');
+    $menu_class = array_get($input, 'menu_class','');
+
     $attr = array_get($input, 'attr', array());
 
     $count_values = count($values);
@@ -484,7 +488,7 @@ $this->register('filter_dropdown_list', function ($input) {
                 <span class="search-caret"></span>
             </div>
             <span class="search-remove"></span>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu <?php echo $menu_class ?>">
                 <?php if ($count_values >= 7): ?>
                 <div class="form-group">
                     <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">

@@ -1,3 +1,4 @@
+<hr>
 <div id="<?php echo $row->id; ?>_comment_load" class="tab_load"></div>
 <?php if($list): ?>
         Tất cả <b id="<?php echo $row->id; ?>_comment_total"><?php echo number_format($row->comment_count) ?></b> Bình luận

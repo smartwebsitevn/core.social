@@ -125,6 +125,8 @@ function productFilter(option) {
                 }
                 else {
                     $target_data.html(rs.content);
+                    // di chuyen len dau danh sach
+                    $.scrollTo($target_data, 800,{offset:-80});
                 }
                 // var go_to = $target.offset().top - 150;
                 // $('html, body').animate({scrollTop: go_to}, 500);

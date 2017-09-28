@@ -70,7 +70,7 @@
     <?php view('tpl::user/_common/oauth', array("user" => $user, 'title' => 'Đăng ký')) ?>
     <div class="bottom-text">
         Đã có tài khoản?
-        <a class="btn-link" data-dismiss="modal" data-target="#login-modal" data-toggle="modal"
+        <a class="btn-link" data-dismiss="modal" data-target="#modal-login" data-toggle="modal"
            href="#">Đăng
             nhập</a>
     </div>

@@ -27,7 +27,7 @@
   font-size: 13px;
   text-transform: capitalize;
   padding-top: 80px;
-  &.active{
+  &.active {
     padding-top: 250px;
   }
   .background1 {
@@ -47,10 +47,10 @@
     z-index: 1;
     width: 100px;
     text-align: center;
-    a{
+    a {
       color: _palette(button-1);
     }
-    i{
+    i {
       font-size: 48px;
     }
     img {
@@ -59,6 +59,7 @@
     }
   }
 }
+
 .detail-user {
   margin: -215px auto 10px;
   padding-bottom: 2px;
@@ -73,7 +74,7 @@
       width: 200px;
       float: left;
       text-align: center;
-      @include user-avatar(180px, 180px,6px);
+      @include user-avatar(180px, 180px, 6px);
       @include user-label(30px, 33px, 33px, 120px, 30px);
       .links {
         a {
@@ -97,7 +98,7 @@
         text-transform: capitalize;
         a, a:hover {
           color: #fff;
-          .file_attach{
+          .file_attach {
             font-size: 24px;
           }
         }
@@ -109,6 +110,10 @@
         font-weight: 300;
         .places, .posts, .points, .follows {
           margin-right: 20px;
+          .value {
+            font-weight: bold;
+          }
+
         }
 
         .place {
@@ -123,7 +128,6 @@
           cursor: pointer;
         }
       }
-
 
     }
     .item-profile {
@@ -155,7 +159,6 @@
       .btn-outline {
         margin-top: 5px;
       }
-
 
     }
 
@@ -190,19 +193,19 @@
     height: 26px;
     line-height: 28px;
     display: flex;
-    i{
+    i {
       font-size: 16px;
     }
     .dropdown {
       margin-left: 10px;
-      i{
+      i {
         font-size: 32px;
         height: 20px;
         line-height: 25px;
 
       }
     }
-    .file_attach{
+    .file_attach {
       margin-right: 10px;
     }
   }
@@ -212,11 +215,11 @@
   #banner_background {
     font-size: 11px;
     padding-top: 80px;
-    &.active{
+    &.active {
       padding-top: 150px;
     }
     .background1 {
-      padding-top: 60px;
+      padding-top: 100px;
     }
     .background2 {
       padding-top: 50px;
@@ -225,7 +228,7 @@
       top: 10px;
       left: 45%;
       width: 100px;
-      i{
+      i {
         font-size: 48px;
       }
       img {
@@ -240,7 +243,7 @@
       //== structure
       .item-photo {
         width: 140px;
-        @include user-avatar(120px, 120px,3px);
+        @include user-avatar(120px, 120px, 3px);
         @include user-label(20px, 25px, 25px, 90px, 10px);
         .links {
           a {
@@ -252,7 +255,7 @@
       }
       .item-info {
         width: calc(80% - 210px);
-        padding-top: 72px;
+        padding-top: 45px;
         line-height: 20px;
         .item-name {
           font-size: 18px;
@@ -262,10 +265,123 @@
     .nav-links {
       bottom: -55px;
       left: 0px;
+      width: 100%;
+      @include vendor('display', 'flex');
+      a {
+        flex: 1;
+      }
+    }
+    .item-action {
+      bottom: 25px;
     }
   }
-  .ajax_form_filter{
+  .ajax_form_filter {
     margin-top: 10px;
+  }
+
+  #view_user_info {
+    margin-top: 10px;
+    padding: 5px;
+    span{
+      line-height: 30px; }
+    .group {
+      position: absolute;
+      top: 20px;
+      right: 10px;
+      text-align: center;
+      i {
+        font-size: 64px;
+      }
+    }
+    .infos {
+
+      .name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .profession {
+        font-size: 13px;
+      }
+
+      .value {
+        font-weight: bold;
+      }
+      i {
+        font-size: 18px;
+        margin-right: 10px;
+      }
+    }
+    .description{
+      margin-top: 10px;
+text-align:justify ;
+    }
   }
 }
 
+@include breakpoint(xsmall) {
+  #banner_background {
+    font-size: 11px;
+    padding-top: 80px;
+    &.active {
+      padding-top: 100px;
+    }
+    .background1 {
+      padding-top: 80px;
+    }
+    .background2 {
+      padding-top: 50px;
+    }
+    #banner_upload {
+      top: 10px;
+      left: 40%;
+      width: 100px;
+      i {
+        font-size: 32px;
+      }
+      img {
+        width: 70px;
+        height: 50px;
+      }
+    }
+  }
+  .detail-user {
+    margin: -135px auto 0px;
+    .item-user {
+      //== structure
+      .item-photo {
+        width: 100px;
+        @include user-avatar(80px, 80px, 3px);
+        @include user-label(13px, 15px, 15px, 60px, 5px);
+        .links {
+          a {
+            font-size: 15px;
+          }
+        }
+
+      }
+      .item-info {
+        width: calc(100% - 110px);
+        padding-top: 20px;
+        line-height: 20px;
+        .item-name {
+          font-size: 13px;
+        }
+      }
+    }
+    .nav-links {
+      bottom: -55px;
+      left: 0px;
+      width: 100%;
+      @include vendor('display', 'flex');
+      a {
+        flex: 1;
+        padding: 2px 2px;
+        .text {
+          font-size: 11px;
+        }
+      }
+    }
+    .item-action {
+    }
+  }
+}

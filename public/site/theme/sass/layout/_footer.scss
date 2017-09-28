@@ -232,15 +232,15 @@
       }
     }
   }
-#footer .footer-center {
+  #footer .footer-center {
     padding: 20px 0;
     .container {
       padding: 0 20px;
     }
-}
+  }
   #footer_tool {
     background-color: #fcfcfc;
-    box-shadow: 0 3px 2px -2px #ccc;
+    box-shadow: 0 -3px 2px -2px #969696;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -261,6 +261,7 @@
         color: _palette(text-2);
         &:hover, &.active {
           color: _palette(button-2);
+
         }
         i {
           font-size: 24px;
@@ -271,6 +272,9 @@
       }
       &:hover, &.active {
         border-top: 2px solid _palette(button-1);
+      i{
+        color: _palette(button-2);
+      }
       }
     }
   }

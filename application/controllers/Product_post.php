@@ -608,16 +608,48 @@ class Product_post extends MY_Controller
     }
 
     //=================================
+
+    protected function _fields()
+    {
+        // Thiet lap setting mac dinh
+        $fields = array(
+            'name','description','link',
+        );
+        return $fields;
+
+    }
     protected function _get_params()
     {
-        $params = $this->_model()->fields;
+       // $params = $this->_model()->fields;
+        $params = $this->_fields();
         // array_push($params, 'image','avatar','icon', 'banner');
         return $params;
     }
 
     protected function _get_inputs($id = null, $fake_id = null)
     {
-        $data = parent::_form_get_inputs($id, $fake_id);
+        $data = array();
+        $fields = $this->_fields();
+        foreach ($fields as $f) {
+            $v= $this->input->post($f,true);
+            if(is_null($v)) $v='';
+
+            $data[$f] = strip_tags($v);
+        }
+        // SEO url
+        $data['seo_url'] = convert_vi_to_en($data['name']);
+
+
+        // Lay thong tin image
+        foreach ($this->_model()->fields_type_image as $i) {
+            $image = $this->_get_image($fake_id, $i);
+            if ($image) {
+                $data[$i . '_id'] = $image->id;
+                $data[$i . '_name'] = $image->file_name;
+            }
+        }
+
+       // $data = parent::_form_get_inputs($id, $fake_id);
         $data['user_id'] = $this->data['user']->id;
         if($data['link']){
             $data['type']='link';

@@ -72,8 +72,7 @@ if ($info->banner) {
 
         </div>
         <div class="item-action">
-            <a href="<?php echo $info->_url_my_account ?>" class="btn btn-default btn-round btn-xs">Chỉnh sửa hồ
-                sơ</a>
+            <a href="<?php echo $info->_url_my_account ?>" class="btn btn-default btn-round btn-xs">Chỉnh sửa hồ sơ</a>
         </div>
     </div>
 </div>

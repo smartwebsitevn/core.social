@@ -40,26 +40,14 @@ if ($info->banner) {
                 <span class="text">Người theo dõi</span><br>
                 <span class="value"><?php echo number_format($info->follow_by_total) ?></span>
             </a>
+            <a href="<?php echo $info->_url_view . '?page=info'//site_url('user_page/follow_by') ?>"
+               class="btn btn-link <?php echo $page == 'info' ? 'active' : '' ?>">
+                <span class="text">Giới thiệu</span><br>
+                <span class="value"><i class="pe-7s-id"></i></span>
+            </a>
         </div>
         <div class="item-action">
-            <?php t('view')->load('tpl::_widget/user/display/item/info_attach_name', ['row' => $info]) ?>
-
-            <?php //widget('user')->action_share($info) ?>
             <?php widget('user')->action_subscribe($info) ?>
-            <?php //widget('user')->action_message($info) ?>
-            <span class="dropdown">
-                                     <a href="#0" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                         <i class="pe-7s-more" aria-hidden="true"></i>
-                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a title="Thông tin liên hệ " class=" do_action"
-                                               data-url="<?php echo $info->_url_view_profile ?>">Thông
-                                                tin liên hệ</a></li>
-                                        <li><a title="Nhắn tin" href="<?php echo $info->_url_message ?>">Nhắn tin</a>
-                                        </li>
-                                    </ul>
-                            </span>
         </div>
 
     </div>

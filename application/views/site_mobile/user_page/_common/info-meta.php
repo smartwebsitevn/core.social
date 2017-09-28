@@ -9,3 +9,6 @@
     <div class="item-profession">
         <?php echo character_limiter($info->profession, 250); ?>
     </div>
+    <div class="item-meta">
+        <?php t('view')->load('tpl::_widget/user/display/item/info_meta_min',['row'=>$info]) ?>
+    </div>

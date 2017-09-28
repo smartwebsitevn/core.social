@@ -489,7 +489,7 @@ class MY_Mod
                 }
                 case 'feature': {
                     $p = obj_true_name($row, ["feature", 'is_feature']);
-                    $this->_model()->update_field($row->id, $p, 1);//now()
+                    $this->_model()->update_field($row->id, $p, now());//now()
                     break;
                 }
                 case 'feature_del': {

@@ -2,12 +2,13 @@
     <h1 class="page-title">
         <?php echo $info->name ?>
     </h1>
-
+    <?php /* ?>
     <div class="product-meta">
         <p>
             <?php echo view('tpl::_widget/product/display/item/info_rate', array('info' => $info)); ?>
         </p>
     </div>
+    <?php */ ?>
 
 
     <?php //t('view')->load('tpl::product/_common/info_video') ?>

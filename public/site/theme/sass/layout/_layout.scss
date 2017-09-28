@@ -124,7 +124,21 @@
 
 .select-rendered {
   overflow: hidden;
+  @include vendor('display', 'flex');
+  justify-content: space-between;
+  line-height: 22px;
   li {
+
+    &:first-child {
+      flex-basis: 10px;
+    }
+    &:last-child {
+      flex-basis: 30px;
+    }
+    &:nth-child(2) {
+      flex: 1;
+
+    }
     margin: 0 0px 3px 5px;
     display: inline-block;
     white-space: nowrap;
@@ -251,5 +265,8 @@
 @include breakpoint(small) {
   #main {
     margin-top: 40px;
+  }
+  .sidebar {
+    display: none;
   }
 }

@@ -10,7 +10,7 @@
 	<div id="main">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 sidebar ">
+				<div class="col-md-3  sidebar ">
 					<div class="sticky-element" data-spacing="65" data-limiter="#footer">
 						<div class="slimscroll_" data-height="90vh">
 							<?php echo widget('product')->filter([], "sidebar") ?>
@@ -35,7 +35,7 @@
 				<div class="col-md-6 main-content">
 					<?php echo $content; ?>
 				</div>
-				<div class="col-md-3 sidebar">
+				<div class="col-md-3  sidebar">
 					<?php widget('user')->adsed(null, 'sidebar_adsed') ?>
 				</div>
 			</div>

@@ -47,15 +47,7 @@ $author = $row->_author; //pr($author);
                     <?php echo widget('product')->action_comment($row) ?>
                 </div>
                 <div class="item-actions">
-                    <div class="item-meta item-action">
-                        <?php echo widget('product')->action_vote($row) ?>
-                    </div>
-                    <div class="item-action">
-                        <?php echo widget('product')->action_favorite($row) ?>
-                    </div>
-                    <div class="item-action">
-                        <?php widget('product')->action_share($row) ?>
-                    </div>
+                    <?php t('view')->load('tpl::_widget/product/display/item/info_action', ['row' => $row]) ?>
                 </div>
                 <?php if ($user_manager): ?>
                     <div class="item-manager">
@@ -69,6 +61,9 @@ $author = $row->_author; //pr($author);
         </div>
 
     </div>
+    <a  class="btn btn-default btn-block" data-dismiss="modal" aria-label="Close" >
+        Đóng
+    </a>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {

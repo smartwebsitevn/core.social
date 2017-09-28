@@ -14,7 +14,7 @@
             <span>Hoặc</span>
         </div>
         <div class="form-control-wrapper">
-            <a class="btn-link" data-dismiss="modal" data-target="#login-modal" data-toggle="modal">Đăng
+            <a class="btn-link" data-dismiss="modal" data-target="#modal-login" data-toggle="modal">Đăng
                 nhập</a>
         </div>
     </div>

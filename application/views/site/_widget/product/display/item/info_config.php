@@ -1,5 +1,5 @@
 <div class="item-config ">
-    <a class="btn btn-outline btn-xs" title="Đẩy lên Top " href="#0">Đẩy lên Top</a>
+    <a class="btn btn-outline btn-xs  act-notify-modal"   data-content="Bạn không đủ tiền trong tài khoản để thực hiện hành động này <?php //echo lang("notice_please_login_to_use_function") ?>">  title="Đẩy lên Top " href="#0" >Đẩy lên Top</a>
    <span class="item-action-share dropdown">
          <a class="btn btn-link btn-sm dropdown" href="#0" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">

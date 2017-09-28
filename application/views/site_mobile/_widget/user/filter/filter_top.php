@@ -12,7 +12,7 @@
                         <?php t('view')->load('tpl::_widget/product/filter/_common/reset') ?>
                     <?php echo  macro()->modal_start(['id'=>'modal-user-filter','name'=>'Lọc kết quả']); ?>
                     <div class="product-total">
-                        Có <span  class="ajax-content-product-total "><?php echo isset($total_rows) ? number_format($total_rows) : '...' ?></span> kết quả
+                        Có <span  class="ajax-content-total "><?php echo isset($total_rows) ? number_format($total_rows) : '...' ?></span> kết quả
                     </div>
                     <?php //echo macro()->filter_dropdown_country(['value' => $filter['country_id'], 'values' => $countrys, 'param' => 'country_id', 'name' => lang('filter_country')]); ?>
                     <?php // echo macro()->filter_dropdown_city(['value' => $filter['working_city'], 'values' => $citys, 'param' => 'working_city', 'name' => lang('filter_city')]); ?>

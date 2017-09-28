@@ -107,7 +107,7 @@ class User_page extends MY_Controller
             if (!user_is_login()) {
                 // $this->_response(array('msg_modal' => lang('notice_please_login_to_use_function')));
                 // return;
-                $result["modal_box"] = "modal-user-login";
+                $result["modal_box"] = "modal-login-require";
                 $this->_response($result);
             }
         }*/
@@ -506,7 +506,7 @@ class User_page extends MY_Controller
     public function _view()
     {
         $page = $this->input->get('page');
-        if (!in_array($page, ['follow', 'follow_by', 'posts'])) {
+        if (!in_array($page, ['follow', 'follow_by', 'posts','info'])) {
             $page = 'posts';
         }
         $this->{'_view_' . $page}();
@@ -555,6 +555,10 @@ class User_page extends MY_Controller
 
     }
 
+    public function _view_info()
+    {
+        return;
+    }
 
     //====================== Tao danh sach hien thi ===========================
     private function _post_create_list($input = array(), $filter = array(), $filter_fields = array())
@@ -572,10 +576,8 @@ class User_page extends MY_Controller
             unset($filter['name']);
             $filter['%name'] = $filter_fields['name'] = trim($key);
         }
-        $filter['point_total']= $this->input->get('point');
-        if ($filter['point_total']) {
-            $filter['point_total_gte'] =$filter['point_total'];
-            unset($filter['point_total']);
+        if ($point=$this->input->get('point')) {
+            $filter['point_total_gte'] =$point;
         }
         $filter['types'] = $this->input->get('types');
 
@@ -795,10 +797,8 @@ class User_page extends MY_Controller
             unset($filter['name']);
 
         }
-        $point = $this->input->get('point');
-        if ($point) {
-            $filter['point_total_gte'] = $point;
-
+        if ($point=$this->input->get('point')) {
+            $filter['point_total_gte'] =$point;
         }
         // lay thong tin cua cac khoang tim kiem
         foreach (array('price',) as $range) {

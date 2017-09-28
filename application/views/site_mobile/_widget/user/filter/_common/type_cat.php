@@ -1,6 +1,6 @@
 <?php echo  macro()->modal_start(['id'=>'modal-user-filter','name'=>'Lọc kết quả']); ?>
-<div class="product-total">
-    Có <span  class="ajax-content-product-total "><?php echo isset($total_rows) ? number_format($total_rows) : '...' ?></span> kết quả
+<div class="block-total">
+    Có <span  class="ajax-content-total"><?php echo isset($total_rows) ? number_format($total_rows) : '...' ?></span> kết quả
 </div>
 <?php
 $type_cats = model('type_cat')->get_list_hierarchy([], ['show' => 1]);

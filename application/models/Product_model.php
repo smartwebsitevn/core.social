@@ -27,7 +27,7 @@ class Product_model extends MY_Model
         'model','link',
         'video', 'brief', 'description',     'technical', 'note',    'tags',
 
-        'quantity', 'point',
+        'quantity',
         //'warranty',     'promotion',
         'taxclass', 'shipping', 'weight', 'dimension',
 
@@ -210,7 +210,7 @@ class Product_model extends MY_Model
             $where[$this->table.'.status'] = 1; // chi hien tin la cong bo
             $where[$this->table.'.verified >'] = 0; // chi hien tin da xac thuc
             //$where[$this->table.'.expired >='] = now();// chi hien tin con han dang
-            //$where[$this->table.'.point_total >'] = -10; // ko hien  tin co diem -
+            $where[$this->table.'.point_total >'] = -10; // ko hien  tin co diem -
             //$this->db->where('(point_total + point_fake) > -10');
 
         }

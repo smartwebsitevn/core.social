@@ -9,6 +9,7 @@
             ?>
             <div class="item-social <?php echo isset($row->_ads) ? 'item-social-ads' : '' ?> ">
                 <div class="clearfix">
+                    <span class="item-time"><?php echo $row->_created_carbon->diffForHumans(); ?>  </span>
                     <div class="item-author">
                         <?php t('view')->load('tpl::_widget/product/display/item/info_author', ['row' => $row]) ?>
 
@@ -31,17 +32,7 @@
 
                     </div>
                     <div class="item-actions">
-                        <div class="item-meta item-action">
-                            <?php echo widget('product')->action_vote($row) ?>
-                        </div>
-                        <div class="item-action">
-                            <?php echo widget('product')->action_favorite($row) ?>
-                        </div>
-                        <div class="item-action">
-                            <?php widget('product')->action_share($row) ?>
-                        </div>
-
-
+                        <?php t('view')->load('tpl::_widget/product/display/item/info_action', ['row' => $row]) ?>
                     </div>
                     <?php if ($user_manager): ?>
                         <div class="item-manager">

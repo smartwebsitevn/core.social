@@ -305,3 +305,20 @@ ALTER TABLE `product`
 	CHANGE COLUMN `is_draft` `is_draft` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_form`,
 	ADD COLUMN `is_lock` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_draft`,
 	CHANGE COLUMN `status` `status` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_lock`;
+
+// 25-9-2017 	
+ALTER TABLE `user_notice`
+	ALTER `title` DROP DEFAULT;
+ALTER TABLE `user_notice`
+	CHANGE COLUMN `title` `title` TEXT NOT NULL AFTER `table`;
+
+ALTER TABLE `product`
+	CHANGE COLUMN `is_new` `is_new` INT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER `has_combo`,
+	CHANGE COLUMN `is_feature` `is_feature` INT(11) UNSIGNED NOT NULL DEFAULT '0' AFTER `is_new`,
+	DROP COLUMN `is_soon`,
+	DROP COLUMN `is_slide`,
+	DROP COLUMN `is_live`,
+	DROP COLUMN `is_sellbest`,
+	DROP COLUMN `is_alway_in_stock`,
+	DROP COLUMN `is_in_menu`;
+

@@ -742,6 +742,8 @@
     display: block;
   }
   .dropdown-menu {
+    left: auto;
+    right: 0;
     /*margin-top: 8px;*/
     &:after, &:before {
       content: none;

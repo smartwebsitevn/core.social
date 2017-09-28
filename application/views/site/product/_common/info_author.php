@@ -24,7 +24,7 @@
 
                 <hr>
                 <?php widget('user')->action_subscribe($author) ?>
-                <?php widget('user')->action_message($author) ?>
+                <?php //widget('user')->action_message($author) ?>
                 <hr>
 
                 <div class="item-des">

@@ -5,8 +5,8 @@ class Product_list extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        if(mod('product')->setting('turn_off_function_order'))
-            redirect();
+        //if(mod('product')->setting('turn_off_function_order'))
+          //  redirect();
         // Tai cac file thanh phan
         $this->load->language('site/product');
         /*$layout= $this->input->get('layout');
@@ -165,10 +165,8 @@ class Product_list extends MY_Controller
             unset($filter['name']);
             $filter['%name'] = $filter_fields['name'] = trim($key);
         }
-        $filter['point_total']= $this->input->get('point');
-        if ($filter['point_total']) {
-                 $filter['point_total_gte'] =$filter['point_total'];
-            unset($filter['point_total']);
+        if ($point=$this->input->get('point')) {
+            $filter['point_total_gte'] =$point;
         }
 
         // lay thong tin cua cac khoang tim kiem
@@ -193,7 +191,9 @@ class Product_list extends MY_Controller
         //== Lay tong so
         if (!isset($input['limit'])) {
             $total = model('product')->filter_get_total($filter, $input);
-            $page_size =17;// config('list_limit', 'main');
+           // pr($filter,0);        pr_db($total);
+
+            $page_size = config('list_limit', 'main');
 
             $limit = $this->input->get('per_page');
             $limit = min($limit, $total - fmod($total, $page_size));
@@ -225,7 +225,7 @@ class Product_list extends MY_Controller
             $input['order'] = array($orderex[0], $orderex[1]);
         }
         $list = model('product')->filter_get_list($filter, $input);
-        //pr($filter,0);        pr_db($list);
+        // pr($filter,0);        pr_db($list);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row,1);
         }

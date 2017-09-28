@@ -54,6 +54,7 @@
                     <?php if ( isset($row->_adsed) && $row->_adsed): ?>
                         <label class="label-job"><?php echo $row->ads_title ?></label>
                     <?php endif; ?>
+                    <span class="item-time item-time-manager"><?php echo $row->_created_carbon->diffForHumans(); ?>  </span>
 
                     <div class="item-author">
                         <?php t('view')->load('tpl::_widget/product/display/item/info_author', ['row' => $row,'item_time_manager'=>1]) ?>
@@ -76,17 +77,7 @@
 
                     </div>
                     <div class="item-actions">
-                        <div class="item-meta item-action">
-                            <?php echo widget('product')->action_vote($row) ?>
-                        </div>
-                        <div class="item-action">
-                            <?php echo widget('product')->action_favorite($row) ?>
-                        </div>
-                        <div class="item-action">
-                            <?php widget('product')->action_share($row) ?>
-                        </div>
-
-
+                        <?php t('view')->load('tpl::_widget/product/display/item/info_action', ['row' => $row]) ?>
                     </div>
                     <?php if ($user_manager): ?>
                         <div class="item-manager">

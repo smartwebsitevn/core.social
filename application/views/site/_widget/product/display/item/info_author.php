@@ -22,5 +22,4 @@
             <?php endif; ?>
         </div>
     </div>
-    <span class="<?php echo isset($item_time_manager)?'item-time-manager':'item-time' ?>"><?php echo $row->_created_carbon->diffForHumans(); ?>  </span>
 <?php endif; ?>

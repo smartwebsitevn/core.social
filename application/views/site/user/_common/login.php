@@ -1,5 +1,5 @@
 <form method="POST" action="<?php echo $user->_url_login ?>" accept-charset="UTF-8"
-      class="cd-form form_action">
+      class="form_action">
     <input name="return" type="hidden" value="<?php echo current_url(1) ?>">
 
     <p class="sub-title">Đăng nhập bằng tài khoản trên site</p>
@@ -29,7 +29,7 @@
 
 
     <p class="forgot-password-link">
-        <a class="btn-link" data-dismiss="modal" data-target="#forgot-password-modal"
+        <a class="btn-link" data-dismiss="modal" data-target="#modal-forgot-password"
            data-toggle="modal"
            href="#" id="forgot-password-button">Quên mật khẩu đăng nhập?</a>
     </p>
@@ -39,7 +39,7 @@
     <?php if (mod("user")->setting('register_allow')): ?>
         <div class="bottom-text">
             Chưa có tài khoản?
-            <a class="btn-link" data-dismiss="modal" data-target="#register-modal" data-toggle="modal"
+            <a class="btn-link" data-dismiss="modal" data-target="#modal-register" data-toggle="modal"
                href="#">Đăng ký</a>
         </div>
     <?php endif; ?>

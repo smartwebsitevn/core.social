@@ -1,7 +1,7 @@
 <?php if (!$is_login): ?>
     <?php if (mod("user")->setting('login_allow')): ?>
         <li class="dropdown-login login">
-            <a data-dismiss="modal" data-target="#login-modal" data-toggle="modal" href="#0" class="link-login">
+            <a data-dismiss="modal" data-target="#modal-login" data-toggle="modal" href="#0" class="link-login">
                 <span class="text ">
                     <i class="fa fa-sign-in f18"></i>
                     <?php echo lang('button_login'); ?></span>
@@ -11,7 +11,7 @@
 
     <?php if (mod("user")->setting('register_allow')): ?>
         <li class="dropdown-singup register">
-            <a data-dismiss="modal" data-target="#register-modal" data-toggle="modal" href="#0" class="link-register">
+            <a data-dismiss="modal" data-target="#modal-register" data-toggle="modal" href="#0" class="link-register">
                 <span class="text ">
                     <i class="fa fa-pencil f16"></i>
                     <?php echo lang('button_register'); ?> </span>
@@ -65,11 +65,13 @@
                 <a href="<?php echo site_url('my-account') ?>">
                     <i class="pe-7s-config "></i> <?php echo lang('user_panel_my_account') ?></a>
             </li>
-
+<?php /* ?>
             <li>
                 <a href="<?php echo site_url('my-balance') ?>">
                     <i class="pe-7s-credit "></i> <?php echo lang('user_panel_my_balance') ?></a>
             </li>
+ <?php */ ?>
+
             <li>
                 <a href="<?php echo $user->_url_logout; ?>">
                     <i class="pe-7s-power "></i> <?php echo lang('button_logout'); ?></a>
