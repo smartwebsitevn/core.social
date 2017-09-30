@@ -156,7 +156,7 @@ class User_model extends MY_Model
 
 
         if (isset($filter['show'])) {
-            //$where[$this->table.'.blocked'] = 0;
+            $where[$this->table.'.blocked'] = '0';
             //$where[$this->table.'.verify'] = 1;
         }
 

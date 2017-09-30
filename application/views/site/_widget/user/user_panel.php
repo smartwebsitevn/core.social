@@ -40,10 +40,13 @@ echo macro('mr::box')->panel([
         <a href="<?php echo site_url('my-account') ?>">
             <i class="pe-7s-config " ></i> <?php echo lang('user_panel_my_account') ?></a>
     </li>
+    <?php /* ?>
     <li >
         <a href="<?php echo site_url('my-balance') ?>">
             <i class="pe-7s-credit " ></i> <?php echo lang('user_panel_my_balance') ?></a>
     </li>
+     <?php */ ?>
+
     <li >
         <a href="<?php echo $user->_url_logout; ?>">
             <i class="pe-7s-power " ></i> <?php echo lang('button_logout'); ?></a>

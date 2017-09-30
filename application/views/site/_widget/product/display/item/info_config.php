@@ -1,10 +1,11 @@
 <div class="item-config ">
-    <a class="btn btn-outline btn-xs  act-notify-modal"   data-content="Bạn không đủ tiền trong tài khoản để thực hiện hành động này <?php //echo lang("notice_please_login_to_use_function") ?>">  title="Đẩy lên Top " href="#0" >Đẩy lên Top</a>
+    <a class="btn btn-outline btn-xs  act-notify-modal"   data-content="Bạn không đủ tiền trong tài khoản để thực hiện hành động này"  title="Đẩy lên Top " href="#0" >Đẩy lên Top</a>
    <span class="item-action-share dropdown">
          <a class="btn btn-link btn-sm dropdown" href="#0" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
              <i class="pe-7s-config"></i>
          </a>
+
         <ul class="dropdown-menu dropdown-menu-right">
             <?php if (in_array($row_status, array('status-expried'))): ?>
                 <li><a title="Đăng lại tin " href="<?php echo $row->_url_reup ?>">Đăng lại tin</a></li>

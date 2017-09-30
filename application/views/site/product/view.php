@@ -35,6 +35,8 @@
                     <?php t('view')->load('tpl::product/_common/same_author') ?>
 
                 </div>
+
+
             </div>
 
 

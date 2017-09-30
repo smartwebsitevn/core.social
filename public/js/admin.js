@@ -6,6 +6,7 @@
 
 	$(document).ready(function()
 	{
+
 		// Select2
 		$('.select2').select2();
 
@@ -32,7 +33,33 @@
 				},
 			});
 		});
-		
+	 // Verify action
+	 $('.verify_action').nstUI('verifyAction');
+	 $('.need_processing').nstUI('needProcessing');
+	 // Response action
+	 $('.response_action').nstUI('responseAction');
+	 // Toggle action
+	 $('.toggle_action').nstUI('toggleAction');
+	 // toggleStatus || select || status
+	 $('.toggle_status').nstUI('toggleContent');
+
+	 // Tooltip
+	 $('[_tooltip]').nstUI('tooltip');
+	 // Drop Down
+	 $('[_dropdownchild]').nstUI({
+	 method: 'dropdownHasChild'
+	 });
+	 // Placeholder
+	 $('input.placeholder').nstUI('placeholder');
+
+	 // Accordion
+	 $('.accordion').nstUI('accordion');
+
+
+	 // Number format
+	 $('.format_number').autoNumeric('init', {vMin:'0.00000000', vMax:'9999999999999999.99', aPad:false});
+
+
 		// Form update
 		$('.form_update').each(function()
 		{
@@ -49,32 +76,7 @@
 			});
 		});
 
-		// Verify action
-		$('.verify_action').nstUI('verifyAction');
-		$('.need_processing').nstUI('needProcessing');
-		// Response action
-		$('.response_action').nstUI('responseAction');
-		// Toggle action
-		$('.toggle_action').nstUI('toggleAction');
-		// toggleStatus || select || status
-		$('.toggle_status').nstUI('toggleContent');
 
-		// Tooltip
-		$('[_tooltip]').nstUI('tooltip');
-		// Drop Down
-		$('[_dropdownchild]').nstUI({
-			method: 'dropdownHasChild'
-		});
-		// Placeholder
-		$('input.placeholder').nstUI('placeholder');
-		
-		// Accordion
-		$('.accordion').nstUI('accordion');
-
-
-		// Number format
-		$('.format_number').autoNumeric('init', {vMin:'0.00000000', vMax:'9999999999999999.99', aPad:false});
-	
 		// Auto check pages
 		$('.auto_check_pages').each(function()
 		{
@@ -122,8 +124,6 @@
 
 		});
 
-
-
 		// Sort col table
 		$('table td.sortCol').each(function()
 		{
@@ -131,10 +131,6 @@
 			var html = '<div>'+$this.html()+'<span></span></div>';
 			$this.html(html);
 		});
-
-
-
-
 
 		var $list_filter	= $('.list_filter');
 		var $list_item 		= $('.list_item');

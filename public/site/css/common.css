@@ -1,4 +1,4 @@
-
+bi
 /**
  * Common
  */
@@ -448,8 +448,9 @@ img.captcha{
 	display: block;
 	margin-bottom: 25px;
 }
-#page-big .item-quan-tri .descaption {
-	text-align: left;
+#page-big .item-quan-tri .description {
+	text-align: justify;
+	padding: 0 20px;
 }
 
 /*====*/

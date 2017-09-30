@@ -32,6 +32,20 @@
         </div>
         <div class="col-md-4 col-sm-12 col-xs-12">
             <?php t('view')->load('tpl::product_post/form/author') ?>
+            <?php
+            $notice = mod('notice')->get('rule_post_social');
+            ?>
+            <?php if($notice): ?>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <?php echo $notice->name ?>
+                    </div>
+                    <div class="panel-body">
+                        <?php echo $notice->content ?>
+
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
     </div>

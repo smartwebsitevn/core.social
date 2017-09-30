@@ -93,7 +93,6 @@ class User_group extends MY_Controller
 			'sort'    => true,
 			'display' => false,
 		]);
-
 		$this->data['list'] = UserGroupModel::makeCollection($this->data['list']);
 		//pr($this->data['list'] );
 		$this->_display();

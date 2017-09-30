@@ -83,8 +83,9 @@ $config = [
             //'currency',
             //'lang_phrase',
             //'bank',
+            'cronjob',
             'notice',
-            'email', 'emailsmtp', 'emailsend'/* 'send_email','queue'*/, 'media', /*'cronjob',*/ /*'module',*/
+            'email', 'emailsmtp', 'emailsend'/* 'send_email','queue'*/, 'media', /*'module',*/
             'setting',
         ],
         //'log' => ['log_balance', 'log_activity', 'log_login', 'log_access', /*'log_system',*/ /*'log_api','log_api_sms_receive.php' */],

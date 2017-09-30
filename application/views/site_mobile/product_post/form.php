@@ -12,6 +12,21 @@
                 <?php endif; ?>
                 <?php t('view')->load('tpl::product_post/form/general') ?>
 
+                <?php
+                $notice = mod('notice')->get('rule_post_social');
+                ?>
+                <?php if($notice): ?>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <?php echo $notice->name ?>
+                        </div>
+                        <div class="panel-body">
+                            <?php echo $notice->content ?>
+
+                        </div>
+                    </div>
+                <?php endif; ?>
+
                 <div class="form-actions text-right p20 mb40">
                     <?php if (!$info): ?>
                         <a _submit="1" class="btn btn-default act-do-submit" data-draft='0'>Đăng ngay</a>

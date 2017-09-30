@@ -52,11 +52,11 @@
   }
   li {
     &:hover > a {
-      border-color: #eb8305;
+      /*border-color: #eb8305;
+      border-width: 2px;*/
       color: #eb8305;
-      border-width: 2px;
       z-index: 9;
-      padding: 8px 20px;
+    /*  padding: 8px 20px;*/
     }
     &:first-child > a {
       margin-top: -2px;
@@ -742,8 +742,8 @@
     display: block;
   }
   .dropdown-menu {
-    left: auto;
-    right: 0;
+   /* left: auto;
+    right: 0;*/
     /*margin-top: 8px;*/
     &:after, &:before {
       content: none;

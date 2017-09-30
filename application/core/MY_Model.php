@@ -576,7 +576,7 @@ class MY_Model extends CI_Model
     /**
      * Lay danh sach
      */
-    function get_list($input = array())
+    function get_list($input = array(),$only_key =false)
     {
         $this->_get_list_set_input($input);
 
@@ -587,20 +587,26 @@ class MY_Model extends CI_Model
         if (!empty($input['relation'])) {
             $list = $this->relations($input['relation'], $list);
         }
-
+        if($only_key && $list){
+            $tmp=[];
+            foreach($list as $row){
+                $tmp[]=$row->{$this->key};
+            }
+            $list =$tmp;
+        }
         return $list;
     }
 
     /**
      * Lay danh sach
      */
-    function get_list_rule($where = array(), $wherein = array())
+    function get_list_rule($where = array(), $wherein = array(),$only_key =false)
     {
         $input = array(
             'where' => $where,
             'wherein' => $wherein
         );
-        return $this->get_list($input);
+        return $this->get_list($input,$only_key);
 
     }
     /**
@@ -1025,7 +1031,7 @@ class MY_Model extends CI_Model
     /**
      * Lay danh sach
      */
-    function filter_get_list(array $filter, array $input = array())
+    function filter_get_list(array $filter, array $input = array(),$only_key =false)
     {
 
         $where = $this->_filter_get_where($filter);
@@ -1033,8 +1039,9 @@ class MY_Model extends CI_Model
             $input['where'] = array_merge($input['where'], $where);
         else
             $input['where'] = $where;
+        $list = $this->get_list($input ,$only_key);
 
-        return $this->get_list($input);
+        return $list;
     }
 
     /**

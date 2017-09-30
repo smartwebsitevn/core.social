@@ -142,7 +142,7 @@ class Cronjob extends MY_Controller {
 				// Them du lieu vao data
 				$data = array();
 				$data['title'] 		= $this->input->post('title');
-				$data['url'] 		= $this->input->post('url');
+				$data['url'] 		=handle_content($this->input->post('url'), 'input');
 				$data['desc'] 	= handle_content($this->input->post('desc'), 'input');
 				$data['status']	= $this->input->post('status');
 				$data['setting']	= $setting;
@@ -219,7 +219,7 @@ class Cronjob extends MY_Controller {
 				// Them du lieu vao data
 				$data = array();
 				$data['title'] 		= $this->input->post('title');
-				$data['url'] 		= $this->input->post('url');
+				$data['url'] 		=handle_content($this->input->post('url'), 'input');
 				$data['desc'] 	= handle_content($this->input->post('desc'), 'input');
 				$data['status']	= $this->input->post('status');
 				$data['setting']	= $setting;
@@ -246,6 +246,7 @@ class Cronjob extends MY_Controller {
 
 
 		// Luu bien gui den view
+		$info->url 	= handle_content($info->url, 'output');
 		$info->desc 	= handle_content($info->desc, 'output');
 		$info->setting 	= unserialize($info->setting);
 		$this->data['info'] = $info;

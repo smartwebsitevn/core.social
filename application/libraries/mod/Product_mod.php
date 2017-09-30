@@ -1004,7 +1004,7 @@ class Product_mod extends MY_Mod
 
     function _to_types($types, $type_cat_id, $table_id, $table)
     {
-        //pr($types);
+       //pr($types);
         if (!$types || !$type_cat_id || !$table_id || !$table) return false;
         // xoa cac ban ghi cu
         $where = array();

@@ -1,5 +1,5 @@
 <?php
-
+//pr($list);
 	$rows = [];
 	foreach ($list as $row)
 	{

@@ -1,0 +1,10 @@
+127.0.0.1: 30-09-2017 - 11:48:59:run auto
+127.0.0.1: 30-09-2017 - 11:51:30:run auto
+127.0.0.1: 30-09-2017 - 11:51:31:-> run error:http://localhost/nencer/nencer_ci3/cronjob/bot_2.html"file_get_contents(http:\/\/localhost\/nencer\/nencer_ci3\/cronjob\/bot_2.html): failed to open stream: HTTP request failed! HTTP\/1.1 404 Not Found\r\n"
+127.0.0.1: 30-09-2017 - 11:51:33:-> run process_social_point
+127.0.0.1: 30-09-2017 - 11:51:33:-> run:http://localhost/smart/core.social/cronjob/process_social_point.html
+127.0.0.1: 30-09-2017 - 16:08:52:run auto
+127.0.0.1: 30-09-2017 - 16:08:53:-> run cronjob error:http://localhost/nencer/nencer_ci3/cronjob/bot_2.html"file_get_contents(http:\/\/localhost\/nencer\/nencer_ci3\/cronjob\/bot_2.html): failed to open stream: HTTP request failed! HTTP\/1.1 404 Not Found\r\n"
+127.0.0.1: 30-09-2017 - 16:08:56:-> run cronjob error:http://localhost/smart/core.social/cronjob/process_social_point.html"file_get_contents(http:\/\/localhost\/smart\/core.social\/cronjob\/process_social_point.html): failed to open stream: HTTP request failed! HTTP\/1.0 500 Internal Server Error\r\n"
+127.0.0.1: 30-09-2017 - 16:11:05:-> run process_social_point:10
+127.0.0.1: 30-09-2017 - 16:47:18:-> run process_social_point:10

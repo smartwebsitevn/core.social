@@ -368,10 +368,10 @@ body {
             overflow: hidden; }
             body .block-products-items .list-social .item-social .item-media .images .item img {
               width: 100%;
-              /*height: auto;*/
-              height: 100%;
-              max-height: 350px;
-              padding: 1px; }
+              /* height: 100%;
+               max-height: 350px;*/
+              padding: 1px;
+              cursor: pointer; }
             body .block-products-items .list-social .item-social .item-media .images .item iframe {
               width: 100%;
               height: 300px;
@@ -395,28 +395,42 @@ body {
           body .block-products-items .list-social .item-social .item-media .images-2 .item {
             width: 50%;
             height: 145px; }
+            body .block-products-items .list-social .item-social .item-media .images-2 .item img {
+              min-height: 145px; }
           body .block-products-items .list-social .item-social .item-media .images-3 .item-1 {
             width: 100%;
             height: 145px; }
+            body .block-products-items .list-social .item-social .item-media .images-3 .item-1 img {
+              min-height: 145px; }
           body .block-products-items .list-social .item-social .item-media .images-3 .item-2, body .block-products-items .list-social .item-social .item-media .images-3 .item-3 {
             width: 50%;
             height: 80px; }
+            body .block-products-items .list-social .item-social .item-media .images-3 .item-2 img, body .block-products-items .list-social .item-social .item-media .images-3 .item-3 img {
+              min-height: 80px; }
             body .block-products-items .list-social .item-social .item-media .images-3 .item-2 .item-video .item-video-icon::after, body .block-products-items .list-social .item-social .item-media .images-3 .item-3 .item-video .item-video-icon::after {
               background-size: 30px; }
           body .block-products-items .list-social .item-social .item-media .images-4 .item-1 {
             width: 100%;
             height: 145px; }
+            body .block-products-items .list-social .item-social .item-media .images-4 .item-1 img {
+              min-height: 145px; }
           body .block-products-items .list-social .item-social .item-media .images-4 .item-2, body .block-products-items .list-social .item-social .item-media .images-4 .item-3, body .block-products-items .list-social .item-social .item-media .images-4 .item-4 {
             width: 33.3%;
             height: 80px; }
+            body .block-products-items .list-social .item-social .item-media .images-4 .item-2 img, body .block-products-items .list-social .item-social .item-media .images-4 .item-3 img, body .block-products-items .list-social .item-social .item-media .images-4 .item-4 img {
+              min-height: 80px; }
             body .block-products-items .list-social .item-social .item-media .images-4 .item-2 .item-video .item-video-icon::after, body .block-products-items .list-social .item-social .item-media .images-4 .item-3 .item-video .item-video-icon::after, body .block-products-items .list-social .item-social .item-media .images-4 .item-4 .item-video .item-video-icon::after {
               background-size: 30px; }
           body .block-products-items .list-social .item-social .item-media .images-5 .item-1, body .block-products-items .list-social .item-social .item-media .images-5 .item-2 {
             width: 50%;
             height: 145px; }
+            body .block-products-items .list-social .item-social .item-media .images-5 .item-1 img, body .block-products-items .list-social .item-social .item-media .images-5 .item-2 img {
+              min-height: 145px; }
           body .block-products-items .list-social .item-social .item-media .images-5 .item-3, body .block-products-items .list-social .item-social .item-media .images-5 .item-4, body .block-products-items .list-social .item-social .item-media .images-5 .item-5 {
             width: 33.3%;
             height: 80px; }
+            body .block-products-items .list-social .item-social .item-media .images-5 .item-3 img, body .block-products-items .list-social .item-social .item-media .images-5 .item-4 img, body .block-products-items .list-social .item-social .item-media .images-5 .item-5 img {
+              min-height: 80px; }
             body .block-products-items .list-social .item-social .item-media .images-5 .item-3 .item-video .item-video-icon::after, body .block-products-items .list-social .item-social .item-media .images-5 .item-4 .item-video .item-video-icon::after, body .block-products-items .list-social .item-social .item-media .images-5 .item-5 .item-video .item-video-icon::after {
               background-size: 30px; }
         body .block-products-items .list-social .item-social .item-media .media {
@@ -585,6 +599,15 @@ body {
           background-color: transparent;
           border-color: rgba(160, 160, 160, 0.3);
           color: #e0e0e0; }
+  body #modal-social-view .block-products-items-popup .list-social {
+    margin-bottom: 0px; }
+    body #modal-social-view .block-products-items-popup .list-social .item-social {
+      background-color: #ffffff;
+      border: 0;
+      padding: 0px; }
+  body #modal-social-view button {
+    width: 50px;
+    height: 50px; }
   @media screen and (max-width: 1024px) {
     body .block-search .block-content {
       padding: 0px;
@@ -657,16 +680,7 @@ body {
             margin-left: 10px;
             margin-right: 10px; }
       body .block-products-items .list-social .item-social .item-actions .item-action {
-        line-height: 15px; }
-    body .block-products-items-popup .list-social {
-      margin-bottom: 0px; }
-      body .block-products-items-popup .list-social .item-social {
-        background-color: #ffffff;
-        border: 0;
-        padding: 0px; }
-    body .modal-social-view button {
-      width: 50px;
-      height: 50px; } }
+        line-height: 15px; } }
 
 /*====================*\
 //Detail product
@@ -892,7 +906,7 @@ body {
   background-color: #fff;
   padding-bottom: 20px;
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   padding: 9px 10px 30px 10px;
   text-align: center; }
   .block-author:hover {

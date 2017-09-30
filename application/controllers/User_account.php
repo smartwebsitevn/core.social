@@ -74,6 +74,7 @@ class User_account extends MY_Controller
 
 
         //info
+        $rules ['user_group_id'] = array (lang ( 'type' ), 'required|filter_html|callback__check_user_group' );
         $rules ['working_city'] = array (lang ( 'city' ), 'filter_html|callback__check_working_city' );
         /*$rules ['working_country'] = array (lang ( 'country' ), 'trim|xss_clean|callback__check_working_country' );
         $rules ['country'] = array (lang ( 'country' ), 'trim|xss_clean|callback__check_country' );
@@ -342,7 +343,7 @@ class User_account extends MY_Controller
     }
     public function _check_gender($value) {
         if (! in_array ( $value, [0,1,2] )) {
-            $this->Form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
+            $this->form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
             return FALSE;
         }
         return TRUE;
@@ -374,13 +375,20 @@ class User_account extends MY_Controller
         }
         $city = model("country")->get_info ( $value );
         if (! $city) {
-            $this->Form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
+            $this->form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
             return FALSE;
         }
 
         return TRUE;
     }
-
+    public function _check_user_group($value) {
+        $groups = model("user_group")->filter_get_list(['type'=>''],[],true);
+        if (! $groups || !in_array($value,$groups)) {
+            $this->form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
+            return FALSE;
+        }
+        return TRUE;
+    }
     public function _check_city($value) {
 
         if (empty ( $value )) {
@@ -388,7 +396,7 @@ class User_account extends MY_Controller
         }
         $city = model("city")->get_info ( $value );
         if (! $city) {
-            $this->Form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
+            $this->form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
             return FALSE;
         }
 
@@ -401,7 +409,7 @@ class User_account extends MY_Controller
         }
         $city =  model("distric")->get_info ( $value );
         if (! $city) {
-            $this->Form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
+            $this->form_validation->set_message ( __FUNCTION__, lang ( 'notice_value_invalid' ) );
             return FALSE;
         }
 
@@ -735,6 +743,7 @@ class User_account extends MY_Controller
         $widget_upload['allowed_types'] =  'pdf';//|doc|docx
         $this->data['upload_attach'] 	= $widget_upload;
 
+        $this->data['user_groups'] = model("user_group")->filter_get_list(['type'=>'']);
         $this->data['countrys'] = model("country")->get_all();
         $this->data['citys'] = model("city")->get_list_rule(["country_id"=>$user->country]);;
         $cat_types = mod('cat')->get_cat_types();
@@ -776,7 +785,7 @@ class User_account extends MY_Controller
         // Thiet lap setting mac dinh
         $fields = array();
         $fields['info'] = array(
-            'type', 'name',  /*'email', 'phone',*/ 'address','gender','birthday',
+            'user_group_id',  'name',  /*'type', 'email', 'phone',*/ 'address','gender','birthday',
             'job','country','city',   'working_country', 'working_city',
             "website",'profession','desc','facebook','twitter',
         );

@@ -145,6 +145,7 @@ class User_list extends MY_Controller
         }
        if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
+           $filter_input['order']=$order;
         }
         $list = model('user')->filter_get_list($filter, $input);
        // pr($filter,0);

@@ -196,7 +196,7 @@ class Project_list extends MY_Controller
         if ($order && in_array($order, $sort_orders)) {
             $orderex = explode('|', $order);
             $input['order'] = array($orderex[0], $orderex[1]);
-
+            $filter_input['order']=$order;
         }
         /*else {
             $orderex = explode('|', $sort_orders[0]);

@@ -75,10 +75,11 @@
                 <?php widget('site')->upload($widget_upload_images, array('temp' => 'tpl::_widget/product/upload/medias')) ?>
             </div>
             <div id="data_link">
-                <?php if($info): ?>
+            <?php if($info && $info['link']): ?>
                     <?php t('view')->load('tpl::product_post/form/_common/link',['link'=>$info['link'],'tags'=>json_decode($info['link_data'],true)]) ?>
-                <?php endif; ?>
+            <?php endif; ?>
             </div>
+
         </div>
     </div>
     <div class="block-info">

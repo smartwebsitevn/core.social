@@ -151,11 +151,10 @@ class Product_list extends MY_Controller
     private function _create_list($input = array(), $filter = array(), $filter_fields = array())
     {
        // pr($this->input->post_get(null));
-        $filter_input = array();
+        $filter_input = array('order');
         $filter_fields = array_merge($filter_fields, model('product')->fields_filter);
         $mod_filter = mod('product')->create_filter($filter_fields, $filter_input);
         $filter = array_merge( $filter,$mod_filter);
-        // pr($filter_input);
         $filter['types']= $this->input->get('types');
         $filter_input['types'] =$filter['types'];
         $key = $this->input->get('name');
@@ -223,7 +222,8 @@ class Product_list extends MY_Controller
         }
        if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
-        }
+            $filter_input['order']=$order;
+       }
         $list = model('product')->filter_get_list($filter, $input);
         // pr($filter,0);        pr_db($list);
         foreach ($list as $row) {
@@ -235,7 +235,7 @@ class Product_list extends MY_Controller
         if (isset($total)) {
             $pages_config['page_query_string'] = TRUE;
             $pages_config['base_url'] = current_url() . '?' . url_build_query($filter_input);
-            // pr( $pages_config['base_url'] );
+            //pr( $filter_input );
             // $pages_config['base_url'] = current_url(1);
             $pages_config['total_rows'] = $total;
             $pages_config['per_page'] = $page_size;

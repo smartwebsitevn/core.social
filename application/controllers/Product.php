@@ -413,7 +413,7 @@ class Product extends MY_Controller
     protected function _action($action)
     {
         $user = user_get_account_info();
-        $dont_check_login = array(/*'comment', 'demo', 'report', 'favorite', 'favorite_del','vote',*/);
+        $dont_check_login = array('comment', /*'demo', 'report', 'favorite', 'favorite_del','vote',*/);
         if (!in_array($action, $dont_check_login)) {
 
             if (!$user) {
@@ -523,9 +523,9 @@ class Product extends MY_Controller
         $user = $this->data['user'];
 
         // khong cho vote bai cua minh
-        if ($user->id == $info->user_id) {
+       /* if ($user->id == $info->user_id) {
             $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
-        }
+        }*/
         $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $info->id, 'user_id' => $user->id));
 
         //kiem tra da luu hay chua

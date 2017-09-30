@@ -865,13 +865,12 @@ $this->register('info', function (array $input) {
     <?php if ($name): ?>
         <div class="form-group  <?php echo $class ?>" <?php echo t('html')->attr($attr) ?> >
 
-        <label>
+        <label class="col-sm-3  control-label ">
             <?php echo $name ?><?php echo (!empty($unit) && $type != 'range') ? ' (' . $unit . ')' : ''; ?>
             <?php if ($req): ?><span class="req">*</span><?php endif; ?>
         </label>
-        <div class="clearfix"></div>
+        <div class="col-sm-9">
     <?php endif; ?>
-
 
     <?php if ($type == 'text'): ?>
         <input type="text" <?php $_show_param_name() ?> value="<?php echo $value ?>"
@@ -934,7 +933,7 @@ $this->register('info', function (array $input) {
                                          <?php elseif ($values_single): ?>
 
                                              <?php rendered_value($value, $values_single, $value_default) ?>
-                                         <?php elseif ($values_row): ?>
+                                         <?php elseif ($values_row):?>
                                              <?php rendered_value($value, $values_row[0], $value_default) ?>
                                          <?php endif; ?>
                                      <?php endif;
@@ -974,7 +973,7 @@ $this->register('info', function (array $input) {
                             </li>
                         <?php endforeach; ?>
                     <?php elseif ($values_row && count($values_row[0]) > 0): ?>
-                        <?php foreach ($values_row[0] as $row):
+                        <?php  foreach ($values_row[0] as $row):
                             $row = isset($row) ? (array)$row : array(); ?>
                             <?php if ($not_show_in_value && in_array($row[$values_row[1]], (array)$value)) continue; ?>
 
@@ -996,7 +995,6 @@ $this->register('info', function (array $input) {
                         <div class="form-group">
                             <input type="text" placeholder="" class="form-control lg searachSelect">
                         </div>
-
                         <?php if ($values): ?>
                             <?php /*foreach ($values as $v => $n): ?>
                                 <li class="search-results  <?php echo $act_input ?>   <?php echo $linked ?> <?php echo ($value == $v) ? 'active' : '' ?>"
@@ -1066,6 +1064,7 @@ $this->register('info', function (array $input) {
         <small><?php echo $desc; ?></small>
     <?php endif; ?>
     <?php if ($name): ?>
+        </div>
         </div>
     <?php endif; ?>
 
@@ -2114,9 +2113,8 @@ $this->register('job_datasource', function (array $input) {
 
 function rendered_value($value, $values, $name = null)
 {
-
-    // echo $value;
-    // pr($values);
+   // pr($value,0);   pr($values);
+    $text='';
     if ($value) {
         $selected = [];
         foreach ($values as $row) {
@@ -2131,12 +2129,15 @@ function rendered_value($value, $values, $name = null)
             }
         }
         if ($selected)
-            echo implode(',', $selected);
+            $text =  implode(',', $selected);
+        else{
+            $text =  'All';
+        }
     } else{
         if ($name)
-            echo $name;
+            $text = $name;
         else
-            echo 'All';
+            $text = 'All';
     }
-
+    echo  $text ;
 }

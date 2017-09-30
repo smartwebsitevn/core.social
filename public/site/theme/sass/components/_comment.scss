@@ -3,14 +3,11 @@
 }
 .comment-list {
   font-size: 12px;
-  .item-img {
-    width: 35px;
-    height: 35px;
-    border-radius: 100%;
-    display: flex;
-  }
+
+
   img {
     border-radius: 100%;
+
   }
   li {
     border-bottom: 1px dashed #ccc;
@@ -20,13 +17,26 @@
       border-bottom: none;
     }
   }
-
+  .item-photo{
+    .item-img {
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 100%;
+      display: flex;
+    }
+    .item-label{
+      font-size: 12px !important;
+      left: 20px !important;
+      width: 10px !important;
+      height: 10px !important;
+    }
+  }
   .avatar {
     float: left;
     margin-bottom: 12px;
     margin-right: 12px;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     max-width: none;
     border-radius: 100%;
 

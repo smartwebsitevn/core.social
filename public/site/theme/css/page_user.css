@@ -323,7 +323,7 @@ body .list-user-feature {
       font-size: 9px;
       padding: 1px 5px;
       position: absolute;
-      top: 12px;
+      top: 0;
       right: 0; }
       body .list-user-feature .item-user a.btn-xs.on {
         background-color: transparent;

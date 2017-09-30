@@ -444,6 +444,12 @@ class Product_post extends MY_Controller
             $this->form_validation->set_message(__FUNCTION__, lang('notice_value_invalid'));
             return FALSE;
         }
+        $tags=$this->_get_url_data($link);
+        if (! $tags) {
+            $this->form_validation->set_message(__FUNCTION__, lang('cannot load ulr'));
+            return FALSE;
+        }
+        $this->data['_link_data']=$tags;
         return true;
     }
     function _check_youtube($link)
@@ -564,8 +570,14 @@ class Product_post extends MY_Controller
     }
     function _get_url_data($url)
     {
+        /*$check = stream_get_wrappers();
+        echo 'openssl: ',  extension_loaded  ('openssl') ? 'isload':'noload','<br>';
+        echo 'http: ', in_array('http', $check) ? 'ok':'no','<br>';
+        echo 'https: ', in_array('https', $check) ? 'ok':'no','<br>';*/
         if (!$url) return;
-        $html = file_get_contents($url);
+       // $html = file_get_contents($url);
+        $html = lib('curl')->get($url);
+        if(!$html) return ;
         //== title
         preg_match("/<title>(.+)<\/title>/siU",$html, $title);
        // preg_match('/<meta property="og:image" content="(.*?)" \/>/', $html, $image);
@@ -585,9 +597,11 @@ class Product_post extends MY_Controller
         }
 
 
-
+        $parse_url= parse_url($url);
         $meta = get_meta_tags($url);
         $tags =[];
+        $tags['source_url']=$parse_url['scheme'].'://'.$parse_url['host'];
+        $tags['source_name']=isset($meta['source'])?$meta['source']:$parse_url['host'];
         if(isset($title[1]))
             $tags['title'] = character_limiter($title[1],150);
         if(isset($image['og:image']))
@@ -603,7 +617,7 @@ class Product_post extends MY_Controller
             }
         }
         if(isset($meta['description']))
-            $tags['description'] = character_limiter($meta['description'],150);;
+            $tags['description'] = character_limiter($meta['description'],150);
         return $tags;
     }
 
@@ -613,7 +627,7 @@ class Product_post extends MY_Controller
     {
         // Thiet lap setting mac dinh
         $fields = array(
-            'name','description','link',
+            'name','description','link','type_cat_id',
         );
         return $fields;
 
@@ -628,6 +642,7 @@ class Product_post extends MY_Controller
 
     protected function _get_inputs($id = null, $fake_id = null)
     {
+
         $data = array();
         $fields = $this->_fields();
         foreach ($fields as $f) {
@@ -636,6 +651,7 @@ class Product_post extends MY_Controller
 
             $data[$f] = strip_tags($v);
         }
+       // pr($data);
         // SEO url
         $data['seo_url'] = convert_vi_to_en($data['name']);
 
@@ -653,7 +669,7 @@ class Product_post extends MY_Controller
         $data['user_id'] = $this->data['user']->id;
         if($data['link']){
             $data['type']='link';
-            $data['link_data'] =  json_encode($this->_get_url_data($data['link']));
+            $data['link_data'] =  json_encode($this->data['_link_data']);
 
         }
         else{

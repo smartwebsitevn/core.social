@@ -1,0 +1,58 @@
+/*====================*\
+//Blog
+\*====================*/
+
+#accordion-answer {
+  max-width: 960px;
+  margin: auto;
+  padding-bottom: 147px;
+  h3 {
+	margin-top: 50px;
+	font-size: 40px;
+  }
+  h4.panel-title {
+	font-size: 18px;
+  }
+  .panel {
+	border-color: #e0e0e0;
+	border-style: solid;
+	border-width: 1px 0;
+	margin: 0;
+	border-radius: 0;
+	margin-bottom: -1px;
+	box-shadow: none;
+	border-bottom: 1px solid _palette(border);
+  }
+  .panel-heading {
+	border: none;
+	padding: 35px 0;
+	padding-right: 35px;
+	background-repeat: no-repeat;
+	background-position: top 40px right 30px;
+	background: none;
+	i{
+	  float: right;
+	  font-size: 32px;
+	  position: absolute;
+	  top:30px;
+	  right: 10px;
+	  &:hover{
+		color: _palette(button-1);
+	  }
+	}
+	&.open {
+	  i:before {
+		content: "\e683";
+	  }
+	}
+
+  }
+  .panel-title {
+	line-height: 25px;
+  }
+  .panel-body {
+	border: none;
+	padding: 20px 0;
+	font-size: 16px;
+  }
+}

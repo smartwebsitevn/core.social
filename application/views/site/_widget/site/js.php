@@ -36,10 +36,13 @@ $asset_theme =$asset. '/site/theme/';
 
 
 <!-- B_MOVIE-->
+<?php /* ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $asset_js ?>/movie/movie.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $asset_js ?>/movie/movie.responsive.css" />
 <script type="text/javascript" src="<?php echo $asset_js ?>/movie/movie.play.js"></script>
 <script type="text/javascript" src="<?php echo $asset_js ?>/movie/movie.show.js"></script>
+ <?php */ ?>
+
 <!-- E_MOVIE-->
 <!--<script type="text/javascript" src="<?php /*echo $asset_js*/?>/browser_selector.js"></script>-->
 <script type="text/javascript" src="<?php echo $asset_js ?>/underscore-min.js"></script>
@@ -51,6 +54,9 @@ $asset_theme =$asset. '/site/theme/';
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/form/jquery.form.min.js"></script>
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/scrollTo/jquery.scrollTo.js"></script>
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/sticky/jquery.sticky.js"></script>
+
+<script type="text/javascript" src="<?php echo $asset_js ?>/jquery/lazyload/jquery.lazyload.min.js"></script>
+
 
 <script type="text/javascript" src="<?php echo $asset_js ?>/jquery/gritter/jquery.gritter.js"></script>
 <link   type="text/css" href="<?php echo $asset_js ?>/jquery/gritter/jquery.gritter.css" rel="stylesheet" />

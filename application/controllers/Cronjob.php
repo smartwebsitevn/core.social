@@ -15,9 +15,10 @@ class Cronjob extends MY_Controller
 		//write_file_log('a.txt','co crom');
 		if ($ip != $server_ip)
 		{
-			//write_file_log('a.txt','bi chan');
-			log_message('error', "IP {$ip} is not allowed to access");
-			exit('This IP is not allowed to access');
+			write_file_log('cronjob.txt', "IP {$ip} is not allowed to access");
+			//log_message('error', "IP {$ip} is not allowed to access");
+			//exit('This IP is not allowed to access');
+
 		}
 	}
 
@@ -50,7 +51,7 @@ class Cronjob extends MY_Controller
 	 */
 	function auto()
 	{
-
+		write_file_log('auto.txt','run auto');
 		static $list=array();
 		if(!$list){
 			$list = model('cronjob')->get_list_rule(array('status'=>1));
@@ -75,25 +76,48 @@ class Cronjob extends MY_Controller
 				}
 				if($run)
 				{
-					echo '<br>'.file_get_contents($cronjob->url);
+					$url =unserialize($cronjob->url);
+					try{
+						echo '<br>'.file_get_contents($url);
+						write_file_log('auto.txt','-> run cronjob:'.$url);
+					}
+					catch(Exception $e){
+						write_file_log('auto.txt','-> run cronjob error:'.$url .json_encode( $e->getMessage()));
+					}
+
+
 				}
 			}
 		}
 	}
 
-	function bot_1()
+	function process_social_point()
 	{
-		die('I bot 1');
-	}
-	function bot_2()
-	{
-		die('I bot 2');
-	}
+		write_file_log('auto.txt','-> run process_social_point:'.mod('product')->setting('product_delta_point'));
+		$x=mod('product')->setting('product_delta_point'); // so phan tram thanh vien
+		$user_total=model('user')->filter_get_total(['show'=>1]); // so thanh vien
+		//pr_db($user_total);
 
+		$delta= -((abs($x)*$user_total) /100);
+		$list =model('product')->filter_get_list(['point_total_lte'=>$delta,'show'=>1],['select'=>'id,user_id,point_total,name,seo_url']);
+		//pr($delta,0);
+		//pr_db($list,0);
+
+		if($list){
+			foreach($list as $row){
+				$row =mod('product')->add_info_url($row);
+				//-- Khoa bai viet
+				model('product')->update_field($row->id,'is_lock',1);
+				//-- Gui thong bao cho chu bai viet
+				mod('user_notice')->send($row->user_id, 'Bài viết <b>' . $row->name . '</b> đã bị khóa vì bị <b>'.$row->point_total.'point</b>', ['url' => $row->_url_view]);
+			}
+		}
+
+	}
 	/**
 	 * gui email
 	 */
-	function bot_3()
+	function send_mail()
 	{
 		// lay 1 email chua gui
 		$where = array();
@@ -464,7 +488,7 @@ class Cronjob extends MY_Controller
 		}
 	}
 
-	function change_file()
+	function _change_file()
 	{
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 		$dir = './public/';

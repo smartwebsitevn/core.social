@@ -1615,11 +1615,9 @@ var nfc = {
             this.common_need_reboot();
         },
         common: function () {
-
             $(document).on('click', '.lightbox', function () {
                 $(this).nstUI('lightbox');
             });
-
             $(document).on('click', '.verify_action', function () {
                 $(this).nstUI('verifyAction');
             });
@@ -1676,7 +1674,6 @@ var nfc = {
                 }
                 targetWin = window.open(url, '', " width=500, height=440")
             });
-
             //= hien thong bao dang modal,toast,popover co ho tro load ajax
             $(document).on('click', '.act-notify-modal,.act-modal', function () {
                 var display_notify = false;
@@ -1719,8 +1716,8 @@ var nfc = {
                             url: url,
                             dataType: 'html',
                             success: function (data) {
+                                nfc.server_response(data);
                                 nfc.loader('hide');
-
                                 if (typeof data == 'string') {
                                     nfc.modal(data, modal_title, options)
                                 }
@@ -1794,6 +1791,7 @@ var nfc = {
 
                         var url = $(this).data('url');
                         $.post(url, {'token': csrf_token}, function (data) {
+                            nfc.server_response(data);
                             if (data) {
                                 $this.find('span.loader_item').remove();
                                 $this.popover({
@@ -1849,6 +1847,7 @@ var nfc = {
                 nfc.loader('show', field_load);
 
                 $.get(url, function (data) {
+                    nfc.server_response(data);
                     nfc.loader('hide', field_load);
                     nfc.loader('result', field_show, data);
 
@@ -1885,7 +1884,6 @@ var nfc = {
 
 
             //=========================
-
             // prevent default anchor click behavior
             $('.anchor-element a').on('click', function () {
                 var pos = $($(this).data("pos")).position().top + 100
@@ -1899,13 +1897,12 @@ var nfc = {
             });
             // too
             $('[data-toggle="tooltip"]').tooltip();
-
             /*scrollTo */
             var uri_goto = window.location.href.split('#goto=');
             if (uri_goto[1] != undefined) {
                 var el = $(uri_goto[1]);
                 el.show() // neu el an thi khong go to den dc
-                $.scrollTo(el, 800);
+                $.scrollTo(el, 800,{offset:-80});
             }
 
 
@@ -1946,6 +1943,7 @@ var nfc = {
             });
         },
         common_need_reboot: function () {
+            $("img.lazyload").lazyload();
 
             // Number format
             $('.format_number, .input_number').autoNumeric('init', {
@@ -2581,7 +2579,7 @@ var nfc = {
         },
         reboot: function () {
             this.doAction.init();
-            this.formAction.init();
+            //this.formAction.init();
         },
 
         doAction: {
@@ -2893,7 +2891,11 @@ var nfc = {
                 event_error: '',
                 loading: false
             },
+            is_booted: false,
+
             boot: function () {
+                if( this.is_booted)  return false;
+                //alert("boot:" +this.is_booted)
                 var formAction = this;
                 //== init prevent submit
                 formAction.init();
@@ -2915,13 +2917,15 @@ var nfc = {
                     formAction.process();
                     return false;
                 });
+                this.is_booted =true;
 
             },
             init: function () {
+                if( this.is_booted)  return false;
+               // alert("init:" +this.is_booted)
                 var formAction = this;
-                $('.form_action').each(function () {
+                $(document).on("submit", "form.form_action", function (event) {
                     var $this = $(this);
-                    $this.submit(function (event) {
                         event.preventDefault();
                         var $this = $(this);
                         formAction.config = {
@@ -2936,11 +2940,10 @@ var nfc = {
                                 //}
                             },
                         };
-                        //alert('init')
                         formAction.obj = $this;
                         formAction.process();
-                    });
-                });
+                    return false;
+                })
             },
             process: function () {
                 // Neu form dang xu ly thi bo qua

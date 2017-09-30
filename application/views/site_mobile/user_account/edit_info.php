@@ -39,15 +39,23 @@
             'req' => true,
         ]);
 
+        echo macro('mr::form')->info(array(
+            'name' => 'Loại thành viên',
+            'param' => 'user_group_id',
+            'type'=>'select',
+            'value' => $user->user_group_id,
+            'values_row' => [$user_groups,'id','name'],
+            'req' => true,
 
-        echo macro('mr::form')->info_cat_single(array(
+        ));
+       /* echo macro('mr::form')->info_cat_single(array(
             'name' => 'Loại thành viên',
             'param' => 'type',
             'value' => $user->type,
             'values' => $cat_type_user_type,
             'req' => true,
 
-        ));
+        ));*/
         $user->job = explode(',', $user->job);
         echo macro('mr::form')->info_cat_multi(array(
             'name' => 'Lĩnh vực hoạt động',

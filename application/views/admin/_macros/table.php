@@ -583,7 +583,7 @@ $this->register('actions_data', function ($data, array $actions = null)
 	$actions = $actions ?: ['edit', 'translate'];
 
 	$list = [];
-
+    //pr($data,0);   pr($actions,1);
 	foreach ($actions as $act => $opt)
 	{
 		if ( ! is_array($opt))

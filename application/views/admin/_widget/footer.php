@@ -72,10 +72,14 @@ $public_url_js=public_url('js');
 <!-- Themes Core Scripts -->
 <script src="<?php echo $public_url_admin; ?>/ekoders/js/main.js"></script>
 
+
+
+
 <!-- REQUIRE FOR SPEECH COMMANDS -->
 <!--<script src="<?php /*echo $public_url_admin; */?>/ekoders/js/speech-commands.js"></script>-->
 <script src="<?php echo $public_url_admin; ?>/ekoders/js/plugins/gritter/jquery.gritter.min.js"></script>
 
+<script type="text/javascript" src="<?php echo $public_url_js ?>/jquery/lazyload/jquery.lazyload.min.js"></script>
 
 <script type="text/javascript" src="<?php echo $public_url_js ?>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<?php echo $public_url_js ?>/jquery/autosize/jquery.autosize.min.js"></script>

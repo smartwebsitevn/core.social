@@ -151,6 +151,12 @@ class Comment extends MY_Controller
 
     function add()
     {
+        $user = user_get_account_info();
+
+        if (!$user) {
+            $result["modal_box"] = "modal-login-require";
+            $this->_response($result);
+        }
         // if(!mod("product")->setting('comment_allow'))
         // redirect();
         // Tai cac file thanh phan
@@ -178,8 +184,6 @@ class Comment extends MY_Controller
         // Xu ly du lieu
         $result = array();
         if ($this->form_validation->run()) {
-            $user = user_get_account_info();
-
             // neu la khoa hoc thi chi cho comment 1 lan
             /*if($table_name =="product"){
                 if(model("comment")->check_exits(["table_id"=>$table_id,"table_name"=>$table_name,"user_id"=>$user->id]))
@@ -273,6 +277,11 @@ class Comment extends MY_Controller
 
     function reply($comment_id)
     {
+        $user = user_get_account_info();
+        if (!$user) {
+            $result["modal_box"] = "modal-login-require";
+            $this->_response($result);
+        }
         // if(!mod("product")->setting('comment_allow'))
         // redirect();
         // Tai cac file thanh phan
@@ -287,6 +296,8 @@ class Comment extends MY_Controller
             return;
         }
 
+
+
         // Gan dieu kien cho cac bien
         $params = array('user', 'content');
         $this->_set_rules($params);
@@ -294,7 +305,6 @@ class Comment extends MY_Controller
         // Xu ly du lieu
         $result = array();
         if ($this->form_validation->run()) {
-            $user = user_get_account_info();
             // Lay content
             $content = $this->input->post('content');
             $content = strip_tags($content);
@@ -371,6 +381,12 @@ class Comment extends MY_Controller
 
     function vote($comment_id)
     {
+        $user = user_get_account_info();
+        if (!$user) {
+            $result["modal_box"] = "modal-login-require";
+            $this->_response($result);
+        }
+
         $comment = model('comment')->get_info($comment_id);
         if (!$comment) {
             $this->_response();
@@ -382,12 +398,7 @@ class Comment extends MY_Controller
         if (!in_array($act, ['like', 'like_del', 'dislike', 'dislike_del']))
             $this->_response();
 
-        $user = user_get_account_info();
 
-        if (!$user) {
-            $this->_response();
-
-        }
 
         if ( $comment->user_id == $user->id) {
             $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
