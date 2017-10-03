@@ -97,7 +97,7 @@ class Comment_widget extends MY_Widget
             $this->_display($this->_make_view($temp, __FUNCTION__));
     }
 
-    function display_list($info, $type, $list, $pages_config, $temp = '', $temp_options = array())
+    function display_list($info, $type, $list, $pages_config=[], $temp = '', $temp_options = array())
     {
         $user = user_get_account_info();
         if ($user)
@@ -136,16 +136,15 @@ class Comment_widget extends MY_Widget
         $filter['table_name'] = $table_type;
         $total = model('comment')->filter_get_total($filter);
 
-        $page_size = 5;
         $input['order'] = array('created', 'DESC');
-
-        if (!isset($input['limit'])) {
-            $limit = $this->input->get('per_page');
-            $limit = min($limit, $total - fmod($total, $page_size));
-            $limit = max(0, $limit);
-            //== Lay danh sach
-            $input['limit'] = array($limit, $page_size);
-        }
+       $page_size = 5;
+        /*if (!isset($input['limit'])) {
+           $limit = $this->input->get('per_page');
+           $limit = min($limit, $total - fmod($total, $page_size));
+           $limit = max(0, $limit);
+           //== Lay danh sach
+           $input['limit'] = array($limit, $page_size);
+       }*/
         // chi hien cap 1
 
         $filter['parent_id'] = array_get($filter, 'parent_id', 0);
@@ -169,7 +168,7 @@ class Comment_widget extends MY_Widget
     {
         $list = model('comment')->filter_get_list($filter, $input);
         // pr_db();
-        foreach ($list as &$row) {
+        foreach ($list as $row) {
             $user = model('user')->get_info($row->user_id, 'id,user_group_id,name,avatar,avatar_api,banner,attach,vote_total');
             $row->user = null;
             if ($user) {
@@ -218,20 +217,24 @@ class Comment_widget extends MY_Widget
                     ?>
                 </div>
 
-                <p class="comment-content"><?php echo $row->content ?></p>
+                <p class="comment-content"><?php echo n_to_br($row->content) ?></p>
 
                 <div class="comment-action">
                     <?php echo widget('comment')->action_vote($row) ?>
-
+                    <?php /* ?>
                     <a class="act-load-ajax" _field="#reply_<?php echo $row->id; ?>_comment"
                        _url="<?php echo $url_comment_show ?>"
                        class="reply-btn">Trả lời (<?php echo isset($row->subs) ? count($row->subs) : 0 ?>) </a>
+                     <?php */ ?>
+
                 </div>
+                    <?php /* ?>
                 <div id="reply_<?php echo $row->id ?>">
                     <div id="reply_<?php echo $row->id; ?>_comment_load" class="tab_load"></div>
                     <div id="reply_<?php echo $row->id; ?>_comment_show"></div>
 
                 </div>
+        <?php */ ?>
             </div>
 
 

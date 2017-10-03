@@ -1,5 +1,6 @@
-<?php if (user_is_login()): ?>
-<form class="form_action" accept-charset="UTF-8"
+<?php// if (user_is_login()): ?>
+    <?php if (user_is_manager($user)): ?>
+    <form class="form_action" accept-charset="UTF-8"
       _field_load="<?php echo $info->id; ?>_comment_load"
       action="<?php echo $info->_url_comment_add ?>"
       method="POST">

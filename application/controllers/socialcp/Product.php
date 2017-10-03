@@ -354,6 +354,14 @@ class Product extends MY_Controller
     protected function _create_view_data($id, $info = null)
     {
         parent::_form_create_view($id, $info);
+        $config_upload = config('upload', 'main');
+        $this->data['widget_upload_images']['resize_width'] = $config_upload['img']['product']['resize_width'];
+        $this->data['widget_upload_images']['resize_height'] = $config_upload['img']['product']['resize_height'];
+        $this->data['widget_upload_images']['thumb_width'] = $config_upload['img']['product']['thumb_width'];
+        $this->data['widget_upload_images']['thumb_height'] = $config_upload['img']['product']['thumb_height'];
+       // $this->data['widget_upload_images']['url_get'] = $this->_url($this->_get_act() . '/' . $id) . '?_act=load_files&file_type=image&field=images';
+       // $this->data['widget_upload_files']['url_get'] = $this->_url($this->_get_act() . '/' . $id) . '?_act=load_files&file_type=file&field=files';
+
         // Xu ly thong tin
         if (isset($info->user_id) && $info->user_id)
             $info->_user = model('user')->get_info($info->user_id, 'email,username,name');

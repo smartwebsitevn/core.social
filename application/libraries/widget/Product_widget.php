@@ -300,7 +300,7 @@ class Product_widget extends MY_Widget
 
         // Create list
         if ($author_id)
-            $filter['author_id'] = $author_id;
+            $filter['user_id'] = $author_id;
         if ($product_id)
             $filter['id!'] = $product_id;
         if ($feature)

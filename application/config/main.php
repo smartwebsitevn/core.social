@@ -114,18 +114,51 @@ $config['upload']['overwrite'] 				= FALSE;
 $config['upload']['encrypt_name'] 			= FALSE;
 $config['upload']['allowed_types'] 			=  'gif|jpg|png|jpeg|txt|doc|rar|zip|flv|swf';
 
-$config['upload']['max_size'] 				= 1024*5;
+$config['upload']['max_size'] 				= 1024*1;
 $config['upload']['max_size_admin'] 		= 1024*50;
 //$config['upload']['max_chunk_size'] 		= 1024*50;
 
 $config['upload']['img']['allowed_types'] 	= 'gif|jpg|jpeg|png|svg';
-$config['upload']['img']['maintain_ratio'] 	= FALSE;
-$config['upload']['img']['max_width'] 		= '3000';
-$config['upload']['img']['max_height'] 		= '3000';
-$config['upload']['img']['thumb_width'] 	= '200';
-$config['upload']['img']['thumb_height'] 	= '270';
-$config['upload']['img']['resize_width'] 	= '';
-$config['upload']['img']['resize_height'] 	= '';
+$config['upload']['img']['auto_resize'] 	= TRUE;
+$config['upload']['img']['maintain_ratio'] 	= TRUE;
+$config['upload']['img']['max_width'] 		= '1024';
+$config['upload']['img']['max_height'] 		= '1024';
+$config['upload']['img']['thumb_width'] 	= '270';
+$config['upload']['img']['thumb_height'] 	= '200';
+$config['upload']['img']['resize_width'] 	= '1024';
+$config['upload']['img']['resize_height'] 	= '1024';
+
+$config['upload']['img']['copyright_add'] 				= false;
+$config['upload']['img']['copyright_settings']          = array( 'wm_type'=> 'overlay',//text,overlay
+    'wm_vrt_alignment'=>'bottom',
+    'wm_hor_alignment' => 'left',
+    'wm_hor_offset' => '5',
+    'wm_vrt_offset' => '5',
+    /*'wm_text' => 'abc.com',
+    'wm_font_size'    => '15',
+    'wm_font_color' => '#0033CC'*/
+);
+$config['upload']['img']['user']['thumb_width'] 		 = '45';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['user']['thumb_height'] 	     = '45';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['user']['resize_width'] 		 = '200';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['user']['resize_height'] 	     = '200';//neu set resize thi lay o day khong lay o tham so tong nua
+
+$config['upload']['img']['product']['thumb_width'] 		 = '270';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['product']['thumb_height'] 	     = '200';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['product']['resize_width'] 		 = '1024';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['product']['resize_height'] 	     = '1024';//neu set resize thi lay o day khong lay o tham so tong nua
+/* Allow Reconfig and option
+    1, resize_width
+    2, crop
+    3, ratio
+Exp:
+$config['upload']['img']['product']['maintain_ratio']       = TRUE
+$config['upload']['img']['news']['resize_width'] 		 = '350';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['news']['resize_height'] 	     = '435';//neu set resize thi lay o day khong lay o tham so tong nua
+$config['upload']['img']['news']['crop_x']               =  0;
+$config['upload']['img']['news']['crop_y']               =  0;
+$config['upload']['img']['news']['crop_width']           =  440;
+$config['upload']['img']['news']['crop_height']          =  600;*/
 
 $config['upload']['img']['thumb1_width'] 	= '';
 $config['upload']['img']['thumb1_height'] 	= '';

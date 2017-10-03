@@ -229,6 +229,7 @@ class Site_widget extends MY_Widget {
 		$config_main = config('upload', 'main');
 		$upload_config = array();
 		$upload_config['max_size'] = $config_main['max_size'];
+		//pr($config_main);
 		$upload_config['allowed_types'] = ($config['file_type'] == 'image') ? $config_main['img']['allowed_types'] : $config_main['allowed_types'];
 		if ( ! empty($config['allowed_types']))
 		{

@@ -111,7 +111,6 @@ class User_account extends MY_Controller
             $_p ='user_'.$p;
             $rules [$p] = array($p, 'filter_html|callback__check_cat_id_list[' . $p . ',' . $_p . ']');
         }
-
         $this->form_validation->set_rules_params($params, $rules);
     }
 
@@ -712,6 +711,7 @@ class User_account extends MY_Controller
      */
     protected function _edit_view($user)
     {
+
         $user = mod("user")->add_info($user);
         $user =user_add_info_other($user);
         $user = mod('user')->url($user);
@@ -722,6 +722,7 @@ class User_account extends MY_Controller
 
 
         // Khai bao cac bien cua widget upload
+        $config_upload = config('upload', 'main');
         $widget_upload = array();
         $widget_upload['mod'] = 'single';
         $widget_upload['file_type'] = 'image';
@@ -734,6 +735,10 @@ class User_account extends MY_Controller
         //- up anh avatar
         $widget_upload['url_update'] = ($user->id > 0) ? $this->_url('edit') . '?act=update_image&field=avatar' : null;
         $widget_upload['table_field'] = 'avatar';
+        $widget_upload['resize_width'] = $config_upload['img']['user']['resize_width'];
+        $widget_upload['resize_height'] = $config_upload['img']['user']['resize_height'];
+        $widget_upload['thumb_width'] = $config_upload['img']['user']['thumb_width'];
+        $widget_upload['thumb_height'] = $config_upload['img']['user']['thumb_height'];
         $this->data['upload_avatar'] = $widget_upload;
 
         //- up file dinh kem
@@ -757,7 +762,7 @@ class User_account extends MY_Controller
     {
         $type = $this->input->post('_type');
         if (!$type) return;
-        $params = $this->_edit_fields($type);
+        $params = $this->_edit_fields($type,$user);
        // $params [] = 'no';
 
 
@@ -780,15 +785,19 @@ class User_account extends MY_Controller
     }
 
 
-    protected function _edit_fields($type)
+    protected function _edit_fields($type,$user)
     {
         // Thiet lap setting mac dinh
         $fields = array();
         $fields['info'] = array(
-            'user_group_id',  'name',  /*'type', 'email', 'phone',*/ 'address','gender','birthday',
+             'name',  /*'type', 'email', 'phone',*/ 'address','gender','birthday',
             'job','country','city',   'working_country', 'working_city',
             "website",'profession','desc','facebook','twitter',
         );
+        if(!user_is_active($user) && !user_is_manager($user))
+        {
+            array_push($fields['info'], 'user_group_id');
+        }
         $fields['password'] = array('password','password_old','password_repeat');
         return isset($fields[$type]) ? $fields[$type] : array();
 
@@ -801,10 +810,10 @@ class User_account extends MY_Controller
     /**
      * Lay input
      */
-    protected function _edit_get_inputs($type)
+    protected function _edit_get_inputs($type,$user)
     {
         $data = array();
-        $fields = $this->_edit_fields($type);
+        $fields = $this->_edit_fields($type,$user);
         foreach ($fields as $f) {
             $v = $this->input->post($f);
             if (is_array($v)){
@@ -838,7 +847,7 @@ class User_account extends MY_Controller
         $type = $this->input->post('_type');
         if (!$type) return;
 
-        $data = $this->_edit_get_inputs($type);
+        $data = $this->_edit_get_inputs($type,$user);
         $can_confirm = false;
         if ($data['name'] != $user->name /*|| $data['address'] != $user->address*/) {
             $can_confirm = true;

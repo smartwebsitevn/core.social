@@ -471,8 +471,12 @@ class Product extends MY_Controller
         $form['validation']['params'] = ['set_point'];
         $form['submit'] = function () use ($info) {
             $point = $this->input->post('set_point');
-            $this->_model()->update_field($info->id, 'point_total', $info->point_total+ $point);
-            $point_total = $info->point_total + $point;
+
+            $stats['point_real'] = $point;
+            $stats['point_total'] = $point;
+            model('product')->update_stats(['id' => $info->id], $stats);
+            $point_total =model('product')->get_info($info->id,'point_total')->point_total;
+
             $result['element'] = ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
             model('user')->update_stats(['id' => $info->user_id], ['point_total' => $point]);
 
@@ -493,8 +497,7 @@ class Product extends MY_Controller
             $this->_model()->update_field($info->id, 'is_feature', now());
 
             mod('user_notice')->send($info->user_id, 'Bài viết <b>' . $info->name . '</b> đã được vào trang Mới Nổi', ['url' => $info->_url_view]);
-        }
-        else{
+        } else {
             $this->_model()->update_field($info->id, 'is_feature', 0);
 
         }
@@ -523,13 +526,13 @@ class Product extends MY_Controller
         $user = $this->data['user'];
 
         // khong cho vote bai cua minh
-       /* if ($user->id == $info->user_id) {
-            $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
-        }*/
+        /* if ($user->id == $info->user_id) {
+             $this->_response(array('msg_toast' => lang('notice_dont_do_this_action')));
+         }*/
         $voted = model('social_vote')->get_info_rule(array('table_name' => 'product', 'table_id' => $info->id, 'user_id' => $user->id));
 
         //kiem tra da luu hay chua
-        $data =$stats= array();
+        $data = $stats = array();
         $data ['table_name'] = 'product';
         $data ['table_id'] = $info->id;
         $data ['user_id'] = $user->id;
@@ -537,90 +540,99 @@ class Product extends MY_Controller
         if ($act == 'like') {
             $data ['like'] = 1;
             $data ['dislike'] = 0;
-            $stats['vote_like']=1;
-            $point = 1;
+            $stats['vote_like'] = 1;
+
         } elseif ($act == 'like_del') {
             $data ['like'] = 0;
             $data ['dislike'] = 0;
-            $stats['vote_like']=-1;
+            $stats['vote_like'] = -1;
 
-            $point = -1;
+
         } elseif ($act == 'dislike') {
             $data ['like'] = 0;
             $data ['dislike'] = 1;
-            $stats['vote_dislike']=1;
+            $stats['vote_dislike'] = 1;
 
-            $point = -1;
+
         } elseif ($act == 'dislike_del') {
             $data ['like'] = 0;
             $data ['dislike'] = 0;
-            $stats['vote_dislike']=-1;
-            $point = 1;
+            $stats['vote_dislike'] = -1;
+
         }
         if ($voted) {
             $data ['updated'] = now();
             model('social_vote')->update($voted->id, $data);
 
             if ($act == 'like') {
-                $stats['vote_like']=+1;
-                if($voted->dislike) // neu da tung khong thich thi giam di
-                    $stats['vote_dislike']=-1;
-                else
-                    $stats['vote_total']= +1;
+                $point = 1;
+                $stats['vote_like'] = +1;
+                if ($voted->dislike) // neu da tung khong thich thi giam di
+                {
+                    $point = 2;
+
+                    $stats['vote_dislike'] = -1;
+
+                } else
+                    $stats['vote_total'] = +1;
 
 
             } elseif ($act == 'like_del') {
-                $stats['vote_like']=-1;
-                $stats['vote_total']= -1;
+                $point = -1;
+                $stats['vote_like'] = -1;
+                $stats['vote_total'] = -1;
 
 
             } elseif ($act == 'dislike') {
-                $stats['vote_dislike']=+1;
+                $stats['vote_dislike'] = +1;
+                $point = -1;
+                if ($voted->like) // neu da tung thich thi giam di
+                {
+                    $stats['vote_like'] = -1;
+                    $point = -2;
 
-                if($voted->like) // neu da tung thich thi giam di
-                    $stats['vote_like']=-1;
-                else
-                    $stats['vote_total']= +1;
-
+                } else
+                    $stats['vote_total'] = +1;
 
 
             } elseif ($act == 'dislike_del') {
-                $stats['vote_dislike']=-1;
-                $stats['vote_total']= -1;
-
+                $stats['vote_dislike'] = -1;
+                $stats['vote_total'] = -1;
+                $point = 1;
             }
 
         } else {
             $data ['created'] = now();
             model('social_vote')->create($data);
 
-            $stats['vote_total']= +1;
+            $stats['vote_total'] = +1;
 
             if ($act == 'like') {
-                $stats['vote_like']=+1;
-            } elseif ($act == 'like_del') {
-                $stats['vote_like']=-1;
+                $point = 1;
+                $stats['vote_like'] = +1;
+
+
             } elseif ($act == 'dislike') {
-                $stats['vote_dislike']=+1;
-            } elseif ($act == 'dislike_del') {
-                $stats['vote_dislike']=-1;
+                $stats['vote_dislike'] = +1;
+                $point = -1;
             }
-            //== Gui thong bao
-            if ($point == 1)
+
+            //== Gui thong bao cho lan dau
+            if ($point >= 1)
                 mod('user_notice')->send($info->user_id, '<b>' . $user->name . '</b> đã thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
             //elseif($point == -1)
             //mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> không thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
-
         }
+        $stats['point_real'] = $point;
         $stats['point_total'] = $point;
-        model('product')->update_stats(['id' => $info->id],$stats);
+        model('product')->update_stats(['id' => $info->id], $stats);
         model('user')->update_stats(['id' => $info->user_id], ['point_total' => $point]);
 
         // pr_db();
         /*  else {
              mod('product')->guest_owner_add($id, "voted");;
          }*/
-        $point_total =  $info->point_total + $info->point_fake +$point ;
+        $point_total =model('product')->get_info($info->id,'point_total')->point_total;
         //$this->_response(array('msg_toast' => lang('notice_product_favorited')));
         $result['element'] = ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
 
@@ -854,6 +866,9 @@ class Product extends MY_Controller
     /**
      * Danh gia tin bài
      */
+
+    // Hien thi cac comment cua bai viet
+
     function _comment($info)
     {
         if (!$this->input->is_ajax_request())
@@ -867,9 +882,10 @@ class Product extends MY_Controller
         }
         $total_featured = model('comment')->filter_get_total(['table_id' => $info->id, 'table_type' => 'product', 'featured' => 1]);
         $tmpl = $total_featured ? 'tpl::_widget/product/comment/list_no_form' : 'tpl::_widget/product/comment/list';
-        echo widget('comment')->comment_list($info, 'product', ['featured' => 0], [], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+        echo widget('comment')->comment_list($info, 'product', ['featured' => 1], [], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
     }
 
+    // Hien thi cac comment con cua comment cha
     function _comment_show($info)
     {
         $comment_id = $this->input->get('id');
@@ -885,6 +901,8 @@ class Product extends MY_Controller
 
     function _comment_add($info)
     {
+        $user = $this->data['user'];
+        if (!user_is_manager($user)) return; // neu khong phai thanh vien quan tri thi ko cho binh luan
         // if(!mod("product")->setting('comment_allow'))
         // redirect();
         // Tai cac file thanh phan
@@ -899,7 +917,6 @@ class Product extends MY_Controller
         // Xu ly du lieu
         $result = array();
         if ($this->form_validation->run()) {
-            $user = $this->data['user'];
 
             // Lay content
             $content = $this->input->post('content');
@@ -966,6 +983,7 @@ class Product extends MY_Controller
 
     function _comment_reply($info)
     {
+        return;
         // if(!mod("product")->setting('comment_allow'))
         // redirect();
         // Tai cac file thanh phan
@@ -1072,10 +1090,10 @@ class Product extends MY_Controller
         }
 
         $rules = array();
-        $rules['name'] = array('name', 'required|trim|max_length[50]|xss_clean');
-        $rules['contact_name'] = array('contact_name', 'required|trim|max_length[50]|xss_clean');
+        $rules['name'] = array('name', 'required|trim|max_length[50]|filter_html|xss_clean');
+        $rules['contact_name'] = array('contact_name', 'required|trim|max_length[50]|filter_html|xss_clean');
         $rules['email'] = array('email', 'required|trim|xss_clean|valid_email|max_length[50]');
-        $rules['content'] = array('content', 'required|trim|xss_clean|max_length[255]');
+        $rules['content'] = array('content', 'required|trim|xss_clean|filter_html|max_length[255]');
 
         $rules['subject'] = array('subject', 'required|trim|max_length[255]|xss_clean');
         $rules['message'] = array('message', 'required|trim|xss_clean|min_length[10]|max_length[255]');

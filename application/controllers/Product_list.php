@@ -225,7 +225,11 @@ class Product_list extends MY_Controller
             $filter_input['order']=$order;
        }
         $list = model('product')->filter_get_list($filter, $input);
-        // pr($filter,0);        pr_db($list);
+       /* if(admin_is_login()){
+             pr($filter,0);        pr_db($list);
+        }*/
+       // pr($filter,0);        pr_db($list);
+
         foreach ($list as $row) {
             $row = mod('product')->add_info($row,1);
         }

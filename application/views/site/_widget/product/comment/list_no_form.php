@@ -11,5 +11,7 @@
                 </div>
         </div>
     <?php endif; ?>
+    <?php echo t('view')->load('tpl::_widget/product/comment/_common/facebook', ['info' => $info]); ?>
     <?php widget('site')->js_reboot(); ?>
+
 <?php endif; ?>

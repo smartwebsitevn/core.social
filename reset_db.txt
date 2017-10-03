@@ -9,6 +9,7 @@ UPDATE `product` SET `view_total`=0,
 `comment_count`=0,
 `point_total`=0,
 `point_fake`=0,
+`point_real`=0,
 `vote_total`=0,
 `vote_like`=0,
 `vote_dislike`=0;

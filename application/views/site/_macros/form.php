@@ -220,7 +220,6 @@ $this->register('row', function (array $row, $rows = null) {
 
             <?php endif; ?>
 
-
             <div class="<?php echo $name ? 'col-sm-9' : 'col-sm-12'; ?>">
 
                 <!--<div class=" input-group">-->
@@ -229,7 +228,7 @@ $this->register('row', function (array $row, $rows = null) {
 
                 <?php elseif ($type == 'static'): ?>
                     <div <?php echo t('html')->attr(array_merge(array('style' => 'font-size:16px; font-weight:600; padding-top:5px;'), $attr)) ?>>
-                        <?php echo $value ?>
+                        <?php echo $value;?>
                     </div>
 
 
@@ -913,9 +912,9 @@ $this->register('info', function (array $input) {
         $values_opts = array_get($input, 'values_opts', array());
         if ($values_single)
             //$values_single = object_to_array($values_single);
-        if ($values_row) {
-            //$values_row = object_to_array($values_row);
-        }
+            if ($values_row) {
+                //$values_row = object_to_array($values_row);
+            }
 
         $not_show_in_value = isset($values_opts['not_show_in_value']) ? $values_opts['not_show_in_value'] : 0;// khong hien thi cac gia tri da chon trong danh s�h
 
@@ -924,7 +923,8 @@ $this->register('info', function (array $input) {
             <div class="dropdown-toggle" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown"
                  type="button">
 					<span class="search-rendered">
-                                     <?php //rendered_value($value, $values, $value_default);                                      ?>
+                                     <?php //rendered_value($value, $values, $value_default);
+                                     ?>
                                      <?php if ($values == ''): ?>
                                          <?php rendered_value($value, $values, $value_default) ?>
                                      <?php else: ?>
@@ -933,7 +933,7 @@ $this->register('info', function (array $input) {
                                          <?php elseif ($values_single): ?>
 
                                              <?php rendered_value($value, $values_single, $value_default) ?>
-                                         <?php elseif ($values_row):?>
+                                         <?php elseif ($values_row): ?>
                                              <?php rendered_value($value, $values_row[0], $value_default) ?>
                                          <?php endif; ?>
                                      <?php endif;
@@ -973,7 +973,7 @@ $this->register('info', function (array $input) {
                             </li>
                         <?php endforeach; ?>
                     <?php elseif ($values_row && count($values_row[0]) > 0): ?>
-                        <?php  foreach ($values_row[0] as $row):
+                        <?php foreach ($values_row[0] as $row):
                             $row = isset($row) ? (array)$row : array(); ?>
                             <?php if ($not_show_in_value && in_array($row[$values_row[1]], (array)$value)) continue; ?>
 
@@ -1087,7 +1087,8 @@ $this->register('info_cat_single', function (array $input) {
     ?>
     <?php if ($name): ?>
         <div class="form-group ">
-        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span
+                class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
@@ -1145,7 +1146,8 @@ $this->register('info_cat_multi', function (array $input) {
 
     <?php if ($name): ?>
         <div class="form-group ">
-        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span
+                class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
     <div class="dropdown search-dropdown">
@@ -1273,7 +1275,8 @@ $this->register('info_country', function (array $input) {
     <?php if ($name): ?>
         <div class="form-group ">
 
-        <label class="col-sm-3  control-label "><?php echo $name ?> <?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?> <?php if ($req): ?><span
+                class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
@@ -1358,7 +1361,8 @@ $this->register('info_country_multi', function (array $input) {
     <?php if ($name): ?>
         <div class="form-group ">
 
-        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span
+                class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
@@ -1436,7 +1440,8 @@ $this->register('info_city', function (array $input) {
     ?>
     <?php if ($name): ?>
         <div class="form-group ">
-        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span class="req">*</span><?php endif; ?></label>
+        <label class="col-sm-3  control-label "><?php echo $name ?><?php if ($req): ?><span
+                class="req">*</span><?php endif; ?></label>
         <div class="col-sm-9">
     <?php endif; ?>
 
@@ -2113,8 +2118,8 @@ $this->register('job_datasource', function (array $input) {
 
 function rendered_value($value, $values, $name = null)
 {
-   // pr($value,0);   pr($values);
-    $text='';
+    // pr($value,0);   pr($values);
+    $text = '';
     if ($value) {
         $selected = [];
         foreach ($values as $row) {
@@ -2129,15 +2134,15 @@ function rendered_value($value, $values, $name = null)
             }
         }
         if ($selected)
-            $text =  implode(',', $selected);
-        else{
-            $text =  'All';
+            $text = implode(',', $selected);
+        else {
+            $text = 'All';
         }
-    } else{
+    } else {
         if ($name)
             $text = $name;
         else
             $text = 'All';
     }
-    echo  $text ;
+    echo $text;
 }

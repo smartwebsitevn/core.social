@@ -45,6 +45,21 @@
 			<td class="title"><b><?php echo lang('name'); ?></b></td>
 			<td class="value"><?php echo $user->name; ?></td>
 		</tr>
+
+		<tr>
+			<td class="title"><b>Loại thành viên<?php //echo lang('user_type'); ?></b></td>
+			<td class="value"><?php echo $user->_type_name; ?></td>
+		</tr>
+		<tr>
+			<td class="title"><b>Lĩnh vực hoạt động<?php //echo lang('user_type'); ?></b></td>
+			<td>
+				<?php echo  $user->_job_name; ?>
+			</td>
+		</tr>
+		<tr>
+			<td class="title"><b>Nơi làm việc<?php // echo lang('country'); ?></b></td>
+			<td class="value"><?php echo  $user->_working_city_name; ?></td>
+		</tr>
 		<tr>
 			<td class="title"><b><?php echo lang('profession'); ?></b></td>
 			<td class="value"><?php echo $user->profession; ?></td>
@@ -79,28 +94,12 @@
 
  		<?php */ ?>
 
-
-
-		<tr>
-			<td class="title"><b>Loại thành viên<?php //echo lang('user_type'); ?></b></td>
-			<td class="value"><?php echo $user->_type_name; ?></td>
-		</tr>
-		<tr>
-			<td class="title"><b>Lĩnh vực hoạt động<?php //echo lang('user_type'); ?></b></td>
-			<td>
-				<?php echo  $user->_job_name; ?>
-			</td>
-		</tr>
 		<?php /* ?>
 		<tr>
 			<td class="title"><b><?php echo lang('user_group'); ?></b></td>
 			<td class="value"><?php echo $user->user_group->name; ?></td>
 		</tr>
 		<?php */ ?>
-		<tr>
-			<td class="title"><b>Nơi làm việc<?php // echo lang('country'); ?></b></td>
-			<td class="value"><?php echo  $user->_working_city_name; ?></td>
-		</tr>
 		<tr>
 			<td class="title"><b><?php echo lang('address'); ?></b></td>
 			<td class="value"><?php echo $user->address; ?></td>

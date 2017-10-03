@@ -33,15 +33,9 @@
                     <?php t('view')->load('tpl::product/_common/info_author') ?>
                     <?php //t('view')->load('tpl::product/_common/info_video') ?>
                     <?php t('view')->load('tpl::product/_common/same_author') ?>
-
                 </div>
-
-
             </div>
-
-
         </div>
-
     </div>
 </div>
 

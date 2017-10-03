@@ -35,10 +35,13 @@ class _t extends MY_Controller
         }
     }
 
+    //=================
     function update_db()
     {
         //$this->_update_user();
-        $this->_update_product();
+        //$this->_update_product();
+        $this->_update_files();
+
     }
 
     function _update_user()
@@ -84,6 +87,19 @@ class _t extends MY_Controller
         }
     }
 
+    function _update_files()
+    {
+        $tbl = 'file';
+        $list = model($tbl)->get_list();
+       // pr_db($list);
+        foreach ($list as $i) {
+           $file= file_get_info($i->id);
+           $info=get_file_info($file->_path);
+           // pr($info);
+            model($tbl)->update_field($i->id, 'size', $info['size']);
+            echo '<br>-';pr_db(0,0);
+        }
+    }
     function _update_comment()
     {
         $tbl = 'comment';

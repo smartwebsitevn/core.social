@@ -5,4 +5,6 @@
             <?php echo t('view')->load('tpl::_widget/product/comment/_common/list', ['info' => $info, 'list' => $list]); ?>
         </div>
     </div>
+    <?php //echo t('view')->load('tpl::_widget/product/comment/_common/facebook', ['info' => $info]); ?>
+
 <?php endif; ?>

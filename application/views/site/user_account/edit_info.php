@@ -38,24 +38,30 @@
             'value' => $user->name,
             'req' => true,
         ]);
+        if (user_is_manager($user) || user_is_active($user))
+            echo macro('mr::form')->row(array(
+                'name' => 'Loại thành viên',
+                'type' => 'static',
+                'value' => $user->user_group_name,
+            ));
+        else
+            echo macro('mr::form')->info(array(
+                'name' => 'Loại thành viên',
+                'param' => 'user_group_id',
+                'type' => 'select',
+                'value' => $user->user_group_id,
+                'values_row' => [$user_groups, 'id', 'name'],
+                'req' => true,
 
-        echo macro('mr::form')->info(array(
-            'name' => 'Loại thành viên',
-            'param' => 'user_group_id',
-            'type'=>'select',
-            'value' => $user->user_group_id,
-            'values_row' => [$user_groups,'id','name'],
-            'req' => true,
+            ));
+        /* echo macro('mr::form')->info_cat_single(array(
+             'name' => 'Loại thành viên',
+             'param' => 'type',
+             'value' => $user->type,
+             'values' => $cat_type_user_type,
+             'req' => true,
 
-        ));
-       /* echo macro('mr::form')->info_cat_single(array(
-            'name' => 'Loại thành viên',
-            'param' => 'type',
-            'value' => $user->type,
-            'values' => $cat_type_user_type,
-            'req' => true,
-
-        ));*/
+         ));*/
         $user->job = explode(',', $user->job);
         echo macro('mr::form')->info_cat_multi(array(
             'name' => 'Lĩnh vực hoạt động',
@@ -67,8 +73,8 @@
         ));
         //city-country
         //$countrys = model('country')->filter_get_list(['show' => 1]);
-        $citys = model('city')->filter_get_list(["country_id"=>230,'show' => 1]);
-        if($user->working_city && is_string($user->working_city))
+        $citys = model('city')->filter_get_list(["country_id" => 230, 'show' => 1]);
+        if ($user->working_city && is_string($user->working_city))
             $user->working_city = explode(',', $user->working_city);
         echo macro('mr::form')->info_city(array(
             'name' => 'Nơi làm việc',
@@ -88,7 +94,7 @@
             'param' => 'profession',
             'name' => 'Chức danh/lĩnh vực',
             'value' => $user->profession,
-            'attr' => ['placehold'=>'CEO tại Smartwebsite.vn'],
+            'attr' => ['placehold' => 'CEO tại Smartwebsite.vn'],
         ]);
         if ($user->can_edit_email) {
             echo macro('mr::form')->row(array(
@@ -110,7 +116,7 @@
             echo macro('mr::form')->row(array(
                 'param' => 'phone_edit',
                 'name' => lang('phone'),
-               // 'req' => true,
+                // 'req' => true,
                 'value' => $user->phone,
             ));
         }
@@ -175,7 +181,7 @@
             'param' => 'desc',
             'value' => $user->desc,
             'type' => "textarea",
-            'attr' => ['size'=>'15'],
+            'attr' => ['size' => '15'],
 
         ]);
 

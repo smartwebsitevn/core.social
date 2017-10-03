@@ -33,6 +33,10 @@
                         <?php if (isset($tags['description'])): ?>
                             <small><?php echo $tags['description'] ?></small>
                         <?php endif; ?>
+                        <?php if(isset($tags['source_name'])): ?>
+                            <br>
+                            <small class="text-grey">Ngu?n: <a href="<?php echo $tags['source_url'] ?>" target="_blank"><?php echo  $tags['source_name']?></a></small>
+                        <?php endif; ?>
                     </div>
                 </a>
 

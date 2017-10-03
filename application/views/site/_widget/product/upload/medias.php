@@ -1,5 +1,5 @@
 
-<?php $_rd = random_string('unique'); ?>
+<?php $_rd = random_string('unique'); //pr($upload_config);?>
 
 <script type="text/javascript">
 (function($)

@@ -428,7 +428,7 @@ hr {
     text-transform: uppercase; }
   .dropdown .heading .check-count {
     text-transform: capitalize;
-    color: red; }
+    color: #eb8305; }
 .dropdown .count {
   background-color: #f7941e;
   display: block;
@@ -1992,6 +1992,8 @@ table {
     height: 30px !important;
     border-radius: 100%;
     display: flex; }
+    .comment-list .item-photo .item-img img {
+      height: 100% !important; }
   .comment-list .item-photo .item-label {
     font-size: 12px !important;
     left: 20px !important;
@@ -2935,7 +2937,7 @@ table {
     text-transform: uppercase; }
   .drop-dropdown .heading .check-count {
     text-transform: capitalize;
-    color: #f7941e; }
+    color: #eb8305; }
 .drop-dropdown .logo-job {
   max-width: 29px;
   margin-right: 5px;

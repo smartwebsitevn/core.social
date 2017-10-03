@@ -81,8 +81,8 @@ class Product_mod extends MY_Mod
 
         }
 
-        $point_total=  $row->point_total + $row->point_fake;
-        $row->_point_total = number_format($point_total) ;
+       // $point_total=  $row->point_total + $row->point_fake;
+        $row->_point_total = number_format($row->point_total) ;
         return $row;
     }
 

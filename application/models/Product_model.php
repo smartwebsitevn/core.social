@@ -76,7 +76,7 @@ class Product_model extends MY_Model
         'name' => 'required',
         'type_cat_id' => ['type_cat_id', 'required|callback__check_type_cat_id'],
 
-        //'description' => 'required',
+        'description' => 'trim|xss_clean|max_length[10000]|filter_html',
     );
 
     public $fields_type_currency = array('price',);

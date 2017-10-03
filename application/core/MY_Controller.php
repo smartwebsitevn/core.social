@@ -305,11 +305,12 @@ class MY_Controller extends CI_Controller
 		$widget_upload['table_field'] = 'attach';
 		//$widget_upload['allowed_types'] =  'pdf';//|doc|docx
 		$this->data['widget_upload_attach'] = $widget_upload;
+
 		// up anh multi
 		$widget_upload['mod'] = 'multi';
+		$widget_upload['file_type'] 	= 'image';
 		$widget_upload['table_field'] = 'images';
 		$this->data['widget_upload_images'] = $widget_upload;
-
 		// up files
 		$widget_upload['mod'] = 'multi';
 		$widget_upload['file_type'] = 'file';

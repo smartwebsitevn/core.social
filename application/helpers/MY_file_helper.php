@@ -258,7 +258,94 @@
 			ini_set('memory_limit', $max_size.'M');
 		}
 	}
-	
+
+/**
+ * Add Watermark
+ */
+function file_watermark($path_img,$path_copyright="")
+{
+	$config_upload = config('upload', 'main');
+	$settings= $config_upload['upload']['img']['copyright_settings'];
+	if(!is_array($settings) || count($settings)<=0)
+		return false;
+	//echo '<br> tao thumb:<br>';
+	$config = array();
+	$config['image_library']  = 'gd2';
+	$config['source_image']   = $path_img;
+
+	if(!empty($path_copyright))
+		$config['wm_overlay_path'] = $path_copyright;
+	else
+		$config['wm_overlay_path'] = public_url('img/images/copyright.png');
+
+	foreach($settings as $k=>$v)
+	{
+		$config[$k] = $v;
+	}
+	/*$config['wm_type'] = 'overlay';
+    $config['wm_vrt_alignment'] = 'bottom';
+    $config['wm_hor_alignment'] = 'left';
+    $config['wm_hor_offset'] = '20';
+    $config['wm_vrt_offset'] = '0';
+    $config['wm_type'] = 'text';
+    $config['wm_text'] = 'nencer.com';
+    $config['wm_font_size']    = '55';
+    $config['wm_font_color'] = '#0033CC';
+    */
+	//print_r($config);
+
+	$CI =& get_instance();
+	$obj = 'image_lib_'.random_string('unique');
+	$CI->load->library('image_lib', $config, $obj);
+	if ($CI->$obj->watermark())
+	{
+		return TRUE;
+	}
+	return FALSE;
+}
+
+function file_crop($full_path_img,$crop_dir,$x,$y,$width,$height,$check_size=true)
+{
+	//echo '<br> tao thumb:<br>';
+
+	if ($check_size && file_exists($full_path_img))
+	{
+		$image_size = getimagesize($full_path_img);
+		if (isset($image_size[0]) && $image_size[0] <= $width && isset($image_size[1]) && $image_size[1] <= $height)
+		{
+			//echo '<br> Size khong du tieu chuan de crop';
+			return TRUE;
+		}
+	}
+	//echo '<br> Size du tieu chuan de crop';
+	$config = array();
+	$config['image_library']  = 'gd2';
+	$config['source_image']   = $full_path_img;
+	$config['create_thumb']   = TRUE;
+	$config['thumb_marker']   = '_crop';
+	$config['new_image']      = $crop_dir;
+	$config['maintain_ratio'] = FALSE;
+	$config['quality']      = 70;
+	$config['x_axis']      = $x;
+	$config['y_axis']       = $y;
+	$config['width'] = $width;
+	$config['height'] = $height;
+	//echo '<br> cau hinh crop :';     print_r($config);
+	static $CI=NULL;
+	if (!$CI)  $CI =& get_instance();
+	$obj = 'image_lib_crop'.random_string('unique');
+	$CI->load->library('image_lib', $config, $obj);
+	// $CI->$obj->initialize($config);
+	// $this->initialize($config);
+	// if ($this->crop())
+	if($CI->$obj->crop())
+	{
+		//echo '<br> Crop thanh cong';
+		return TRUE;
+	}
+	//echo '<br> Crop ko thanh cong';
+	return FALSE;
+}
 	/**
 	 * Tao thumb
 	 */
@@ -267,14 +354,14 @@ function file_create_thumb($source_image, $size = array(), $name_fix = '')
 	$CI =& get_instance();
 
 	$config_upload = config('upload', 'main');
+	$config_upload_img = $config_upload['img'];
 	$path= $config_upload['path'].$config_upload['folder'].'/public_thumb';
-	if ( ! count($size))
+
+	if(!$size  )
 	{
+			$size['width'] 	= $config_upload_img['thumb_width'];
+			$size['height'] = $config_upload_img['thumb_height'];
 
-		$config_upload_img = $config_upload['img'];
-
-		$size['width'] 	= $config_upload_img['thumb_width'];
-		$size['height'] = $config_upload_img['thumb_height'];
 	}
 
 	$config = array();
@@ -283,7 +370,7 @@ function file_create_thumb($source_image, $size = array(), $name_fix = '')
 	$config['new_image']      = $path;
 	$config['create_thumb'] 	= TRUE;
 	$config['maintain_ratio'] 	= $config_upload_img['maintain_ratio'];
-	$config['quality'] 			= 100;
+	$config['quality'] 			= 50;
 	$config['width'] 			= $size['width'];
 	$config['height'] 			= $size['height'];
 
@@ -308,14 +395,13 @@ function file_create_thumb($source_image, $size = array(), $name_fix = '')
 	function file_resize($source_image, $size = array(), $check_size = FALSE)
 	{
 		$CI =& get_instance();
-		
-		if ( ! count($size))
-		{	
-			$config_upload = config('upload', 'main');
-			$config_upload = $config_upload['img'];
+		$config_upload = config('upload', 'main');
+		$config_upload_img = $config_upload['img'];
+		if(!$size  )		{
+
 			
-			$size['width'] 	= $config_upload['resize_width'];
-			$size['height'] = $config_upload['resize_height'];
+			$size['width'] 	= $config_upload_img['resize_width'];
+			$size['height'] = $config_upload_img['resize_height'];
 		}
 		
 		// Check image size
@@ -331,8 +417,8 @@ function file_create_thumb($source_image, $size = array(), $name_fix = '')
 		$config = array();
 		$config['image_library'] 	= 'gd2';
 		$config['source_image']		= $source_image;
-		$config['maintain_ratio'] 	= TRUE;
-		$config['quality'] 			= 100;
+		$config['maintain_ratio'] 	= $config_upload_img['maintain_ratio'];
+		$config['quality'] 			= 70;
 		$config['width'] 			= $size['width'];
 		$config['height'] 			= $size['height'];
 		
@@ -424,6 +510,9 @@ function file_create_thumb($source_image, $size = array(), $name_fix = '')
 		$file_name_new = $file_name_new.'_'.$unique.".".$ext;
 		// chuyen thanh ten thuong
 		$file_name_new = strtolower($file_name_new );
+		if(strlen($file_name_new)>150)
+			$file_name_new=substr($file_name_new,0,150);
+		//pr($file_name_new);
 		return $file_name_new;
 		//===== E_SU LY TEN ANH =====
 	}

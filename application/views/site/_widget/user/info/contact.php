@@ -1,11 +1,8 @@
 <div class="p20">
-    <div class="row mb10">
-        <div class="col-md-4">ID</div>
-        <div class="col-md-8"><b><?php echo $info->_id ?></b></div>
-    </div>
+
     <div class="row mb10">
         <div class="col-md-4">Tên thành viên</div>
-        <div class="col-md-8"><?php echo $info->name ?></div>
+        <div class="col-md-8"><b><?php echo $info->name ?></b></div>
     </div>
     <div class="row mb10">
         <div class="col-md-4">Email</div>
@@ -38,7 +35,10 @@
         <div class="col-md-4">Ngày tham gia</div>
         <div class="col-md-8"><?php echo $info->_created ?></div>
     </div>
-
+    <div class="row mb10">
+        <div class="col-md-4">ID</div>
+        <div class="col-md-8"><?php echo $info->_id ?></div>
+    </div>
     <?php /* ?>
                 <div class="row mb10">
                     <div class="col-md-4">Giới tính</div>

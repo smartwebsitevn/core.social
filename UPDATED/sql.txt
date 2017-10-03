@@ -322,3 +322,18 @@ ALTER TABLE `product`
 	DROP COLUMN `is_alway_in_stock`,
 	DROP COLUMN `is_in_menu`;
 
+// 4-10-2017 
+ALTER TABLE `file`
+	ADD COLUMN `file_path` VARCHAR(255) NOT NULL AFTER `table_field`,
+	ADD COLUMN `is_image` TINYINT(1) NOT NULL DEFAULT '0' AFTER `size`;
+
+
+ALTER TABLE `user`
+	ADD COLUMN `user_group_id_old` INT(11) NOT NULL DEFAULT '0' COMMENT 'Nhom cu truoc khi he thong chuyen tu dong sang nhom moi ' AFTER `user_group_id`;
+
+
+ALTER TABLE `product`
+	CHANGE COLUMN `point_total` `point_total` INT(11) NOT NULL DEFAULT '0' COMMENT 'Tong= thuc + fake' AFTER `comment_count`,
+	CHANGE COLUMN `point_fake` `point_fake` INT(11) NOT NULL DEFAULT '0' COMMENT 'So point fake' AFTER `point_total`,
+	ADD COLUMN `point_real` INT(11) NOT NULL DEFAULT '0' COMMENT 'So point thuc' AFTER `point_fake`;
+

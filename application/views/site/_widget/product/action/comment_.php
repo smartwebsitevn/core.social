@@ -1,13 +1,13 @@
 <hr>
 <div id="<?php echo $row->id; ?>_comment_load" class="tab_load"></div>
 <?php if($list): ?>
-        Có <b id="<?php echo $row->id; ?>_comment_total"><?php echo number_format($row->comment_count) ?></b> Bình luận của chuyên gia
+        Tất cả <b id="<?php echo $row->id; ?>_comment_total"><?php echo number_format($row->comment_count) ?></b> Bình luận
     <?php   echo $list;  ?>
-    <?php //if($total): ?>
+    <?php if($total): ?>
     <div  class="act-load-ajax act-display-comment hideit" _field="#<?php echo $row->id; ?>_comment" _url="<?php echo $url_comment ?>">
-        Bình luận
+        Xem thêm bình luận khác
     </div>
-     <?php //endif; ?>
+        <?php endif; ?>
 <?php else: ?>
     <div  class="act-load-ajax act-display-comment" _field="#<?php echo $row->id; ?>_comment" _url="<?php echo $url_comment ?>">
         <b id="<?php echo $row->id; ?>_comment_total"><?php echo number_format($row->comment_count) ?></b> Bình luận
