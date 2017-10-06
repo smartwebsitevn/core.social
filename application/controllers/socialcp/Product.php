@@ -321,6 +321,22 @@ class Product extends MY_Controller
     protected function _get_inputs($id=null,$fake_id=null)
     {
         $data = parent::_form_get_inputs($id,$fake_id);
+
+        $types=   $this->input->post('types', true);
+        if($types){
+            $type_ids =$type_item_ids=[];
+            foreach($types as $k=>$v){
+                $type_ids[]=$k;
+                $type_item_ids[]=$v;
+            }
+
+            $type_ids = array_unique($type_ids);
+            $type_item_ids = array_unique($type_item_ids);
+            if($type_ids)
+                $data['type_id'] =implode(',',$type_ids);
+            if($type_item_ids)
+                $data['type_item_id'] =implode(',',$type_item_ids);
+        }
         $data['user_id'] = $this->_get_user_id();
         /*$user_options = $this->input->post("user_options");
         if ($user_options) {

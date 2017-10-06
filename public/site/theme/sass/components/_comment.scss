@@ -17,22 +17,24 @@
       border-bottom: none;
     }
   }
-  .item-photo{
-    .item-img {
-      width: 30px !important;
-      height: 30px !important;
-      border-radius: 100%;
-      display: flex;
-      img{
-        height: 100% !important;
+  .item-author {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    color: _palette(text-3);
+    .item-photo {
+      margin-right: 5px;
+      padding-right: 5px;
+      float: left;
+      @include user-avatar(30px !important, 30px !important);
+      @include user-label(12px !important, 10px !important, 10px !important, 20px !important, 0px !important);
+      .item-img {
+        img{
+          height: 100% !important;
+        }
       }
     }
-    .item-label{
-      font-size: 12px !important;
-      left: 20px !important;
-      width: 10px !important;
-      height: 10px !important;
-    }
+
   }
   .avatar {
     float: left;

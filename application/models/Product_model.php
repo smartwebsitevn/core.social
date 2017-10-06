@@ -59,7 +59,7 @@ class Product_model extends MY_Model
         //== cat
         'cat_id', 'author_id', 'user_id',
         'manufacture_id', 'stock_id', 'warranty_id', 'country_id',
-        'type_cat_id',
+        'type_cat_id','type_id','type_item_id',
         //== attr
         'has_voucher', 'has_combo',
 
@@ -74,8 +74,8 @@ class Product_model extends MY_Model
     );
     public $fields_rule = array(
         'name' => 'required',
+        'type_id' => ['type_id', 'callback__check_type_id'],
         'type_cat_id' => ['type_cat_id', 'required|callback__check_type_cat_id'],
-
         'description' => 'trim|xss_clean|max_length[10000]|filter_html',
     );
 
@@ -115,12 +115,21 @@ class Product_model extends MY_Model
     {
         $where = parent::_filter_get_where($filter);
         foreach ($this->fields_filter as $key) {
+
             if (in_array($key, ['created', 'created_to'])) continue;
+
             if (isset($filter[$key]) && $filter[$key] != -1) {
                 //echo '<br>key='.$key.', v='.$filter[$key];
+               /* if (in_array($key, ['type_id','type_item_id'])) {
+                    $key2 = 'FIND ' . $key;
+                    $filter[$key2] = $filter[$key];
+                    //echo $key;				pr($filter);
+                    $key = $key2;
+                }*/
                 $this->_filter_parse_where($key, $filter);
             }
         }
+
         //=== Su ly loc theo time
         $where = $this->_filter_parse_time_where($filter, $where);
         //pr($filter,0);
@@ -143,17 +152,31 @@ class Product_model extends MY_Model
             }
             $types = array_unique($types);
             if ($types) {
-                $this->db->join('type_table type', 'type.table_id = product.id', 'inner');
-                $this->db->group_by($this->table . '.id');
-                ///$this->db->having('COUNT(*) = '.count($filter['types']));
-                $where['type.table'] = 'product';
+                $f ='type_item_id';
+                $keywords = [];
+                if (is_array($types)) {
+                    foreach ($types as $v) {
+                        $keywords[] = "FIND_IN_SET(" . $this->db->escape($v) . ", `" . $f . "`)";
+                    }
+                } else
+                    $keywords[] = "FIND_IN_SET(" . $this->db->escape($filter[$f]) . ", `" . $f . "`)";
 
-                /* foreach($filter['types'] as $k=>$v) {
-                    // $this->db->where( 'type.type_id',$k );
-                     $this->db->or_where( 'type.type_item_id',$v );
+
+                if ($keywords) {
+                    $this->db->where('((' . implode(') and (', $keywords) . '))');
+                }
+
+                //$this->db->join('type_table type', 'type.table_id = product.id');
+                // $this->db->group_by($this->table . '.id');
+                ///$this->db->having('COUNT(*) = '.count($filter['types']));
+               // $where['type.table'] = 'product';
+                 /*foreach($filter['types'] as $k=>$v) {
+                     if($v)
+                        $this->db->where('type.type_item_id', $v);
+                     //$this->db->or_where( 'type.type_item_id',$v );
                      //$this->db->or_where( 'type.type_item_id',$v );
                  }*/
-                $this->db->where_in('type.type_item_id', $filter['types']);
+                //$this->db->where_in('type.type_item_id', $filter['types']);
             }
         }
 
@@ -211,7 +234,7 @@ class Product_model extends MY_Model
          }*/
 
         // hien thi san pham phia ngoai
-        if (isset($filter['show'])) {
+       if (isset($filter['show'])) {
             $where[$this->table . '.is_draft'] = 0;// ko hien tin nhap
             $where[$this->table . '.is_form'] = 0;// ko hien  tin mau
             $where[$this->table . '.is_lock'] = 0; // ko hien  tin da bi khoa

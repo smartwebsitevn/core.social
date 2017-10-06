@@ -5,6 +5,15 @@
 ///
 
 /* Sidebar */
+.sidebar{
+  .copyright{
+	text-align: center;
+	color: _palette(text-3);
+	a{
+	  color: _palette(text-1);
+	}
+  }
+}
 .nav-menu.navbar-left.active .nav {
   float: none;
   display: block;

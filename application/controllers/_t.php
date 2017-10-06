@@ -38,14 +38,17 @@ class _t extends MY_Controller
     //=================
     function update_db()
     {
-        //$this->_update_user();
-        //$this->_update_product();
-        $this->_update_files();
+        $this->_update_user();
+       // $this->_update_product();
+       // $this->_update_product_type();
+       // $this->_update_files();
 
     }
 
     function _update_user()
     {
+        //$post_total = model('product')->filter_get_total(['user_id' => 2]);
+        //pr_db($post_total);
         $tbl = 'user';
         $list = model($tbl)->get_list();
         foreach ($list as $row) {
@@ -53,12 +56,18 @@ class _t extends MY_Controller
             $post_is_publish = model('product')->filter_get_total(['user_id' => $row->id, 'status' => 1]);
             $post_is_draft = model('product')->filter_get_total(['user_id' => $row->id, 'is_draft' => 1]);
             $post_is_deleted = model('product')->filter_get_total(['user_id' => $row->id, 'deleted' => 1]);
+
+            $follow_total = model('user_storage')->filter_get_total(['user_id' => $row->id,'action'=>'subscribe']);
+            $follow_by_total = model('user_storage')->filter_get_total(['table_id' => $row->id,'action'=>'subscribe']);
             model($tbl)->update($row->id,
                 [
                     'post_total' => $post_total,
                     'post_is_publish' => $post_is_publish,
                     'post_is_draft' => $post_is_draft,
                     'post_is_deleted' => $post_is_deleted,
+
+                    'follow_total' => $follow_total,
+                    'follow_by_total' => $follow_by_total,
                 ]
             );
             echo '<br>--';
@@ -72,8 +81,8 @@ class _t extends MY_Controller
         $tbl = 'product';
         $list = model($tbl)->get_list();
         foreach ($list as $i) {
-            $name = "Sản phẩm Demo " . $i->id;
-            $desc = 'Nội dung đang được cập nhập...';
+           // $name = "Sản phẩm Demo " . $i->id;
+           // $desc = 'Nội dung đang được cập nhập...';
             model($tbl)->update($i->id,
                 [
                     'point_total' => $i->point_total +$i->point_fake,
@@ -86,7 +95,35 @@ class _t extends MY_Controller
             );
         }
     }
+    function _update_product_type()
+    {
+        $tbl = 'product';
+        $list = model($tbl)->get_list();
+        foreach ($list as $i) {
+            $types = model('type_table')->filter_get_list(['table'=>'product','table_id'=>$i->id]);
+            if($types){
+                $type_ids = [];
+                $type_item_ids = [];
+                foreach ($types as $row) {
+                    $type_ids[] = $row->type_id;;
+                    $type_item_ids[] = $row->type_item_id;;
+                }
+                $type_ids = array_unique($type_ids);
+                $type_item_ids = array_unique($type_item_ids);
+                if($type_ids && $type_item_ids){
+                    model($tbl)->update($i->id,
+                        [
+                            'type_id' =>implode(',',$type_ids),
+                            'type_item_id'=>implode(',',$type_item_ids),
+                        ]
+                    );
+                    echo '<br>';pr_db(0,0);
+                }
 
+            }
+
+        }
+    }
     function _update_files()
     {
         $tbl = 'file';

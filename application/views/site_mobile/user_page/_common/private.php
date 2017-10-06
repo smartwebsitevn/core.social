@@ -25,7 +25,7 @@ if ($info->banner) {
             <a href="<?php echo $info->_url_my_page . '?page=posts'//site_url('user_page/posts') ?>"
                class="btn btn-link <?php echo $page == 'posts' ? 'active' : '' ?>">
                 <span class="text">Đã đăng</span><br>
-                <span class="value"><?php echo number_format($info->post_is_publish) ;// ?></span>
+                <span class="value"><?php echo number_format($info->post_total) ;// ?></span>
 
             </a>
             <a href="<?php echo $info->_url_my_page . '?page=posts_save'//site_url('user_page/follow') ?>"

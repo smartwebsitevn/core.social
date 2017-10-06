@@ -15,11 +15,11 @@ class User_storage_model extends MY_Model
         //'icon_fa',
     );
     public $fields_filter = array(
-        'user_id','readed','admin_readed',
+        'user_id','table_id','table','action','readed','admin_readed',
         //== core
         'title', '%title',  'BINARY title',
         'id','!id','id_gt', 'id_gte', 'id_lt', 'id_lte',
-        'status','created', 'created_to',
+        'status','deleted','created', 'created_to',
     );
     public $fields_type_content = array( 'content');
     public $actions_row = array('view', 'del', );

@@ -591,6 +591,17 @@ body {
         }
         .act-display-comment {
           cursor: pointer;
+          &.comment_by_facebook{
+            color: #000066;
+            /*i{
+              font-size: 32px;
+            }*/
+            &.opened {
+              i:last-child:before {
+                content: "\f106"
+              }
+            }
+          }
         }
         .item-comments {
           /* background: _palette(bg-2);*/

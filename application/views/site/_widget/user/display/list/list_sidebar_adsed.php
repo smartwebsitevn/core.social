@@ -5,7 +5,7 @@
                 Được đề xuất
             </div>
             <div class="panel-body" >
-                <div class="slimscroll" data-height="90vh">
+                <div class="slimscroll_" data-height="90vh">
                     <div class="list-user-feature">
                         <?php foreach ($list as $row):    //pr($row);?>
                             <div class="item-user">
@@ -29,6 +29,8 @@
                 </div>
             </div>
         </div>
+        <div class="copyright">Powered by <a href="http://smartwebsite.vn" target="_blank">Smartwebsite.vn</a></div>
+
     </div>
 
 <?php endif; ?>

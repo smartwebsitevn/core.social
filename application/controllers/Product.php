@@ -57,6 +57,7 @@ class Product extends MY_Controller
 
         //== Lay thong tin
         $id = $this->uri->rsegment(3);
+
         if (!is_numeric($id) && is_slug($id)) {
             // neu la seo url
             $info = $this->_model()->filter_get_info(array('seo_url' => $id, 'show' => 1));
@@ -64,10 +65,13 @@ class Product extends MY_Controller
             $info = $this->_model()->filter_get_info(array('id' => $id, 'show' => 1));
 
         }
+
+       // pr_db($info);
         if (!$info) {
             set_message(lang('notice_page_not_found'));
             redirect();
         }
+
 
         //== Cap nhat luot view
         $data = array();
@@ -472,7 +476,7 @@ class Product extends MY_Controller
         $form['submit'] = function () use ($info) {
             $point = $this->input->post('set_point');
 
-            $stats['point_real'] = $point;
+            $stats['point_fake'] = $point;
             $stats['point_total'] = $point;
             model('product')->update_stats(['id' => $info->id], $stats);
             $point_total =model('product')->get_info($info->id,'point_total')->point_total;
@@ -876,13 +880,19 @@ class Product extends MY_Controller
 
         $act = $this->input->get('_act');
         if ($act) {
-            if (!in_array($act, ['show', 'add', 'reply', 'vote'])) return;
+            if (!in_array($act, ['facebook','show', 'add', 'reply', 'vote'])) return;
             set_output('html', $this->{'_comment_' . $act}($info));
             return;
         }
         $total_featured = model('comment')->filter_get_total(['table_id' => $info->id, 'table_type' => 'product', 'featured' => 1]);
         $tmpl = $total_featured ? 'tpl::_widget/product/comment/list_no_form' : 'tpl::_widget/product/comment/list';
         echo widget('comment')->comment_list($info, 'product', ['featured' => 1], [], $tmpl, ['return_data' => 1, 'temp_full' => 1]);
+    }
+    // Hien thi cac comment facebook
+    function _comment_facebook($info)
+    {
+        echo t('view')->load('tpl::_widget/product/comment/_common/facebook', ['info' => $info],1);
+
     }
 
     // Hien thi cac comment con cua comment cha

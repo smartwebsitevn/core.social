@@ -5,15 +5,16 @@
         <div class="col-md-8"><b><?php echo $info->name ?></b></div>
     </div>
     <div class="row mb10">
+        <div class="col-md-4">Chức danh/Lĩnh vực</div>
+        <div class="col-md-8"><?php echo $info->profession ?></div>
+    </div>
+    <div class="row mb10">
         <div class="col-md-4">Email</div>
         <div class="col-md-8">
             <?php echo $info->email ?>
         </div>
     </div>
-    <div class="row mb10">
-        <div class="col-md-4">Chức danh/Lĩnh vực</div>
-        <div class="col-md-8"><?php echo $info->profession ?></div>
-    </div>
+
     <div class="row mb10">
         <div class="col-md-4">Điện thoại</div>
         <div class="col-md-8"><?php echo $info->phone ?></div>

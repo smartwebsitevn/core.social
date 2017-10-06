@@ -9,7 +9,7 @@
         <ul class="dropdown-menu">
             <div class="heading clearfix">
                 <span class="title pull-left">Thông báo mới</span>
-                <a class="check-count pull-right do_action" data-url="<?php echo site_url('user_notice/view_all') ?>"> <i class="fa fa-check"></i>&nbsp;Đánh dấu tất cả là đã đọc</a>
+                <a class="check-count pull-right do_action" data-url="<?php echo site_url('user_notice/view_all') ?>"> <i class="fa fa-check"></i>&nbsp;Đã đọc tất cả</a>
 
                 <?php /*if($total_unread==0): ?>
                 <span class="check-count pull-right"> <i class="fa fa-check"></i>&nbsp;đã xem hết</span>

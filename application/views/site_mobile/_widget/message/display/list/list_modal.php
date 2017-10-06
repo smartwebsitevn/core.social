@@ -8,7 +8,7 @@
 
             <div class="heading clearfix">
                 <?php if($total_unread==0): ?>
-                <span class="check-count pull-right"> <i class="fa fa-check"></i>&nbsp;đã xem hết</span>
+                <span class="check-count pull-right"> <i class="fa fa-check"></i>&nbsp;Đã đọc tất cả</span>
                 <?php endif; ?>
             </div>
             <ul>

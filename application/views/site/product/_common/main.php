@@ -35,7 +35,7 @@
                         <?php endif; ?>
                         <?php if(isset($tags['source_name'])): ?>
                             <br>
-                            <small class="text-grey">Ngu?n: <a href="<?php echo $tags['source_url'] ?>" target="_blank"><?php echo  $tags['source_name']?></a></small>
+                            <small class="text-grey">Nguồn: <a href="<?php echo $tags['source_url'] ?>" target="_blank"><?php echo  $tags['source_name']?></a></small>
                         <?php endif; ?>
                     </div>
                 </a>

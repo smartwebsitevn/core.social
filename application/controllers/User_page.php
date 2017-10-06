@@ -648,7 +648,7 @@ class User_page extends MY_Controller
 
 
         $list = model('product')->filter_get_list($filter, $input);
-        //pr_db($filter);
+       // pr($filter,0);        pr_db($list);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row, 1);
         }

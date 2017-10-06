@@ -32,6 +32,7 @@ class Product_mod extends MY_Mod
         $row->_url_comment_add =  site_url("product/comment/" . $row->id).'?_act=add';
         $row->_url_comment_reply =  site_url("product/comment/" . $row->id).'?_act=reply';
         $row->_url_comment_show =  site_url("product/comment/" . $row->id).'?_act=show';
+        $row->_url_comment_facebook =  site_url("product/comment/" . $row->id).'?_act=facebook';
 
         // edit
         $row->_url_status_show =  site_url("product_post/on/" . $row->id);

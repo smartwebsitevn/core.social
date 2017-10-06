@@ -10,7 +10,7 @@
             <div class="heading clearfix">
                 <span class="title pull-left">Tin nhắn</span>
                 <?php if($total_unread==0): ?>
-                <span class="check-count pull-right"> <i class="fa fa-check"></i>&nbsp;đã xem hết</span>
+                <span class="check-count pull-right"> <i class="fa fa-check"></i>&nbsp;Đã đọc tất cả</span>
                 <?php endif; ?>
             </div>
             <div class="slimscroll p2">

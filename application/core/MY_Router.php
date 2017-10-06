@@ -11,7 +11,7 @@ class MY_Router extends CI_Router
 	/**
 	 * Phan tich router
 	 */
-	public function _parse_routes()
+	public function _parse_routes_()
 	{
 		// Xu ly routes seo
 		//$this->_set_routes_seo();

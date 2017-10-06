@@ -190,7 +190,7 @@ class Product_list extends MY_Controller
         //== Lay tong so
         if (!isset($input['limit'])) {
             $total = model('product')->filter_get_total($filter, $input);
-           // pr($filter,0);        pr_db($total);
+          //  pr($filter,0);            pr_db($total);
 
             $page_size = config('list_limit', 'main');
 
@@ -225,9 +225,9 @@ class Product_list extends MY_Controller
             $filter_input['order']=$order;
        }
         $list = model('product')->filter_get_list($filter, $input);
-       /* if(admin_is_login()){
-             pr($filter,0);        pr_db($list);
-        }*/
+        if(admin_is_login()){
+        //  echo  $total;  pr($filter,0);        pr_db($list);
+        }
        // pr($filter,0);        pr_db($list);
 
         foreach ($list as $row) {

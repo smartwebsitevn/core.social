@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 	Future Imperfect by HTML5 UP
 	html5up.net | @ajlkn
@@ -541,6 +542,13 @@ body {
           font-size: 22px; }
       body .block-products-items .list-social .item-social .act-display-comment {
         cursor: pointer; }
+        body .block-products-items .list-social .item-social .act-display-comment.comment_by_facebook {
+          color: #000066;
+          /*i{
+            font-size: 32px;
+          }*/ }
+          body .block-products-items .list-social .item-social .act-display-comment.comment_by_facebook.opened i:last-child:before {
+            content: ""; }
       body .block-products-items .list-social .item-social .item-comments {
         /* background: _palette(bg-2);*/
         /* padding: 10px 20px;*/ }

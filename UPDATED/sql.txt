@@ -337,3 +337,17 @@ ALTER TABLE `product`
 	CHANGE COLUMN `point_fake` `point_fake` INT(11) NOT NULL DEFAULT '0' COMMENT 'So point fake' AFTER `point_total`,
 	ADD COLUMN `point_real` INT(11) NOT NULL DEFAULT '0' COMMENT 'So point thuc' AFTER `point_fake`;
 
+
+// 6-10-2017 
+
+ALTER TABLE `product`
+	ALTER `type_cat_id` DROP DEFAULT,
+	ALTER `type_id` DROP DEFAULT,
+	ALTER `type_item_id` DROP DEFAULT;
+
+ALTER TABLE `product`
+	CHANGE COLUMN `type_cat_id` `type_cat_id` VARCHAR(255) NOT NULL AFTER `id`,
+	CHANGE COLUMN `type_id` `type_id` VARCHAR(255) NOT NULL AFTER `type_cat_id`,
+	CHANGE COLUMN `type_item_id` `type_item_id` VARCHAR(255) NOT NULL AFTER `type_id`;
+
+

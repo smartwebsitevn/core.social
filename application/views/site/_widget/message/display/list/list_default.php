@@ -6,9 +6,10 @@
             <li class="list-group-item">
                 <a href="<?php echo $row->url?$row->url:'#0'; ?>">
                     <div class="title "> <?php echo $row->title ?>
-                    <div class="created pull-right"><i class="fa fa-clock-o"></i> Cách đây <?php echo  timespan($row->created,'',1);//$row->_created ?></div>
                     </div>
                 </a>
+                <div class="created pull-right"><i class="fa fa-clock-o"></i> Cách đây <?php echo  timespan($row->created,'',1);//$row->_created ?></div>
+
             </li>
         <?php endforeach; ?>
 

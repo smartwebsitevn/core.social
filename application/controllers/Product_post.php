@@ -433,6 +433,58 @@ class Product_post extends MY_Controller
     }
 
     // Su ly link thuoc loai chuyen biet
+    function _check_type_id()
+    {
+        $type_cat_id = $this->input->post('type_cat_id', true);
+        if (!model('type_cat')->check_id($type_cat_id)) {
+
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_value_invalid'));
+            return FALSE;
+        }
+
+        $types = $this->input->post('types', true);
+
+        if (!$types) {
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_type_id_require0'));
+            return FALSE;
+        }
+        $type_ids = $type_item_ids = [];
+        foreach ($types as $k => $v) {
+            $type_ids[] = $k;
+            $type_item_ids[] = $v;
+        }
+
+        $type_ids = array_unique($type_ids);
+        $type_item_ids = array_unique($type_item_ids);
+
+        $types = model('type')->filter_get_list(['cat_id' => $type_cat_id], ['select' => 'id,name,image_id,image_name,seo_url']);
+       // pr($type_ids,0);        pr($types);
+        if ($types) {
+            foreach ($types as $type) {
+                if(!in_array($type->id,$type_ids))
+                {
+                    $this->form_validation->set_message(__FUNCTION__, lang('notice_type_id_require1'));
+                    return FALSE;
+                }
+                /*$type_items = model('type_item')->filter_get_list(['type_id' => $type->id], ['select' => 'id,name,image_id,image_name,seo_url']);
+                pr($type_item_ids,0);           pr($type_items);
+                if($type_items)
+                foreach ($type_items as $type_item) {
+                    if(!in_array($type_item->id,$type_item_ids))
+                    {
+                        $this->form_validation->set_message(__FUNCTION__, lang('notice_type_id_require'));
+                        return FALSE;
+                    }
+                }*/
+            }
+            $this->data['_type_ids']=$type_ids;
+            $this->data['_type_item_ids']=$type_item_ids;
+
+        }
+        return true;
+    }
+
+    // Su ly link thuoc loai chuyen biet
     function _check_link($link)
     {
         if (!$link) return true;
@@ -607,13 +659,15 @@ class Product_post extends MY_Controller
         if (isset($image['og:image']))
             $tags['image'] = $image['og:image'];
         else {
-            preg_match_all('/<img src="(.*?)"/', $html, $image2);
-            if (isset($image2[1])) {
-                if (!is_array($image2[1]))
-                    $tags['image'] = $image2[1];
-                else
-                    $tags['image'] = $image2[1][0];
+            if (preg_match_all('/<img src="(.*?)"/', $html, $image2)) {
+                if (isset($image2[1])) {
+                    if (!is_array($image2[1]))
+                        $tags['image'] = $image2[1];
+                    else
+                        $tags['image'] = $image2[1][0];
+                }
             }
+
         }
         if (isset($meta['description']))
             $tags['description'] = character_limiter($meta['description'], 150);
@@ -626,7 +680,7 @@ class Product_post extends MY_Controller
     {
         // Thiet lap setting mac dinh
         $fields = array(
-            'name', 'description', 'link', 'type_cat_id',
+            'name', 'description', 'link', 'type_cat_id', 'type_id', 'type_item_id',
         );
         return $fields;
 
@@ -651,7 +705,27 @@ class Product_post extends MY_Controller
 
             $data[$f] = strip_tags($v);
         }
-        // pr($data);
+
+        $data['type_id']= $this->data['_type_ids'];
+        $data['type_item_id']= $this->data['_type_item_ids'];
+        /*
+        $types = $this->input->post('types', true);
+        if ($types) {
+            $type_ids = $type_item_ids = [];
+            foreach ($types as $k => $v) {
+                $type_ids[] = $k;
+                $type_item_ids[] = $v;
+            }
+
+            $type_ids = array_unique($type_ids);
+            $type_item_ids = array_unique($type_item_ids);
+            if ($type_ids)
+                $data['type_id'] = implode(',', $type_ids);
+            if ($type_item_ids)
+                $data['type_item_id'] = implode(',', $type_item_ids);
+        }*/
+
+
         // SEO url
         $data['seo_url'] = convert_vi_to_en($data['name']);
 

@@ -28,3 +28,8 @@ foreach ($types as $type) {
     echo macro('mr::form')->info($_data_info);
 }
 ?>
+<div class="clearfix"></div>
+<div name="type_id_error" class="error"></div>
+<?php if (t('input')->is_ajax_request() ) : ?>
+    <?php widget('site')->js_reboot(); ?>
+<?php endif; ?>

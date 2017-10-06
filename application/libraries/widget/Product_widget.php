@@ -803,6 +803,7 @@ class Product_widget extends MY_Widget
         $this->data['list'] =$list_builded;
         $this->data['total'] =$total;
         $this->data['url_comment'] = $row->_url_comment;
+        $this->data['url_comment_facebook'] = $row->_url_comment_facebook;
         // Hien thi view
         $temp = (!$temp) ? 'comment' : $temp;
         $temp = 'tpl::_widget/product/action/'.$temp;

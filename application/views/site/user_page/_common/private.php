@@ -29,24 +29,24 @@ if ($info->banner) {
             <a href="<?php echo $info->_url_my_page . '?page=posts'//site_url('user_page/posts') ?>"
                class="btn btn-link <?php echo $page == 'posts' ? 'active' : '' ?>">
                 <span class="text">Đã đăng</span><br>
-                <span class="value"><?php echo number_format($info->post_is_publish) ;// ?></span>
-
+                <span class="value"><?php echo number_format($info->post_total);//post_is_publish ?></span>
             </a>
             <a href="<?php echo $info->_url_my_page . '?page=posts_save'//site_url('user_page/follow') ?>"
                class="btn btn-link <?php echo $page == 'posts_save' ? 'active' : '' ?>">
-                <?php $saved =model('product_to_favorite')->filter_get_total(['user_id'=>$info->id]);
+                <?php $saved = model('product_to_favorite')->filter_get_total(['user_id' => $info->id]);
                 ?>
 
                 <span class="text">Đã lưu</span><br>
                 <span class="value"><?php echo number_format($saved) ?></span>
             </a>
             <?php /* ?>
-                            <a href="<?php echo $info->_url_my_page.'?page=posts_draft' ?>" class="btn btn-link <?php echo $page=='posts_draft'?'active':''?>">
+            <a href="<?php echo $info->_url_my_page . '?page=posts_draft' ?>"
+               class="btn btn-link <?php echo $page == 'posts_draft' ? 'active' : '' ?>">
+                <span class="text">Bản nháp</span><br>
+                <span class="value"><?php echo number_format($info->post_is_draft);// ?></span>
 
-                                <span class="text">Bản nháp</span><br>
-                                <span class="value">0<?php //echo number_format($info->post_total) ?></span>
-                            </a>
-                             <?php */ ?>
+            </a>
+            <?php */ ?>
 
             <a href="<?php echo $info->_url_my_page . '?page=follow'//site_url('user_page/follow') ?>"
                class="btn btn-link <?php echo $page == 'follow' ? 'active' : '' ?>">

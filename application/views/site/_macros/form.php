@@ -228,7 +228,7 @@ $this->register('row', function (array $row, $rows = null) {
 
                 <?php elseif ($type == 'static'): ?>
                     <div <?php echo t('html')->attr(array_merge(array('style' => 'font-size:16px; font-weight:600; padding-top:5px;'), $attr)) ?>>
-                        <?php echo $value;?>
+                        <?php echo $value; ?>
                     </div>
 
 
@@ -910,11 +910,22 @@ $this->register('info', function (array $input) {
         $values_row = array_get($input, 'values_row', array());
         // cac option cua value
         $values_opts = array_get($input, 'values_opts', array());
-        if ($values_single)
-            //$values_single = object_to_array($values_single);
-            if ($values_row) {
+
+        $count_values=0;
+        if ($values){
+            $count_values = count($values);
+
+
+        }elseif ($values_single) {
                 //$values_row = object_to_array($values_row);
-            }
+            $count_values = count($values_single);
+
+        }
+        elseif ($values_row) {
+            //$values_row = object_to_array($values_row);
+            $count_values = count($values_row[0]);
+
+        }
 
         $not_show_in_value = isset($values_opts['not_show_in_value']) ? $values_opts['not_show_in_value'] : 0;// khong hien thi cac gia tri da chon trong danh s�h
 
@@ -945,6 +956,12 @@ $this->register('info', function (array $input) {
 
             <?php if ($type == 'select'): ?>
                 <ul class="dropdown-menu  ">
+                    <?php if ($count_values >= 7): ?>
+                    <div class="form-group">
+                        <input type="text" class="searachSelect form-control " placeholder="Tìm kiếm">
+                    </div>
+                    <div class="slimscroll">
+                        <?php endif; ?>
                     <?php if ($values): ?>
                         <?php foreach ($values as $v => $n): ?>
                             <?php if ($not_show_in_value && $value == $v) continue; ?>
@@ -988,6 +1005,9 @@ $this->register('info', function (array $input) {
                             </li>
                         <?php endforeach; ?>
                     <?php endif; ?>
+                        <?php if ($count_values >= 7): ?>
+                    </div>
+                <?php endif; ?>
                 </ul>
             <?php else: ?>
                 <div class="dropdown-menu dropdown-2colums clearfix">

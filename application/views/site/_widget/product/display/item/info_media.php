@@ -54,9 +54,16 @@
                 $type = 'video';
                 $youtube_id = $img->data;
             }
+            $image=$img->_url;
+
+            /*if($total_images==1)
+                $image=$img->_url;
+            elseif($total_images==3 && $i==0){
+                $image=$img->_url;
+            }*/
             ?>
             <div class="item item-<?php echo $i ?>">
-                <img class="lazyload" data-src="<?php echo $img->_url_thumb; ?>">
+                <img class="lazyload" data-src="<?php echo  $image?>">
                 <?php if ($youtube_id): ?>
                     <div class="item-video">
                         <div
@@ -69,7 +76,7 @@
             </div>
         <?php endforeach; ?>
         <?php if ($total_images > 5): ?>
-            <div class="over">+<?php echo $total_images ?>...</div>
+            <div class="over">+<?php echo ($total_images - 5)?>...</div>
         <?php endif; ?>
     </div>
 

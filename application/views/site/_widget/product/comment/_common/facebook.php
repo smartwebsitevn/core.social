@@ -7,6 +7,5 @@
 <script type="text/javascript">
     $(document).ready(function () {
         FB.XFBML.parse();
-
     });
 </script>
