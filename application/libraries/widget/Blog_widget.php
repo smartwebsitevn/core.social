@@ -85,6 +85,8 @@ class Blog_widget extends MY_Widget
         $list = model('blog_cat')->filter_get_list($filter, $input);
         foreach($list as $row){
             $row = mod('blog_cat')->add_info($row);
+            $total =  model('blog')->filter_get_total(['cat_id'=>$row->id]);
+            $row->_total =number_format($total);
         }
         //== Su ly hien thi temp hay tra ve du lieu
         $this->data['list'] = $list;

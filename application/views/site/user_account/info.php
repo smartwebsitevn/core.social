@@ -48,7 +48,7 @@
 
 		<tr>
 			<td class="title"><b>Loại thành viên<?php //echo lang('user_type'); ?></b></td>
-			<td class="value"><?php echo $user->_type_name; ?></td>
+			<td class="value"><?php echo $user->user_group_name ;//$user->_type_name; ?></td>
 		</tr>
 		<tr>
 			<td class="title"><b>Lĩnh vực hoạt động<?php //echo lang('user_type'); ?></b></td>

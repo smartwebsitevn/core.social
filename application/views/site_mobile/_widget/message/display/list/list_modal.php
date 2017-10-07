@@ -4,7 +4,7 @@
         <i class="pe-7s-comment" style="font-size:26px"></i>
         <span class="count"><?php echo $total_unread ?></span>
     </a>
-<?php echo  macro()->modal_start(['id'=>'system_user_notify','name'=>'Thông báo mới']); ?>
+<?php echo  macro()->modal_start(['id'=>'system_user_notify','name'=>'Tin nhắn mới']); ?>
 
             <div class="heading clearfix">
                 <?php if($total_unread==0): ?>

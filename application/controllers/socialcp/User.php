@@ -642,7 +642,7 @@ class User extends MY_Controller
 
         // Lay gia tri cua filter dau vao
         $filter_input = array();
-        $filter_fields = array('id', 'key', 'email', 'gender', 'city', 'country', 'birthday_year',
+        $filter_fields = array('id', 'key_full', 'key','email', 'gender', 'city', 'country', 'birthday_year',
             'created', 'created_to', 'blocked', 'verify', 'user_group', 'balance', 'currency');
         foreach ($filter_fields as $f) {
             $v = $this->input->get($f);
@@ -710,7 +710,7 @@ class User extends MY_Controller
         $input['limit'] = array($limit, $page_size);
         //$input['order'] = (isset($filter['balance']) && $filter['balance']) ? array('balance_decode', 'desc') : array('id', 'desc');
         $list = $this->user_model->filter_get_list($filter, $input);
-
+       // pr_db();
         $actions = array('edit', 'del', 'block', 'unblock', 'admin_login', 'verify_view');
         $list = admin_url_create_option($list, 'user', 'id', $actions);
         foreach ($list as $row) {

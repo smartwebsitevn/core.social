@@ -849,11 +849,12 @@ class User_account extends MY_Controller
 
         $data = $this->_edit_get_inputs($type,$user);
         $can_confirm = false;
-        if ($data['name'] != $user->name /*|| $data['address'] != $user->address*/) {
+        $email = $user->email;
+       /* if ($data['name'] != $user->name ) {
             $can_confirm = true;
         }
 
-        $email = $user->email;
+
         if ($user->can_edit_email && $email != $this->input->post('email_edit')) {
             $can_confirm = true;
             $email = $this->input->post('email_edit');
@@ -879,7 +880,7 @@ class User_account extends MY_Controller
         if ($password = $this->input->post('password')) {
             $can_confirm = true;
             $data['password'] = mod('user')->encode_password($password, $email);
-        }
+        }*/
         // thong tin khac
        /* if($data['birthday']){
 
@@ -896,7 +897,13 @@ class User_account extends MY_Controller
             return $this->_url('edit_confirm');
         } else {
             // Cap nhat vao data
-            model('user')->update($user->id, $data);
+            if($type != 'password')
+                model('user')->update($user->id, $data);
+            else{
+                $data_passs['password'] = mod('user')->encode_password($data['password'], $email);
+                model('user')->update($user->id, $data_passs);
+
+            }
 
             set_message(lang('notice_update_success'));
 

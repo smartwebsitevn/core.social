@@ -424,6 +424,16 @@ class User_page extends MY_Controller
         // Filter set
         $filter = array();
         $filter['user_id'] = $user->id;
+        $created = $this->input->get('created');
+
+        if ($created) {
+            $created = explode('|', escape($created));
+            if (count($created) == 2) {
+                $filter['created'] = $created[0];
+                $filter['created_to'] = $created[1];
+
+            }
+        }
         $this->data['temp'] = 'owner_default';
         $this->_post_create_list([], $filter);
     }
@@ -447,6 +457,17 @@ class User_page extends MY_Controller
         // Filter set
         $filter = array();
         // $filter['user_id'] = $user->id;
+        $created = $this->input->get('created');
+
+        if ($created) {
+            $created = explode('|', escape($created));
+            if (count($created) == 2) {
+                $input['where']['f.created >='] = $created[0];
+                $input['where']['f.created <='] = $created[1];
+
+            }
+        }
+
         $input['where']['f.user_id'] = $user->id;
         $input['join'] = array(array('product_to_favorite f', 'f.product_id = product.id'));
         $this->data['temp'] = 'owner_save';
@@ -524,6 +545,17 @@ class User_page extends MY_Controller
         $filter = array();
         $filter['show'] = 1;
         $filter['user_id'] = $user->id;
+
+        $created = $this->input->get('created');
+
+        if ($created) {
+            $created = explode('|', escape($created));
+            if (count($created) == 2) {
+                $filter['created'] = $created[0];
+                $filter['created_to'] = $created[1];
+
+            }
+        }
         $this->_post_create_list([], $filter);
 
     }
@@ -567,7 +599,6 @@ class User_page extends MY_Controller
         $filter_fields = array_merge($filter_fields, model('product')->fields_filter);
         $mod_filter = mod('product')->create_filter($filter_fields, $filter_input);
         $filter = array_merge($filter, $mod_filter);
-        // pr($filter_input);
         $filter['types'] = $this->input->get('types');
         $filter_input['types'] = $filter['types'];
         $key = $this->input->get('name');
@@ -580,17 +611,9 @@ class User_page extends MY_Controller
             $filter['point_total_gte'] =$point;
         }
         $filter['types'] = $this->input->get('types');
+       // pr($filter);
 
-        $created = $this->input->get('created');
 
-        if ($created) {
-            $created = explode('|', escape($created));
-            if (count($created) == 2) {
-                $filter['created'] = $created[0];
-                $filter['created_to'] = $created[1];
-
-            }
-        }
         // lay thong tin cua cac khoang tim kiem
         foreach (array('price',) as $range) {
             if (isset($filter[$range])) {
@@ -648,7 +671,7 @@ class User_page extends MY_Controller
 
 
         $list = model('product')->filter_get_list($filter, $input);
-       // pr($filter,0);        pr_db($list);
+     // pr($filter,0);        pr_db($list);
         foreach ($list as $row) {
             $row = mod('product')->add_info($row, 1);
         }

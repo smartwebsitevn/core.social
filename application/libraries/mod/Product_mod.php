@@ -3,6 +3,40 @@
 
 class Product_mod extends MY_Mod
 {
+    public function parse_status($row)
+    {
+        $row_status = 'status-on';
+        $row_label = 'Đang hoạt động';
+        $row_text = '';
+        if ($row->verified == 0) {
+            $row_status = 'status-pendding';
+            $row_label = 'Đang chờ duyệt';
+        }
+        /*if ($row->_ads) {
+            $row_status = 'status-ads';
+            $row_label = $row->ads_title;
+        }*/
+        /*if ($row->expired <= $now) {
+            $row_status = 'status-expired';
+            $row_label = 'Hết hạn';
+
+        }*/
+        if (!$row->status) {
+            $row_status = 'status-off';
+            $row_label = 'Đang ẩn';
+        }
+        if ($row->is_lock)  {
+            //if (($row->point_total + $row->point_fake) <=-10)  {
+            $row_status = 'status-locked';
+            $row_label = 'Tin đã bị khóa';
+            $row_text = '<a href="'.site_url('tro-giup').'" target="_blank">Tại sao tin này bị khóa?</a>' ;
+        }
+        if ($row->is_draft) {
+            $row_status = 'status-draft';
+            $row_label = 'Bản nháp';
+        }
+        return ['status'=>$row_status,'label'=>$row_label,'text'=>$row_text,];
+    }
     public function create_filter(array $fields, &$input = array())
     {
         $filter = parent::create_filter($fields, $input);

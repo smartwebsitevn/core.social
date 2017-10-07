@@ -14,6 +14,7 @@
 <script type="text/javascript" src="<?php echo $path_assets ?>js/jquery/zclip/jquery.zclip.js"></script>
 <script type="text/javascript" src="<?php echo $path_assets ?>js/jquery/lazyload/jquery.lazyload.min.js" ></script>
 <script type="text/javascript" >
+    var csrf_token 	= '<?php echo csrf_token_hash() ?>';
     $(function() {
         $("img.lazy").lazyload();
     });

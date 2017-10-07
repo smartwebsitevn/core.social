@@ -70,7 +70,7 @@ class Product_model extends MY_Model
         'is_feature', 'is_new', 'is_soon', 'is_sellbest', 'is_alway_in_stock', 'is_live', 'is_slide', 'is_in_menu', 'is_show',
         'is_draft', 'is_form', 'is_lock', 'deleted',
         'status',
-        'created', 'created_to',
+        /*'created', 'created_to',*/
     );
     public $fields_rule = array(
         'name' => 'required',
@@ -119,20 +119,13 @@ class Product_model extends MY_Model
             if (in_array($key, ['created', 'created_to'])) continue;
 
             if (isset($filter[$key]) && $filter[$key] != -1) {
-                //echo '<br>key='.$key.', v='.$filter[$key];
-               /* if (in_array($key, ['type_id','type_item_id'])) {
-                    $key2 = 'FIND ' . $key;
-                    $filter[$key2] = $filter[$key];
-                    //echo $key;				pr($filter);
-                    $key = $key2;
-                }*/
                 $this->_filter_parse_where($key, $filter);
             }
         }
 
         //=== Su ly loc theo time
         $where = $this->_filter_parse_time_where($filter, $where);
-        //pr($filter,0);
+       // pr($filter);
 
         foreach ($this->fields_type_image as $f) {
             if (isset($filter[$f])) {

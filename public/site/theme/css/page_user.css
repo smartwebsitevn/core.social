@@ -333,7 +333,7 @@ body .list-user-feature {
       color: #f67004; }
       body .list-user-feature .item-user:hover .item-name a, body .list-user-feature .item-user.active .item-name a {
         color: #f67004; }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 980px) {
   body .block-search .block-content {
     padding: 0px;
       /* .input-group {
@@ -623,7 +623,7 @@ body .list-user-feature {
     top: 5px;
     right: 10px; }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 980px) {
   #banner_background {
     font-size: 11px;
     padding-top: 80px; }
@@ -898,7 +898,7 @@ body.user-account .main-content .panel {
       }*/ }
       body.user-account .main-content .panel table tr td.title {
         width: 20%; }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 980px) {
   body.user-account .main-content .panel table tr td {
     padding: 15px; }
     body.user-account .main-content .panel table tr td.title {

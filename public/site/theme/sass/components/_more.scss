@@ -18,7 +18,7 @@
       &:hover {
         color: _palette(button-1);
       }
-      &.act_block_all, &.act_word_all, &.act_list_all {
+      &.act_block_all, &.act_word_all, &.act_list_all, &.act_show_all {
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 3px, rgb(255, 255, 255) 30px);
         left: 0;
         bottom: 0;

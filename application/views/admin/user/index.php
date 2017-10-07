@@ -31,8 +31,8 @@ $filters = array(
     array('name' => lang('id'), 'param' => 'id',
         'value' => $filter['id'],
     ),
-    array('name' => lang('user'), 'param' => 'key',
-        'value' => $filter['key'],
+    array('name' => lang('user'), 'param' => 'key_full',
+        'value' => $filter['key_full'],
     ),
     array(
         'name' => lang('group'), 'type' => 'select', 'param' => 'user_group',

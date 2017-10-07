@@ -45,7 +45,6 @@ class Blog extends MY_Controller
         }*/
         $this->_display();
     }
-
     /*
      * ------------------------------------------------------
      *  Actions

@@ -33,6 +33,7 @@
         </a>
     </li>
     <?php endif; ?>
+    <?php if(user_is_login()): ?>
     <li class="navigator-item">
         <a data-dismiss="modal" data-toggle="modal" data-target="#system_user_notify"
            href="#">
@@ -40,4 +41,5 @@
             <span class="count"><?php //echo $total_unread ?></span>
         </a>
     </li>
+    <?php endif; ?>
 </ul>

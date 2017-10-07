@@ -39,6 +39,9 @@ var product_nfc = {
                     });
 
                 });
+                $('#modal-social-view').on('hidden.bs.modal', function (e) {
+                    $(this).find('.modal-body').html('');
+                })
 
 
             });

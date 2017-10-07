@@ -158,12 +158,14 @@ $_row_feature = function ($row) {
 
 $_rows = array();
 foreach ($list as $row) {
+    $status=mod('product')->parse_status($row);
+
     $r = (array)$row;
     $r['name'] = $_data_name($row);
     $r['cat_id'] = $_data_cat($row);
     // $r['price'] = $_data_price($row);
     $r['is_feature'] = $_row_feature($row);
-    $r['status'] = macro()->status_color($row->_status);
+    $r['status'] = $status['label'];//macro()->status_color($row->_status);
     $_rows[] = $r;
 }
 

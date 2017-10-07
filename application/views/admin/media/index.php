@@ -293,7 +293,7 @@
 
                                 type: 'post',
 
-                                data: 'directory=' + encodeURIComponent($(NODE).attr('directory')),
+                                data: 'directory=' + encodeURIComponent($(NODE).attr('directory')) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -799,7 +799,7 @@
 
                                 type: 'post',
 
-                                data: 'directory=' + encodeURIComponent($(tree.selected).attr('directory')) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()),
+                                data: 'directory=' + encodeURIComponent($(tree.selected).attr('directory')) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -867,7 +867,7 @@
 
                             type: 'post',
 
-                            data: 'path=' + encodeURIComponent(path),
+                            data: 'path=' + encodeURIComponent(path) +'&token='+ csrf_token,
 
                             dataType: 'json',
 
@@ -919,7 +919,7 @@
 
                                 type: 'post',
 
-                                data: 'path=' + encodeURIComponent($(tree.selected).attr('directory')),
+                                data: 'path=' + encodeURIComponent($(tree.selected).attr('directory')) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -1015,7 +1015,7 @@
 
                                 type: 'post',
 
-                                data: 'from=' + encodeURIComponent(path) + '&to=' + encodeURIComponent($('#dialog select[name=\'to\']').val()),
+                                data: 'from=' + encodeURIComponent(path) + '&to=' + encodeURIComponent($('#dialog select[name=\'to\']').val()) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -1067,7 +1067,7 @@
 
                                 type: 'post',
 
-                                data: 'from=' + encodeURIComponent($(tree.selected).attr('directory')) + '&to=' + encodeURIComponent($('#dialog select[name=\'to\']').val()),
+                                data: 'from=' + encodeURIComponent($(tree.selected).attr('directory')) + '&to=' + encodeURIComponent($('#dialog select[name=\'to\']').val()) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -1161,7 +1161,7 @@
 
                                 type: 'post',
 
-                                data: 'path=' + encodeURIComponent(path) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()),
+                                data: 'path=' + encodeURIComponent(path) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -1213,7 +1213,7 @@
 
                                 type: 'post',
 
-                                data: 'path=' + encodeURIComponent($(tree.selected).attr('directory')) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()),
+                                data: 'path=' + encodeURIComponent($(tree.selected).attr('directory')) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -1303,7 +1303,7 @@
 
                                 type: 'post',
 
-                                data: 'path=' + encodeURIComponent(path) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()),
+                                data: 'path=' + encodeURIComponent(path) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 
@@ -1355,7 +1355,7 @@
 
                                 type: 'post',
 
-                                data: 'path=' + encodeURIComponent($(tree.selected).attr('directory')) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()),
+                                data: 'path=' + encodeURIComponent($(tree.selected).attr('directory')) + '&name=' + encodeURIComponent($('#dialog input[name=\'name\']').val()) +'&token='+ csrf_token,
 
                                 dataType: 'json',
 

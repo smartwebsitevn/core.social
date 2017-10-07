@@ -10,7 +10,7 @@
                 </div>
                 <div class="caption">
                     <a href="<?php echo $row->_url_view ?>" class="name" title="<?php echo $row->name ?>"><?php echo $row->name ?></a>
-                    <span><?php //echo $row->total ?></span>
+                    <span><?php echo $row->_total ?> blogs</span>
                 </div>
             </div>
         <?php } ?>

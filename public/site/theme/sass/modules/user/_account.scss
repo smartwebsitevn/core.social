@@ -101,7 +101,7 @@ body.user-account {
          }
     }
   }
-  @include breakpoint(small) {
+  @include breakpoint(medium) {
     .main-content {
       .panel{
         table{

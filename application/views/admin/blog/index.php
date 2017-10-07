@@ -121,6 +121,7 @@ $_macro['table']['columns'] = array(
     'author_id' => lang('author'),
     'is_feature' => lang('feature'),
     'status' => lang('status'),
+    'sort_order' => lang('sort_order'),
     'action' => lang('action'),
 );
 
@@ -180,6 +181,7 @@ $_rows = array();
 foreach ($list as $row) {
     $r = (array)$row;
     //$r['name']  = t('html')->a( 'javascript:;', $row->name, array('target'=>'_blank') );
+   // $r['sort_order'] = '<br>Order:'.$row->sort_order;
     $r['name'] = $_data_name($row);
     $r['cat_id'] = $_data_cat($row);
     $r['author_id'] = $_data_author($row);

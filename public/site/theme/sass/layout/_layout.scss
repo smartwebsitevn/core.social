@@ -262,11 +262,14 @@
   }
 }
 
-@include breakpoint(small) {
+@include breakpoint(medium) {
   #main {
     margin-top: 40px;
   }
   .sidebar {
     display: none;
+  }
+  .page-blog .sidebar {
+    display: block;
   }
 }

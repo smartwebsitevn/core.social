@@ -241,13 +241,15 @@ class Blog_list extends MY_Controller
             $input['order'] = array($orderex[0], $orderex[1]);
 
         }
-       else {
+        /* else {
             $orderex = explode('|', $sort_orders[0]);
         }
+
         if (!isset($input['order'])) {
             $input['order'] = array($orderex[0], $orderex[1]);
             $filter_input['order']=$order;
-        }
+        }*/
+
         /*$order_f = $this->input->get("order_f", true);
         if (empty($order_f) || !in_array($order_f, array('id', 'name', 'year', 'view_total', 'imdb', 'rate')))
             $order_f = 'id';

@@ -445,7 +445,7 @@ class Product_post extends MY_Controller
         $types = $this->input->post('types', true);
 
         if (!$types) {
-            $this->form_validation->set_message(__FUNCTION__, lang('notice_type_id_require0'));
+            $this->form_validation->set_message(__FUNCTION__, lang('notice_type_id_require'));
             return FALSE;
         }
         $type_ids = $type_item_ids = [];
@@ -463,7 +463,7 @@ class Product_post extends MY_Controller
             foreach ($types as $type) {
                 if(!in_array($type->id,$type_ids))
                 {
-                    $this->form_validation->set_message(__FUNCTION__, lang('notice_type_id_require1'));
+                    $this->form_validation->set_message(__FUNCTION__, lang('notice_type_id_require'));
                     return FALSE;
                 }
                 /*$type_items = model('type_item')->filter_get_list(['type_id' => $type->id], ['select' => 'id,name,image_id,image_name,seo_url']);
@@ -477,8 +477,8 @@ class Product_post extends MY_Controller
                     }
                 }*/
             }
-            $this->data['_type_ids']=$type_ids;
-            $this->data['_type_item_ids']=$type_item_ids;
+            $this->data['_type_ids']= implode(',',$type_ids);
+            $this->data['_type_item_ids']=implode(',',$type_item_ids);
 
         }
         return true;

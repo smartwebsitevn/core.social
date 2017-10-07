@@ -4,7 +4,7 @@ class Blog_model extends MY_Model
 {
     public $table = 'blog';
    // public $order = array( array('id', 'desc'));
-    public $order = array(array('sort_order', 'asc'), array('id', 'desc'));
+    public $order = array(array('sort_order', 'desc'), array('id', 'desc'));
 
     public $translate_auto = TRUE;
     public $translate_fields = array(

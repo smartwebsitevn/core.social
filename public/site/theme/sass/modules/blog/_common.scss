@@ -177,11 +177,14 @@
   .block-title {
 	background-color: #999999;
 	color: #fff;
-	line-height: 28px;
+	line-height: 45px;
 	padding: 0 30px;
 	font-style: italic;
 	font-size: 16px;
 	margin-top: 0;
+  }
+  .select-container{
+	background: #fff;
   }
   .block-content .input-search {
 	margin: 0 0 10px;
@@ -191,7 +194,7 @@
         background-repeat: no-repeat;
         background-image: url(../../images/tim-kiem-blog.png);*/
 	  padding: 2px 30px 2px 20px;
-	  height: 40px;
+	  /*height: 40px;*/
 	}
 	button {
 	  background: rgba(0, 0, 0, 0) url("../../images/tim-kiem-blog.png") no-repeat scroll center center;

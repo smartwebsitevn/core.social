@@ -221,7 +221,7 @@
     }
   }
 }
-@include breakpoint(small) {
+@include breakpoint(medium) {
   #banner_background {
     font-size: 11px;
     padding-top: 80px;

@@ -57,12 +57,12 @@ class Product extends MY_Controller
 
         //== Lay thong tin
         $id = $this->uri->rsegment(3);
-
         if (!is_numeric($id) && is_slug($id)) {
             // neu la seo url
             $info = $this->_model()->filter_get_info(array('seo_url' => $id, 'show' => 1));
         } else {
-            $info = $this->_model()->filter_get_info(array('id' => $id, 'show' => 1));
+
+            $info = model('product')->filter_get_info(array('id' => $id, 'show' => 1));
 
         }
 
@@ -444,8 +444,11 @@ class Product extends MY_Controller
         // Kiem tra id
         $info = $this->_model()->get_info($id);
         if (!$info) return;
+
+        // neu khong phai la chu bai viet dang co action len bai viet thi check status
+        if($info->user_id != $user->id)
         if (!$info->status) {
-            redirect();
+            return;
         }
         // Kiem tra co the thuc hien hanh dong nay khong
         //if ( !  $this->_mod()->can_do($info, $action)) return;
@@ -484,7 +487,8 @@ class Product extends MY_Controller
             $result['element'] = ['pos' => '#' . $info->id . '_vote_points', 'data' => $point_total];
             model('user')->update_stats(['id' => $info->user_id], ['point_total' => $point]);
 
-            if ($point)
+            // chi thong bao khi dc cong diem , con tru diem thi ko
+            if ($point>0)
                 mod('user_notice')->send($info->user_id, 'Bài viết <b>' . $info->name . '</b> có thêm <b>' . number_format($point) . ' lượt thích mới</b>', ['url' => $info->_url_view]);
 
             $result['msg_toast'] = lang('notice_update_success');
@@ -621,8 +625,8 @@ class Product extends MY_Controller
                 $point = -1;
             }
 
-            //== Gui thong bao cho lan dau
-            if ($point >= 1)
+            //== Gui thong bao cho lan dau va khong gui thong bao cho bài minh tu thich
+            if ($point >= 1 && $info->user_id != $user->id )
                 mod('user_notice')->send($info->user_id, '<b>' . $user->name . '</b> đã thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);
             //elseif($point == -1)
             //mod('user_notice')->send($info->user_id, '<b>'.$user->name . '</b> không thích bài viết <b>' . $info->name . '</b> của bạn', ['url' => $info->_url_view]);

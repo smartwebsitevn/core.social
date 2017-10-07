@@ -8,47 +8,17 @@
             $row = mod('product')->add_info_images($row);
             $layout_full = (!$row->video && !$row->images && !$row->link);
             $author = $row->_author;// pr($row);
-
             // if($row->id == 35) pr($row);
-            $row_status = 'status-on';
-            $row_label = '';
-            $row_text = '';
-            if ($row->verified == 0) {
-                $row_status = 'status-pendding';
-                $row_label = 'Đang chờ duyệt';
-            }
-            /*if ($row->_ads) {
-                $row_status = 'status-ads';
-                $row_label = $row->ads_title;
-            }*/
-            /*if ($row->expired <= $now) {
-                $row_status = 'status-expired';
-                $row_label = 'Hết hạn';
-
-            }*/
-            if (!$row->status) {
-                $row_status = 'status-off';
-                $row_label = 'Đang ẩn';
-            }
-            if ($row->is_lock)  {
-           //if (($row->point_total + $row->point_fake) <=-10)  {
-                $row_status = 'status-locked';
-                $row_label = 'Tin đã bị khóa';
-                $row_text = '<a href="'.site_url('tro-giup').'" target="_blank">Tại sao tin này bị khóa?</a>' ;
-            }
-            if ($row->is_draft) {
-                $row_status = 'status-draft';
-                $row_label = 'Bản nháp';
-            }
+            $status=mod('product')->parse_status($row);
             ?>
-            <div class="item-social item-owner <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $row_status ?>  ">
+            <div class="item-social item-owner <?php echo isset($row->_adsed) ? 'status-adsing' : '' ?> <?php echo $status['status'] ?>  ">
                 <div class="clearfix">
-                    <?php if ($row_label): ?>
-                        <label class="label <?php echo 'label-'.$row_status ?> "><?php echo $row_label ?></label>
+                    <?php if ($status['label']): ?>
+                        <label class="label <?php echo 'label-'.$status['status'] ?> "><?php echo $status['label'] ?></label>
 
                     <?php endif; ?>
-                    <?php if ($row_text): ?>
-                        <label class="label label-text "><?php echo $row_text ?></label>
+                    <?php if ($status['text']): ?>
+                        <label class="label label-text "><?php echo $status['text'] ?></label>
 
                     <?php endif; ?>
                     <?php if ( isset($row->_adsed) && $row->_adsed): ?>
@@ -84,8 +54,8 @@
                             <?php echo widget('product')->action_manager($row, $user_manager) ?>
                         </div>
                     <?php endif; ?>
-                    <?php if($row_status != 'status-locked'): ?>
-                     <?php t('view')->load('tpl::_widget/product/display/item/info_config',['row'=>$row,'row_status'=>$row_status])?>
+                    <?php if($status['status'] != 'status-locked'): ?>
+                     <?php t('view')->load('tpl::_widget/product/display/item/info_config',['row'=>$row,'row_status'=>$status['status']])?>
                     <?php endif; ?>
                 </div>
             </div>

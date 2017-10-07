@@ -125,12 +125,22 @@ class User_model extends MY_Model
             $v = $this->db->escape_like_str($filter['key']);
 
             $this->db->where("(
-				( user.email LIKE '%{$v}%' ) OR 
-				( user.username LIKE '%{$v}%' ) OR 
+				( user.email LIKE '%{$v}%' ) OR
+				( user.username LIKE '%{$v}%' ) OR
 				( user.phone LIKE '%{$v}%' )
 			)");
         }
 
+        if (isset($filter['key_full'])) {
+            $v = $this->db->escape_like_str($filter['key_full']);
+
+            $this->db->where("(
+				( user.name LIKE '%{$v}%' ) OR
+				( user.email LIKE '%{$v}%' ) OR
+				( user.username LIKE '%{$v}%' ) OR
+				( user.phone LIKE '%{$v}%' )
+			)");
+        }
         if (isset($filter['email'])) {
             $this->search('user', 'email', $filter['email']);
         }
